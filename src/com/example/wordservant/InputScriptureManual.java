@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class InputScriptureManual extends Activity {
 
@@ -22,19 +23,37 @@ public class InputScriptureManual extends Activity {
         doneButton.setOnClickListener(new OnClickListener(){
 
 			@Override
+			/**
+			 * Provides the functionality for the done button.
+			 */
 			public void onClick(View inputScriptureView) {
-				// Grab all scripture data and write it to the db.
+				// Get the referenced fields.
 				EditText scriptureReference = (EditText) findViewById(R.id.scriptureReference);
 				EditText categoryName = (EditText) findViewById(R.id.categoryName);
 				EditText scriptureText = (EditText) findViewById(R.id.scriptureText);
+				
+				// Check for required fields.
+				if (scriptureReference.getText().toString().equals("")){
+					Toast.makeText(inputScriptureView.getContext(),"Scripture Reference is a required field.", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				if (scriptureText.getText().toString().equals("")){
+					Toast.makeText(inputScriptureView.getContext(),"Scripture Text is a required field.", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				
+				// Map the values of the fields to columns that are used in the database.
 				ContentValues scriptureValues = new ContentValues();
 				scriptureValues.put("scripture_reference", scriptureReference.getText().toString());
 				scriptureValues.put("category", categoryName.getText().toString());
 				scriptureValues.put("scripture", scriptureText.getText().toString());
+				
+				//Open the database and add the row.
 				SQLiteDatabase myDB = new WordServantOpenHelper(inputScriptureView.getContext(), "wordservant_db", null, 1).getWritableDatabase();
-				Long rownumber = myDB.insert("scripture_bank", null, scriptureValues);
-				System.out.println(rownumber);
+				myDB.insert("scripture_bank", null, scriptureValues);
 				myDB.close();
+				
+				//Go back to the scripture bank screen.
 				Intent intent = new Intent(inputScriptureView.getContext(),ScriptureBank.class);
 		    	startActivity(intent);
 		    	finish();

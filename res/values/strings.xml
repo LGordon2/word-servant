@@ -10,11 +10,14 @@
         <item>Statistics</item>
         <item>Scripture Search</item>
     </string-array>
+
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_scripture_bank">Scripture Bank</string>
     <string name="input_scripture_button_text">Input Scripture (Manual)</string>
     <string name="title_activity_input_scripture_manual">Input Scripture</string>
     <string name="scripture_bank_filename">ScriptureBank</string>
     <string name="dbname">wordservant_db</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_edit_scripture">EditScripture</string>
 
 </resources>
