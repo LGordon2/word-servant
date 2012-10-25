@@ -8,7 +8,7 @@ import android.util.Log;
 
 public class WordServantOpenHelper extends SQLiteOpenHelper{
 	
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 1;
     private static final String WORDSERVANT_TABLE_NAME = "scripture_bank";
 	
     private static final String WORDSERVANT_TABLE_CREATE =
