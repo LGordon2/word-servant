@@ -1,0 +1,42 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.wordservant"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="15" />
+
+    <application
+        android:icon="@drawable/cross"
+        android:label="@string/title_activity_main" >
+        <activity
+            android:name=".LandingScreen"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Settings"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/MenuTheme" >
+        </activity>
+        <activity
+            android:name=".ScriptureBank"
+            android:label="@string/title_activity_scripture_bank"
+            android:theme="@style/MenuTheme" >
+        </activity>
+        <activity
+            android:name=".InputScriptureManual"
+            android:label="@string/title_activity_input_scripture_manual" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.wordservant.LandingScreen" />
+        </activity>
+    </application>
+
+</manifest>
