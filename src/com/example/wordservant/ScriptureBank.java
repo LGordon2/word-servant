@@ -1,17 +1,15 @@
 package com.example.wordservant;
 
-import java.io.EOFException;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -43,77 +41,21 @@ public class ScriptureBank extends Activity {
 
 	private void displayScriptureBank() {
 		// TODO Auto-generated method stub
-		FileInputStream fis = null;
-		ObjectInputStream is = null;
-		try {
-			String FILENAME = "ScriptureBank";
-			fis = openFileInput(FILENAME);
-			is = new ObjectInputStream(fis);
-			ArrayList<Scripture> allScriptures = new ArrayList<Scripture>();
-			Scripture scriptureObject;
-			try{
-				while((scriptureObject=(Scripture) is.readObject())!=null){
-					allScriptures.add(scriptureObject);
-				}
-			} catch (EOFException e){
-				
-			}
-			Context context = this.getApplicationContext();
-			ArrayAdapter<Scripture> scriptureAdapter = new ArrayAdapter<Scripture>(context, android.R.layout.simple_list_item_1, allScriptures);
-			ListView scriptureList = (ListView) findViewById(com.example.wordservant.R.id.scripture_bank_list);
-			scriptureList.setAdapter(scriptureAdapter);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			makeScriptureBank();
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				is.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		Context context = this.getApplicationContext();
+		ArrayAdapter<String> scriptureAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1);
+		ListView scriptureList = (ListView) findViewById(com.example.wordservant.R.id.scripture_bank_list);
+		scriptureList.setAdapter(scriptureAdapter);
+		
+		SQLiteDatabase myDB = new WordServantOpenHelper(this.getApplicationContext(), "wordservant_db", null, 1).getReadableDatabase();
+		String [] columns_to_retrieve = {"scripture_reference"};
+		Cursor scriptureQuery = myDB.query("scripture_bank", columns_to_retrieve, null, null, null, null, null);
+		for(int i=0;i<scriptureQuery.getCount();i++){
+			scriptureQuery.moveToNext();
+			scriptureAdapter.add(scriptureQuery.getString(0));
 		}
+		myDB.close();
 	}
 
-	private void makeScriptureBank() {
-		// TODO Auto-generated method stub
-
-		FileOutputStream fos = null;
-		ObjectOutputStream os = null;
-		try {
-
-			Scripture inputScripture = new Scripture("blah", "foo", "test");
-
-			fos = openFileOutput((String) getResources().getText(R.string.scripture_bank_filename), Context.MODE_APPEND);
-			os = new ObjectOutputStream(fos);
-			os.writeObject(inputScripture);
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				os.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {

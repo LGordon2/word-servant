@@ -13,7 +13,7 @@ public class WordServantOpenHelper extends SQLiteOpenHelper{
 	
     private static final String WORDSERVANT_TABLE_CREATE =
             "CREATE TABLE " + WORDSERVANT_TABLE_NAME + " (" +
-            " _ID PRIMARY KEY, " +
+            " _ID INTEGER PRIMARY KEY, " +
             " SCRIPTURE_REFERENCE STRING, " +
             " CATEGORY STRING, " +
             " SCRIPTURE TEXT);";

@@ -1,13 +1,9 @@
 package com.example.wordservant;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-
 import android.app.Activity;
-import android.content.Context;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -27,38 +23,18 @@ public class InputScriptureManual extends Activity {
 
 			@Override
 			public void onClick(View inputScriptureView) {
-				// Grab all scripture data and write it to the file.
-				FileOutputStream fos = null;
-				ObjectOutputStream os = null;
-				try {
-					EditText scriptureReference = (EditText) findViewById(R.id.scriptureReference);
-					EditText categoryName = (EditText) findViewById(R.id.scriptureReference);
-					EditText scriptureText = (EditText) findViewById(R.id.scriptureText);
-
-					Scripture inputScripture = new Scripture(scriptureReference.getText().toString(), categoryName.getText().toString(), scriptureText.getText().toString());
-
-					fos = openFileOutput((String) getResources().getText(R.string.scripture_bank_filename), Context.MODE_APPEND);
-					os = new ObjectOutputStream(fos);
-					os.writeObject(inputScripture);
-					
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NullPointerException e) {
-					e.printStackTrace();
-				} finally {
-					try {
-						fos.close();
-						os.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				
+				// Grab all scripture data and write it to the db.
+				EditText scriptureReference = (EditText) findViewById(R.id.scriptureReference);
+				EditText categoryName = (EditText) findViewById(R.id.categoryName);
+				EditText scriptureText = (EditText) findViewById(R.id.scriptureText);
+				ContentValues scriptureValues = new ContentValues();
+				scriptureValues.put("scripture_reference", scriptureReference.getText().toString());
+				scriptureValues.put("category", categoryName.getText().toString());
+				scriptureValues.put("scripture", scriptureText.getText().toString());
+				SQLiteDatabase myDB = new WordServantOpenHelper(inputScriptureView.getContext(), "wordservant_db", null, 1).getWritableDatabase();
+				Long rownumber = myDB.insert("scripture_bank", null, scriptureValues);
+				System.out.println(rownumber);
+				myDB.close();
 				Intent intent = new Intent(inputScriptureView.getContext(),ScriptureBank.class);
 		    	startActivity(intent);
 		    	finish();
