@@ -1,5 +1,7 @@
 <resources>
+
     <style name="AppTheme" parent="android:Theme.Light.NoTitleBar"></style>
-    <style parent="android:Theme" name="MenuTheme"></style>
+
+    <style name="MenuTheme" parent="android:Theme"></style>
 
 </resources>

@@ -18,6 +18,7 @@ import android.widget.ListView;
 public class ScriptureBank extends Activity {
 	SQLiteDatabase myDB;
 	private ArrayAdapter<String> scriptureAdapter;
+	private Cursor scriptureQuery;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,6 @@ public class ScriptureBank extends Activity {
         setContentView(com.example.wordservant.R.layout.scripture_bank);
         
         myDB = new WordServantOpenHelper(this.getApplicationContext(), "wordservant_db", null, 1).getReadableDatabase();
-        
         
         displayScriptureBank();
         Button inputScripture = (Button) this.findViewById(com.example.wordservant.R.id.input_scripture);
@@ -35,11 +35,10 @@ public class ScriptureBank extends Activity {
 				// Starts a new input scripture.
 				Intent intent = new Intent(scriptureBank.getContext(),InputScriptureManual.class);
 		    	startActivity(intent);
-
-				myDB.close();
 			}
         	
         });
+        
     }
 
 	private void displayScriptureBank() {
@@ -67,7 +66,7 @@ public class ScriptureBank extends Activity {
 		
 		
 		String [] columns_to_retrieve = {"scripture_reference"};
-		Cursor scriptureQuery = myDB.query("scripture_bank", columns_to_retrieve, null, null, null, null, null);
+		scriptureQuery = myDB.query("scripture_bank", columns_to_retrieve, null, null, null, null, null);
 		for(int i=0;i<scriptureQuery.getCount();i++){
 			scriptureQuery.moveToNext();
 			scriptureAdapter.add(scriptureQuery.getString(0));
@@ -81,11 +80,11 @@ public class ScriptureBank extends Activity {
         return true;
     }
 	
-	protected void onResume(){
-		super.onResume();
+	protected void onRestart(){
+		super.onRestart();
 		scriptureAdapter.clear();
-		String [] columns_to_retrieve = {"scripture_reference"};
-		Cursor scriptureQuery = myDB.query("scripture_bank", columns_to_retrieve, null, null, null, null, null);
+		scriptureQuery.requery();
+		System.out.println(scriptureQuery.getCount());
 		for(int i=0;i<scriptureQuery.getCount();i++){
 			scriptureQuery.moveToNext();
 			scriptureAdapter.add(scriptureQuery.getString(0));

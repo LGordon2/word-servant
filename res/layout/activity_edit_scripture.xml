@@ -4,50 +4,35 @@
     android:layout_height="match_parent" >
 
     <EditText
-        android:id="@+id/scriptureReference"
+        android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:ems="10"
-        android:hint="Scripture Reference*"
-        android:imeOptions="actionSend"
-        android:maxLines="1" >
+        android:ems="10" >
 
         <requestFocus />
     </EditText>
 
     <EditText
-        android:id="@+id/categoryName"
+        android:id="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/scriptureReference"
-        android:ems="10"
-        android:hint="Category Name" />
+        android:layout_below="@+id/editText1"
+        android:ems="10" />
 
-    <Button
-        android:id="@+id/doneButton"
-        style="?android:attr/buttonStyleSmall"
+    <EditText
+        android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="Done" />
-
-    <EditText
-        android:id="@+id/scriptureText"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@id/doneButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/categoryName"
+        android:layout_below="@+id/editText2"
         android:ems="10"
-        android:gravity="top|center_vertical"
-        android:hint="Scripture Text*"
         android:inputType="textMultiLine" />
 
 </RelativeLayout>
