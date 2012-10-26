@@ -52,6 +52,9 @@ public class InputScriptureManual extends Activity {
 				//Open the database and add the row.
 				myDB = new WordServantOpenHelper(inputScriptureView.getContext(), "wordservant_db", null, 1).getWritableDatabase();
 				myDB.insert("scripture_bank", null, scriptureValues);
+				myDB.execSQL("INSERT INTO "+" due_today "+" (REVIEW_DATE, REVIEW_DATE, SCHEDULE, DATE_ADDED) values "+
+				"(date('now'), date('now'), 'daily', datetime('now')));");
+				
 				
 				//Go back to the scripture bank screen.
 				finish();

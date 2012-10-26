@@ -13,18 +13,24 @@ import android.widget.EditText;
 
 public class EditScripture extends Activity {
 
-    @Override
+    private SQLiteDatabase myDB;
+	private Cursor scriptureQuery;
+	private EditText editScriptureReference;
+	private EditText editCategory;
+	private EditText editScripture;
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_scripture);
         
         //Get the text from the database and populate the text fields with them.
-        final EditText editScriptureReference = (EditText) findViewById(R.id.editScriptureReference);
-        final EditText editCategory = (EditText) findViewById(R.id.editCategory);
-        final EditText editScripture = (EditText) findViewById(R.id.editScripture);
-        final SQLiteDatabase myDB = new WordServantOpenHelper(this.getApplicationContext(), "wordservant_db", null, 1).getReadableDatabase();
-		String [] columns_to_retrieve = {"_id","scripture_reference", "category", "scripture"};
-		final Cursor scriptureQuery = myDB.query("scripture_bank", columns_to_retrieve, null, null, null, null, null);
+        editScriptureReference = (EditText) findViewById(R.id.editScriptureReference);
+        editCategory = (EditText) findViewById(R.id.editCategory);
+        editScripture = (EditText) findViewById(R.id.editScripture);
+        myDB = new WordServantOpenHelper(this.getApplicationContext(), "wordservant_db", null, 1).getReadableDatabase();
+		String [] columns_to_retrieve = {"scripture_id","scripture_reference", "category", "scripture"};
+		scriptureQuery = myDB.query("scripture_bank", columns_to_retrieve, null, null, null, null, null);
 		scriptureQuery.moveToPosition(this.getIntent().getIntExtra("database_row", 0));
 		editScriptureReference.setText(scriptureQuery.getString(1));
 		editCategory.setText(scriptureQuery.getString(2));
@@ -40,7 +46,7 @@ public class EditScripture extends Activity {
 				updatedItems.put("scripture_reference", editScriptureReference.getText().toString());
 				updatedItems.put("category", editCategory.getText().toString());
 				updatedItems.put("scripture", editScripture.getText().toString());
-				myDB.update("scripture_bank", updatedItems, "_id="+scriptureQuery.getInt(0), null);
+				myDB.update("scripture_bank", updatedItems, "scripture_id="+scriptureQuery.getInt(0), null);
 				finish();
 			}
 			

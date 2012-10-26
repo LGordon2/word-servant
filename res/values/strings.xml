@@ -19,5 +19,6 @@
     <string name="dbname">wordservant_db</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_edit_scripture">EditScripture</string>
+    <string name="title_activity_todays_memory_verses">TodaysMemoryVerses</string>
 
 </resources>

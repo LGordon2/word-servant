@@ -41,6 +41,15 @@
             android:name=".EditScripture"
             android:label="@string/title_activity_edit_scripture" >
         </activity>
+        <activity
+            android:name=".TodaysMemoryVerses"
+            android:label="@string/title_activity_todays_memory_verses" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

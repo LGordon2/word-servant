@@ -35,12 +35,17 @@ public class LandingScreen extends Activity{
 			public void onItemClick(AdapterView<?> parent, View landingScreenView, int position,
 					long id) {
 				// TODO Auto-generated method stub
+				Intent intent;
 				Toast.makeText(LandingScreen.this, landingScreenListView.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
 				switch (position){
-					case 2:
-						Intent intent = new Intent(landingScreenView.getContext(),ScriptureBank.class);
+					case 0:
+						intent = new Intent(landingScreenView.getContext(),TodaysMemoryVerses.class);
 				    	startActivity(intent);
-				    	onPause();
+				    	break;
+					case 2:
+						intent = new Intent(landingScreenView.getContext(),ScriptureBank.class);
+				    	startActivity(intent);
+				    	break;
 				}
 				
 			}
