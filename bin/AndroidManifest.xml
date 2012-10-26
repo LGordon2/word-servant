@@ -13,7 +13,7 @@
         <activity
             android:name=".LandingScreen"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,11 +40,6 @@
         <activity
             android:name=".EditScripture"
             android:label="@string/title_activity_edit_scripture" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

@@ -21,7 +21,6 @@ public class Settings extends Activity {
         
         Button myButton = (Button) findViewById(R.id.button1);
         myButton.setOnClickListener(new OnClickListener(){
-			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				

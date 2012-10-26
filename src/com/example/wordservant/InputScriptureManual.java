@@ -2,7 +2,6 @@ package com.example.wordservant;
 
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +13,9 @@ import android.widget.Toast;
 
 public class InputScriptureManual extends Activity {
 
-    @Override
+    private SQLiteDatabase myDB;
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_scripture_manual);
@@ -22,7 +23,7 @@ public class InputScriptureManual extends Activity {
         Button doneButton = (Button) this.findViewById(R.id.doneButton);
         doneButton.setOnClickListener(new OnClickListener(){
 
-			@Override
+			
 			/**
 			 * Provides the functionality for the done button.
 			 */
@@ -49,14 +50,11 @@ public class InputScriptureManual extends Activity {
 				scriptureValues.put("scripture", scriptureText.getText().toString());
 				
 				//Open the database and add the row.
-				SQLiteDatabase myDB = new WordServantOpenHelper(inputScriptureView.getContext(), "wordservant_db", null, 1).getWritableDatabase();
+				myDB = new WordServantOpenHelper(inputScriptureView.getContext(), "wordservant_db", null, 1).getWritableDatabase();
 				myDB.insert("scripture_bank", null, scriptureValues);
-				myDB.close();
 				
 				//Go back to the scripture bank screen.
-				Intent intent = new Intent(inputScriptureView.getContext(),ScriptureBank.class);
-		    	startActivity(intent);
-		    	finish();
+				finish();
 			}
         	
         });
@@ -66,12 +64,5 @@ public class InputScriptureManual extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_input_scripture_manual, menu);
         return true;
-    }
-
-    @Override
-    public void onBackPressed(){
-		Intent intent = new Intent(this,ScriptureBank.class);
-    	startActivity(intent);
-    	finish();
     }
 }

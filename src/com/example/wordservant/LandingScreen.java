@@ -16,6 +16,7 @@ public class LandingScreen extends Activity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        super.onStart();
         displayLandingScreen();
     }
 
@@ -31,7 +32,6 @@ public class LandingScreen extends Activity{
 		
 		landingScreenListView.setOnItemClickListener(new OnItemClickListener(){
 
-			@Override
 			public void onItemClick(AdapterView<?> parent, View landingScreenView, int position,
 					long id) {
 				// TODO Auto-generated method stub
@@ -40,8 +40,7 @@ public class LandingScreen extends Activity{
 					case 2:
 						Intent intent = new Intent(landingScreenView.getContext(),ScriptureBank.class);
 				    	startActivity(intent);
-				    	finish();
-			        	
+				    	onPause();
 				}
 				
 			}
@@ -64,7 +63,6 @@ public class LandingScreen extends Activity{
 	        case R.id.menu_settings:
 	        	Intent intent = new Intent(this, Settings.class);
 	        	startActivity(intent);
-	        	this.finish();
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
