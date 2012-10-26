@@ -83,8 +83,8 @@ public class ScriptureBank extends Activity {
 	protected void onRestart(){
 		super.onRestart();
 		scriptureAdapter.clear();
-		scriptureQuery.requery();
-		System.out.println(scriptureQuery.getCount());
+		String [] columns_to_retrieve = {"scripture_reference"};
+		scriptureQuery = myDB.query("scripture_bank", columns_to_retrieve, null, null, null, null, null);
 		for(int i=0;i<scriptureQuery.getCount();i++){
 			scriptureQuery.moveToNext();
 			scriptureAdapter.add(scriptureQuery.getString(0));
@@ -94,5 +94,6 @@ public class ScriptureBank extends Activity {
 	protected void onDestroy(){
 		super.onDestroy();
 		myDB.close();
+		scriptureQuery.close();
 	}
 }
