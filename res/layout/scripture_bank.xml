@@ -1,44 +1,39 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:gravity="top" >
 
+    <LinearLayout
+        android:id="@+id/button_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" >
+
+        <Button
+            android:id="@+id/input_scripture"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:text="@string/input_scripture_button_text" />
+
+        <Button
+            android:id="@+id/select_scripture"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/select_new_scripture_button_text" />
+
+    </LinearLayout>
+    
     <ListView
         android:id="@+id/scripture_bank_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button_layout" >
+        android:layout_below="@id/button_layout" >
 
     </ListView>
-
-    <RelativeLayout
-        android:id="@+id/button_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal" >
-
-        <Button
-            android:id="@+id/select_scripture"
-            android:layout_width="175dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:text="@string/select_new_scripture_button_text"
-            android:width="50dp" />
-
-        <Button
-            android:id="@+id/input_scripture"
-            android:layout_width="175dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_toLeftOf="@+id/select_scripture"
-            android:maxLines="1"
-            android:text="@string/input_scripture_button_text" />
-
-    </RelativeLayout>
 
 </RelativeLayout>
