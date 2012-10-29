@@ -25,7 +25,7 @@ public class ScriptureBank extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.example.wordservant.R.layout.scripture_bank);
+        setContentView(R.layout.scripture_bank);
         allScriptures = new SparseIntArray();
         myDB = new WordServantOpenHelper(this.getApplicationContext(), "wordservant_db", null, 1).getReadableDatabase();
         
@@ -52,7 +52,7 @@ public class ScriptureBank extends Activity {
 		// TODO Auto-generated method stub
 		Context context = this.getApplicationContext();
 		scriptureAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1);
-		ListView scriptureList = (ListView) findViewById(com.example.wordservant.R.id.scripture_bank_list);
+		ListView scriptureList = (ListView) findViewById(R.id.scripture_bank_list);
 		scriptureList.setAdapter(scriptureAdapter);
 		
 		scriptureList.setOnItemClickListener(new OnItemClickListener(){

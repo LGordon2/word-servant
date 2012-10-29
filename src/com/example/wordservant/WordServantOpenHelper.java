@@ -16,7 +16,8 @@ public class WordServantOpenHelper extends SQLiteOpenHelper{
             " CATEGORY TEXT, " +
             " SCRIPTURE_TEXT TEXT, " +
             " REVIEW_DATE TEXT, " + 
-            " REVIEW_SCHEDULE TEXT);";
+            " REVIEW_SCHEDULE TEXT, "+
+            " REVIEWED INTEGER);";
     
 	public WordServantOpenHelper(Context context, String name,
 			CursorFactory factory, int version) {

@@ -51,24 +51,9 @@ public class TodaysMemoryVerses extends Activity{
 		// Set up the adapter that is going to be displayed in the list view.
 		Context context = this.getApplicationContext();
 		scriptureAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1);
+		final Bundle bundledScriptureList = new Bundle();
 		ListView scriptureList = view;//(ListView) findViewById(com.example.wordservant.R.id.dueToday);
 		scriptureList.setAdapter(scriptureAdapter);
-		
-		// When any of the entries are pressed they can then be edited.
-		scriptureList.setOnItemClickListener(new OnItemClickListener(){
-
-			public void onItemClick(AdapterView<?> parent, View dueTodayView, int position,long id) {
-				// Sends the query row that holds the values we would like to edit.
-				
-				Intent intent = new Intent(dueTodayView.getContext(),EditScripture.class);
-				intent.putExtra("scripture_id",allScriptures.get(position));
-		    	startActivity(intent);
-				
-			}
-
-			
-		});
-		
 		
 		//Queries the database for any verses that have the same review date as the date when the screen was accessed.
 		try{
@@ -76,12 +61,29 @@ public class TodaysMemoryVerses extends Activity{
 			for(int positionOnScreen=0;positionOnScreen<scriptureQuery.getCount();positionOnScreen++){
 				scriptureQuery.moveToNext();
 				scriptureAdapter.add(scriptureQuery.getString(0));
-				allScriptures.put(positionOnScreen, scriptureQuery.getInt(1));
+				bundledScriptureList.putInt(String.valueOf(positionOnScreen), scriptureQuery.getInt(1));
 			}
 		} catch(SQLiteException e){
 			System.err.println("Database issue...");
 			e.printStackTrace();
 		}
+		
+		// When any of the entries are pressed they can then be edited.
+		scriptureList.setOnItemClickListener(new OnItemClickListener(){
+
+			public void onItemClick(AdapterView<?> parent, View dueTodayView, int position,long id) {
+				// Sends the query row that holds the values we would like to edit.
+				
+				Intent intent = new Intent(dueTodayView.getContext(),ScriptureReview.class);
+				intent.putExtra("bundledScriptureList",bundledScriptureList);
+				intent.putExtra("current_position", position);
+				intent.putExtra("number_of_values", scriptureQuery.getCount());
+		    	startActivity(intent);
+				
+			}
+
+			
+		});
 	}
 	
     @Override
