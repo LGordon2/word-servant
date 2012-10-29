@@ -17,8 +17,8 @@
     <string name="title_activity_input_scripture_manual">Input Scripture</string>
     <string name="title_activity_edit_scripture">Edit Scripture</string>
     <string name="title_activity_todays_memory_verses">Today\'s Memory Verses</string>
-    <string name="category_text_field_hint">Category Name</string>
-    <string name="scripture_text_text_field_hint">Scripture Text</string>
+    <string name="category_text_field_hint">Tags</string>
+    <string name="scripture_text_text_field_hint">Scripture Text*</string>
     <string name="select_new_scripture_button_text">Select New Scripture</string>
     <string name="scripture_reference_text_field_hint">Scripture Reference*</string>
     <string name="done_button_text">Done</string>
