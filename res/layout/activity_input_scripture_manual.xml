@@ -11,7 +11,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:ems="10"
-        android:hint="Scripture Reference*"
+        android:hint="@string/scripture_reference_text_field_hint"
         android:imeOptions="actionSend"
         android:maxLines="1" >
 
@@ -26,7 +26,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/scriptureReference"
         android:ems="10"
-        android:hint="Category Name" />
+        android:hint="@string/category_text_field_hint" />
 
     <Button
         android:id="@+id/doneButton"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="Done" />
+        android:text="@string/done_button_text" />
 
     <EditText
         android:id="@+id/scriptureText"
@@ -47,7 +47,7 @@
         android:layout_below="@id/categoryName"
         android:ems="10"
         android:gravity="top|center_vertical"
-        android:hint="Scripture Text*"
+        android:hint="@string/scripture_text_text_field_hint"
         android:inputType="textMultiLine" />
 
 </RelativeLayout>

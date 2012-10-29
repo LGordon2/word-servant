@@ -1,8 +1,12 @@
 package com.example.wordservant;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -44,16 +48,25 @@ public class InputScriptureManual extends Activity {
 				}
 				
 				// Map the values of the fields to columns that are used in the database.
+				DateFormat shortStyle = DateFormat.getDateInstance(DateFormat.SHORT);
 				ContentValues scriptureValues = new ContentValues();
 				scriptureValues.put("scripture_reference", scriptureReference.getText().toString());
 				scriptureValues.put("category", categoryName.getText().toString());
-				scriptureValues.put("scripture", scriptureText.getText().toString());
+				scriptureValues.put("scripture_text", scriptureText.getText().toString());
+				scriptureValues.put("review_date", shortStyle.format(new Date()));
+				scriptureValues.put("review_schedule", "daily");
+				
 				
 				//Open the database and add the row.
-				myDB = new WordServantOpenHelper(inputScriptureView.getContext(), "wordservant_db", null, 1).getWritableDatabase();
-				myDB.insert("scripture_bank", null, scriptureValues);
-				myDB.execSQL("INSERT INTO "+" due_today "+" (REVIEW_DATE, REVIEW_DATE, SCHEDULE, DATE_ADDED) values "+
-				"(date('now'), date('now'), 'daily', datetime('now')));");
+				try{
+					myDB = new WordServantOpenHelper(inputScriptureView.getContext(), "wordservant_db", null, 1).getWritableDatabase();
+					myDB.insert("scripture_bank", null, scriptureValues);
+				} catch(SQLiteException e){
+					System.err.println("Error with SQL statement.");
+					e.printStackTrace();
+				} finally{
+					myDB.close();
+				}
 				
 				
 				//Go back to the scripture bank screen.

@@ -15,7 +15,6 @@ public final class R {
     }
     public static final class drawable {
         public static final int cross=0x7f020000;
-        public static final int ic_action_search=0x7f020001;
     }
     public static final class id {
         public static final int button1=0x7f080011;
@@ -54,17 +53,19 @@ public final class R {
         public static final int scripture_bank=0x7f070004;
     }
     public static final class string {
-        public static final int dbname=0x7f040007;
-        public static final int hello_world=0x7f040008;
+        public static final int category_text_field_hint=0x7f040008;
+        public static final int done_button_text=0x7f04000c;
         public static final int input_scripture_button_text=0x7f040004;
         public static final int menu_settings=0x7f040000;
-        public static final int scripture_bank_filename=0x7f040006;
-        public static final int title_activity_edit_scripture=0x7f040009;
+        public static final int scripture_reference_text_field_hint=0x7f04000b;
+        public static final int scripture_text_text_field_hint=0x7f040009;
+        public static final int select_new_scripture_button_text=0x7f04000a;
+        public static final int title_activity_edit_scripture=0x7f040006;
         public static final int title_activity_input_scripture_manual=0x7f040005;
         public static final int title_activity_main=0x7f040001;
         public static final int title_activity_scripture_bank=0x7f040003;
         public static final int title_activity_settings=0x7f040002;
-        public static final int title_activity_todays_memory_verses=0x7f04000a;
+        public static final int title_activity_todays_memory_verses=0x7f040007;
     }
     public static final class style {
         public static final int AppTheme=0x7f060000;

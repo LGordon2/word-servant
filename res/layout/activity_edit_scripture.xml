@@ -10,6 +10,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:inputType="text"
         android:ems="10" >
 
         <requestFocus />
@@ -22,6 +23,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@id/editScriptureReference"
+        android:inputType="text"
         android:ems="10" />
 
      <Button
@@ -31,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="Done" />
+        android:text="@string/done_button_text" />
     <EditText
         android:id="@+id/editScripture"
         android:layout_width="wrap_content"

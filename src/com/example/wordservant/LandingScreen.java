@@ -13,13 +13,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class LandingScreen extends Activity{
-    @Override
+
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.onStart();
         displayLandingScreen();
     }
-
 	private void displayLandingScreen() {
 		// TODO Auto-generated method stub
 		setContentView(R.layout.landing_screen);
