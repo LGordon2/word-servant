@@ -17,12 +17,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 
 public class TodaysMemoryVerses extends Activity{
 
     private SQLiteDatabase myDB;
-	private ArrayAdapter<String> scriptureAdapter;
+	private ArrayAdapter<CheckBox> scriptureAdapter;
 	private Cursor scriptureQuery;
 	private SparseIntArray allScriptures;
 
@@ -50,7 +51,7 @@ public class TodaysMemoryVerses extends Activity{
 	private void displayScriptureList(ListView view, String query) {
 		// Set up the adapter that is going to be displayed in the list view.
 		Context context = this.getApplicationContext();
-		scriptureAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1);
+		scriptureAdapter = new ArrayAdapter<CheckBox>(context, android.R.layout.simple_list_item_1);
 		final Bundle bundledScriptureList = new Bundle();
 		ListView scriptureList = view;//(ListView) findViewById(com.example.wordservant.R.id.dueToday);
 		scriptureList.setAdapter(scriptureAdapter);
@@ -60,7 +61,9 @@ public class TodaysMemoryVerses extends Activity{
 			scriptureQuery = myDB.rawQuery(query, null);
 			for(int positionOnScreen=0;positionOnScreen<scriptureQuery.getCount();positionOnScreen++){
 				scriptureQuery.moveToNext();
-				scriptureAdapter.add(scriptureQuery.getString(0));
+				CheckBox newCheckBox = new CheckBox(context);
+				newCheckBox.setText(scriptureQuery.getString(0));
+				scriptureAdapter.add(newCheckBox);
 				bundledScriptureList.putInt(String.valueOf(positionOnScreen), scriptureQuery.getInt(1));
 			}
 		} catch(SQLiteException e){
