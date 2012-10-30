@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.util.SparseIntArray;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -51,9 +53,13 @@ public class TodaysMemoryVerses extends Activity{
 	private void displayScriptureList(ListView view, String query) {
 		// Set up the adapter that is going to be displayed in the list view.
 		Context context = this.getApplicationContext();
-		scriptureAdapter = new ArrayAdapter<CheckBox>(context, android.R.layout.simple_list_item_1);
+		scriptureAdapter = new ArrayAdapter<CheckBox>(context, android.R.layout.simple_list_item_1){
+			public View getView (int position, View convertView, ViewGroup parent){
+				return (View) this.getItem(position);
+			}
+		};
 		final Bundle bundledScriptureList = new Bundle();
-		ListView scriptureList = view;//(ListView) findViewById(com.example.wordservant.R.id.dueToday);
+		final ListView scriptureList = view;//(ListView) findViewById(com.example.wordservant.R.id.dueToday);
 		scriptureList.setAdapter(scriptureAdapter);
 		
 		//Queries the database for any verses that have the same review date as the date when the screen was accessed.
@@ -61,10 +67,21 @@ public class TodaysMemoryVerses extends Activity{
 			scriptureQuery = myDB.rawQuery(query, null);
 			for(int positionOnScreen=0;positionOnScreen<scriptureQuery.getCount();positionOnScreen++){
 				scriptureQuery.moveToNext();
-				CheckBox newCheckBox = new CheckBox(context);
-				newCheckBox.setText(scriptureQuery.getString(0));
-				scriptureAdapter.add(newCheckBox);
+				final int position = positionOnScreen;
 				bundledScriptureList.putInt(String.valueOf(positionOnScreen), scriptureQuery.getInt(1));
+				final CheckBox newCheckBox = new CheckBox(context);
+				newCheckBox.setText(scriptureQuery.getString(0));
+				newCheckBox.setOnClickListener(new OnClickListener(){
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						newCheckBox.setChecked(false);
+						scriptureList.performItemClick(scriptureList, position, newCheckBox.getId());
+					}
+					
+				});
+				scriptureAdapter.add(newCheckBox);
+				
 			}
 		} catch(SQLiteException e){
 			System.err.println("Database issue...");

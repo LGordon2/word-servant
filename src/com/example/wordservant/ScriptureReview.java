@@ -9,13 +9,13 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 
 public class ScriptureReview extends Activity {
 
-    private EditText editScriptureReference;
-	private EditText editCategory;
-	private EditText editScripture;
+    private TextView editScriptureReference;
+	private TextView editCategory;
+	private TextView editScripture;
 	private SQLiteDatabase myDB;
 	private Cursor scriptureQuery;
 	private int currentSelectedPosition;
@@ -27,9 +27,9 @@ public class ScriptureReview extends Activity {
         setContentView(R.layout.activity_scripture_review);
         
         //Get the text from the database and populate the text fields with them.
-        editScriptureReference = (EditText) findViewById(R.id.dueTodayScriptureReference);
-        editCategory = (EditText) findViewById(R.id.dueTodayCategory);
-        editScripture = (EditText) findViewById(R.id.dueTodayScripture);
+        editScriptureReference = (TextView) findViewById(R.id.dueTodayScriptureReference);
+        editCategory = (TextView) findViewById(R.id.dueTodayCategory);
+        editScripture = (TextView) findViewById(R.id.dueTodayScripture);
         myDB = new WordServantOpenHelper(this.getApplicationContext(), "wordservant_db", null, 1).getReadableDatabase();
         currentSelectedPosition = this.getIntent().getIntExtra("current_position", 0);
         final Bundle bundledScriptureList = this.getIntent().getBundleExtra("bundledScriptureList");
