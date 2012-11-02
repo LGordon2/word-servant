@@ -26,5 +26,8 @@
     <string name="title_activity_due_today">Scripture Review</string>
     <string name="got_it_button_text">Got it!</string>
     <string name="next_button_text">Next&gt;&gt;</string>
+    <string name="database_name">wordservant_db</string>
+    <string name="scripture_table_name">scriptures</string>
+    <string name="tag_table_name">tags</string>
 
 </resources>

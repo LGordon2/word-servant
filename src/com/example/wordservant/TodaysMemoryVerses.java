@@ -34,15 +34,15 @@ public class TodaysMemoryVerses extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todays_memory_verses);
         allScriptures = new SparseIntArray();
-        myDB = new WordServantOpenHelper(this.getApplicationContext(), "wordservant_db", null, 1).getReadableDatabase();
+        myDB = new WordServantOpenHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
     }
 	
     protected void onStart(){
     	super.onStart();
     	
     	DateFormat shortFormat = DateFormat.getDateInstance(DateFormat.SHORT);
-    	String [] queryColumns = {"SCRIPTURE_REFERENCE","SCRIPTURE_ID"}; 
-		String builtQuery = SQLiteQueryBuilder.buildQueryString(false, "scripture_bank", queryColumns, "REVIEW_DATE = '"+shortFormat.format(new Date())+"'", null, null, null, null);
+    	String [] queryColumns = {"REFERENCE","SCRIPTURE_ID"}; 
+		String builtQuery = SQLiteQueryBuilder.buildQueryString(false, getResources().getString(R.string.scripture_table_name), queryColumns, "NEXT_REVIEW_DATE = '"+shortFormat.format(new Date())+"' or LAST_REVIEWED_DATE = '"+shortFormat.format(new Date())+"'", null, null, null, null);
     	displayScriptureList((ListView) this.findViewById(R.id.dueToday), builtQuery);
     }
 	

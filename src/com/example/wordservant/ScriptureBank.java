@@ -27,7 +27,7 @@ public class ScriptureBank extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scripture_bank);
         allScriptures = new SparseIntArray();
-        myDB = new WordServantOpenHelper(this.getApplicationContext(), "wordservant_db", null, 1).getReadableDatabase();
+        myDB = new WordServantOpenHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
         
     }
     
@@ -68,8 +68,8 @@ public class ScriptureBank extends Activity {
 		});
 		
 		
-		String [] columns_to_retrieve = {"scripture_reference","scripture_id"};
-		scriptureQuery = myDB.query("scripture_bank", columns_to_retrieve, null, null, null, null, null);
+		String [] columns_to_retrieve = {"reference","scripture_id"};
+		scriptureQuery = myDB.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, null, null, null, null, null);
 		
 		for(int positionOnScreen=0;positionOnScreen<scriptureQuery.getCount();positionOnScreen++){
 			scriptureQuery.moveToNext();

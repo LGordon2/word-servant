@@ -9,7 +9,7 @@
 
     <application
         android:icon="@drawable/cross"
-        android:label="@string/title_activity_main" >
+        android:label="@string/title_activity_main">
         <activity
             android:name=".LandingScreen"
             android:label="@string/title_activity_main"
