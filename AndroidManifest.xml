@@ -8,7 +8,7 @@
         android:targetSdkVersion="15" />
 
     <application
-        android:icon="@drawable/cross"
+        android:icon="@drawable/word_servant_logo"
         android:label="@string/title_activity_main">
         <activity
             android:name=".LandingScreen"

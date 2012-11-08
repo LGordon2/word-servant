@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 public class ScriptureBank extends Activity {
-	protected SQLiteDatabase myDB;
+	protected SQLiteDatabase wordservant_db;
 	protected ArrayAdapter<String> scriptureAdapter;
 	protected Cursor scriptureQuery;
 	protected SparseIntArray allScriptures;
@@ -27,10 +27,14 @@ public class ScriptureBank extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scripture_bank);
         allScriptures = new SparseIntArray();
-        myDB = new WordServantOpenHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
+        wordservant_db = new WordServantOpenHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
         
     }
     
+    /**
+     * When the activity starts clear out any scriptures displayed on the screen 
+     * and populate the screen based on the scriptures in the database.
+     */
     protected void onStart(){
     	super.onStart();
     	allScriptures.clear();
@@ -48,8 +52,10 @@ public class ScriptureBank extends Activity {
         });
     }
 	
+    /**
+     * Displays the scripture bank based on the scriptures either selected or inputed manually into the database.
+     */
 	private void displayScriptureBank() {
-		// TODO Auto-generated method stub
 		Context context = this.getApplicationContext();
 		scriptureAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1);
 		ListView scriptureList = (ListView) findViewById(R.id.scripture_bank_list);
@@ -69,7 +75,7 @@ public class ScriptureBank extends Activity {
 		
 		
 		String [] columns_to_retrieve = {"reference","scripture_id"};
-		scriptureQuery = myDB.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, null, null, null, null, null);
+		scriptureQuery = wordservant_db.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, null, null, null, null, null);
 		
 		for(int positionOnScreen=0;positionOnScreen<scriptureQuery.getCount();positionOnScreen++){
 			scriptureQuery.moveToNext();
@@ -85,9 +91,12 @@ public class ScriptureBank extends Activity {
         return true;
     }
 	
+	/**
+	 * When the activity is destroyed close the database and the cursor.
+	 */
 	protected void onDestroy(){
 		super.onDestroy();
-		myDB.close();
+		wordservant_db.close();
 		scriptureQuery.close();
 	}
 }

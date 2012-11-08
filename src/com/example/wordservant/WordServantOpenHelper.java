@@ -21,7 +21,7 @@ public class WordServantOpenHelper extends SQLiteOpenHelper{
 	}
 
 	private void updateCreateTableStrings() {
-		// TODO Auto-generated method stub
+		// Create the tables to be used in the database.
 		TAG_TABLE_CREATE = "CREATE TABLE " + TAG_TABLE_NAME + " (" +
 				" TAG_ID INTEGER PRIMARY KEY, "+
 				" NAME TEXT NOT NULL);";
