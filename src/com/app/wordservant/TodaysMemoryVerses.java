@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -22,10 +23,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 public class TodaysMemoryVerses extends Activity{
 
-    private SQLiteDatabase myDB;
+    private SQLiteDatabase wordservant_db;
 	private ArrayAdapter<CheckBox> scriptureAdapter;
 	private Cursor scriptureQuery;
 	private SparseIntArray allScriptures;
@@ -35,13 +37,13 @@ public class TodaysMemoryVerses extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todays_memory_verses);
         allScriptures = new SparseIntArray();
-        myDB = new WordServantOpenHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
+        wordservant_db = new WordServantOpenHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
     }
 	
     protected void onStart(){
     	super.onStart();
     	
-    	String [] queryColumns = {"REFERENCE","SCRIPTURE_ID", "NEXT_REVIEW_DATE"}; 
+    	String [] queryColumns = {"REFERENCE","_ID", "NEXT_REVIEW_DATE"}; 
 		SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 		String todaysDate = dbDateFormat.format(new Date());
 		String builtQuery = SQLiteQueryBuilder.buildQueryString(false, getResources().getString(R.string.scripture_table_name), queryColumns, "NEXT_REVIEW_DATE = '"+todaysDate+"' or LAST_REVIEWED_DATE = '"+todaysDate+"'", null, null, null, null);
@@ -61,17 +63,17 @@ public class TodaysMemoryVerses extends Activity{
 			}
 		};
 		final Bundle bundledScriptureList = new Bundle();
-		final ListView scriptureList = view;//(ListView) findViewById(com.example.wordservant.R.id.dueToday);
+		final ListView scriptureList = view;
 		scriptureList.setAdapter(scriptureAdapter);
 		
 		//Queries the database for any verses that have the same review date as the date when the screen was accessed.
 		try{
-			scriptureQuery = myDB.rawQuery(query, null);
+			scriptureQuery = wordservant_db.rawQuery(query, null);
 			for(int positionOnScreen=0;positionOnScreen<scriptureQuery.getCount();positionOnScreen++){
 				scriptureQuery.moveToNext();
 				final int position = positionOnScreen;
 				bundledScriptureList.putInt(String.valueOf(positionOnScreen), scriptureQuery.getInt(1));
-				final CheckBox newCheckBox = new CheckBox(context);
+				CheckBox newCheckBox = new CheckBox(context);
 				if(Date.parse(scriptureQuery.getString(2))>Calendar.getInstance().getTimeInMillis()){
 					newCheckBox.setChecked(true);
 				}
@@ -80,8 +82,18 @@ public class TodaysMemoryVerses extends Activity{
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						newCheckBox.setChecked(false);
-						scriptureList.performItemClick(scriptureList, position, newCheckBox.getId());
+						CheckBox checkBox = (CheckBox) v;
+						if(!((CheckBox) v).isChecked()){
+							ContentValues newValues = new ContentValues();
+							SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+							String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
+							newValues.put("NEXT_REVIEW_DATE", todaysDate);
+							wordservant_db.update("scriptures", newValues, "scripture_id="+bundledScriptureList.getInt(String.valueOf(position)), null);
+							checkBox.setChecked(false);
+							return;
+						}
+						checkBox.setChecked(!checkBox.isChecked());
+						scriptureList.performItemClick(scriptureList, position, checkBox.getId());
 					}
 					
 				});
@@ -111,7 +123,8 @@ public class TodaysMemoryVerses extends Activity{
 		});
 	}
 	
-    @Override
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_todays_memory_verses, menu);
         return true;
@@ -119,7 +132,7 @@ public class TodaysMemoryVerses extends Activity{
     
 	protected void onDestroy(){
 		super.onDestroy();
-		myDB.close();
+		wordservant_db.close();
 		scriptureQuery.close();
 	}
 }

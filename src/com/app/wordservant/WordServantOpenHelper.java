@@ -25,12 +25,12 @@ public class WordServantOpenHelper extends SQLiteOpenHelper{
 	private void updateCreateTableStrings() {
 		// Create the tables to be used in the database.
 		TAG_TABLE_CREATE = "CREATE TABLE " + TAG_TABLE_NAME + " (" +
-				" TAG_ID INTEGER PRIMARY KEY, "+
+				" TAG_ID INTEGER PRIMARY KEY AUTOINCREMENT, "+
 				" NAME TEXT NOT NULL);";
 		
 		SCRIPTURE_BANK_TABLE_CREATE =
 	            "CREATE TABLE " + SCRIPTURE_BANK_TABLE_NAME + " (" +
-	            " SCRIPTURE_ID INTEGER PRIMARY KEY, " +
+	            " _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
 	            " REFERENCE TEXT NOT NULL, " +
 	            " TAG_ID INTEGER, " +
 	            " TEXT TEXT NOT NULL, " +

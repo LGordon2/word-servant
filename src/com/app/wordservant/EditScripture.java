@@ -35,8 +35,8 @@ public class EditScripture extends Activity {
         final int selectedScriptureId = this.getIntent().getIntExtra("scripture_id", 0);
         
         try{
-			String [] columns_to_retrieve = {"scripture_id","scripture_reference", "category", "scripture_text"};
-			scriptureQuery = wordservant_db.query("scripture_bank", columns_to_retrieve, "scripture_id="+selectedScriptureId, null, null, null, null);
+			String [] columns_to_retrieve = {"_id","reference", "tag_id", "text"};
+			scriptureQuery = wordservant_db.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, "_id="+selectedScriptureId, null, null, null, null);
 			scriptureQuery.moveToFirst();
 			editScriptureReference.setText(scriptureQuery.getString(1));
 			editCategory.setText(scriptureQuery.getString(2));
@@ -53,10 +53,10 @@ public class EditScripture extends Activity {
 			public void onClick(View view) {
 				// TODO Auto-generated method stub
 				ContentValues updatedItems = new ContentValues();
-				updatedItems.put("scripture_reference", editScriptureReference.getText().toString());
-				updatedItems.put("category", editCategory.getText().toString());
-				updatedItems.put("scripture_text", editScripture.getText().toString());
-				wordservant_db.update("scripture_bank", updatedItems, "scripture_id="+selectedScriptureId, null);
+				updatedItems.put("reference", editScriptureReference.getText().toString());
+				//updatedItems.put("category", editCategory.getText().toString());
+				updatedItems.put("text", editScripture.getText().toString());
+				wordservant_db.update(getResources().getString(R.string.scripture_table_name), updatedItems, "_id="+selectedScriptureId, null);
 				wordservant_db.close();
 				finish();
 			}

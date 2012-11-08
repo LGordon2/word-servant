@@ -78,11 +78,10 @@ public class ScriptureReview extends Activity {
 				ContentValues updatedValues = new ContentValues();
 				SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 				String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
-				DateFormat shortStyle = DateFormat.getDateInstance(DateFormat.LONG);
 				try {
 					if(scriptureQuery.getString(3) == null){
 						updatedValues.put("times_reviewed", 1);
-					}else if(Calendar.getInstance().getTime().before(shortStyle.parse(scriptureQuery.getString(3)))){
+					}else if(Calendar.getInstance().getTime().before(dbDateFormat.parse(scriptureQuery.getString(3)))){
 						updatedValues.put("times_reviewed", scriptureQuery.getInt(2)+1);
 						if(scriptureQuery.getInt(2) == 7){
 							updatedValues.put("schedule", "weekly");
