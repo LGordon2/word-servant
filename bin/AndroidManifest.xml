@@ -1,14 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wordservant"
+    package="com.app.wordservant"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="0.0.1" >
 
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
 
     <application
-        android:icon="@drawable/word_servant_logo"
+        android:icon="@drawable/word_servant_icon"
         android:label="@string/title_activity_main">
         <activity
             android:name=".LandingScreen"
