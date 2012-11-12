@@ -1,12 +1,8 @@
 package com.app.wordservant;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-
-import com.app.wordservant.R;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -70,14 +66,15 @@ public class ScriptureReview extends Activity {
 			@Override
 			public void onClick(View view) {
 				// Query the db for date values.
+				SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+				String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
 				String [] columns_to_retrieve = {"next_review_date", "schedule", "times_reviewed", "last_reviewed_date"};
-				scriptureQuery = wordservant_db.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, "scripture_id="+bundledScriptureList.getInt(String.valueOf(currentSelectedPosition)), null, null, null, null);
+				scriptureQuery = wordservant_db.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, "_id="+bundledScriptureList.getInt(String.valueOf(currentSelectedPosition)), null, null, null, null);
 				scriptureQuery.moveToFirst();
 				
 				// Update the database showing that the scripture was reviewed.
 				ContentValues updatedValues = new ContentValues();
-				SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
-				String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
+				
 				try {
 					if(scriptureQuery.getString(3) == null){
 						updatedValues.put("times_reviewed", 1);
@@ -104,7 +101,7 @@ public class ScriptureReview extends Activity {
 				}
 				updatedValues.put("next_review_date", dbDateFormat.format(calculatedDate.getTime()));
 				
-				wordservant_db.update(getResources().getString(R.string.scripture_table_name), updatedValues, "scripture_id = "+bundledScriptureList.getInt(String.valueOf(currentSelectedPosition)), null);
+				wordservant_db.update(getResources().getString(R.string.scripture_table_name), updatedValues, "_id = "+bundledScriptureList.getInt(String.valueOf(currentSelectedPosition)), null);
 				
 				//Select the next.
 				if(listCount==1) finish();
@@ -124,7 +121,7 @@ public class ScriptureReview extends Activity {
 		// TODO Auto-generated method stub
         try{
 			String [] columns_to_retrieve = {"reference", "tag_id", "text"};
-			scriptureQuery = wordservant_db.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, "scripture_id="+scriptureId, null, null, null, null);
+			scriptureQuery = wordservant_db.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, "_id="+scriptureId, null, null, null, null);
 			scriptureQuery.moveToFirst();
 			editScriptureReference.setText(scriptureQuery.getString(0));
 			editCategory.setText(scriptureQuery.getString(1));
