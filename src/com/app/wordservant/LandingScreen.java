@@ -1,17 +1,13 @@
 package com.app.wordservant;
 
-import com.app.wordservant.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class LandingScreen extends Activity{
@@ -26,35 +22,29 @@ public class LandingScreen extends Activity{
 	private void displayLandingScreen() {
 		// TODO Auto-generated method stub
 		setContentView(R.layout.landing_screen);
-		final ListView landingScreenListView = (ListView) this.findViewById(R.id.listView1);
 		
-		//myListView.setOnClickListener(mCorkyListener);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, 
-		        android.R.layout.simple_list_item_1, this.getResources().getStringArray(R.array.landing_menu));
-		landingScreenListView.setAdapter(adapter);
-		
-		landingScreenListView.setOnItemClickListener(new OnItemClickListener(){
+		Button todaysMemoryVerses = (Button) this.findViewById(R.id.todaysMemoryVerses);
+		todaysMemoryVerses.setOnClickListener(new OnClickListener(){
 
-			public void onItemClick(AdapterView<?> parent, View landingScreenView, int position,
-					long id) {
+			@Override
+			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent;
-				Toast.makeText(LandingScreen.this, landingScreenListView.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
-				switch (position){
-					case 0:
-						intent = new Intent(landingScreenView.getContext(),TodaysMemoryVerses.class);
-				    	startActivity(intent);
-				    	break;
-					case 2:
-						intent = new Intent(landingScreenView.getContext(),ScriptureBank.class);
-				    	startActivity(intent);
-				    	break;
-				}
-				
+				Intent intent = new Intent(v.getContext(),TodaysMemoryVerses.class);
+				Toast.makeText(LandingScreen.this, R.string.title_activity_todays_memory_verses, Toast.LENGTH_SHORT).show();
+		    	startActivity(intent);
 			}
+		});
+		
+		Button scriptureBank = (Button) this.findViewById(R.id.scriptureBank);
+		scriptureBank.setOnClickListener(new OnClickListener(){
 
-
-			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(v.getContext(),ScriptureBank.class);
+				Toast.makeText(LandingScreen.this, R.string.title_activity_scripture_bank, Toast.LENGTH_SHORT).show();
+		    	startActivity(intent);
+			}
 		});
 	}
 	@Override

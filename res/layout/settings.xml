@@ -5,28 +5,38 @@
     android:gravity="bottom|center_horizontal"
     android:orientation="vertical"
     android:theme="@style/MenuTheme" >
-
-    <RadioGroup
-        android:id="@+id/radioGroup1"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/MenuTheme" >
-
-        <RadioButton
-            android:id="@+id/radio0"
-            android:layout_width="wrap_content"
+        android:layout_weight="1.08"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="Fire Lew"
-            android:theme="@style/MenuTheme" />
+            android:layout_weight="1.08" >
 
-        <RadioButton
-            android:id="@+id/radio1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hire Lew"
-            android:theme="@style/MenuTheme" />
-    </RadioGroup>
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daily Scripture Limit" />
+
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="34dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.10"
+                android:editable="false"
+                android:ems="10"
+                android:text="4" >
+
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/button1"

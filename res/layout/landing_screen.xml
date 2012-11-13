@@ -1,15 +1,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     android:theme="@android:style/Theme.Light" >
 
-    <ListView
-        android:id="@+id/listView1"
+    <Button
+        android:id="@+id/todaysMemoryVerses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@android:style/Theme.Light" >
-    </ListView>
+        android:layout_marginTop="@dimen/landingPadding"
+        android:text="@string/title_activity_todays_memory_verses" />
+
+    <Button
+        android:id="@+id/scriptureBank"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/landingPadding"
+        android:text="@string/title_activity_scripture_bank" />
+
+    <Button
+        android:id="@+id/quizReview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/landingPadding"
+        android:text="Quiz / Review" />
+
+    <Button
+        android:id="@+id/statistics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/landingPadding"
+        android:text="Statistics" />
+
+    <Button
+        android:id="@+id/scriptureSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/landingPadding"
+        android:text="Scripture Search" />
 
 </LinearLayout>

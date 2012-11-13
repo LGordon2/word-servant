@@ -25,12 +25,12 @@ public class EditScripture extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_scripture);
+        setContentView(R.layout.activity_input_scripture_manual);
         
         //Get the text from the database and populate the text fields with them.
-        editScriptureReference = (EditText) findViewById(R.id.editScriptureReference);
-        editCategory = (EditText) findViewById(R.id.editCategory);
-        editScripture = (EditText) findViewById(R.id.editScripture);
+        editScriptureReference = (EditText) findViewById(R.id.scriptureReference);
+        editCategory = (EditText) findViewById(R.id.categoryName);
+        editScripture = (EditText) findViewById(R.id.scriptureText);
         wordservant_db = new WordServantOpenHelper(this.getApplicationContext(), "wordservant_db", null, 1).getReadableDatabase();
         final int selectedScriptureId = this.getIntent().getIntExtra("scripture_id", 0);
         
@@ -46,7 +46,7 @@ public class EditScripture extends Activity {
         	e.printStackTrace();
         }
 		
-		Button editDoneButton = (Button) findViewById(R.id.editDoneButton);
+		Button editDoneButton = (Button) findViewById(R.id.doneButton);
 		editDoneButton.setOnClickListener(new OnClickListener(){
 
 			@Override
