@@ -1,6 +1,5 @@
 package com.app.wordservant;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,7 +13,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.os.Bundle;
-import android.util.SparseIntArray;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -65,100 +63,43 @@ public class TodaysMemoryVerses extends Activity{
 		final Bundle bundledScriptureList = new Bundle();
 		final ListView scriptureList = view;
 		scriptureList.setAdapter(scriptureAdapter);
-		
 		//Queries the database for any verses that have the same review date as the date when the screen was accessed.
 		try{
 			scriptureQuery = wordservant_db.rawQuery(query, null);
 			for(int positionOnScreen=0;positionOnScreen<scriptureQuery.getCount();positionOnScreen++){
 				scriptureQuery.moveToNext();
-				LinearLayout newLayout = new LinearLayout(context);
+				LinearLayout newLayout = (LinearLayout) this.getLayoutInflater().inflate(R.layout.checkbox_list_layout, null);
+				//LinearLayout newLayout = new LinearLayout(context);
 				newLayout.setOrientation(LinearLayout.HORIZONTAL);
+				TextView newLabel = (TextView) newLayout.getChildAt(1);
+				newLabel.setText(scriptureQuery.getString(0));
 				final int position = positionOnScreen;
 				bundledScriptureList.putInt(String.valueOf(positionOnScreen), scriptureQuery.getInt(1));
 				//Display a checkbox.
-				CheckBox newCheckBox = new CheckBox(context);
-				newCheckBox.setFocusable(false);
-				newLayout.addView(newCheckBox);
-				//Display checked depending on the NEXT_REVIEW_DATE;
+				CheckBox newCheckBox = (CheckBox) newLayout.getChildAt(0);
 				if(Date.parse(scriptureQuery.getString(2))>Calendar.getInstance().getTimeInMillis()){
 					newCheckBox.setChecked(true);
 				}
 				
-				//Add a label
-				TextView newLabel = new TextView(context);
-				newLabel.setText(scriptureQuery.getString(0));
-				newLabel.setGravity(android.view.Gravity.CENTER_VERTICAL);
-				LinearLayout.LayoutParams newLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-				newLabel.setLayoutParams(newLayoutParams);
-				/*newLabel.setOnClickListener(new OnClickListener(){
-
-					@Override
-					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						Intent intent = new Intent(v.getContext(),ScriptureReview.class);
-						intent.putExtra("bundledScriptureList",bundledScriptureList);
-						intent.putExtra("current_position", position);
-						intent.putExtra("number_of_values", scriptureQuery.getCount());
-				    	startActivity(intent);
-					}
-					
-				});*/
-				newLayout.addView(newLabel);
 				newCheckBox.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						CheckBox checkBox = (CheckBox) v;
+						LinearLayout l = (LinearLayout) v.getParent();
+						
 						if(!((CheckBox) v).isChecked()){
 							ContentValues newValues = new ContentValues();
 							SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 							String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
 							newValues.put("NEXT_REVIEW_DATE", todaysDate);
 							wordservant_db.update("scriptures", newValues, "_id="+bundledScriptureList.getInt(String.valueOf(position)), null);
-							checkBox.setChecked(false);
-							return;
 						}else{
-							String [] columns_to_retrieve = {"next_review_date", "schedule", "times_reviewed", "last_reviewed_date"};
-							scriptureQuery = wordservant_db.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, "_id="+bundledScriptureList.getInt(String.valueOf(position)), null, null, null, null);
-							scriptureQuery.moveToFirst();
-							
-							// Update the database showing that the scripture was reviewed.
-							ContentValues updatedValues = new ContentValues();
-							SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
-							String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
-							try {
-								if(scriptureQuery.getString(3) == null){
-									updatedValues.put("times_reviewed", 1);
-								}else if(Calendar.getInstance().getTime().before(dbDateFormat.parse(scriptureQuery.getString(3)))){
-									updatedValues.put("times_reviewed", scriptureQuery.getInt(2)+1);
-									if(scriptureQuery.getInt(2) == 7){
-										updatedValues.put("schedule", "weekly");
-									}
-								}
-							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							updatedValues.put("last_reviewed_date", todaysDate);
-							Calendar calculatedDate = Calendar.getInstance();
-							if(scriptureQuery.getString(1).equals("daily")){
-								calculatedDate.add(Calendar.DATE, 1);
-							}else if(scriptureQuery.getString(1).equals("weekly")){
-								calculatedDate.add(Calendar.DATE, 7);
-							}else if(scriptureQuery.getString(1).equals("monthly")){
-								calculatedDate.add(Calendar.MONTH, 1);
-							}else if(scriptureQuery.getString(1).equals("yearly")){
-								calculatedDate.add(Calendar.YEAR, 1);
-							}
-							updatedValues.put("next_review_date", dbDateFormat.format(calculatedDate.getTime()));
-							
-							wordservant_db.update(getResources().getString(R.string.scripture_table_name), updatedValues, "_id = "+bundledScriptureList.getInt(String.valueOf(position)), null);
+							ScriptureReview.updateReviewedScripture(getApplicationContext(), bundledScriptureList.getInt(String.valueOf(position)));
 						}
 					}
 					
 				});
 				scriptureAdapter.add(newLayout);
-				
 			}
 		} catch(SQLiteException e){
 			System.err.println("Database issue...");
@@ -170,19 +111,19 @@ public class TodaysMemoryVerses extends Activity{
 
 			public void onItemClick(AdapterView<?> parent, View dueTodayView, int position,long id) {
 				// Sends the query row that holds the values we would like to edit.
-				
-				Intent intent = new Intent(dueTodayView.getContext(),ScriptureReview.class);
-				intent.putExtra("bundledScriptureList",bundledScriptureList);
-				intent.putExtra("current_position", position);
-				intent.putExtra("number_of_values", scriptureQuery.getCount());
-		    	startActivity(intent);
-				
+				LinearLayout view = (LinearLayout) dueTodayView;
+				CheckBox checkBox = (CheckBox) view.getChildAt(0);
+				if(!checkBox.isPressed()){
+					Intent intent = new Intent(dueTodayView.getContext(),ScriptureReview.class);
+					intent.putExtra("bundledScriptureList",bundledScriptureList);
+					intent.putExtra("scriptureId", position);
+			    	startActivity(intent);
+				}
 			}
-
 			
 		});
+		
 	}
-	
 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {

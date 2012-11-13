@@ -25,7 +25,6 @@ public class ScriptureBank extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scripture_bank);
-        wordservant_db = new WordServantOpenHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
         
     }
     
@@ -35,8 +34,11 @@ public class ScriptureBank extends Activity {
      */
     protected void onStart(){
     	super.onStart();
+        wordservant_db = new WordServantOpenHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
+    	//Displays the scripture bank.
     	displayScriptureBank();
     	
+    	//Functionality for the input scripture button.
         Button inputScripture = (Button) this.findViewById(R.id.input_scripture);
         inputScripture.setOnClickListener(new OnClickListener(){
 
@@ -53,6 +55,8 @@ public class ScriptureBank extends Activity {
      * Displays the scripture bank based on the scriptures either selected or inputed manually into the database.
      */
 	private void displayScriptureBank() {
+		
+		//Set up the cursor adapter.
 		Context context = this.getApplicationContext();
 		scriptureQuery = wordservant_db.query(getResources().getString(R.string.scripture_table_name), new String [] {"_id", "REFERENCE"}, null, null, null, null, null);
 		String [] fromColumns = {"REFERENCE"};
@@ -72,6 +76,7 @@ public class ScriptureBank extends Activity {
 				
 			}
 		});
+		wordservant_db.close();
 	}
 		
 	public void editEntry(View v){
@@ -89,7 +94,5 @@ public class ScriptureBank extends Activity {
 	 */
 	protected void onDestroy(){
 		super.onDestroy();
-		wordservant_db.close();
-		
 	}
 }

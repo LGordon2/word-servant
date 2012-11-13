@@ -9,11 +9,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class WordServantOpenHelper extends SQLiteOpenHelper{
 	
+	
 	private static String SCRIPTURE_BANK_TABLE_NAME;
 	private static String TAG_TABLE_NAME;
     private static String SCRIPTURE_BANK_TABLE_CREATE;
 	private static String TAG_TABLE_CREATE;
-    
+	
+	
 	public WordServantOpenHelper(Context context, String name,
 			CursorFactory factory, int version) {
 		super(context, name, factory, version);
@@ -61,5 +63,4 @@ public class WordServantOpenHelper extends SQLiteOpenHelper{
         // Recreates the database with a new version
         onCreate(db);
 	}
-
 }
