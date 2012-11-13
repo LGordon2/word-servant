@@ -26,6 +26,7 @@ public class ScriptureReview extends Activity {
 	private Cursor unreviewedScriptureQuery;
 	private int selectedScriptureId;
 	private Cursor scriptureQuery;
+	private String todaysDate;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,12 +38,20 @@ public class ScriptureReview extends Activity {
         editCategory = (TextView) findViewById(R.id.dueTodayCategory);
         editScripture = (TextView) findViewById(R.id.dueTodayScripture);
         
+        //Get the date for today.
+		SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
+        
         //Open the database.
         wordservant_db = new WordServantOpenHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
         selectedScriptureId = this.getIntent().getIntExtra("scriptureId", 0);
         final Bundle bundledScriptureList = this.getIntent().getBundleExtra("bundledScriptureList");
         displayScriptureContent(bundledScriptureList.getInt(String.valueOf(selectedScriptureId)));
         
+        //Check all unreviewedScriptures.
+		String [] columnsToRetrieve = {"_id"};
+		unreviewedScriptureQuery = wordservant_db.query("scriptures", columnsToRetrieve, "NEXT_REVIEW_DATE='"+todaysDate+"'", null, null, null, null);
+		unreviewedScriptureQuery.moveToFirst();
         
         Button nextButton = (Button) findViewById(R.id.dueTodayNextButton);
         nextButton.setOnClickListener(new OnClickListener(){
@@ -50,15 +59,16 @@ public class ScriptureReview extends Activity {
 			@Override
 			public void onClick(View view) {
 				// TODO Auto-generated method stub
-				SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
-				String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
-				String [] columnsToRetrieve = {"_id"};
-				unreviewedScriptureQuery = wordservant_db.query("scriptures", columnsToRetrieve, "NEXT_REVIEW_DATE='"+todaysDate+"'", null, null, null, null);
-				unreviewedScriptureQuery.moveToFirst();
-				if(unreviewedScriptureQuery.getCount()==0){
-					finish();
+				if(unreviewedScriptureQuery.getCount()==1 && unreviewedScriptureQuery.getInt(0)==scriptureQuery.getInt(3)){
 					return;
 				}
+				
+				unreviewedScriptureQuery.moveToNext();
+				if(unreviewedScriptureQuery.isAfterLast()){
+					unreviewedScriptureQuery.moveToFirst();
+				}
+				
+
 				displayScriptureContent(unreviewedScriptureQuery.getInt(0));
 			}
         	
@@ -69,13 +79,11 @@ public class ScriptureReview extends Activity {
 
 			@Override
 			public void onClick(View view) {
-				SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
-				String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
-
-				updateReviewedScripture(getApplicationContext(), scriptureQuery.getInt(3));
-				//Select the next.
 				String [] columnsToRetrieve = {"_id"};
+				updateReviewedScripture(getApplicationContext(), scriptureQuery.getInt(3));
 				unreviewedScriptureQuery = wordservant_db.query("scriptures", columnsToRetrieve, "NEXT_REVIEW_DATE='"+todaysDate+"'", null, null, null, null);
+				
+				//Select the next.
 				unreviewedScriptureQuery.moveToFirst();
 				if(unreviewedScriptureQuery.getCount()==0){
 					finish();
