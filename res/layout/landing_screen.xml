@@ -6,39 +6,53 @@
     android:orientation="vertical"
     android:theme="@android:style/Theme.Light" >
 
-    <Button
-        android:id="@+id/todaysMemoryVerses"
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/landingPadding"
-        android:text="@string/title_activity_todays_memory_verses" />
-
-    <Button
-        android:id="@+id/scriptureBank"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/landingPadding"
-        android:text="@string/title_activity_scripture_bank" />
-
-    <Button
-        android:id="@+id/quizReview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/landingPadding"
-        android:text="Quiz / Review" />
-
-    <Button
-        android:id="@+id/statistics"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/landingPadding"
-        android:text="Statistics" />
-
-    <Button
-        android:id="@+id/scriptureSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/landingPadding"
-        android:text="Scripture Search" />
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/todaysMemoryVerses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/landingPadding"
+                android:text="@string/title_activity_todays_memory_verses" />
+
+            <Button
+                android:id="@+id/scriptureBank"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/landingPadding"
+                android:text="@string/title_activity_scripture_bank" />
+
+            <Button
+                android:id="@+id/quizReview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/landingPadding"
+                android:text="Quiz / Review" />
+
+            <Button
+                android:id="@+id/statistics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/landingPadding"
+                android:text="Statistics" />
+
+            <Button
+                android:id="@+id/scriptureSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/landingPadding"
+                android:text="Scripture Search" />
+        </LinearLayout>
+
+    </ScrollView>
+
 
 </LinearLayout>

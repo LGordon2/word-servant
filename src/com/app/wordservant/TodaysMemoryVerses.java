@@ -120,7 +120,7 @@ public class TodaysMemoryVerses extends Activity{
 				if(!checkBox.isPressed()){
 					Intent intent = new Intent(dueTodayView.getContext(),ScriptureReview.class);
 					intent.putExtra("bundledScriptureList",bundledScriptureList);
-					intent.putExtra("scriptureId", position);
+					intent.putExtra("positionOnScreen", position);
 			    	startActivity(intent);
 				}
 			}

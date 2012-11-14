@@ -29,5 +29,17 @@
     <string name="database_name">wordservant_db</string>
     <string name="scripture_table_name">scriptures</string>
     <string name="tag_table_name">tags</string>
+    <string-array name="limit_strings">
+        <item >1</item>
+        <item >2</item>
+        <item >3</item>
+        <item >4 (Default)</item>
+    </string-array>
+    <string-array name="limit_values">
+        <item >1</item>
+        <item >2</item>
+        <item >3</item>
+        <item >4</item>
+    </string-array>
 
 </resources>

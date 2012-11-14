@@ -3,6 +3,7 @@ package com.app.wordservant;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ScriptureReview extends Activity {
 
@@ -24,7 +26,7 @@ public class ScriptureReview extends Activity {
 	private TextView editScripture;
 	private SQLiteDatabase wordservant_db;
 	private Cursor unreviewedScriptureQuery;
-	private int selectedScriptureId;
+	private int positionOnScreen;
 	private Cursor scriptureQuery;
 	private String todaysDate;
 
@@ -44,31 +46,29 @@ public class ScriptureReview extends Activity {
         
         //Open the database.
         wordservant_db = new WordServantOpenHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
-        selectedScriptureId = this.getIntent().getIntExtra("scriptureId", 0);
+        positionOnScreen = this.getIntent().getIntExtra("positionOnScreen", 0);
         final Bundle bundledScriptureList = this.getIntent().getBundleExtra("bundledScriptureList");
-        displayScriptureContent(bundledScriptureList.getInt(String.valueOf(selectedScriptureId)));
+        displayScriptureContent(bundledScriptureList.getInt(String.valueOf(positionOnScreen)));
         
         //Check all unreviewedScriptures.
-		String [] columnsToRetrieve = {"_id"};
-		unreviewedScriptureQuery = wordservant_db.query("scriptures", columnsToRetrieve, "NEXT_REVIEW_DATE='"+todaysDate+"'", null, null, null, null);
+		String [] columnsToRetrieve = {"_id", "NEXT_REVIEW_DATE"};
+		unreviewedScriptureQuery = wordservant_db.query("scriptures", columnsToRetrieve, "NEXT_REVIEW_DATE='"+todaysDate+"' OR _id="+bundledScriptureList.getInt(String.valueOf(positionOnScreen)), null, null, null, null);
+		
+		//Set the row in the unreviewed scripture query to match the selected item in Today's Memory Verses.
 		unreviewedScriptureQuery.moveToFirst();
+		while(unreviewedScriptureQuery.getInt(0)!=bundledScriptureList.getInt(String.valueOf(positionOnScreen))){
+			unreviewedScriptureQuery.moveToNext();
+			if(unreviewedScriptureQuery.isAfterLast()){
+				unreviewedScriptureQuery.moveToFirst();
+			}
+		}
         
         Button nextButton = (Button) findViewById(R.id.dueTodayNextButton);
         nextButton.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View view) {
-				// TODO Auto-generated method stub
-				if(unreviewedScriptureQuery.getCount()==1 && unreviewedScriptureQuery.getInt(0)==scriptureQuery.getInt(3)){
-					return;
-				}
-				
-				unreviewedScriptureQuery.moveToNext();
-				if(unreviewedScriptureQuery.isAfterLast()){
-					unreviewedScriptureQuery.moveToFirst();
-				}
-				
-
+				setNextScriptureId();
 				displayScriptureContent(unreviewedScriptureQuery.getInt(0));
 			}
         	
@@ -84,7 +84,7 @@ public class ScriptureReview extends Activity {
 				unreviewedScriptureQuery = wordservant_db.query("scriptures", columnsToRetrieve, "NEXT_REVIEW_DATE='"+todaysDate+"'", null, null, null, null);
 				
 				//Select the next.
-				unreviewedScriptureQuery.moveToFirst();
+				setNextScriptureId();
 				if(unreviewedScriptureQuery.getCount()==0){
 					finish();
 					return;
@@ -94,7 +94,6 @@ public class ScriptureReview extends Activity {
         	
         });
     }
-
     protected void displayScriptureContent(int scriptureId) {
 		// TODO Auto-generated method stub
         try{
@@ -115,7 +114,22 @@ public class ScriptureReview extends Activity {
         getMenuInflater().inflate(R.menu.activity_due_today, menu);
         return true;
     }
-	
+	private void setNextScriptureId(){
+		//If there are no or just one we just need to display a message and return that scripture id.
+		if(unreviewedScriptureQuery.getCount()==0){
+			Toast.makeText(getApplicationContext(), "There are no unchecked scriptures.", Toast.LENGTH_SHORT).show();
+		}
+		else if(unreviewedScriptureQuery.getCount()==1 && unreviewedScriptureQuery.getInt(0)==scriptureQuery.getInt(3)){
+			Toast.makeText(getApplicationContext(), "This is the last unchecked scripture.", Toast.LENGTH_SHORT).show();
+		}
+		else{
+			unreviewedScriptureQuery.moveToNext();
+			if(unreviewedScriptureQuery.isAfterLast()){
+				unreviewedScriptureQuery.moveToFirst();
+			}
+		}
+		return;
+	}
 	public static void updateReviewedScripture(Context context, int scriptureId){
 		SQLiteDatabase wordservant_db = new WordServantOpenHelper(context, "wordservant_db", null, 1).getReadableDatabase();
 		String [] columns_to_retrieve = {"next_review_date", "schedule", "times_reviewed", "last_reviewed_date"};
