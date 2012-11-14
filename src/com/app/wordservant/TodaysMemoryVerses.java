@@ -3,6 +3,7 @@ package com.app.wordservant;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -40,11 +41,11 @@ public class TodaysMemoryVerses extends Activity{
         
     }
 	
-    protected void onStart(){
+	protected void onStart(){
     	super.onStart();
     	
     	String [] queryColumns = {"REFERENCE","_ID", "NEXT_REVIEW_DATE", "LAST_REVIEWED_DATE"}; 
-		SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 		String todaysDate = dbDateFormat.format(new Date());
 		TextView currentDateDisplayer = (TextView) findViewById(R.id.currentDate);
         currentDateDisplayer.setText(DateFormat.format("EEEE, MMMM dd, yyyy", Calendar.getInstance()));
@@ -93,7 +94,7 @@ public class TodaysMemoryVerses extends Activity{
 						// Reset the NEXT_REVIEW_DATE if we are unchecking, otherwise mark the scripture as reviewed.
 						if(!((CheckBox) v).isChecked()){
 							ContentValues newValues = new ContentValues();
-							SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+							SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 							String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
 							newValues.put("NEXT_REVIEW_DATE", todaysDate);
 							wordservant_db.update("scriptures", newValues, "_id="+bundledScriptureList.getInt(String.valueOf(position)), null);

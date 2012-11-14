@@ -25,6 +25,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@id/scriptureReference"
+        android:enabled="false"
         android:ems="10"
         android:hint="@string/category_text_field_hint" />
 
@@ -49,7 +50,7 @@
         <EditText
             android:id="@+id/scriptureText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="top|center_vertical"
             android:hint="@string/scripture_text_text_field_hint"

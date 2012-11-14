@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <PreferenceCategory 
         android:title="Daily Review Settings"
-        android:key="pref_key_storage_settings">
+        android:key="pref_key_storage_settings"
+        android:layout_width="match_parent"
+    	android:layout_height="match_parent">
         
 	    <ListPreference 
 	        android:key="pref_key_daily_limit"
@@ -10,7 +14,9 @@
 	        android:summary="Daily limit on scriptures."
 	        android:defaultValue="4"
 	        android:entries = "@array/limit_strings"
-	        android:entryValues="@array/limit_values"/>
+	        android:entryValues="@array/limit_values"
+	        android:layout_width="match_parent"
+    		android:layout_height="match_parent"/>
 	    
     </PreferenceCategory>
 </PreferenceScreen>

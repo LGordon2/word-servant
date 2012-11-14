@@ -1,10 +1,13 @@
 package com.app.wordservant;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
@@ -34,7 +37,6 @@ public class InputScriptureManual extends Activity {
 			public void onClick(View inputScriptureView) {
 				// Get the referenced fields.
 				EditText scriptureReference = (EditText) findViewById(R.id.scriptureReference);
-				EditText categoryName = (EditText) findViewById(R.id.categoryName);
 				EditText scriptureText = (EditText) findViewById(R.id.scriptureText);
 				
 				// Check for required fields.
@@ -49,7 +51,7 @@ public class InputScriptureManual extends Activity {
 
 				Runtime r = Runtime.getRuntime();
 				// Map the values of the fields to columns that are used in the database.
-				SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+				SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 				String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
 				ContentValues scriptureValues = new ContentValues();
 				scriptureValues.put("reference", scriptureReference.getText().toString());
@@ -57,7 +59,24 @@ public class InputScriptureManual extends Activity {
 				scriptureValues.put("created_date", todaysDate);
 				scriptureValues.put("schedule", "daily");
 				scriptureValues.put("times_reviewed", 0);
-				scriptureValues.put("next_review_date", todaysDate);
+				
+				//Query for any "running" scriptures.
+				String [] columnsToRetrieve = {"SCHEDULE","TIMES_REVIEWED","NEXT_REVIEW_DATE"};
+				SQLiteDatabase wordservant_db_readable = new WordServantOpenHelper(inputScriptureView.getContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
+				Cursor runningScriptureQuery = wordservant_db_readable.query("scriptures", columnsToRetrieve, "SCHEDULE='daily' AND TIMES_REVIEWED<7", null, null, null, null);
+				if (runningScriptureQuery.getCount()>0){
+					runningScriptureQuery.moveToLast();
+					Calendar currentCalendar = Calendar.getInstance();
+					try {
+						currentCalendar.setTime(dbDateFormat.parse(runningScriptureQuery.getString(2)));
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+					currentCalendar.add(Calendar.DATE, 7-runningScriptureQuery.getInt(1));
+					scriptureValues.put("next_review_date", dbDateFormat.format(currentCalendar.getTime()));
+				}else{
+					scriptureValues.put("next_review_date", todaysDate);
+				}
 				r.gc();
 				
 				//Open the database and add the row.

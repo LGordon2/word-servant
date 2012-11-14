@@ -3,14 +3,6 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">Word Servant</string>
 
-    <string-array name="landing_menu">
-        <item>Today\'s Memory Verses</item>
-        <item>Quiz / Review</item>
-        <item>Scripture Bank</item>
-        <item>Statistics</item>
-        <item>Scripture Search</item>
-    </string-array>
-
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_scripture_bank">Scripture Bank</string>
     <string name="input_scripture_button_text">Input Scripture (Manual)</string>
@@ -22,7 +14,6 @@
     <string name="select_new_scripture_button_text">Select New Scripture</string>
     <string name="scripture_reference_text_field_hint">Scripture Reference*</string>
     <string name="done_button_text">Done</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_due_today">Scripture Review</string>
     <string name="got_it_button_text">Got it!</string>
     <string name="next_button_text">Next&gt;&gt;</string>

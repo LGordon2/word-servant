@@ -16,31 +16,36 @@ public class LandingScreen extends Activity{
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.onStart();
         displayLandingScreen();
     }
+	
+	/**
+	 * Sets up the landing screen buttons.
+	 */
 	private void displayLandingScreen() {
-		// TODO Auto-generated method stub
 		setContentView(R.layout.landing_screen);
 		
+		
+		//Today's Memory Verses button
 		Button todaysMemoryVerses = (Button) this.findViewById(R.id.todaysMemoryVerses);
 		todaysMemoryVerses.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				// Starts a new Today's Memory Verses activity.
 				Intent intent = new Intent(v.getContext(),TodaysMemoryVerses.class);
 				Toast.makeText(LandingScreen.this, R.string.title_activity_todays_memory_verses, Toast.LENGTH_SHORT).show();
 		    	startActivity(intent);
 			}
 		});
 		
+		//Scripture Bank button
 		Button scriptureBank = (Button) this.findViewById(R.id.scriptureBank);
 		scriptureBank.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				// Starts a new Scripture Bank activity.
 				Intent intent = new Intent(v.getContext(),ScriptureBank.class);
 				Toast.makeText(LandingScreen.this, R.string.title_activity_scripture_bank, Toast.LENGTH_SHORT).show();
 		    	startActivity(intent);

@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -19,6 +21,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+@SuppressLint("SimpleDateFormat")
 public class ScriptureReview extends Activity {
 
     private TextView editScriptureReference;
@@ -41,7 +44,7 @@ public class ScriptureReview extends Activity {
         editScripture = (TextView) findViewById(R.id.dueTodayScripture);
         
         //Get the date for today.
-		SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 		todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
         
         //Open the database.
@@ -82,7 +85,7 @@ public class ScriptureReview extends Activity {
 				String [] columnsToRetrieve = {"_id"};
 				updateReviewedScripture(getApplicationContext(), scriptureQuery.getInt(3));
 				unreviewedScriptureQuery = wordservant_db.query("scriptures", columnsToRetrieve, "NEXT_REVIEW_DATE='"+todaysDate+"'", null, null, null, null);
-				
+				unreviewedScriptureQuery.moveToFirst();
 				//Select the next.
 				setNextScriptureId();
 				if(unreviewedScriptureQuery.getCount()==0){
@@ -117,7 +120,7 @@ public class ScriptureReview extends Activity {
 	private void setNextScriptureId(){
 		//If there are no or just one we just need to display a message and return that scripture id.
 		if(unreviewedScriptureQuery.getCount()==0){
-			Toast.makeText(getApplicationContext(), "There are no unchecked scriptures.", Toast.LENGTH_SHORT).show();
+			return;
 		}
 		else if(unreviewedScriptureQuery.getCount()==1 && unreviewedScriptureQuery.getInt(0)==scriptureQuery.getInt(3)){
 			Toast.makeText(getApplicationContext(), "This is the last unchecked scripture.", Toast.LENGTH_SHORT).show();
@@ -128,7 +131,6 @@ public class ScriptureReview extends Activity {
 				unreviewedScriptureQuery.moveToFirst();
 			}
 		}
-		return;
 	}
 	public static void updateReviewedScripture(Context context, int scriptureId){
 		SQLiteDatabase wordservant_db = new WordServantOpenHelper(context, "wordservant_db", null, 1).getReadableDatabase();
@@ -142,13 +144,24 @@ public class ScriptureReview extends Activity {
 		String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
 		
 		//Update the times reviewed.
+		Date currentDate = Calendar.getInstance().getTime();
+		currentDate.setHours(0);
+		currentDate.setMinutes(0);
+		currentDate.setSeconds(0);
+		
 		try {
 			if(scriptureQuery.getString(3) == null){
 				updatedValues.put("times_reviewed", 1);
-			}else if(Calendar.getInstance().getTime().before(dbDateFormat.parse(scriptureQuery.getString(3)))){
+			}
+			
+			else if(dbDateFormat.parse(scriptureQuery.getString(3)).before(currentDate) && !dbDateFormat.parse(scriptureQuery.getString(3)).equals(currentDate)){
 				updatedValues.put("times_reviewed", scriptureQuery.getInt(2)+1);
-				if(scriptureQuery.getInt(2) == 7){
+				if(scriptureQuery.getInt(2) == 6){
 					updatedValues.put("schedule", "weekly");
+				}else if(scriptureQuery.getInt(2)==13){
+					updatedValues.put("schedule", "monthly");
+				}else if(scriptureQuery.getInt(2)==20){
+					updatedValues.put("schedule", "yearly");
 				}
 			}
 		} catch (ParseException e) {

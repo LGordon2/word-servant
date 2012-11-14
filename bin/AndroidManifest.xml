@@ -5,11 +5,12 @@
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="15" />
+        android:targetSdkVersion="17" />
 
     <application
         android:icon="@drawable/word_servant_icon"
-        android:label="@string/title_activity_main">
+        android:label="@string/title_activity_main"
+        android:allowBackup="true">
         <activity
             android:name=".LandingScreen"
             android:label="@string/title_activity_main"

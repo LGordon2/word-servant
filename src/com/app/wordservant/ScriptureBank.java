@@ -1,10 +1,12 @@
 package com.app.wordservant;
 
+import java.util.concurrent.ExecutionException;
+
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -17,9 +19,8 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 public class ScriptureBank extends Activity {
-	protected SQLiteDatabase wordservant_db;
 	protected CursorAdapter scriptureAdapter;
-	protected Cursor scriptureQuery;
+	private Cursor scriptureQuery;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,20 @@ public class ScriptureBank extends Activity {
         setContentView(R.layout.scripture_bank);
         
     }
+	private class ScriptureQuerier extends AsyncTask<Void, Void, Cursor>{
+
+		@Override
+		protected Cursor doInBackground(Void... params) {
+			// Gets the scripture that matches the scripture id.
+			String [] columns_to_retrieve = {"_id", "REFERENCE"};
+	        SQLiteDatabase wordservantReadableDatabase = new WordServantOpenHelper(getApplicationContext(), "wordservant_db", null, 1).getReadableDatabase();
+			Cursor scriptureQuery = wordservantReadableDatabase.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, null, null, null, null, null);
+			scriptureQuery.moveToFirst();
+			wordservantReadableDatabase.close();
+			return scriptureQuery;
+		}
+
+	}
     
     /**
      * When the activity starts clear out any scriptures displayed on the screen 
@@ -34,9 +49,8 @@ public class ScriptureBank extends Activity {
      */
     protected void onStart(){
     	super.onStart();
-        wordservant_db = new WordServantOpenHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
-    	//Displays the scripture bank.
-    	displayScriptureBank();
+    	ScriptureQuerier dbQuerier = new ScriptureQuerier();
+    	dbQuerier.execute();
     	
     	//Functionality for the input scripture button.
         Button inputScripture = (Button) this.findViewById(R.id.input_scripture);
@@ -49,40 +63,37 @@ public class ScriptureBank extends Activity {
 			}
         	
         });
+        
+        //Displays the scripture bank.
+		try {
+			String [] fromColumns = {"REFERENCE"};
+			int [] toViews = {R.id.list_entry};
+			scriptureQuery = dbQuerier.get();
+			scriptureAdapter = new SimpleCursorAdapter(this, R.layout.list_layout, scriptureQuery, fromColumns, toViews);
+			ListView scriptureList = (ListView) findViewById(R.id.scripture_bank_list);
+			scriptureList.setAdapter(scriptureAdapter);
+			
+			scriptureList.setOnItemClickListener(new OnItemClickListener(){
+				public void onItemClick(AdapterView<?> parent, View linearLayout, int position,long id) {
+					// TODO Auto-generated method stub
+					// Bundle data
+					Intent intent = new Intent(linearLayout.getContext(),EditScripture.class);
+					scriptureQuery.moveToPosition(position);
+					intent.putExtra("scripture_id",scriptureQuery.getInt(0));
+			    	startActivity(intent);
+					
+				}
+			});
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
     }
-	
-    /**
-     * Displays the scripture bank based on the scriptures either selected or inputed manually into the database.
-     */
-	private void displayScriptureBank() {
-		
-		//Set up the cursor adapter.
-		Context context = this.getApplicationContext();
-		scriptureQuery = wordservant_db.query(getResources().getString(R.string.scripture_table_name), new String [] {"_id", "REFERENCE"}, null, null, null, null, null);
-		String [] fromColumns = {"REFERENCE"};
-		int [] toViews = {R.id.list_entry};
-		scriptureAdapter = new SimpleCursorAdapter(context, R.layout.list_layout, scriptureQuery, fromColumns, toViews);
-		ListView scriptureList = (ListView) findViewById(R.id.scripture_bank_list);
-		scriptureList.setAdapter(scriptureAdapter);
-		
-		scriptureList.setOnItemClickListener(new OnItemClickListener(){
-			public void onItemClick(AdapterView<?> parent, View linearLayout, int position,long id) {
-				// TODO Auto-generated method stub
-				// Bundle data
-				Intent intent = new Intent(linearLayout.getContext(),EditScripture.class);
-				scriptureQuery.moveToPosition(position);
-				intent.putExtra("scripture_id",scriptureQuery.getInt(0));
-		    	startActivity(intent);
-				
-			}
-		});
-		wordservant_db.close();
-	}
-		
-	public void editEntry(View v){
-		return;
-	}
-	
+    
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.scripture_bank, menu);
@@ -94,5 +105,6 @@ public class ScriptureBank extends Activity {
 	 */
 	protected void onDestroy(){
 		super.onDestroy();
+		scriptureQuery.close();
 	}
 }
