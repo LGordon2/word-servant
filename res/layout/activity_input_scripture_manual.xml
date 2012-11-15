@@ -38,25 +38,18 @@
         android:layout_alignParentRight="true"
         android:text="@string/done_button_text" />
 
-    <ScrollView
-        android:id="@+id/scrollView1"
+    <EditText
+        android:id="@+id/scriptureText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/doneButton"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/categoryName" >
-
-        <EditText
-            android:id="@+id/scriptureText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:gravity="top|center_vertical"
-            android:hint="@string/scripture_text_text_field_hint"
-            android:inputType="textMultiLine"
-            android:lines="10" />
-
-    </ScrollView>
+        android:layout_below="@+id/categoryName"
+        android:ems="10"
+        android:gravity="top|center_vertical"
+        android:hint="@string/scripture_text_text_field_hint"
+        android:inputType="textMultiLine"
+        android:lines="10"
+        android:scrollbars="vertical" />
 
 </RelativeLayout>

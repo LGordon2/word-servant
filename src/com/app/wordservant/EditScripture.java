@@ -60,6 +60,7 @@ public class EditScripture extends Activity {
 			@Override
 			public void onClick(View view) {
 				// TODO Auto-generated method stub
+				
 				ContentValues updatedItems = new ContentValues();
 				updatedItems.put("reference", editScriptureReference.getText().toString());
 				//updatedItems.put("category", editCategory.getText().toString());
