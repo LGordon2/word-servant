@@ -51,7 +51,7 @@ public class InputScriptureManual extends Activity {
 
 				Runtime r = Runtime.getRuntime();
 				// Map the values of the fields to columns that are used in the database.
-				SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+				SimpleDateFormat dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
 				String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
 				ContentValues scriptureValues = new ContentValues();
 				scriptureValues.put("reference", scriptureReference.getText().toString());

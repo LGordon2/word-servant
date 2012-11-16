@@ -11,6 +11,7 @@ public final class R {
     public static final class array {
         public static final int limit_strings=0x7f050000;
         public static final int limit_values=0x7f050001;
+        public static final int tags=0x7f050002;
     }
     public static final class attr {
     }
@@ -18,33 +19,36 @@ public final class R {
         public static final int word_servant_icon=0x7f020000;
     }
     public static final class id {
-        public static final int LinearLayout1=0x7f08000f;
-        public static final int button_layout=0x7f080016;
+        public static final int LinearLayout1=0x7f08000e;
+        public static final int RelativeLayout1=0x7f08001b;
+        public static final int button_layout=0x7f080017;
         public static final int categoryName=0x7f080001;
-        public static final int checkBox1=0x7f08000d;
-        public static final int currentDate=0x7f08000c;
+        public static final int checkBox1=0x7f08000c;
         public static final int doneButton=0x7f080002;
-        public static final int dueToday=0x7f08000b;
         public static final int dueTodayButtonLayout=0x7f080006;
         public static final int dueTodayCategory=0x7f080005;
         public static final int dueTodayFinishedButton=0x7f080007;
         public static final int dueTodayNextButton=0x7f080008;
         public static final int dueTodayScripture=0x7f08000a;
         public static final int dueTodayScriptureReference=0x7f080004;
-        public static final int input_scripture=0x7f080017;
+        public static final int input_scripture=0x7f080018;
+        public static final int listView1=0x7f080016;
         public static final int list_entry=0x7f080015;
-        public static final int menu_settings=0x7f08001a;
-        public static final int quizReview=0x7f080012;
-        public static final int scriptureBank=0x7f080011;
+        public static final int menu_settings=0x7f08001d;
+        public static final int quizReview=0x7f080011;
+        public static final int scriptureBank=0x7f080010;
         public static final int scriptureReference=0x7f080000;
-        public static final int scriptureSearch=0x7f080014;
+        public static final int scriptureSearch=0x7f080013;
         public static final int scriptureText=0x7f080003;
-        public static final int scripture_bank_list=0x7f080019;
+        public static final int scripture_bank_list=0x7f08001a;
         public static final int scrollView=0x7f080009;
-        public static final int select_scripture=0x7f080018;
-        public static final int statistics=0x7f080013;
-        public static final int textView1=0x7f08000e;
-        public static final int todaysMemoryVerses=0x7f080010;
+        public static final int select_scripture=0x7f080019;
+        public static final int spinner1=0x7f08001c;
+        public static final int statistics=0x7f080012;
+        public static final int tagPreview=0x7f080014;
+        public static final int test=0x7f08000b;
+        public static final int textView1=0x7f08000d;
+        public static final int todaysMemoryVerses=0x7f08000f;
     }
     public static final class layout {
         public static final int activity_input_scripture_manual=0x7f030000;
@@ -53,8 +57,10 @@ public final class R {
         public static final int checkbox_list_layout=0x7f030003;
         public static final int landing_screen=0x7f030004;
         public static final int list_layout=0x7f030005;
-        public static final int scripture_bank=0x7f030006;
-        public static final int settings=0x7f030007;
+        public static final int review_scripture_layout=0x7f030006;
+        public static final int scripture_bank=0x7f030007;
+        public static final int settings=0x7f030008;
+        public static final int tag_preview=0x7f030009;
     }
     public static final class menu {
         public static final int activity_due_today=0x7f070000;
@@ -63,12 +69,15 @@ public final class R {
         public static final int activity_todays_memory_verses=0x7f070003;
         public static final int landing_screen=0x7f070004;
         public static final int scripture_bank=0x7f070005;
+        public static final int tag_preview=0x7f070006;
     }
     public static final class string {
         public static final int category_text_field_hint=0x7f040008;
         public static final int database_name=0x7f040010;
+        public static final int date_format=0x7f040013;
         public static final int done_button_text=0x7f04000c;
         public static final int got_it_button_text=0x7f04000e;
+        public static final int hello_world=0x7f040014;
         public static final int input_scripture_button_text=0x7f040004;
         public static final int menu_settings=0x7f040000;
         public static final int next_button_text=0x7f04000f;
@@ -83,6 +92,7 @@ public final class R {
         public static final int title_activity_main=0x7f040001;
         public static final int title_activity_scripture_bank=0x7f040003;
         public static final int title_activity_settings=0x7f040002;
+        public static final int title_activity_tag_preview=0x7f040015;
         public static final int title_activity_todays_memory_verses=0x7f040007;
     }
     public static final class style {

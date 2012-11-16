@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.wordservant"
     android:versionCode="1"
@@ -8,11 +9,11 @@
         android:targetSdkVersion="17" />
 
     <application
+        android:allowBackup="true"
         android:icon="@drawable/word_servant_icon"
-        android:label="@string/title_activity_main"
-        android:allowBackup="true">
+        android:label="@string/title_activity_main" >
         <activity
-            android:name=".LandingScreen"
+            android:name="com.app.wordservant.LandingScreen"
             android:label="@string/title_activity_main"
             android:theme="@style/MenuTheme" >
             <intent-filter>
@@ -22,33 +23,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Settings"
+            android:name="com.app.wordservant.Settings"
             android:label="@string/title_activity_settings"
             android:theme="@style/MenuTheme" >
         </activity>
         <activity
-            android:name=".ScriptureBank"
+            android:name="com.app.wordservant.ScriptureBank"
             android:label="@string/title_activity_scripture_bank"
             android:theme="@style/MenuTheme" >
         </activity>
         <activity
-            android:name=".InputScriptureManual"
+            android:name="com.app.wordservant.InputScriptureManual"
             android:label="@string/title_activity_input_scripture_manual" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.wordservant.LandingScreen" />
         </activity>
         <activity
-            android:name=".EditScripture"
+            android:name="com.app.wordservant.EditScripture"
             android:label="@string/title_activity_edit_scripture" >
         </activity>
         <activity
-            android:name=".TodaysMemoryVerses"
+            android:name="com.app.wordservant.TodaysMemoryVerses"
             android:label="@string/title_activity_todays_memory_verses" >
         </activity>
         <activity
-            android:name=".ScriptureReview"
+            android:name="com.app.wordservant.ScriptureReview"
             android:label="@string/title_activity_due_today" >
+        </activity>
+        <activity
+            android:name="com.app.wordservant.TagPreview"
+            android:label="@string/title_activity_tag_preview" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.app.wordservant.LandingScreen" />
         </activity>
     </application>
 

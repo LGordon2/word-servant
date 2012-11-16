@@ -51,6 +51,19 @@ public class LandingScreen extends Activity{
 		    	startActivity(intent);
 			}
 		});
+		
+		//Tag Preview button
+		Button tagPreview = (Button) this.findViewById(R.id.tagPreview);
+		tagPreview.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// Starts a new Scripture Bank activity.
+				Intent intent = new Intent(v.getContext(),TagPreview.class);
+				Toast.makeText(LandingScreen.this, "Tag Preview", Toast.LENGTH_SHORT).show();
+		    	startActivity(intent);
+			}
+		});
 	}
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {

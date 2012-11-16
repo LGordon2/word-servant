@@ -44,7 +44,7 @@ public class ScriptureReview extends Activity {
         editScripture = (TextView) findViewById(R.id.dueTodayScripture);
         
         //Get the date for today.
-		SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+		SimpleDateFormat dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
 		todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
         
         //Open the database.
@@ -140,7 +140,7 @@ public class ScriptureReview extends Activity {
 		
 		// Update the database showing that the scripture was reviewed.
 		ContentValues updatedValues = new ContentValues();
-		SimpleDateFormat dbDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
 		
 		//Update the times reviewed.

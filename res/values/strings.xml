@@ -1,8 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">Word Servant</string>
-
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_scripture_bank">Scripture Bank</string>
     <string name="input_scripture_button_text">Input Scripture (Manual)</string>
@@ -20,17 +20,27 @@
     <string name="database_name">wordservant_db</string>
     <string name="scripture_table_name">scriptures</string>
     <string name="tag_table_name">tags</string>
+
     <string-array name="limit_strings">
-        <item >1</item>
-        <item >2</item>
-        <item >3</item>
-        <item >4 (Default)</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4 (Default)</item>
     </string-array>
     <string-array name="limit_values">
-        <item >1</item>
-        <item >2</item>
-        <item >3</item>
-        <item >4</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+    <string name="date_format">yyyy-MM-dd</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_tag_preview">MainActivity</string>
+    <string-array name="tags">
+        <item >Faith</item>
+        <item >Creation</item>
+        <item >Love</item>
     </string-array>
 
 </resources>
