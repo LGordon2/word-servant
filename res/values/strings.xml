@@ -33,14 +33,18 @@
         <item>3</item>
         <item>4</item>
     </string-array>
-
-    <string name="date_format">yyyy-MM-dd</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_tag_preview">MainActivity</string>
     <string-array name="tags">
         <item >Faith</item>
         <item >Creation</item>
         <item >Love</item>
+        <item >Hope</item>
+        <item >Daisy</item>
+        <item >Petey</item>
+        <item >Wario</item>
+        <item >Peach</item>
+        <item >Luigi</item>
     </string-array>
+    <string name="date_format">yyyy-MM-dd</string>
 
 </resources>

@@ -3,7 +3,6 @@ package com.app.wordservant;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import android.app.Activity;
@@ -13,9 +12,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteQueryBuilder;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.HapticFeedbackConstants;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -152,6 +151,7 @@ public class TodaysMemoryVerses extends Activity{
 				    	startActivity(intent);
 					}
 				}else{
+					dueTodayView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
 					Toast.makeText(getApplicationContext(), "Scripture is disabled.", Toast.LENGTH_SHORT).show();
 				}
 			}

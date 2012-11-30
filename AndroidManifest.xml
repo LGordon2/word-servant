@@ -58,6 +58,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.app.wordservant.LandingScreen" />
         </activity>
+        <service android:exported="false" android:name="NotificationService"></service>
     </application>
 
 </manifest>

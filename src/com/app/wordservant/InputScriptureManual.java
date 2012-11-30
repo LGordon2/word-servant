@@ -52,13 +52,9 @@ public class InputScriptureManual extends Activity {
 				Runtime r = Runtime.getRuntime();
 				// Map the values of the fields to columns that are used in the database.
 				SimpleDateFormat dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
-				String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
 				ContentValues scriptureValues = new ContentValues();
 				scriptureValues.put("reference", scriptureReference.getText().toString());
 				scriptureValues.put("text", scriptureText.getText().toString());
-				scriptureValues.put("created_date", todaysDate);
-				scriptureValues.put("schedule", "daily");
-				scriptureValues.put("times_reviewed", 0);
 				
 				//Query for any "running" scriptures.
 				String [] columnsToRetrieve = {"SCHEDULE","TIMES_REVIEWED","NEXT_REVIEW_DATE"};
@@ -74,8 +70,6 @@ public class InputScriptureManual extends Activity {
 					}
 					currentCalendar.add(Calendar.DATE, 7-runningScriptureQuery.getInt(1));
 					scriptureValues.put("next_review_date", dbDateFormat.format(currentCalendar.getTime()));
-				}else{
-					scriptureValues.put("next_review_date", todaysDate);
 				}
 				r.gc();
 				

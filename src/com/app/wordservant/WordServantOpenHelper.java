@@ -36,11 +36,11 @@ public class WordServantOpenHelper extends SQLiteOpenHelper{
 	            " REFERENCE TEXT NOT NULL, " +
 	            " TAG_ID INTEGER, " +
 	            " TEXT TEXT NOT NULL, " +
-	            " CREATED_DATE TEXT NOT NULL, " + 
-	            " SCHEDULE TEXT NOT NULL, "+
-	            " LAST_REVIEWED_DATE TEXT," +
-	            " TIMES_REVIEWED INTEGER NOT NULL," +
-	            " NEXT_REVIEW_DATE TEXT NOT NULL);";
+	            " CREATED_DATE TEXT DEFAULT CURRENT_DATE, " + 
+	            " SCHEDULE TEXT NOT NULL DEFAULT daily, "+
+	            " LAST_REVIEWED_DATE TEXT DEFAULT NULL," +
+	            " TIMES_REVIEWED INTEGER NOT NULL DEFAULT 0," +
+	            " NEXT_REVIEW_DATE TEXT DEFAULT CURRENT_DATE);";
 	            //" FOREIGN_KEY(TAG_ID) REFERENCES "+TAG_TABLE_NAME+"(TAG_ID));";
 	}
 
