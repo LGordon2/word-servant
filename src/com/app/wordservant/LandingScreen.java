@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,7 +84,7 @@ public class LandingScreen extends Activity{
 			public void onClick(View v) {
 				// Starts a new Scripture Bank activity.
 				Intent intent = new Intent(v.getContext(),TagPreview.class);
-				Toast.makeText(LandingScreen.this, "Tag Preview", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(LandingScreen.this, "Not yet implemented", Toast.LENGTH_SHORT).show();
 		    	startActivity(intent);
 			}
 		});
@@ -91,7 +92,7 @@ public class LandingScreen extends Activity{
 	}
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.landing_screen, menu);
+        //getMenuInflater().inflate(R.menu.landing_screen, menu);
         return true;
     }
 

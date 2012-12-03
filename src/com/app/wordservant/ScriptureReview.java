@@ -48,7 +48,7 @@ public class ScriptureReview extends Activity {
 		todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
         
         //Open the database.
-        wordservant_db = new WordServantOpenHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
+        wordservant_db = new WordServantDbHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
         positionOnScreen = this.getIntent().getIntExtra("positionOnScreen", 0);
         final Bundle bundledScriptureList = this.getIntent().getBundleExtra("bundledScriptureList");
         displayScriptureContent(bundledScriptureList.getInt(String.valueOf(positionOnScreen)));
@@ -133,7 +133,7 @@ public class ScriptureReview extends Activity {
 		}
 	}
 	public static void updateReviewedScripture(Context context, int scriptureId){
-		SQLiteDatabase wordservant_db = new WordServantOpenHelper(context, "wordservant_db", null, 1).getReadableDatabase();
+		SQLiteDatabase wordservant_db = new WordServantDbHelper(context, "wordservant_db", null, 1).getReadableDatabase();
 		String [] columns_to_retrieve = {"next_review_date", "schedule", "times_reviewed", "last_reviewed_date"};
 		Cursor scriptureQuery = wordservant_db.query("scriptures", columns_to_retrieve, "_id="+scriptureId, null, null, null, null);
 		scriptureQuery.moveToFirst();

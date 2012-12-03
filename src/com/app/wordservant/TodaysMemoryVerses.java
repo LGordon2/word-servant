@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.HapticFeedbackConstants;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class TodaysMemoryVerses extends Activity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todays_memory_verses);
-        wordservant_db = new WordServantOpenHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
+        wordservant_db = new WordServantDbHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
         
     }
 	
@@ -165,6 +166,18 @@ public class TodaysMemoryVerses extends Activity{
         getMenuInflater().inflate(R.menu.activity_todays_memory_verses, menu);
         return true;
     }
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.menu_settings:
+	        	Intent intent = new Intent(this, Settings.class);
+	        	startActivity(intent);
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
     
 	protected void onDestroy(){
 		super.onDestroy();

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flashCardLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ViewSwitcher
+        android:id="@+id/cardSwitcher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/flipCardButton"
+        android:inAnimation="@anim/grow_from_middle"
+        android:outAnimation="@anim/shrink_to_middle" >
+
+        <TextView
+            android:id="@+id/cardFront"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:gravity="center_horizontal"
+            android:text="Genesis 1:1"
+            android:textColor="#000000"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/cardBack"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000000"
+            android:gravity="center_horizontal"
+            android:text="In the beginning God created the heavens and the earth."
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+    </ViewSwitcher>
+
+    <Button
+        android:id="@+id/flipCardButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="Flip card" />
+
+</RelativeLayout>

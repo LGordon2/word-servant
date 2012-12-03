@@ -30,7 +30,7 @@ public class EditScripture extends Activity {
 		protected Cursor doInBackground(Integer... scriptureId) {
 			// Gets all the scriptures from the database.
 			String [] columns_to_retrieve = {"_id", "REFERENCE", "TAG_ID", "TEXT"};
-			SQLiteDatabase wordservantReadableDatabase = new WordServantOpenHelper(getApplicationContext(), "wordservant_db", null, 1).getReadableDatabase();
+			SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(getApplicationContext(), "wordservant_db", null, 1).getReadableDatabase();
 			Cursor scriptureQuery = wordservantReadableDatabase.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, "_id="+scriptureId[0], null, null, null, null);
 			scriptureQuery.moveToFirst();
 			wordservantReadableDatabase.close();
@@ -65,7 +65,7 @@ public class EditScripture extends Activity {
 				updatedItems.put("reference", editScriptureReference.getText().toString());
 				//updatedItems.put("category", editCategory.getText().toString());
 				updatedItems.put("text", editScripture.getText().toString());
-				SQLiteDatabase wordservantReadableDatabase = new WordServantOpenHelper(getApplicationContext(), "wordservant_db", null, 1).getWritableDatabase();
+				SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(getApplicationContext(), "wordservant_db", null, 1).getWritableDatabase();
 				wordservantReadableDatabase.update(getResources().getString(R.string.scripture_table_name), updatedItems, "_id="+selectedScriptureId, null);
 				wordservantReadableDatabase.close();
 				finish();

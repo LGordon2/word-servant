@@ -55,10 +55,9 @@ public class InputScriptureManual extends Activity {
 				ContentValues scriptureValues = new ContentValues();
 				scriptureValues.put("reference", scriptureReference.getText().toString());
 				scriptureValues.put("text", scriptureText.getText().toString());
-				
 				//Query for any "running" scriptures.
 				String [] columnsToRetrieve = {"SCHEDULE","TIMES_REVIEWED","NEXT_REVIEW_DATE"};
-				SQLiteDatabase wordservant_db_readable = new WordServantOpenHelper(inputScriptureView.getContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
+				SQLiteDatabase wordservant_db_readable = new WordServantDbHelper(inputScriptureView.getContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
 				Cursor runningScriptureQuery = wordservant_db_readable.query("scriptures", columnsToRetrieve, "SCHEDULE='daily' AND TIMES_REVIEWED<7", null, null, null, null);
 				if (runningScriptureQuery.getCount()>0){
 					runningScriptureQuery.moveToLast();
@@ -75,7 +74,7 @@ public class InputScriptureManual extends Activity {
 				
 				//Open the database and add the row.
 				try{
-					wordservant_db = new WordServantOpenHelper(inputScriptureView.getContext(), getResources().getString(R.string.database_name), null, 1).getWritableDatabase();
+					wordservant_db = new WordServantDbHelper(inputScriptureView.getContext(), getResources().getString(R.string.database_name), null, 1).getWritableDatabase();
 					wordservant_db.insert(getResources().getString(R.string.scripture_table_name), null, scriptureValues);
 				} catch(SQLiteException e){
 					System.err.println("Error with SQL statement.");

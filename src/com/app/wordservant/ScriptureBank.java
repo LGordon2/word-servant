@@ -33,8 +33,8 @@ public class ScriptureBank extends Activity {
 		@Override
 		protected Cursor doInBackground(Void... params) {
 			// Gets the scripture that matches the scripture id.
-			String [] columns_to_retrieve = {"_id", "REFERENCE"};
-	        SQLiteDatabase wordservantReadableDatabase = new WordServantOpenHelper(getApplicationContext(), "wordservant_db", null, 1).getReadableDatabase();
+			String [] columns_to_retrieve = {"_id", "reference"};
+	        SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(getApplicationContext(), "wordservant_db", null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
 			Cursor scriptureQuery = wordservantReadableDatabase.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, null, null, null, null, null);
 			scriptureQuery.moveToFirst();
 			wordservantReadableDatabase.close();
@@ -96,7 +96,7 @@ public class ScriptureBank extends Activity {
     
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.scripture_bank, menu);
+        //getMenuInflater().inflate(R.menu.scripture_bank, menu);
         return true;
     }
 	
