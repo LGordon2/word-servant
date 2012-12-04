@@ -10,23 +10,14 @@
         
 	    <ListPreference 
 	        android:key="pref_key_daily_limit"
-	        android:title="Daily Scripture Review Limit"
+	        android:title="New Scriptures Per Week"
 	        android:summary="Daily limit on scriptures."
-	        android:defaultValue="4"
+	        android:defaultValue="1"
 	        android:entries = "@array/limit_strings"
 	        android:entryValues="@array/limit_values"
 	        android:layout_width="match_parent"
     		android:layout_height="match_parent"/>
-	    
-    </PreferenceCategory>
-    
-     <PreferenceCategory 
-     android:title="Notifications Settings"
-     android:key="pref_key_notification_settings"
-     android:layout_width="match_parent"
- 	android:layout_height="match_parent">
-     
-	  <CheckBoxPreference 
+	    	  <CheckBoxPreference 
 	      android:key="pref_key_notifications_enabled"
 	      android:title="Notifications"
 	      android:summaryOn="Notifications enabled."
@@ -34,5 +25,25 @@
 	      android:defaultValue="true"
 	      android:layout_width="match_parent"
 	 		android:layout_height="match_parent"/>
+	    
+
+	    
+    </PreferenceCategory>
+    
+     <PreferenceCategory 
+     android:title="Review Method Settings"
+     android:key="pref_key_notification_settings"
+     android:layout_width="match_parent"
+ 	android:layout_height="match_parent">
+     
+      <CheckBoxPreference 
+	        android:key="pref_key_flashcards"
+	        android:title="Flashcards"
+	      	android:summaryOn="Flashcards enabled."
+	      	android:summaryOff="Flashcards disabled."
+	        android:defaultValue="false"
+	        android:layout_width="match_parent"
+    		android:layout_height="match_parent"/>
+
 	  </PreferenceCategory>
 </PreferenceScreen>

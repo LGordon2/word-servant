@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/noEditLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/dueTodayScriptureReference"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:ems="10"
+        android:hint="@string/scripture_reference_text_field_hint" />
+
+    <TextView
+        android:id="@+id/dueTodayTags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dueTodayScriptureReference"
+        android:ems="10"
+        android:hint="@string/category_text_field_hint" />
+
+    <ScrollView
+        android:id="@+id/scriptureTextScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/dueTodayTags" >
+
+        <TextView
+            android:id="@+id/scriptureText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="top"
+            android:hint="@string/scripture_text_text_field_hint"
+            android:scrollbars="vertical" />
+
+    </ScrollView>
+
+</RelativeLayout>

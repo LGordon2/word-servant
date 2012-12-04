@@ -66,7 +66,7 @@ public class ScriptureBank extends Activity {
         
         //Displays the scripture bank.
 		try {
-			String [] fromColumns = {"REFERENCE"};
+			String [] fromColumns = {WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE};
 			int [] toViews = {R.id.list_entry};
 			scriptureQuery = dbQuerier.get();
 			scriptureAdapter = new SimpleCursorAdapter(this, R.layout.list_layout, scriptureQuery, fromColumns, toViews);
@@ -93,10 +93,9 @@ public class ScriptureBank extends Activity {
 		}
 
     }
-    
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.scripture_bank, menu);
+        //getMenuInflater().inflate(R.menu.landing_screen, menu);
         return true;
     }
 	

@@ -12,7 +12,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/flipCardButton"
         android:inAnimation="@anim/grow_from_middle"
-        android:outAnimation="@anim/shrink_to_middle" >
+        android:outAnimation="@anim/shrink_to_middle"
+        android:animateFirstView="false" >
 
         <TextView
             android:id="@+id/cardFront"
