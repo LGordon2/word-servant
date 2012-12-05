@@ -18,8 +18,19 @@ public class WordServantDbHelper extends SQLiteOpenHelper{
     		WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+" TEXT DEFAULT NULL, "+
     		WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" INTEGER NOT NULL DEFAULT 0, "+
     		WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+" TEXT DEFAULT CURRENT_DATE);";
+    
 	private static String TAG_TABLE_CREATE = "CREATE TABLE "+WordServantContract.TagEntry.TABLE_NAME+" ("+
-    		WordServantContract.TagEntry._ID+" INTEGER PRIMARY KEY AUTOINCREMENT);";
+    		WordServantContract.TagEntry._ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+			WordServantContract.TagEntry.COLUMN_NAME_TAG_NAME+" TEXT NOT NULL);";
+	
+	private static String CATEGORY_TABLE_CREATE = "CREATE TABLE "+WordServantContract.CategoryEntry.TABLE_NAME+" ("+
+    		WordServantContract.CategoryEntry._ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
+			WordServantContract.CategoryEntry.COLUMN_NAME_SCRIPTURE_ID+ " INTEGER NOT NULL, "+
+			WordServantContract.CategoryEntry.COLUMN_NAME_TAG_ID+ " INTEGER NOT NULL, "+
+			"FOREIGN KEY ("+WordServantContract.CategoryEntry.COLUMN_NAME_SCRIPTURE_ID+") REFERENCES "+
+				WordServantContract.ScriptureEntry.TABLE_NAME+"("+WordServantContract.ScriptureEntry._ID+"), "+
+			"FOREIGN KEY ("+WordServantContract.CategoryEntry.COLUMN_NAME_TAG_ID+") REFERENCES "+
+				WordServantContract.TagEntry.TABLE_NAME+"("+WordServantContract.TagEntry._ID+");";
 	
 	
 	public WordServantDbHelper(Context context, String name,
@@ -30,11 +41,15 @@ public class WordServantDbHelper extends SQLiteOpenHelper{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// Creates the scripture bank table when the database is created.
-		//db.execSQL("PRAGMA foreign_keys=ON;");
 		db.execSQL(SCRIPTURE_BANK_TABLE_CREATE);
 		db.execSQL(TAG_TABLE_CREATE);
+		db.execSQL(CATEGORY_TABLE_CREATE);
 	}
 
+	public void onOpen(SQLiteDatabase db){
+		super.onOpen(db);
+		db.execSQL("PRAGMA foreign_keys=ON;");
+	}
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -42,6 +57,7 @@ public class WordServantDbHelper extends SQLiteOpenHelper{
         // Kills the table and existing data
         db.execSQL("DROP TABLE IF EXISTS "+ WordServantContract.ScriptureEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ WordServantContract.TagEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ WordServantContract.CategoryEntry.TABLE_NAME);
 
         // Recreates the database with a new version
         onCreate(db);

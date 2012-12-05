@@ -25,7 +25,7 @@ public final class R {
     public static final class id {
         public static final int LinearLayout1=0x7f090009;
         public static final int button1=0x7f09000a;
-        public static final int button_layout=0x7f090021;
+        public static final int button_layout=0x7f090027;
         public static final int cardBack=0x7f090015;
         public static final int cardFront=0x7f090014;
         public static final int cardSwitcher=0x7f090012;
@@ -41,10 +41,11 @@ public final class R {
         public static final int dueTodayTags=0x7f09001d;
         public static final int flashCardLayout=0x7f090011;
         public static final int flipCardButton=0x7f090013;
-        public static final int input_scripture=0x7f090022;
-        public static final int listView1=0x7f090020;
-        public static final int list_entry=0x7f09001f;
-        public static final int menu_settings=0x7f090025;
+        public static final int gridView1=0x7f090023;
+        public static final int input_scripture=0x7f090028;
+        public static final int listView1=0x7f090021;
+        public static final int list_entry=0x7f090026;
+        public static final int menu_settings=0x7f09002b;
         public static final int noEditLayout=0x7f09001c;
         public static final int quizReview=0x7f090018;
         public static final int scriptureBank=0x7f090017;
@@ -53,13 +54,18 @@ public final class R {
         public static final int scriptureSearch=0x7f09001a;
         public static final int scriptureText=0x7f090003;
         public static final int scriptureTextScroll=0x7f09001e;
-        public static final int scripture_bank_list=0x7f090024;
+        public static final int scripture_bank_list=0x7f09002a;
         public static final int scrollView=0x7f09000f;
-        public static final int select_scripture=0x7f090023;
+        public static final int select_scripture=0x7f090029;
         public static final int statistics=0x7f090019;
+        public static final int tab1=0x7f090020;
+        public static final int tab2=0x7f090022;
+        public static final int tab3=0x7f090024;
+        public static final int tabhost=0x7f09001f;
         public static final int tagPreview=0x7f09001b;
         public static final int test=0x7f090008;
         public static final int textView1=0x7f09000c;
+        public static final int textView3=0x7f090025;
         public static final int todaysMemoryVerses=0x7f090016;
     }
     public static final class layout {
@@ -72,10 +78,11 @@ public final class R {
         public static final int flashcard_layout=0x7f030006;
         public static final int landing_screen=0x7f030007;
         public static final int layout_no_edit_scripture=0x7f030008;
-        public static final int list_layout=0x7f030009;
-        public static final int review_scripture_layout=0x7f03000a;
-        public static final int scripture_bank=0x7f03000b;
-        public static final int settings=0x7f03000c;
+        public static final int layout_select_scripture=0x7f030009;
+        public static final int list_layout=0x7f03000a;
+        public static final int review_scripture_layout=0x7f03000b;
+        public static final int scripture_bank=0x7f03000c;
+        public static final int settings=0x7f03000d;
     }
     public static final class menu {
         public static final int activity_due_today=0x7f080000;

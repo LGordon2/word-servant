@@ -3,5 +3,4 @@
     <style name="AppTheme" parent="android:Theme.Light.NoTitleBar"></style>
 
     <style name="MenuTheme" parent="android:Theme"></style>
-
 </resources>

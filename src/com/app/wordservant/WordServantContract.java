@@ -18,5 +18,11 @@ public class WordServantContract {
 	}
 	public abstract class TagEntry implements BaseColumns{
 		public static final String TABLE_NAME = "tags";
+		public static final String COLUMN_NAME_TAG_NAME = "tag_name";
+	}
+	public abstract class CategoryEntry implements BaseColumns{
+		public static final String TABLE_NAME = "categories";
+		public static final String COLUMN_NAME_SCRIPTURE_ID = "scripture_id";
+		public static final String COLUMN_NAME_TAG_ID = "tag_id";
 	}
 }

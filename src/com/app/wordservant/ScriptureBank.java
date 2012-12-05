@@ -34,7 +34,7 @@ public class ScriptureBank extends Activity {
 		protected Cursor doInBackground(Void... params) {
 			// Gets the scripture that matches the scripture id.
 			String [] columns_to_retrieve = {"_id", "reference"};
-	        SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(getApplicationContext(), "wordservant_db", null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
+	        SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(getApplicationContext(), "wordservant_db", null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 			Cursor scriptureQuery = wordservantReadableDatabase.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, null, null, null, null, null);
 			scriptureQuery.moveToFirst();
 			wordservantReadableDatabase.close();
