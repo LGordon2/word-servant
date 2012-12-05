@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.wordservant"
     android:versionCode="1"
-    android:versionName="0.0.1" >
+    android:versionName="0.0.2" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -58,7 +58,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.app.wordservant.LandingScreen" />
         </activity>
-        <service android:exported="false" android:name="NotificationService"></service>
+        <service android:exported="false" android:name="NotificationService">
+        </service>
+        <receiver android:name="BootBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
