@@ -30,7 +30,7 @@ public class WordServantDbHelper extends SQLiteOpenHelper{
 			"FOREIGN KEY ("+WordServantContract.CategoryEntry.COLUMN_NAME_SCRIPTURE_ID+") REFERENCES "+
 				WordServantContract.ScriptureEntry.TABLE_NAME+"("+WordServantContract.ScriptureEntry._ID+"), "+
 			"FOREIGN KEY ("+WordServantContract.CategoryEntry.COLUMN_NAME_TAG_ID+") REFERENCES "+
-				WordServantContract.TagEntry.TABLE_NAME+"("+WordServantContract.TagEntry._ID+");";
+				WordServantContract.TagEntry.TABLE_NAME+"("+WordServantContract.TagEntry._ID+"));";
 	
 	
 	public WordServantDbHelper(Context context, String name,

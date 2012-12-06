@@ -52,19 +52,28 @@
             android:label="@string/title_activity_due_today" >
         </activity>
         <activity
-            android:name="com.app.wordservant.TagPreview"
+            android:name="com.app.wordservant.SelectScripture"
             android:label="@string/title_activity_tag_preview" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.app.wordservant.LandingScreen" />
         </activity>
-        <service android:exported="false" android:name="NotificationService">
+
+        <service
+            android:name="com.app.wordservant.NotificationService"
+            android:exported="false" >
         </service>
-        <receiver android:name="BootBroadcastReceiver">
+
+        <receiver android:name="com.app.wordservant.BootBroadcastReceiver" >
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name="com.app.wordservant.DisplaySelectedScripture"
+            android:label="@string/title_activity_display_selected_scripture" >
+        </activity>
     </application>
 
 </manifest>

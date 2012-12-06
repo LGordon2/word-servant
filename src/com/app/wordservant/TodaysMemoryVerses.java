@@ -39,7 +39,7 @@ public class TodaysMemoryVerses extends Activity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todays_memory_verses);
-        wordservant_db = new WordServantDbHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
+        wordservant_db = new WordServantDbHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getWritableDatabase();
         
     }
 	

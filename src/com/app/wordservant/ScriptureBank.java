@@ -64,6 +64,19 @@ public class ScriptureBank extends Activity {
         	
         });
         
+        //Functionality for the selected scripture button.
+        Button selectScripture = (Button) this.findViewById(R.id.select_scripture);
+        selectScripture.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getApplicationContext(),SelectScripture.class);
+				startActivity(intent);
+			}
+        	
+        });
+        
         //Displays the scripture bank.
 		try {
 			String [] fromColumns = {WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE};

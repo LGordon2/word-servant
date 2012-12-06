@@ -28,7 +28,15 @@
                 <LinearLayout
                     android:id="@+id/tab1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <ProgressBar
+                        android:id="@+id/progressBar1"
+                        style="?android:attr/progressBarStyleLarge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
 
                     <ListView
                         android:id="@+id/listView1"
@@ -37,6 +45,7 @@
                         android:layout_weight="1" >
 
                     </ListView>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -48,7 +57,7 @@
                         android:id="@+id/gridView1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
+                        android:gravity="center_vertical|center_horizontal"
                         android:numColumns="5"
                         android:stretchMode="columnWidth" >
                     </GridView>
@@ -59,11 +68,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
 
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="happy" />
+                    <GridView
+                        android:id="@+id/gridView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:numColumns="3" >
+                    </GridView>
+
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>
