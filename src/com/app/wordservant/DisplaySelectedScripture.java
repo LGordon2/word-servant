@@ -2,6 +2,7 @@ package com.app.wordservant;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -23,11 +24,41 @@ public class DisplaySelectedScripture extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_selected_scripture);
-		TextView t = (TextView) findViewById(R.id.selectedScriptureText);
+		TextView text = (TextView) findViewById(R.id.selectedScriptureText);
 		TextView referenceView = (TextView) findViewById(R.id.scriptureReference);
-		final String scriptureText = this.getIntent().getStringExtra("scripture_text");
-		final String reference = this.getIntent().getStringExtra("reference");
-		t.setText(scriptureText);
+		
+		//Grabbing intent values..
+		final ArrayList<Integer> verseNumbers = this.getIntent().getBundleExtra("bundle").getIntegerArrayList("verses");
+		final int chapterNumber = this.getIntent().getIntExtra("chapter_number", 0);
+		final String bookName = this.getIntent().getStringExtra("book_name");
+		String createdScriptureText = "";
+		String verseString = "";
+		Bible.BibleVerse currentVerse = null;
+		for(int i=0;i<verseNumbers.size();i++){
+			//verses.add(Bible.getInstance().getBook(bookName).chapters.get(chapterNumber).getVerse(i));
+			currentVerse = Bible.getInstance().getBook(bookName).chapters.get(chapterNumber-1).getVerse(verseNumbers.get(i)-1);
+			createdScriptureText += currentVerse.verseNumber+currentVerse.text;
+			if(i==0){
+				verseString = String.valueOf(verseNumbers.get(i));
+			}else if(verseNumbers.get(i)==verseNumbers.get(i-1)+1){
+				verseString+= "-";
+				i+=1;
+				while(i<verseNumbers.size() && verseNumbers.get(i)==verseNumbers.get(i-1)+1){
+					currentVerse = Bible.getInstance().getBook(bookName).chapters.get(chapterNumber).getVerse(verseNumbers.get(i)-1);
+					createdScriptureText += currentVerse.verseNumber+currentVerse.text;
+					i+=1;
+				}
+				i-=1;
+				verseString+= verseNumbers.get(i);
+			}else{
+				verseString+=",";
+				verseString+=verseNumbers.get(i);
+			}
+			
+		}
+		final String reference = bookName+" "+chapterNumber+":"+verseString;
+		final String scriptureText = createdScriptureText;
+		text.setText(scriptureText);
 		referenceView.setText(reference);
 		
 		Button addScriptureButton = (Button) findViewById(R.id.addSelectedScripture);
@@ -36,11 +67,6 @@ public class DisplaySelectedScripture extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				/*SQLiteDatabase db = new WordServantDbHelper(getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getWritableDatabase();
-				ContentValues contentValues = new ContentValues(); 
-				contentValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE, reference);
-				contentValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT, scriptureText);
-				db.insert(WordServantContract.ScriptureEntry.TABLE_NAME, null, contentValues);*/
 				
 				SimpleDateFormat dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
 				ContentValues scriptureValues = new ContentValues();

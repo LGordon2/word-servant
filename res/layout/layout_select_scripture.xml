@@ -17,7 +17,7 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -50,7 +50,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Loading..." />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -64,11 +63,10 @@
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
                         android:numColumns="5" >
-
                     </GridView>
                 </LinearLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/tab3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
@@ -76,11 +74,21 @@
                     <GridView
                         android:id="@+id/gridView2"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/displayScriptures"
+                        android:layout_alignParentTop="true"
                         android:numColumns="5" >
                     </GridView>
 
-                </LinearLayout>
+                    <Button
+                        android:id="@id/displayScriptures"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:text="Display Scriptures"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
             </FrameLayout>
         </LinearLayout>
     </TabHost>

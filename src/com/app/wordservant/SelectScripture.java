@@ -1,15 +1,7 @@
 package com.app.wordservant;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.TreeMap;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import com.app.wordservant.Bible.BibleBook;
+import java.util.Collections;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,15 +9,21 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TabHost;
-import android.widget.TextView;
 import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
+
+import com.app.wordservant.Bible.BibleBook;
 
 public class SelectScripture extends Activity {
 
@@ -67,25 +65,55 @@ public class SelectScripture extends Activity {
 							// TODO Auto-generated method stub
 							TabHost tHost = (TabHost) findViewById(R.id.tabhost);
 							tHost.setCurrentTab(2);
-							GridView gView = (GridView) findViewById(R.id.gridView2);
+							final GridView gView = (GridView) findViewById(R.id.gridView2);
 							final Bible.BibleChapter chapter = b.getChapter(position);
+							final ArrayList<Integer> checkedCheckBoxes = new ArrayList<Integer>();
+							
 							gView.setOnItemClickListener(new OnItemClickListener(){
 
 								@Override
 								public void onItemClick(AdapterView<?> aView,
 										View view, int position, long id) {
-									// TODO Auto-generated method stub
-									Intent intent = new Intent(getApplicationContext(),DisplaySelectedScripture.class);
-									Bible.BibleVerse v = chapter.getVerse(position);
-									String reference = b.bookName + " " + chapter.chapterNumber + ":" + v.verseNumber;
-									intent.putExtra("scripture_text", v.text);
-									intent.putExtra("reference", reference);
-									startActivity(intent);
+									// Get scriptures and send them to the displayed scripture screen.
+									
+									LinearLayout item = (LinearLayout) view;
+									item.setSelected(true);
+									CheckBox cb = (CheckBox) item.getChildAt(0);
+									cb.performClick();
+									if(cb.isChecked())
+										checkedCheckBoxes.add(Integer.valueOf((String) cb.getText()));
+									else
+										checkedCheckBoxes.remove(checkedCheckBoxes.indexOf((Integer) position+1));
+									
+									Button displayScriptures = (Button) findViewById(R.id.displayScriptures);
+									
+									if(checkedCheckBoxes.size()>0)
+										displayScriptures.setVisibility(Button.VISIBLE);
+									else
+										displayScriptures.setVisibility(Button.GONE);
 								}
 
 							});
+							Button displayScripture = (Button) findViewById(R.id.displayScriptures);
+							displayScripture.setOnClickListener(new OnClickListener(){
+
+								@Override
+								public void onClick(View view) {
+									// TODO Auto-generated method stub
+									Intent intent = new Intent(getApplicationContext(),DisplaySelectedScripture.class);
+									intent.putExtra("book_name", b.bookName);
+									intent.putExtra("chapter_number", Integer.valueOf(chapter.chapterNumber).intValue());
+									Bundle bundle = new Bundle();
+									Collections.sort(checkedCheckBoxes);
+									bundle.putIntegerArrayList("verses", checkedCheckBoxes);
+									intent.putExtra("bundle", bundle);
+
+									startActivity(intent);
+								}
+								
+							});
 							ArrayAdapter<String> adapter;
-							adapter = new ArrayAdapter<String>(SelectScripture.this, android.R.layout.simple_list_item_1, chapter.getVersesArray());
+							adapter = new ArrayAdapter<String>(SelectScripture.this, R.layout.layout_checkbox_item, R.id.checkBox1, chapter.getVersesArray());
 							gView.setAdapter(adapter);
 						}
 
