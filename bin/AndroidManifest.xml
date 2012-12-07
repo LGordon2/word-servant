@@ -53,7 +53,7 @@
         </activity>
         <activity
             android:name="com.app.wordservant.SelectScripture"
-            android:label="@string/title_activity_tag_preview" >
+            android:label="@string/title_activity_select_scripture" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.app.wordservant.LandingScreen" />

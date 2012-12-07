@@ -122,8 +122,8 @@ public final class R {
         public static final int title_activity_input_scripture_manual=0x7f060005;
         public static final int title_activity_main=0x7f060001;
         public static final int title_activity_scripture_bank=0x7f060003;
+        public static final int title_activity_select_scripture=0x7f060013;
         public static final int title_activity_settings=0x7f060002;
-        public static final int title_activity_tag_preview=0x7f060013;
         public static final int title_activity_todays_memory_verses=0x7f060007;
     }
     public static final class style {

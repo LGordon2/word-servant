@@ -34,7 +34,7 @@
         <item>4</item>
     </string-array>
 
-    <string name="title_activity_tag_preview">MainActivity</string>
+    <string name="title_activity_select_scripture">Select Scripture</string>
 
     <string-array name="tags">
         <item>Faith</item>
