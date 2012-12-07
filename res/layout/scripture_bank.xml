@@ -33,7 +33,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/button_layout" >
+        android:layout_below="@id/button_layout"
+        tools:listitem="@layout/list_layout" >
 
     </ListView>
 

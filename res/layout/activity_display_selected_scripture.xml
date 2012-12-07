@@ -29,4 +29,13 @@
         android:layout_alignParentBottom="true"
         android:text="Add Scripture To Scripture Bank" />
 
+    <TextView
+        android:id="@+id/selectedScriptureTags"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/selectedScriptureText"
+        android:layout_below="@+id/scriptureReference"
+        android:layout_centerHorizontal="true"
+        android:text="Tags" />
+
 </RelativeLayout>

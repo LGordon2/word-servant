@@ -161,6 +161,10 @@ public class ScriptureReview extends Activity {
 			editScriptureReference.setText(scriptureQuery.getString(0));
 			//editCategory.setText(scriptureQuery.getString(1));
 			editScripture.setText(scriptureQuery.getString(2));
+			if(scriptureQuery.getCount()==1){
+				Button nextButton = (Button) findViewById(R.id.dueTodayNextButton);
+				nextButton.setVisibility(Button.GONE);
+			}
 		} catch(SQLiteException e){
 			System.err.println("Database issue..");
 			e.printStackTrace();

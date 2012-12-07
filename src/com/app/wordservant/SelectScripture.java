@@ -24,6 +24,7 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.TabHost.TabSpec;
 
 public class SelectScripture extends Activity {
@@ -44,6 +45,8 @@ public class SelectScripture extends Activity {
 			ProgressBar pBar = (ProgressBar) findViewById(R.id.progressBar1);
 			pBar.setProgress(100);
 			pBar.setVisibility(ProgressBar.GONE);
+			TextView loadingMessage = (TextView) findViewById(R.id.loadingText);
+			loadingMessage.setVisibility(TextView.GONE);
 			ListView lView = (ListView) findViewById(R.id.listView1);
 			lView.setVisibility(ListView.VISIBLE);
 			lView.setOnItemClickListener(new OnItemClickListener(){

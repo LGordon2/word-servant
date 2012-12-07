@@ -11,7 +11,7 @@
 	    <ListPreference 
 	        android:key="pref_key_daily_limit"
 	        android:title="New Scriptures Per Week"
-	        android:summary="Daily limit on scriptures."
+	        android:summary="Select the number of new scriptures to be added each week"
 	        android:defaultValue="1"
 	        android:entries = "@array/limit_strings"
 	        android:entryValues="@array/limit_values"
@@ -20,8 +20,8 @@
 	    	  <CheckBoxPreference 
 	      android:key="pref_key_notifications_enabled"
 	      android:title="Notifications"
-	      android:summaryOn="Notifications enabled."
-	      android:summaryOff="Notifications disabled."
+	      android:summaryOn="Daily notification enabled"
+	      android:summaryOff="Daily notification disabled"
 	      android:defaultValue="true"
 	      android:layout_width="match_parent"
 	 		android:layout_height="match_parent"/>

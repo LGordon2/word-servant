@@ -85,7 +85,6 @@ public class ScriptureBank extends Activity {
 			scriptureAdapter = new SimpleCursorAdapter(this, R.layout.list_layout, scriptureQuery, fromColumns, toViews);
 			ListView scriptureList = (ListView) findViewById(R.id.scripture_bank_list);
 			scriptureList.setAdapter(scriptureAdapter);
-			
 			scriptureList.setOnItemClickListener(new OnItemClickListener(){
 				public void onItemClick(AdapterView<?> parent, View linearLayout, int position,long id) {
 					// TODO Auto-generated method stub
