@@ -14,14 +14,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.CheckedTextView;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.wordservant.Bible.BibleBook;
 
@@ -68,32 +68,36 @@ public class SelectScripture extends Activity {
 							final GridView gView = (GridView) findViewById(R.id.gridView2);
 							final Bible.BibleChapter chapter = b.getChapter(position);
 							final ArrayList<Integer> checkedCheckBoxes = new ArrayList<Integer>();
-							
 							gView.setOnItemClickListener(new OnItemClickListener(){
 
 								@Override
 								public void onItemClick(AdapterView<?> aView,
 										View view, int position, long id) {
 									// Get scriptures and send them to the displayed scripture screen.
-									
-									LinearLayout item = (LinearLayout) view;
-									item.setSelected(true);
-									CheckBox cb = (CheckBox) item.getChildAt(0);
-									cb.performClick();
-									if(cb.isChecked())
-										checkedCheckBoxes.add(Integer.valueOf((String) cb.getText()));
-									else
+									CheckedTextView textView = (CheckedTextView) view;
+									//view.setSelected(true);
+									//CheckBox cb = (CheckBox) item.getChildAt(0);
+									//cb.performClick();
+									Toast.makeText(getApplicationContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+									if(!textView.isChecked()){
+										checkedCheckBoxes.add(Integer.valueOf((String) textView.getText()));
+									}
+									else{
 										checkedCheckBoxes.remove(checkedCheckBoxes.indexOf((Integer) position+1));
+									}
 									
 									Button displayScriptures = (Button) findViewById(R.id.displayScriptures);
 									
-									if(checkedCheckBoxes.size()>0)
+									if(checkedCheckBoxes.size()>0){
 										displayScriptures.setVisibility(Button.VISIBLE);
-									else
-										displayScriptures.setVisibility(Button.GONE);
+									}
+									else{
+										displayScriptures.setVisibility(Button.INVISIBLE);
+									}
 								}
 
 							});
+							
 							Button displayScripture = (Button) findViewById(R.id.displayScriptures);
 							displayScripture.setOnClickListener(new OnClickListener(){
 
@@ -113,7 +117,7 @@ public class SelectScripture extends Activity {
 								
 							});
 							ArrayAdapter<String> adapter;
-							adapter = new ArrayAdapter<String>(SelectScripture.this, R.layout.layout_checkbox_item, R.id.checkBox1, chapter.getVersesArray());
+							adapter = new ArrayAdapter<String>(SelectScripture.this, android.R.layout.simple_list_item_checked, chapter.getVersesArray());
 							gView.setAdapter(adapter);
 						}
 
