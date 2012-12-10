@@ -49,7 +49,8 @@
     </string-array>
 
     <string name="date_format">yyyy-MM-dd</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_display_selected_scripture">DisplaySelectedScripture</string>
+    <string name="title_activity_scripture_bank_fragment">ScriptureBankFragmentActivity</string>
+    <string name="title_activity_input_scripture">InputScriptureActivity</string>
 
 </resources>

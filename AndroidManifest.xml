@@ -34,10 +34,11 @@
         </activity>
         <activity
             android:name="com.app.wordservant.InputScriptureManual"
-            android:label="@string/title_activity_input_scripture_manual" >
+            android:label="@string/title_activity_input_scripture_manual"
+            android:parentActivityName="android.support.v4.app.FragmentActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.wordservant.LandingScreen" />
+                android:value="android.support.v4.app.FragmentActivity" />
         </activity>
         <activity
             android:name="com.app.wordservant.EditScripture"

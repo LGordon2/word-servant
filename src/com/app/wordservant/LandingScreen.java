@@ -26,7 +26,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 public class LandingScreen extends Activity{
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -138,17 +137,17 @@ public class LandingScreen extends Activity{
 		});
 
 		//Tag Preview button
-		/*Button tagPreview = (Button) this.findViewById(R.id.tagPreview);
+		Button tagPreview = (Button) this.findViewById(R.id.tagPreview);
 		tagPreview.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
 				// Starts a new Scripture Bank activity.
-				//Intent intent = new Intent(v.getContext(),SelectScripture.class);
+				Intent intent = new Intent(v.getContext(),ScriptureBank.class);
 				//Toast.makeText(LandingScreen.this, "Not yet implemented", Toast.LENGTH_SHORT).show();
-		    	//startActivity(intent);
+		    	startActivity(intent);
 			}
-		});*/
+		});
 
 	}
 	@Override

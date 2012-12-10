@@ -44,7 +44,7 @@ public class DisplaySelectedScripture extends Activity {
 				verseString+= "-";
 				i+=1;
 				while(i<verseNumbers.size() && verseNumbers.get(i)==verseNumbers.get(i-1)+1){
-					currentVerse = Bible.getInstance().getBook(bookName).chapters.get(chapterNumber).getVerse(verseNumbers.get(i)-1);
+					currentVerse = Bible.getInstance().getBook(bookName).chapters.get(chapterNumber-1).getVerse(verseNumbers.get(i)-1);
 					createdScriptureText += currentVerse.verseNumber+currentVerse.text;
 					i+=1;
 				}
