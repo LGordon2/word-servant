@@ -97,6 +97,7 @@ public class DisplaySelectedScripture extends Activity {
 				} finally{
 					wordservant_db.close();
 				}
+				setResult(0);
 				finish();
 			}
 			
@@ -110,5 +111,8 @@ public class DisplaySelectedScripture extends Activity {
 				menu);
 		return true;
 	}
-
+	public void onBackPressed(){
+		setResult(1);
+		super.onBackPressed();
+	}
 }

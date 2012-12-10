@@ -81,7 +81,7 @@ public class SelectScripture extends Activity {
 									if(Build.VERSION.SDK_INT<11){
 										textView.setChecked(!textView.isChecked());
 									}
-									
+
 									if((Build.VERSION.SDK_INT<11 && textView.isChecked()) || (Build.VERSION.SDK_INT>=11 && !textView.isChecked())){
 										checkedCheckBoxes.add(Integer.valueOf((String) textView.getText()));
 									}
@@ -114,9 +114,9 @@ public class SelectScripture extends Activity {
 								public void onNothingSelected(
 										AdapterView<?> arg0) {
 									// TODO Auto-generated method stub
-									
+
 								}
-								
+
 							});
 							Button displayScripture = (Button) findViewById(R.id.displayScriptures);
 							displayScripture.setOnClickListener(new OnClickListener(){
@@ -132,7 +132,7 @@ public class SelectScripture extends Activity {
 									bundle.putIntegerArrayList("verses", checkedCheckBoxes);
 									intent.putExtra("bundle", bundle);
 
-									startActivity(intent);
+									startActivityForResult(intent, 0);
 								}
 
 							});
@@ -193,5 +193,11 @@ public class SelectScripture extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		//getMenuInflater().inflate(R.menu.tag_preview, menu);
 		return true;
+	}
+
+	protected void onActivityResult (int requestCode, int resultCode, Intent data){
+		if(resultCode==0){
+			finish();
+		}
 	}
 }
