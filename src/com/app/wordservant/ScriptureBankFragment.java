@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -34,9 +35,9 @@ public class ScriptureBankFragment extends Fragment{
 		@Override
 		protected Cursor doInBackground(Void... params) {
 			// Gets the scripture that matches the scripture id.
-			String [] columns_to_retrieve = {"_id", "reference"};
+			String [] columns_to_retrieve = {WordServantContract.ScriptureEntry._ID, WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE};
 	        SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(getActivity(), "wordservant_db", null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
-			Cursor scriptureQuery = wordservantReadableDatabase.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, null, null, null, null, null);
+			Cursor scriptureQuery = wordservantReadableDatabase.query(WordServantContract.ScriptureEntry.TABLE_NAME, columns_to_retrieve, null, null, null, null, null);
 			scriptureQuery.moveToFirst();
 			return scriptureQuery;
 		}
@@ -121,4 +122,5 @@ public class ScriptureBankFragment extends Fragment{
 		return inflater.inflate(R.layout.scripture_bank, null);
 		
 	}
+
 }

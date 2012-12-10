@@ -19,8 +19,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,9 +54,7 @@ public class ScriptureReview extends Activity {
 			reviewLayout.addView(flashCardLayout);
 
 			final ViewSwitcher cardFlipper = (ViewSwitcher) findViewById(R.id.cardSwitcher);
-			Button flipCardButton = (Button) findViewById(R.id.flipCardButton);
-			cardFlipper.setOnClickListener(new OnClickListener(){
-
+			OnClickListener flipViewListener = new OnClickListener(){
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
@@ -65,20 +63,11 @@ public class ScriptureReview extends Activity {
 					else
 						cardFlipper.setDisplayedChild(0);
 				}
-
-			});
-			flipCardButton.setOnClickListener(new OnClickListener(){
-
-				@Override
-				public void onClick(View view) {
-					// TODO Auto-generated method stub
-					if(cardFlipper.getDisplayedChild()==0)
-						cardFlipper.setDisplayedChild(1);
-					else
-						cardFlipper.setDisplayedChild(0);
-				}
-
-			});
+			};
+			LinearLayout frontLayout = (LinearLayout) findViewById(R.id.frontLayout);
+			TextView backOfCard = (TextView) findViewById(R.id.cardBack);
+			frontLayout.setOnClickListener(flipViewListener);
+			backOfCard.setOnClickListener(flipViewListener);
 
 			editScriptureReference = (TextView) findViewById(R.id.cardFront);
 			//editCategory = (TextView) findViewById(R.id.dueTodayTags);

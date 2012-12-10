@@ -5,13 +5,6 @@
     tools:context=".DisplaySelectedScripture" >
 
     <TextView
-        android:id="@+id/selectedScriptureText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
-
-    <TextView
         android:id="@+id/scriptureReference"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,9 +25,21 @@
         android:id="@+id/selectedScriptureTags"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/selectedScriptureText"
         android:layout_below="@+id/scriptureReference"
         android:layout_centerHorizontal="true"
         android:text="Tags" />
+
+    <ScrollView
+        android:id="@+id/ScrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/addSelectedScripture"
+        android:layout_below="@id/selectedScriptureTags" >
+
+        <TextView
+            android:id="@+id/selectedScriptureText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ScrollView>
 
 </RelativeLayout>

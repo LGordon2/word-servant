@@ -11,30 +11,62 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/flipCardButton"
+        android:animateFirstView="false"
         android:inAnimation="@anim/grow_from_middle"
-        android:outAnimation="@anim/shrink_to_middle"
-        android:animateFirstView="false" >
+        android:outAnimation="@anim/shrink_to_middle" >
 
-        <TextView
-            android:id="@+id/cardFront"
+        <ScrollView
+            android:id="@+id/frontScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FFFFFF"
-            android:gravity="center_horizontal"
-            android:text="Genesis 1:1"
-            android:textColor="#000000"
-            android:textSize="30sp" />
+            android:fillViewport="true"
+            android:focusable="false" >
 
-        <TextView
-            android:id="@+id/cardBack"
+            <LinearLayout
+                android:id="@+id/frontLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/cardFront"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#FFFFFF"
+                    android:focusable="false"
+                    android:gravity="center_horizontal"
+                    android:text="Genesis 1:1"
+                    android:textColor="#000000"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tags" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <ScrollView
+            android:id="@+id/backScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#000000"
-            android:gravity="center_horizontal"
-            android:text="In the beginning God created the heavens and the earth."
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:fillViewport="true"
+            android:focusable="false" >
 
+            <TextView
+                android:id="@+id/cardBack"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#000000"
+                android:gravity="center_horizontal"
+                android:text="In the beginning God created the heavens and the earth."
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
+        </ScrollView>
     </ViewSwitcher>
 
     <Button
