@@ -7,7 +7,6 @@ public class WordServantContract {
 	public abstract class ScriptureEntry implements BaseColumns{
 	    public static final String TABLE_NAME = "scriptures";
 	    public static final String COLUMN_NAME_REFERENCE = "reference";
-	    public static final String COLUMN_NAME_TAG_ID = "tag_id";
 	    public static final String COLUMN_NAME_TEXT = "text";
 	    public static final String COLUMN_NAME_CREATED_DATE = "created_date";
 	    public static final String COLUMN_NAME_SCHEDULE = "schedule";

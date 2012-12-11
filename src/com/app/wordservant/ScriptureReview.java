@@ -70,7 +70,7 @@ public class ScriptureReview extends Activity {
 			backOfCard.setOnClickListener(flipViewListener);
 
 			editScriptureReference = (TextView) findViewById(R.id.cardFront);
-			//editCategory = (TextView) findViewById(R.id.dueTodayTags);
+			editCategory = (TextView) findViewById(R.id.dueTodayTags);
 			editScripture = (TextView) findViewById(R.id.cardBack);
 		}else{
 			RelativeLayout noEditScriptureLayout = (RelativeLayout) this.getLayoutInflater().inflate(R.layout.layout_no_edit_scripture, null);
@@ -148,7 +148,24 @@ public class ScriptureReview extends Activity {
 			scriptureQuery = wordservant_db.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, "_id="+scriptureId, null, null, null, null);
 			scriptureQuery.moveToFirst();
 			editScriptureReference.setText(scriptureQuery.getString(0));
-			//editCategory.setText(scriptureQuery.getString(1));
+			
+			//Set the tag text.
+			String tagText = "";
+			Cursor tagTextQuery = wordservant_db.rawQuery("select "+WordServantContract.TagEntry.COLUMN_NAME_TAG_NAME+
+					" from "+WordServantContract.CategoryEntry.TABLE_NAME+" c join "+
+					WordServantContract.ScriptureEntry.TABLE_NAME+" s on "+
+					"(c."+WordServantContract.CategoryEntry.COLUMN_NAME_SCRIPTURE_ID+"=s."+
+					WordServantContract.ScriptureEntry._ID+") join "+
+					WordServantContract.TagEntry.TABLE_NAME+" t on (c."+WordServantContract.CategoryEntry.COLUMN_NAME_TAG_ID+
+					"=t."+WordServantContract.TagEntry._ID+") where "+
+					"s."+WordServantContract.ScriptureEntry._ID+"="+scriptureQuery.getInt(3),null);
+			for(int i=0;i<tagTextQuery.getCount();i++){
+				tagTextQuery.moveToPosition(i);
+				tagText += tagTextQuery.getString(0);
+				if(i<tagTextQuery.getCount()-1)
+					tagText += ", ";
+			}
+			editCategory.setText(tagText);
 			editScripture.setText(scriptureQuery.getString(2));
 			if(scriptureQuery.getCount()==1){
 				Button nextButton = (Button) findViewById(R.id.dueTodayNextButton);

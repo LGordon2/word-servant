@@ -11,7 +11,6 @@ public class WordServantDbHelper extends SQLiteOpenHelper{
     private static String SCRIPTURE_BANK_TABLE_CREATE = "CREATE TABLE "+ WordServantContract.ScriptureEntry.TABLE_NAME+ " ("+
     		WordServantContract.ScriptureEntry._ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
     		WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE+" TEXT NOT NULL, "+
-    		WordServantContract.ScriptureEntry.COLUMN_NAME_TAG_ID+" INTEGER, "+
     		WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT+" TEXT NOT NULL, "+
     		WordServantContract.ScriptureEntry.COLUMN_NAME_CREATED_DATE+" TEXT DEFAULT CURRENT_DATE, "+
     		WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+" TEXT NOT NULL DEFAULT daily, "+
@@ -61,5 +60,10 @@ public class WordServantDbHelper extends SQLiteOpenHelper{
 
         // Recreates the database with a new version
         onCreate(db);
+	}
+
+	public static String getTagText(int scripture_id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
