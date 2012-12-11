@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -121,6 +120,19 @@ public class ScriptureBankFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		return inflater.inflate(R.layout.scripture_bank, null);
 		
+	}
+	public void redraw() {
+		// Reset the progress bar layout.
+		ProgressBar pBar = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
+		TextView loadingText = (TextView) getActivity().findViewById(R.id.loadingText);
+		LinearLayout listLayout = (LinearLayout) getActivity().findViewById(R.id.listLayout);
+		ListView scriptureList = (ListView) getActivity().findViewById(R.id.scripture_bank_list);
+		listLayout.setGravity(Gravity.CENTER);
+		pBar.setVisibility(ProgressBar.VISIBLE);
+		loadingText.setVisibility(TextView.VISIBLE);
+		scriptureList.setVisibility(ListView.GONE);
+		
+		new ScriptureQuerier().execute();
 	}
 
 }

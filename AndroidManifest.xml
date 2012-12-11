@@ -10,7 +10,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/word_servant_icon"
+        android:icon="@drawable/word_servant_icon_new"
         android:label="@string/title_activity_main" >
         <activity
             android:name="com.app.wordservant.LandingScreen"

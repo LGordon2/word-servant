@@ -72,7 +72,8 @@ public class ScriptureBank extends FragmentActivity implements DeleteScriptureDi
 	@Override
 	public void onDialogPositiveClick(DialogFragment dialog) {
 		// TODO Auto-generated method stub
-		getSupportFragmentManager().findFragmentById(R.id.scriptureBankFragment).onStart();
+		ScriptureBankFragment scriptureBank = (ScriptureBankFragment) getSupportFragmentManager().findFragmentById(R.id.scriptureBankFragment);
+		scriptureBank.redraw();
 	}
 
 

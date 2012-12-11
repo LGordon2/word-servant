@@ -56,7 +56,7 @@ public class TodaysMemoryVerses extends Activity{
 			whereClause += i==0?" OR LAST_REVIEWED_DATE = date('now')":"";
 			scriptureQuery = wordservant_db.query(false, getResources().getString(R.string.scripture_table_name), queryColumns, whereClause, null, null, null, null, null);
 			
-			if (scriptureQuery.getCount()==0){
+			if (scriptureQuery.getCount()==0 && i>0){
 				continue;
 			}
 			

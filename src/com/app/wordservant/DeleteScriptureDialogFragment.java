@@ -3,12 +3,13 @@ package com.app.wordservant;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.widget.Toast;
 
 public class DeleteScriptureDialogFragment extends DialogFragment {
     /* The activity that creates an instance of this dialog fragment must
@@ -48,6 +49,36 @@ public class DeleteScriptureDialogFragment extends DialogFragment {
 					SQLiteDatabase db = new WordServantDbHelper(getActivity(), "wordservant_db", null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 					String whereClause = WordServantContract.ScriptureEntry._ID+"="+getArguments().getString("_id");
 					db.delete(WordServantContract.ScriptureEntry.TABLE_NAME, whereClause, null);
+					String [] columns = {
+							WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE,
+							WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE
+					};
+					Cursor cursor = db.query(WordServantContract.ScriptureEntry.TABLE_NAME, columns, 
+							WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+"='daily' AND "+
+							WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=CURRENT_DATE", null, null, null, null);
+					if(cursor.getCount()==0){
+						String [] updateColumns = {
+							WordServantContract.ScriptureEntry._ID,
+							WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE
+						};
+						cursor = db.query(
+								WordServantContract.ScriptureEntry.TABLE_NAME, 
+								updateColumns, 
+								WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+"='daily'", 
+								null, null, null, null);
+						
+						ContentValues updateValues = new ContentValues();
+						Integer currentId;
+						for(int i=0;i<cursor.getCount();i++){
+							cursor.moveToPosition(i);
+							currentId = cursor.getInt(0);
+							updateValues.put("next_review_date", "date('now', '+"+i*7+" days')");
+							db.execSQL("update "+WordServantContract.ScriptureEntry.TABLE_NAME+
+									" set next_review_date=date('now', '+"+i*7+" days') "+
+									" where "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+"='daily' and "+
+									WordServantContract.ScriptureEntry._ID+"="+currentId);
+						}
+					}
 					db.close();
 					mListener.onDialogPositiveClick(DeleteScriptureDialogFragment.this);
 				}
