@@ -1,11 +1,8 @@
 package com.app.wordservant;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.widget.SimpleCursorAdapter;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.ContextMenu;
@@ -14,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 public class ScriptureBank extends FragmentActivity implements DeleteScriptureDialogFragment.DeleteScriptureDialogFragmentListener{
 

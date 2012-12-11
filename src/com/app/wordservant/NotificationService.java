@@ -34,6 +34,7 @@ public class NotificationService extends IntentService{
 						(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 				if (wordservantCursor.getCount() == 0){
 					mNotificationManager.cancel(0);
+					return;
 					//continue;
 				} else if(wordservantCursor.getCount() == 1){
 					contentText = wordservantCursor.getCount()+" scripture due today.";
