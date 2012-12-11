@@ -7,17 +7,17 @@
     android:orientation="vertical" >
 
     <ListView
-        android:id="@+id/listView1"
+        android:id="@+id/tagList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/button1"
+        android:layout_above="@+id/addNewTag"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        tools:listitem="@layout/tag_item_mockup" >
+        tools:listitem="@layout/layout_tag_item" >
     </ListView>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/addNewTag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

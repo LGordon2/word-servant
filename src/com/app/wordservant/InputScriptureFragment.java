@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -100,6 +101,17 @@ public class InputScriptureFragment extends Fragment {
 					fragmentTransaction.remove(fragmentManager.findFragmentByTag("input_scripture"));
 					fragmentTransaction.commit();
 				}
+			}
+        	
+        });
+        Button addTagButton = (Button) getActivity().findViewById(R.id.addTagButton);
+        addTagButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getActivity(),AddTagActivity.class);
+				startActivity(intent);
 			}
         	
         });

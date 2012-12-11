@@ -4,6 +4,7 @@ import android.provider.BaseColumns;
 
 public class WordServantContract {
 	private WordServantContract(){}
+	public static final String DB_NAME = "wordservant_db";
 	public abstract class ScriptureEntry implements BaseColumns{
 	    public static final String TABLE_NAME = "scriptures";
 	    public static final String COLUMN_NAME_REFERENCE = "reference";

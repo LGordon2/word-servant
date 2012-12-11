@@ -19,6 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:drawableLeft="@android:drawable/ic_delete"
-        android:text=" " />
+        android:minWidth="0dp" />
 
 </RelativeLayout>
