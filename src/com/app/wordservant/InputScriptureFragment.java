@@ -110,8 +110,8 @@ public class InputScriptureFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Intent intent = new Intent(getActivity(),AddTagActivity.class);
-				startActivity(intent);
+				AddTagDialogFragment dialogFragment = new AddTagDialogFragment();
+				dialogFragment.show(getFragmentManager(), "tags");
 			}
         	
         });

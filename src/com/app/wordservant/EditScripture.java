@@ -51,7 +51,7 @@ public class EditScripture extends Activity {
         
         //Associate Java objects with the edit fields displayed on the screen.
         editScriptureReference = (EditText) findViewById(R.id.scriptureReference);
-        editCategory = (EditText) findViewById(R.id.categoryName);
+       // editCategory = (EditText) findViewById(R.id.categoryName);
         editScripture = (EditText) findViewById(R.id.scriptureText);
         
         Button editDoneButton = (Button) findViewById(R.id.doneButton);
