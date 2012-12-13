@@ -11,13 +11,11 @@ import android.support.v4.content.CursorLoader;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 public class AddTagDialogFragment extends DialogFragment {
 	private class TagListLoader extends CursorLoader{
@@ -37,12 +35,12 @@ public class AddTagDialogFragment extends DialogFragment {
 	}
 
 	public Dialog onCreateDialog(Bundle savedInstanceState){
-		final RelativeLayout dialogLayout = (RelativeLayout) getActivity().getLayoutInflater().inflate(R.layout.layout_tag_select, null);
+		final LinearLayout dialogLayout = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.layout_tag_select, null);
 		Cursor cursor = new TagListLoader(getActivity()).loadInBackground();
 		LinearLayout tagLayout = (LinearLayout) dialogLayout.findViewById(R.id.scrollView).findViewById(R.id.tagLayout);
 
 		RelativeLayout tagView = (RelativeLayout) getActivity().getLayoutInflater().inflate(R.layout.layout_tag_item, null);
-		tagLayout.addView(tagView);
+		//tagLayout.addView(tagView);
 		if(cursor.getCount()>0){
 			cursor.moveToFirst();
 			((EditText) tagView.findViewById(R.id.tagTextField)).setText(cursor.getString(1));
@@ -54,14 +52,15 @@ public class AddTagDialogFragment extends DialogFragment {
 			tagLayout.addView(tagView);
 
 		}
-
 		Button addTagButton = (Button) dialogLayout.findViewById(R.id.addNewTag);
-		final Dialog alertDialog = new AlertDialog.Builder(getActivity())
-		.setView(dialogLayout)
-		.setTitle("Set tags")
-		.setPositiveButton("Done", null)
-		.setNegativeButton("Cancel", null)
-		.create();
+		final AlertDialog alertDialog = new AlertDialog(getActivity()){
+			public void onCreate(Bundle savedInstanceState){
+				super.onCreate(savedInstanceState);
+				this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+			}
+		};
+		alertDialog.setTitle("Set Tags");
+		alertDialog.setView(dialogLayout);
 
 
 		addTagButton.setOnClickListener(new OnClickListener(){
@@ -71,7 +70,7 @@ public class AddTagDialogFragment extends DialogFragment {
 				// TODO Auto-generated method stub
 				//alertDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
 				//         WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-				final RelativeLayout dialogLayout = (RelativeLayout) view.getParent();
+				final LinearLayout dialogLayout = (LinearLayout) view.getParent();
 				LinearLayout tagLayout = (LinearLayout) dialogLayout.findViewById(R.id.tagLayout);
 				final RelativeLayout tagView = (RelativeLayout) getActivity().getLayoutInflater().inflate(R.layout.layout_tag_item, null);
 				EditText editText = (EditText) tagView.findViewById(R.id.tagTextField);
@@ -85,13 +84,8 @@ public class AddTagDialogFragment extends DialogFragment {
 						tagList.removeView(tagItemLayout);
 					}
 				});
-				//TextView c = (TextView) tagView.findViewById(R.id.checkBox1);
-				//c.performClick();
 				tagLayout.addView(tagView);
-				InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-				//inputManager.restartInput(tagView);
-				Toast.makeText(getActivity(), String.valueOf(inputManager.isActive()), Toast.LENGTH_SHORT).show();
-				//inputManager.showSoftInput(tagView, InputMethodManager.SHOW_IMPLICIT);
+				tagView.clearFocus();
 			}
 
 		});

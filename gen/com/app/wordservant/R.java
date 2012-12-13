@@ -26,7 +26,7 @@ public final class R {
         public static final int LinearLayout1=0x7f0a0008;
         public static final int RelativeLayout1=0x7f0a0030;
         public static final int ScrollView1=0x7f0a0003;
-        public static final int addNewTag=0x7f0a0036;
+        public static final int addNewTag=0x7f0a0037;
         public static final int addSelectedScripture=0x7f0a0001;
         public static final int addTagButton=0x7f0a0007;
         public static final int backScroll=0x7f0a001a;
@@ -82,7 +82,7 @@ public final class R {
         public static final int tab2=0x7f0a002b;
         public static final int tab3=0x7f0a002d;
         public static final int tabhost=0x7f0a0026;
-        public static final int tagLayout=0x7f0a0037;
+        public static final int tagLayout=0x7f0a0036;
         public static final int tagPreview=0x7f0a0021;
         public static final int tagTextField=0x7f0a0033;
         public static final int test=0x7f0a000f;
