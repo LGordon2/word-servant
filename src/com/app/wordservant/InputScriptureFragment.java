@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -62,9 +61,12 @@ public class InputScriptureFragment extends Fragment {
 				scriptureValues.put("reference", scriptureReference.getText().toString());
 				scriptureValues.put("text", scriptureText.getText().toString());
 				//Query for any "running" scriptures.
-				String [] columnsToRetrieve = {"SCHEDULE","TIMES_REVIEWED","NEXT_REVIEW_DATE"};
+				String [] columnsToRetrieve = {
+						WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE,
+						WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED,
+						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
 				SQLiteDatabase wordservant_db_readable = new WordServantDbHelper(inputScriptureView.getContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
-				Cursor runningScriptureQuery = wordservant_db_readable.query("scriptures", columnsToRetrieve, "SCHEDULE='daily' AND TIMES_REVIEWED<7", null, null, null, null);
+				Cursor runningScriptureQuery = wordservant_db_readable.query(WordServantContract.ScriptureEntry.TABLE_NAME, columnsToRetrieve, "SCHEDULE='daily' AND TIMES_REVIEWED<7", null, null, null, null);
 				if (runningScriptureQuery.getCount()>0){
 					runningScriptureQuery.moveToLast();
 					Calendar currentCalendar = Calendar.getInstance();
@@ -110,7 +112,8 @@ public class InputScriptureFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				AddTagDialogFragment dialogFragment = new AddTagDialogFragment();
+				//Toast.makeText(getActivity(), "Not yet implemented.", Toast.LENGTH_SHORT).show();
+				AddTagDialogFragmentAlt dialogFragment = new AddTagDialogFragmentAlt();
 				dialogFragment.show(getFragmentManager(), "tags");
 			}
         	

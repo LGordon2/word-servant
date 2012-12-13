@@ -29,9 +29,16 @@ public class EditScripture extends Activity {
 		@Override
 		protected Cursor doInBackground(Integer... scriptureId) {
 			// Gets all the scriptures from the database.
-			String [] columns_to_retrieve = {"_id", "REFERENCE", "TAG_ID", "TEXT"};
+			String [] columns_to_retrieve = {
+					WordServantContract.ScriptureEntry._ID,
+					WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE,
+					WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT};
 			SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(getApplicationContext(), "wordservant_db", null, 1).getReadableDatabase();
-			Cursor scriptureQuery = wordservantReadableDatabase.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, "_id="+scriptureId[0], null, null, null, null);
+			Cursor scriptureQuery = wordservantReadableDatabase.query(
+					WordServantContract.ScriptureEntry.TABLE_NAME, 
+					columns_to_retrieve, 
+					WordServantContract.ScriptureEntry._ID+"="+scriptureId[0], 
+					null, null, null, null);
 			scriptureQuery.moveToFirst();
 			wordservantReadableDatabase.close();
 			return scriptureQuery;
@@ -77,8 +84,8 @@ public class EditScripture extends Activity {
         try{
         	Cursor scriptureQuery = dbQuerier.get();
 			editScriptureReference.setText(scriptureQuery.getString(1));
-			editCategory.setText(scriptureQuery.getString(2));
-			editScripture.setText(scriptureQuery.getString(3));
+			//meditCategory.setText(scriptureQuery.getString(2));
+			editScripture.setText(scriptureQuery.getString(2));
 			scriptureQuery.close();
         } catch(SQLiteException e){
         	System.err.println("Database issue. Scripture not found.");

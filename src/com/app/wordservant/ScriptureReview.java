@@ -86,7 +86,7 @@ public class ScriptureReview extends Activity {
 		todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
 
 		//Open the database.
-		wordservant_db = new WordServantDbHelper(this.getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
+		wordservant_db = new WordServantDbHelper(this, getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
 		positionOnScreen = this.getIntent().getIntExtra("positionOnScreen", 0);
 		final Bundle bundledScriptureList = this.getIntent().getBundleExtra("bundledScriptureList");
 		displayScriptureContent(bundledScriptureList.getInt(String.valueOf(positionOnScreen)));
@@ -144,8 +144,15 @@ public class ScriptureReview extends Activity {
 				cardFlipper.reset();
 				cardFlipper.setDisplayedChild(0);
 			}
-			String [] columns_to_retrieve = {"reference", "tag_id", "text", "_id"};
-			scriptureQuery = wordservant_db.query(getResources().getString(R.string.scripture_table_name), columns_to_retrieve, "_id="+scriptureId, null, null, null, null);
+			String [] columns_to_retrieve = {
+					WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE,
+					WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT,
+					WordServantContract.ScriptureEntry._ID};
+			scriptureQuery = wordservant_db.query(
+					WordServantContract.ScriptureEntry.TABLE_NAME, 
+					columns_to_retrieve, 
+					WordServantContract.ScriptureEntry._ID+"="+scriptureId, 
+					null, null, null, null);
 			scriptureQuery.moveToFirst();
 			editScriptureReference.setText(scriptureQuery.getString(0));
 			
@@ -158,7 +165,7 @@ public class ScriptureReview extends Activity {
 					WordServantContract.ScriptureEntry._ID+") join "+
 					WordServantContract.TagEntry.TABLE_NAME+" t on (c."+WordServantContract.CategoryEntry.COLUMN_NAME_TAG_ID+
 					"=t."+WordServantContract.TagEntry._ID+") where "+
-					"s."+WordServantContract.ScriptureEntry._ID+"="+scriptureQuery.getInt(3),null);
+					"s."+WordServantContract.ScriptureEntry._ID+"="+scriptureQuery.getInt(2),null);
 			for(int i=0;i<tagTextQuery.getCount();i++){
 				tagTextQuery.moveToPosition(i);
 				tagText += tagTextQuery.getString(0);
@@ -166,7 +173,7 @@ public class ScriptureReview extends Activity {
 					tagText += ", ";
 			}
 			editCategory.setText(tagText);
-			editScripture.setText(scriptureQuery.getString(2));
+			editScripture.setText(scriptureQuery.getString(1));
 			if(scriptureQuery.getCount()==1){
 				Button nextButton = (Button) findViewById(R.id.dueTodayNextButton);
 				nextButton.setVisibility(Button.GONE);

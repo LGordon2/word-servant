@@ -75,6 +75,7 @@
             android:name="com.app.wordservant.DisplaySelectedScripture"
             android:label="@string/title_activity_display_selected_scripture" >
         </activity>
+        <activity android:name="com.app.wordservant.ManageTagsActivity"></activity>
     </application>
 
 </manifest>
