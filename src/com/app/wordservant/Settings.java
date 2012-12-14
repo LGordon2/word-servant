@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
 
@@ -57,6 +58,15 @@ public class Settings extends PreferenceActivity implements OnSharedPreferenceCh
 	        }else{
 	        	aManager.cancel(p);
 	        }
+		}else if(key.equals("pref_key_review_select")){
+			String preference = this.getPreferenceScreen().getSharedPreferences().getString("pref_key_review_select", "none");
+			SeekBarPreference sbp = (SeekBarPreference) this.findPreference("pref_key_word_masking");
+			if(preference.equals("word_masking")){
+				sbp.setEnabled(true);
+			}else{
+				sbp.setEnabled(false);
+			}
 		}
+				
 	}
 }

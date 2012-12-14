@@ -68,6 +68,7 @@ public class ScriptureReview extends Activity {
 			TextView backOfCard = (TextView) findViewById(R.id.cardBack);
 			frontLayout.setOnClickListener(flipViewListener);
 			backOfCard.setOnClickListener(flipViewListener);
+			((Button) findViewById(R.id.flipCardButton)).setOnClickListener(flipViewListener);
 
 			editScriptureReference = (TextView) findViewById(R.id.cardFront);
 			editCategory = (TextView) findViewById(R.id.dueTodayTags);

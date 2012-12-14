@@ -1,49 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:wordservant="http://wordservant.com/"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <PreferenceCategory 
-        android:title="Daily Review Settings"
-        android:key="pref_key_storage_settings"
+    android:layout_height="match_parent" >
+
+    <PreferenceCategory
         android:layout_width="match_parent"
-    	android:layout_height="match_parent">
-        
-	    <ListPreference 
-	        android:key="pref_key_daily_limit"
-	        android:title="New Scriptures Per Week"
-	        android:summary="Select the number of new scriptures to be added each week"
-	        android:defaultValue="1"
-	        android:entries = "@array/limit_strings"
-	        android:entryValues="@array/limit_values"
-	        android:layout_width="match_parent"
-    		android:layout_height="match_parent"/>
-	    	  <CheckBoxPreference 
-	      android:key="pref_key_notifications_enabled"
-	      android:title="Notifications"
-	      android:summaryOn="Daily notification enabled"
-	      android:summaryOff="Daily notification disabled"
-	      android:defaultValue="true"
-	      android:layout_width="match_parent"
-	 		android:layout_height="match_parent"/>
-	    
+        android:layout_height="match_parent"
+        android:key="pref_key_storage_settings"
+        android:title="Daily Review Settings" >
 
-	    
+        <ListPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:defaultValue="1"
+            android:entries="@array/limit_strings"
+            android:entryValues="@array/limit_values"
+            android:key="pref_key_daily_limit"
+            android:summary="Select the number of new scriptures to be added each week"
+            android:title="New Scriptures Per Week" />
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:defaultValue="true"
+            android:key="pref_key_notifications_enabled"
+            android:summaryOff="Daily notification disabled"
+            android:summaryOn="Daily notification enabled"
+            android:title="Notifications" />
+
+        <com.app.wordservant.SeekBarPreference
+            android:defaultValue="0"
+            android:key="pref_key_word_masking"
+            android:max="100"
+            android:summary="Adjust word masking percent"
+            android:title="Word Masking"
+            wordservant:min="0"
+            wordservant:unitsLeft=""
+            wordservant:unitsRight="%" />
     </PreferenceCategory>
-    
-     <PreferenceCategory 
-     android:title="Review Method Settings"
-     android:key="pref_key_notification_settings"
-     android:layout_width="match_parent"
- 	android:layout_height="match_parent">
-     
-      <CheckBoxPreference 
-	        android:key="pref_key_flashcards"
-	        android:title="Flashcards"
-	      	android:summaryOn="Flashcards enabled."
-	      	android:summaryOff="Flashcards disabled."
-	        android:defaultValue="false"
-	        android:layout_width="match_parent"
-    		android:layout_height="match_parent"/>
 
-	  </PreferenceCategory>
+    <PreferenceCategory
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:key="pref_key_notification_settings"
+        android:title="Review Method Settings" >
+
+        <ListPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:defaultValue= "none"
+            android:entries="@array/review_select"
+            android:entryValues="@array/review_select_values"
+            android:key="pref_key_review_select"
+            android:summary="Select the method you wish to use to review your daily scriptures."
+            android:title="Scripture Review Method" />
+    </PreferenceCategory>
+
 </PreferenceScreen>
