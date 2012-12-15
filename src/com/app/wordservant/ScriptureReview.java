@@ -93,8 +93,13 @@ public class ScriptureReview extends Activity {
 		displayScriptureContent(bundledScriptureList.getInt(String.valueOf(positionOnScreen)));
 
 		//Check all unreviewedScriptures.
-		String [] columnsToRetrieve = {"_id", "NEXT_REVIEW_DATE"};
-		unreviewedScriptureQuery = wordservant_db.query("scriptures", columnsToRetrieve, "NEXT_REVIEW_DATE='"+todaysDate+"' OR _id="+bundledScriptureList.getInt(String.valueOf(positionOnScreen)), null, null, null, null);
+		String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID,
+				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
+		unreviewedScriptureQuery = wordservant_db.query(
+				WordServantContract.ScriptureEntry.TABLE_NAME, 
+				columnsToRetrieve, 
+				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now') OR "+WordServantContract.ScriptureEntry._ID+"="+bundledScriptureList.getInt(String.valueOf(positionOnScreen)), 
+				null, null, null, null);
 
 		//Set the row in the unreviewed scripture query to match the selected item in Today's Memory Verses.
 		unreviewedScriptureQuery.moveToFirst();
@@ -121,9 +126,13 @@ public class ScriptureReview extends Activity {
 
 			@Override
 			public void onClick(View view) {
-				String [] columnsToRetrieve = {"_id"};
-				updateReviewedScripture(getApplicationContext(), scriptureQuery.getInt(3));
-				unreviewedScriptureQuery = wordservant_db.query("scriptures", columnsToRetrieve, "NEXT_REVIEW_DATE='"+todaysDate+"'", null, null, null, null);
+				String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID};
+				updateReviewedScripture(getApplicationContext(), unreviewedScriptureQuery.getInt(0));
+				unreviewedScriptureQuery = wordservant_db.query(
+						WordServantContract.ScriptureEntry.TABLE_NAME, 
+						columnsToRetrieve, 
+						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now')",
+						null, null, null, null);
 				unreviewedScriptureQuery.moveToFirst();
 				//Select the next.
 				setNextScriptureId();
@@ -206,9 +215,17 @@ public class ScriptureReview extends Activity {
 		}
 	}
 	public static void updateReviewedScripture(Context context, int scriptureId){
-		SQLiteDatabase wordservant_db = new WordServantDbHelper(context, "wordservant_db", null, 1).getReadableDatabase();
-		String [] columns_to_retrieve = {"next_review_date", "schedule", "times_reviewed", "last_reviewed_date"};
-		Cursor scriptureQuery = wordservant_db.query("scriptures", columns_to_retrieve, "_id="+scriptureId, null, null, null, null);
+		SQLiteDatabase wordservant_db = new WordServantDbHelper(context, WordServantContract.DB_NAME, null, 1).getWritableDatabase();
+		String [] columns_to_retrieve = {
+				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, 
+				WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE,
+				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED,
+				WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE};
+		Cursor scriptureQuery = wordservant_db.query(
+				WordServantContract.ScriptureEntry.TABLE_NAME, 
+				columns_to_retrieve, 
+				WordServantContract.ScriptureEntry._ID+"="+scriptureId, 
+				null, null, null, null);
 		scriptureQuery.moveToFirst();
 
 		// Update the database showing that the scripture was reviewed.
@@ -224,17 +241,17 @@ public class ScriptureReview extends Activity {
 
 		try {
 			if(scriptureQuery.getString(3) == null){
-				updatedValues.put("times_reviewed", 1);
+				updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED, 1);
 			}
 
 			else if(dbDateFormat.parse(scriptureQuery.getString(3)).before(currentDate) && !dbDateFormat.parse(scriptureQuery.getString(3)).equals(currentDate)){
-				updatedValues.put("times_reviewed", scriptureQuery.getInt(2)+1);
+				updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED, scriptureQuery.getInt(2)+1);
 				if(scriptureQuery.getInt(2) == 6){
-					updatedValues.put("schedule", "weekly");
+					updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE, "weekly");
 				}else if(scriptureQuery.getInt(2)==13){
-					updatedValues.put("schedule", "monthly");
+					updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE, "monthly");
 				}else if(scriptureQuery.getInt(2)==20){
-					updatedValues.put("schedule", "yearly");
+					updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE, "yearly");
 				}
 			}
 		} catch (ParseException e) {
@@ -243,7 +260,7 @@ public class ScriptureReview extends Activity {
 		}
 
 		//Update the last reviewed date to be today.
-		updatedValues.put("last_reviewed_date", todaysDate);
+		updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE, todaysDate);
 
 		//Calculate when the next review should be and update that date.
 		Calendar calculatedDate = Calendar.getInstance();
@@ -257,9 +274,13 @@ public class ScriptureReview extends Activity {
 			calculatedDate.add(Calendar.YEAR, 1);
 		}
 
-		updatedValues.put("next_review_date", dbDateFormat.format(calculatedDate.getTime()));
+		updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, dbDateFormat.format(calculatedDate.getTime()));
 
-		wordservant_db.update("scriptures", updatedValues, "_id = "+scriptureId, null);
+		wordservant_db.update(
+				WordServantContract.ScriptureEntry.TABLE_NAME, 
+				updatedValues, 
+				WordServantContract.ScriptureEntry._ID+"="+scriptureId, 
+				null);
 
 	}
 	public void onDestroy(){
