@@ -123,8 +123,8 @@ public class TodaysMemoryVerses extends Activity{
 							ContentValues newValues = new ContentValues();
 							SimpleDateFormat dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
 							String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
-							newValues.put("NEXT_REVIEW_DATE", todaysDate);
-							wordservant_db.update("scriptures", newValues, "_id="+bundledScriptureList.getInt(String.valueOf(position)), null);
+							newValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, todaysDate);
+							wordservant_db.update("scriptures", newValues, WordServantContract.ScriptureEntry._ID+"="+bundledScriptureList.getInt(String.valueOf(position)), null);
 						}else{
 							ScriptureReview.updateReviewedScripture(getApplicationContext(), bundledScriptureList.getInt(String.valueOf(position)));
 						}

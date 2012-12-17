@@ -25,29 +25,28 @@ import android.widget.TextView;
 
 public class ScriptureBankFragment extends Fragment{
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
 	private class ScriptureQuerier extends AsyncTask<Void, Void, Cursor>{
 
 		@Override
 		protected Cursor doInBackground(Void... params) {
 			// Gets the scripture that matches the scripture id.
 			String [] columns_to_retrieve = {WordServantContract.ScriptureEntry._ID, WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE};
-	        SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(getActivity(), "wordservant_db", null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
+			SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(getActivity(), "wordservant_db", null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 			Cursor scriptureQuery = wordservantReadableDatabase.query(WordServantContract.ScriptureEntry.TABLE_NAME, columns_to_retrieve, null, null, null, null, null);
 			scriptureQuery.moveToFirst();
 			return scriptureQuery;
 		}
 		protected void onPostExecute(final Cursor scriptureQuery){
 
-			
-	        String [] fromColumns = {WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE};
-			int [] toViews = {R.id.list_entry};
+
+			String [] fromColumns = {WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE};
+			int [] toViews = {R.id.listEntry};
 			CursorAdapter scriptureAdapter = new SimpleCursorAdapter(getActivity(), R.layout.list_layout, scriptureQuery, fromColumns, toViews);
 			ListView scriptureList = (ListView) getActivity().findViewById(R.id.scripture_bank_list);
-			
 			//Remove progress bar and show list.
 			ProgressBar pBar = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
 			TextView loadingText = (TextView) getActivity().findViewById(R.id.loadingText);
@@ -56,7 +55,7 @@ public class ScriptureBankFragment extends Fragment{
 			pBar.setVisibility(ProgressBar.GONE);
 			loadingText.setVisibility(TextView.GONE);
 			scriptureList.setVisibility(ListView.VISIBLE);
-			
+
 			scriptureList.setAdapter(scriptureAdapter);
 			getActivity().registerForContextMenu(scriptureList);
 			scriptureList.setOnItemClickListener(new OnItemClickListener(){
@@ -66,46 +65,46 @@ public class ScriptureBankFragment extends Fragment{
 					Intent intent = new Intent(linearLayout.getContext(),EditScripture.class);
 					scriptureQuery.moveToPosition(position);
 					intent.putExtra("scripture_id",scriptureQuery.getInt(0));
-			    	startActivity(intent);
-					
+					startActivity(intent);
+
 				}
 			});
 		}
 	}
-    
-    /**
-     * When the activity starts clear out any scriptures displayed on the screen 
-     * and populate the screen based on the scriptures in the database.
-     */
-    public void onStart(){
-    	super.onStart();
-    	new ScriptureQuerier().execute();
-    	
-    	//Functionality for the input scripture button.
-        Button inputScripture = (Button) getActivity().findViewById(R.id.input_scripture);
-        inputScripture.setOnClickListener(new OnClickListener(){
+
+	/**
+	 * When the activity starts clear out any scriptures displayed on the screen 
+	 * and populate the screen based on the scriptures in the database.
+	 */
+	public void onStart(){
+		super.onStart();
+		new ScriptureQuerier().execute();
+
+		//Functionality for the input scripture button.
+		Button inputScripture = (Button) getActivity().findViewById(R.id.input_scripture);
+		inputScripture.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View scriptureBank) {
 				// Starts a new input scripture.
 				if(getActivity().findViewById(R.id.fragmentHolder)==null){
 					Intent intent = new Intent(scriptureBank.getContext(),InputScriptureManual.class);
-			    	startActivity(intent);
+					startActivity(intent);
 				}else{
 					FragmentManager fragmentManager = getFragmentManager();
 					FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-					
+
 					InputScriptureFragment inputScriptureFragment = new InputScriptureFragment();
 					fragmentTransaction.add(R.id.fragmentHolder, inputScriptureFragment, "input_scripture");
 					fragmentTransaction.commit();
 				}
 
 			}
-        	
-        });
-        
-        //Functionality for the selected scripture button.
-        Button selectScripture = (Button) getActivity().findViewById(R.id.select_scripture);
-        selectScripture.setOnClickListener(new OnClickListener(){
+
+		});
+
+		//Functionality for the selected scripture button.
+		Button selectScripture = (Button) getActivity().findViewById(R.id.select_scripture);
+		selectScripture.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
@@ -113,13 +112,13 @@ public class ScriptureBankFragment extends Fragment{
 				Intent intent = new Intent(getActivity(),SelectScripture.class);
 				startActivity(intent);
 			}
-        	
-        });
 
-    }
+		});
+
+	}
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		return inflater.inflate(R.layout.scripture_bank, null);
-		
+
 	}
 	public void redraw() {
 		// Reset the progress bar layout.
@@ -131,7 +130,7 @@ public class ScriptureBankFragment extends Fragment{
 		pBar.setVisibility(ProgressBar.VISIBLE);
 		loadingText.setVisibility(TextView.VISIBLE);
 		scriptureList.setVisibility(ListView.GONE);
-		
+
 		new ScriptureQuerier().execute();
 	}
 
