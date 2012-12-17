@@ -75,7 +75,15 @@
             android:name="com.app.wordservant.DisplaySelectedScripture"
             android:label="@string/title_activity_display_selected_scripture" >
         </activity>
-        <activity android:name="com.app.wordservant.ManageTagsActivity"></activity>
+        <activity android:name="com.app.wordservant.ManageTagsActivity" />
+        <activity
+            android:name="com.app.wordservant.QuizReviewActivity"
+            android:label="@string/title_activity_quiz_review"
+            android:parentActivityName="android.support.v4.app.FragmentActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.support.v4.app.FragmentActivity" />
+        </activity>
     </application>
 
 </manifest>

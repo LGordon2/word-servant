@@ -135,6 +135,19 @@ public class LandingScreen extends Activity{
 				startActivity(intent);
 			}
 		});
+		
+		//Quiz/Review button.
+		((Button) this.findViewById(R.id.quizReview)).setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(v.getContext(),QuizReviewActivity.class);
+				Toast.makeText(LandingScreen.this, R.string.title_activity_quiz_review, Toast.LENGTH_SHORT).show();
+				startActivity(intent);
+			}
+			
+		});
 
 	}
 	@Override
