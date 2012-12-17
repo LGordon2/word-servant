@@ -22,6 +22,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
@@ -46,7 +47,8 @@ public class ScriptureReview extends Activity {
 		RelativeLayout reviewLayout = (RelativeLayout) findViewById(R.id.scriptureReviewLayout);
 		RelativeLayout.LayoutParams scriptureReviewLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		scriptureReviewLayoutParams.addRule(RelativeLayout.ABOVE,R.id.dueTodayButtonLayout);
-		if(sharedPref.getBoolean("pref_key_flashcards", false)){
+		if(sharedPref.getString("pref_key_review_select", "none").equals("showing_reference") ||
+				sharedPref.getString("pref_key_review_select", "none").equals("showing_scripture")){
 			RelativeLayout flashCardLayout = (RelativeLayout) this.getLayoutInflater().inflate(R.layout.flashcard_layout, null);
 				
 			flashCardLayout.setLayoutParams(scriptureReviewLayoutParams);
@@ -63,15 +65,15 @@ public class ScriptureReview extends Activity {
 						cardFlipper.setDisplayedChild(0);
 				}
 			};
-			LinearLayout frontLayout = (LinearLayout) findViewById(R.id.frontLayout);
-			TextView backOfCard = (TextView) findViewById(R.id.cardBack);
-			frontLayout.setOnClickListener(flipViewListener);
-			backOfCard.setOnClickListener(flipViewListener);
+			LinearLayout referenceLayout = (LinearLayout) findViewById(R.id.referenceLayout);
+			TextView scriptureText = (TextView) findViewById(R.id.scriptureText);
+			referenceLayout.setOnClickListener(flipViewListener);
+			scriptureText.setOnClickListener(flipViewListener);
 			((Button) findViewById(R.id.flipCardButton)).setOnClickListener(flipViewListener);
 
-			editScriptureReference = (TextView) findViewById(R.id.cardFront);
-			editCategory = (TextView) findViewById(R.id.dueTodayTags);
-			editScripture = (TextView) findViewById(R.id.cardBack);
+			editScriptureReference = (TextView) findViewById(R.id.referenceText);
+			editCategory = (TextView) findViewById(R.id.scriptureTags);
+			editScripture = (TextView) findViewById(R.id.scriptureText);
 		}else{
 			RelativeLayout noEditScriptureLayout = (RelativeLayout) this.getLayoutInflater().inflate(R.layout.layout_no_edit_scripture, null);
 			noEditScriptureLayout.setLayoutParams(scriptureReviewLayoutParams);
@@ -148,10 +150,37 @@ public class ScriptureReview extends Activity {
 		// TODO Auto-generated method stub
 		try{			
 			SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-			if(sharedPref.getBoolean("pref_key_flashcards", false)){
+			if(sharedPref.getString("pref_key_review_select", "none").equals("showing_reference") ||
+					sharedPref.getString("pref_key_review_select", "none").equals("showing_scripture")){
 				ViewSwitcher cardFlipper = (ViewSwitcher) findViewById(R.id.cardSwitcher);
 				cardFlipper.reset();
-				cardFlipper.setDisplayedChild(0);
+				
+				//Define the front and back of the cards.
+				LinearLayout frontCard;
+				LinearLayout backCard;
+				if(sharedPref.getString("pref_key_review_select", "none").equals("showing_scripture")){
+					cardFlipper.setDisplayedChild(1);
+					frontCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
+					backCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
+				}else{
+					cardFlipper.setDisplayedChild(0);
+					frontCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
+					backCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
+				}
+				
+				//Change the color for these cards accordingly.
+				frontCard.setBackgroundColor(getResources().getColor(android.R.color.black));
+				for (int i=0;i<frontCard.getChildCount();i++){
+					TextView textView = (TextView) frontCard.getChildAt(i);
+					textView.setBackgroundColor(getResources().getColor(android.R.color.black));
+					textView.setTextColor(getResources().getColor(android.R.color.white));
+				}
+				backCard.setBackgroundColor(getResources().getColor(android.R.color.white));
+				for (int i=0;i<backCard.getChildCount();i++){
+					TextView textView = (TextView) backCard.getChildAt(i);
+					textView.setBackgroundColor(getResources().getColor(android.R.color.white));
+					textView.setTextColor(getResources().getColor(android.R.color.black));
+				}
 			}
 			String [] columns_to_retrieve = {
 					WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE,
