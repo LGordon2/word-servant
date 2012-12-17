@@ -31,6 +31,7 @@
 
         <com.app.wordservant.SeekBarPreference
             android:defaultValue="0"
+            android:shouldDisableView = "true"
             android:key="pref_key_word_masking"
             android:max="100"
             android:summary="Adjust word masking percent"
