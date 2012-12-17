@@ -16,57 +16,55 @@
         android:outAnimation="@anim/shrink_to_middle" >
 
         <ScrollView
-            android:id="@+id/frontScroll"
+            android:id="@+id/referenceScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
             android:focusable="false" >
 
             <LinearLayout
-                android:id="@+id/frontLayout"
+                android:id="@+id/referenceLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/black"
                 android:gravity="center_horizontal"
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/cardFront"
+                    android:id="@+id/referenceText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/black"
                     android:focusable="false"
                     android:gravity="center_horizontal"
-                    android:text="Genesis 1:1"
-                    android:textColor="@android:color/white"
                     android:textSize="30sp" />
 
                 <TextView
-                    android:id="@+id/dueTodayTags"
+                    android:id="@+id/scriptureTags"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tags"
-                    android:textColor="@android:color/white" />
-
+                    android:text="Tags" />
             </LinearLayout>
         </ScrollView>
 
         <ScrollView
-            android:id="@+id/backScroll"
+            android:id="@+id/scriptureScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
             android:focusable="false" >
 
-            <TextView
-                android:id="@+id/cardBack"
+            <LinearLayout
+                android:id="@+id/scriptureLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/white"
-                android:gravity="center_horizontal"
-                android:text="In the beginning God created the heavens and the earth."
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/scriptureText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:textSize="20sp" />
+            </LinearLayout>
         </ScrollView>
     </ViewSwitcher>
 

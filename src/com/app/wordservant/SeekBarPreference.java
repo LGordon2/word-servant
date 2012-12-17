@@ -1,8 +1,11 @@
 package com.app.wordservant;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,7 +20,7 @@ import android.widget.TextView;
 /**
  * Adapted from http://robobunny.com/wp/2011/08/13/android-seekbar-preference/
  */
-public class SeekBarPreference extends Preference implements OnSeekBarChangeListener {
+public class SeekBarPreference extends Preference implements OnSeekBarChangeListener, OnPreferenceChangeListener {
 	
 	private final String TAG = getClass().getName();
 	
@@ -89,6 +92,9 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
 			LayoutInflater mInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 			layout = (RelativeLayout)mInflater.inflate(R.layout.dialog_slider, parent, false);
+			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+			String preference = sharedPreferences.getString("pref_key_review_select", "none");
+			this.setEnabled(preference.equals("word_masking"));
 		}
 		catch(Exception e)
 		{
@@ -116,7 +122,7 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
 	            }
 	            // remove the existing seekbar (there may not be one) and add ours
 	            newContainer.removeAllViews();
-	            newContainer.addView(mSeekBar, ViewGroup.LayoutParams.FILL_PARENT,
+	            newContainer.addView(mSeekBar, ViewGroup.LayoutParams.MATCH_PARENT,
 	                    ViewGroup.LayoutParams.WRAP_CONTENT);
 	        }
 		}
@@ -215,6 +221,18 @@ public class SeekBarPreference extends Preference implements OnSeekBarChangeList
 			mCurrentValue = temp;
 		}
 		
+	}
+
+	@Override
+	public boolean onPreferenceChange(Preference preference, Object newValue) {
+		// TODO Auto-generated method stub
+		this.setEnabled(Boolean.valueOf(newValue.toString()));
+		return false;
+	}
+	
+	public void setEnabled(boolean value){
+		super.setEnabled(value);
+		mSeekBar.setEnabled(value);
 	}
 	
 }

@@ -48,12 +48,12 @@
         android:title="Review Method Settings" >
 
         <ListPreference
-            android:key="pref_key_review_select"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:defaultValue= "none"
             android:entries="@array/review_select"
             android:entryValues="@array/review_select_values"
+            android:key="pref_key_review_select"
             android:summary="Select the method you wish to use to review your daily scriptures."
             android:title="Scripture Review Method" />
     </PreferenceCategory>
