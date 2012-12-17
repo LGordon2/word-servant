@@ -48,13 +48,17 @@ public class TodaysMemoryVerses extends Activity{
     	LinearLayout allSections = (LinearLayout) findViewById(R.id.test);
     	allSections.removeAllViews();
     	//Query for all scriptures that are due today.
-    	String [] queryColumns = {"REFERENCE","_ID", "NEXT_REVIEW_DATE", "LAST_REVIEWED_DATE"}; 
+    	String [] queryColumns = {
+    			WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE,
+    			WordServantContract.ScriptureEntry._ID,
+    			WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE,
+    			WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE}; 
 		dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
 
 		for(int i=0;i<4;i++){
-			String whereClause = "NEXT_REVIEW_DATE <= date('now','-"+i+" day')";
-			whereClause += i==0?" OR LAST_REVIEWED_DATE = date('now')":"";
-			scriptureQuery = wordservant_db.query(false, getResources().getString(R.string.scripture_table_name), queryColumns, whereClause, null, null, null, null, null);
+			String whereClause = WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+" <= date('now','-"+i+" day')";
+			whereClause += i==0?" OR "+WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+" = date('now')":"";
+			scriptureQuery = wordservant_db.query(false, WordServantContract.ScriptureEntry.TABLE_NAME, queryColumns, whereClause, null, null, null, null, null);
 			
 			if (scriptureQuery.getCount()==0 && i>0){
 				continue;
