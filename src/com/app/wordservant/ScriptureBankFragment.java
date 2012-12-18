@@ -35,7 +35,7 @@ public class ScriptureBankFragment extends Fragment{
 		protected Cursor doInBackground(Void... params) {
 			// Gets the scripture that matches the scripture id.
 			String [] columns_to_retrieve = {WordServantContract.ScriptureEntry._ID, WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE};
-	        SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(getActivity(), "wordservant_db", null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
+	        SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 			Cursor scriptureQuery = wordservantReadableDatabase.query(WordServantContract.ScriptureEntry.TABLE_NAME, columns_to_retrieve, null, null, null, null, null);
 			scriptureQuery.moveToFirst();
 			return scriptureQuery;

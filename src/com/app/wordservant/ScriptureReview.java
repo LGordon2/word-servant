@@ -22,7 +22,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
@@ -88,7 +87,7 @@ public class ScriptureReview extends Activity {
 		dbDateFormat.format(Calendar.getInstance().getTime());
 
 		//Open the database.
-		wordservant_db = new WordServantDbHelper(this, getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
+		wordservant_db = new WordServantDbHelper(this, WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
 		positionOnScreen = this.getIntent().getIntExtra("positionOnScreen", 0);
 		final Bundle bundledScriptureList = this.getIntent().getBundleExtra("bundledScriptureList");
 		displayScriptureContent(bundledScriptureList.getInt(String.valueOf(positionOnScreen)));
@@ -243,7 +242,7 @@ public class ScriptureReview extends Activity {
 		}
 	}
 	public static void updateReviewedScripture(Context context, int scriptureId){
-		SQLiteDatabase wordservant_db = new WordServantDbHelper(context, WordServantContract.DB_NAME, null, 1).getWritableDatabase();
+		SQLiteDatabase wordservant_db = new WordServantDbHelper(context, WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 		String [] columns_to_retrieve = {
 				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, 
 				WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE,

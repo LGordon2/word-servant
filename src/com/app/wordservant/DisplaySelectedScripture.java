@@ -73,9 +73,16 @@ public class DisplaySelectedScripture extends Activity {
 				scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE, reference);
 				scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT, scriptureText);
 				
-				String [] columnsToRetrieve = {"SCHEDULE","TIMES_REVIEWED","NEXT_REVIEW_DATE"};
-				SQLiteDatabase wordservant_db = new WordServantDbHelper(getApplicationContext(), getResources().getString(R.string.database_name), null, 1).getWritableDatabase();
-				Cursor runningScriptureQuery = wordservant_db.query("scriptures", columnsToRetrieve, "SCHEDULE='daily' AND TIMES_REVIEWED<7", null, null, null, null);
+				String [] columnsToRetrieve = {
+						WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE,
+						WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED,
+						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
+				SQLiteDatabase wordservant_db = new WordServantDbHelper(DisplaySelectedScripture.this, WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
+				Cursor runningScriptureQuery = wordservant_db.query(
+						WordServantContract.ScriptureEntry.TABLE_NAME, 
+						columnsToRetrieve, 
+						WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+"='daily' AND "+
+						WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<7", null, null, null, null);
 				if (runningScriptureQuery.getCount()>0){
 					runningScriptureQuery.moveToLast();
 					Calendar currentCalendar = Calendar.getInstance();
@@ -85,7 +92,7 @@ public class DisplaySelectedScripture extends Activity {
 						e.printStackTrace();
 					}
 					currentCalendar.add(Calendar.DATE, 7-runningScriptureQuery.getInt(1));
-					scriptureValues.put("next_review_date", dbDateFormat.format(currentCalendar.getTime()));
+					scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, dbDateFormat.format(currentCalendar.getTime()));
 				}
 				
 				//Open the database and add the row.

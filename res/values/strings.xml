@@ -69,7 +69,7 @@
     </string-array>
 
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_quiz_review">QuizReviewActivity</string>
+    <string name="title_activity_quiz_review">Quiz/Review</string>
     <string name="title_activity_quiz_review_fragment">QuizReviewFragment</string>
 
 </resources>
