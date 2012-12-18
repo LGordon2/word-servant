@@ -135,18 +135,18 @@ public class LandingScreen extends Activity{
 				startActivity(intent);
 			}
 		});
-
-		//Tag Preview button
-		Button tagPreview = (Button) this.findViewById(R.id.tagPreview);
-		tagPreview.setOnClickListener(new OnClickListener(){
+		
+		//Quiz/Review button.
+		((Button) this.findViewById(R.id.quizReview)).setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				// Starts a new Scripture Bank activity.
-				Intent intent = new Intent(v.getContext(),ScriptureBank.class);
-				//Toast.makeText(LandingScreen.this, "Not yet implemented", Toast.LENGTH_SHORT).show();
-		    	startActivity(intent);
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(v.getContext(),QuizReviewActivity.class);
+				Toast.makeText(LandingScreen.this, R.string.title_activity_quiz_review, Toast.LENGTH_SHORT).show();
+				startActivity(intent);
 			}
+			
 		});
 
 	}

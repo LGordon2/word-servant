@@ -14,6 +14,9 @@ public class WordServantContract {
 	    public static final String COLUMN_NAME_LAST_REVIEWED_DATE = "last_reviewed_date";
 	    public static final String COLUMN_NAME_TIMES_REVIEWED = "times_reviewed";
 	    public static final String COLUMN_NAME_NEXT_REVIEW_DATE = "next_review_date";
+		public static final String COLUMN_NAME_CORRECTLY_REVIEWED_COUNT = "correctly_reviewed_count";
+		public static final String COLUMN_NAME_INCORRECTLY_REVIEWED_COUNT = "incorrectly_reviewed_count";
+		public static final String COLUMN_NAME_SKIPPED_REVIEW_COUNT = "skipped_review_count";
 	    
 	}
 	public abstract class TagEntry implements BaseColumns{

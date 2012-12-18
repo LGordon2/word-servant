@@ -58,14 +58,14 @@ public class InputScriptureFragment extends Fragment {
 				// Map the values of the fields to columns that are used in the database.
 				SimpleDateFormat dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
 				ContentValues scriptureValues = new ContentValues();
-				scriptureValues.put("reference", scriptureReference.getText().toString());
-				scriptureValues.put("text", scriptureText.getText().toString());
+				scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE, scriptureReference.getText().toString());
+				scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT, scriptureText.getText().toString());
 				//Query for any "running" scriptures.
 				String [] columnsToRetrieve = {
 						WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE,
 						WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED,
 						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
-				SQLiteDatabase wordservant_db_readable = new WordServantDbHelper(inputScriptureView.getContext(), getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
+				SQLiteDatabase wordservant_db_readable = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
 				Cursor runningScriptureQuery = wordservant_db_readable.query(WordServantContract.ScriptureEntry.TABLE_NAME, columnsToRetrieve, "SCHEDULE='daily' AND TIMES_REVIEWED<7", null, null, null, null);
 				if (runningScriptureQuery.getCount()>0){
 					runningScriptureQuery.moveToLast();
@@ -76,13 +76,13 @@ public class InputScriptureFragment extends Fragment {
 						e.printStackTrace();
 					}
 					currentCalendar.add(Calendar.DATE, 7-runningScriptureQuery.getInt(1));
-					scriptureValues.put("next_review_date", dbDateFormat.format(currentCalendar.getTime()));
+					scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, dbDateFormat.format(currentCalendar.getTime()));
 				}
 				r.gc();
 				
 				//Open the database and add the row.
 				try{
-					wordservant_db = new WordServantDbHelper(inputScriptureView.getContext(), getResources().getString(R.string.database_name), null, 1).getWritableDatabase();
+					wordservant_db = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 					wordservant_db.insert(getResources().getString(R.string.scripture_table_name), null, scriptureValues);
 				} catch(SQLiteException e){
 					System.err.println("Error with SQL statement.");

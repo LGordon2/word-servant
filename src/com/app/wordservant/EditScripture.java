@@ -33,7 +33,11 @@ public class EditScripture extends Activity {
 					WordServantContract.ScriptureEntry._ID,
 					WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE,
 					WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT};
-			SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(getApplicationContext(), "wordservant_db", null, 1).getReadableDatabase();
+			SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(
+					EditScripture.this, 
+					WordServantContract.DB_NAME, 
+					null, 
+					WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
 			Cursor scriptureQuery = wordservantReadableDatabase.query(
 					WordServantContract.ScriptureEntry.TABLE_NAME, 
 					columns_to_retrieve, 
@@ -72,8 +76,16 @@ public class EditScripture extends Activity {
 				updatedItems.put("reference", editScriptureReference.getText().toString());
 				//updatedItems.put("category", editCategory.getText().toString());
 				updatedItems.put("text", editScripture.getText().toString());
-				SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(getApplicationContext(), "wordservant_db", null, 1).getWritableDatabase();
-				wordservantReadableDatabase.update(getResources().getString(R.string.scripture_table_name), updatedItems, "_id="+selectedScriptureId, null);
+				SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(
+						EditScripture.this, 
+						WordServantContract.DB_NAME, 
+						null, 
+						WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
+				wordservantReadableDatabase.update(
+						WordServantContract.ScriptureEntry.TABLE_NAME, 
+						updatedItems, 
+						WordServantContract.ScriptureEntry._ID+"="+selectedScriptureId, 
+						null);
 				wordservantReadableDatabase.close();
 				finish();
 			}
