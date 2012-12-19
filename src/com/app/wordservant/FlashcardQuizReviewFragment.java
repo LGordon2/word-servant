@@ -188,7 +188,7 @@ public class FlashcardQuizReviewFragment extends Fragment{
 
 	private Integer getRandomIdIndex(SparseIntArray allScriptureIds) {
 		// TODO Auto-generated method stub
-		if(allScriptureIds.size()==0)
+		if(allScriptureIds.size()==1)
 			return 0;
 		Integer randomIndex = ((Integer) Math.abs(new Random().nextInt()) % allScriptureIds.size());
 		return mAllScriptureIds.keyAt(randomIndex) != quizData.getPosition() ? randomIndex : getRandomIdIndex(allScriptureIds);

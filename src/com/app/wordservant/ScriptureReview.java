@@ -46,6 +46,8 @@ public class ScriptureReview extends Activity {
 		RelativeLayout reviewLayout = (RelativeLayout) findViewById(R.id.scriptureReviewLayout);
 		RelativeLayout.LayoutParams scriptureReviewLayoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		scriptureReviewLayoutParams.addRule(RelativeLayout.ABOVE,R.id.dueTodayButtonLayout);
+		
+		//Display flashcards if the setting is enabled.
 		if(sharedPref.getString("pref_key_review_select", "none").equals("showing_reference") ||
 				sharedPref.getString("pref_key_review_select", "none").equals("showing_scripture")){
 			RelativeLayout flashCardLayout = (RelativeLayout) this.getLayoutInflater().inflate(R.layout.flashcard_layout, null);
@@ -211,7 +213,13 @@ public class ScriptureReview extends Activity {
 			}
 			editCategory.setText(tagText);
 			editScripture.setText(scriptureQuery.getString(1));
-			if(scriptureQuery.getCount()==1){
+			String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID};
+			unreviewedScriptureQuery = wordservant_db.query(
+					WordServantContract.ScriptureEntry.TABLE_NAME, 
+					columnsToRetrieve, 
+					WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now')",
+					null, null, null, null);
+			if(unreviewedScriptureQuery.getCount()==1){
 				Button nextButton = (Button) findViewById(R.id.dueTodayNextButton);
 				nextButton.setVisibility(Button.GONE);
 			}

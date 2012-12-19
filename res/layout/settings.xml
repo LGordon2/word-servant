@@ -28,17 +28,6 @@
             android:summaryOff="Daily notification disabled"
             android:summaryOn="Daily notification enabled"
             android:title="Notifications" />
-
-        <com.app.wordservant.SeekBarPreference
-            android:defaultValue="0"
-            android:shouldDisableView = "true"
-            android:key="pref_key_word_masking"
-            android:max="100"
-            android:summary="Adjust word masking percent"
-            android:title="Word Masking"
-            wordservant:min="0"
-            wordservant:unitsLeft=""
-            wordservant:unitsRight="%" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -48,14 +37,25 @@
         android:title="Review Method Settings" >
 
         <ListPreference
-            android:key="pref_key_review_select"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:defaultValue= "none"
+            android:defaultValue="none"
             android:entries="@array/review_select"
             android:entryValues="@array/review_select_values"
+            android:key="pref_key_review_select"
             android:summary="Select the method you wish to use to review your daily scriptures."
             android:title="Scripture Review Method" />
+
+        <com.app.wordservant.SeekBarPreference
+            android:defaultValue="0"
+            android:key="pref_key_word_masking"
+            android:max="100"
+            android:shouldDisableView="true"
+            android:summary="Adjust word masking percent"
+            android:title="Word Masking"
+            wordservant:min="0"
+            wordservant:unitsLeft=""
+            wordservant:unitsRight="%" />
     </PreferenceCategory>
 
 </PreferenceScreen>
