@@ -84,6 +84,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.support.v4.app.FragmentActivity" />
         </activity>
+        <activity
+            android:name="ScriptureReviewFragmentActivity"
+            android:parentActivityName="android.support.v4.app.FragmentActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.support.v4.app.FragmentActivity" />
+        </activity>
     </application>
 
 </manifest>

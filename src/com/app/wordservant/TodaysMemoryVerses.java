@@ -154,7 +154,7 @@ public class TodaysMemoryVerses extends Activity{
 					LinearLayout view = (LinearLayout) dueTodayView;
 					CheckBox checkBox = (CheckBox) view.getChildAt(0);
 					if(!checkBox.isPressed()){
-						Intent intent = new Intent(dueTodayView.getContext(),ScriptureReview.class);
+						Intent intent = new Intent(dueTodayView.getContext(),ScriptureReviewFragmentActivity.class);
 						intent.putExtra("bundledScriptureList",bundledScriptureList);
 						intent.putExtra("positionOnScreen", position);
 				    	startActivity(intent);

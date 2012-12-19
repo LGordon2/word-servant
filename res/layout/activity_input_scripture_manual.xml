@@ -33,13 +33,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/doneButton"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/scriptureReference"
         android:ems="10"
         android:gravity="top|center_vertical"
         android:hint="@string/scripture_text_text_field_hint"
         android:inputType="textMultiLine"
-        android:lines="10"
         android:scrollbars="vertical" />
 
     <Button
