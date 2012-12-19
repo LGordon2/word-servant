@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 public class FlashcardScriptureReviewFragment extends Fragment {
@@ -25,6 +27,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 	private TextView mEditCategory;
 	private TextView mEditScripture;
 	private SQLiteDatabase mDatabaseConnection;
+	private Cursor mUnreviewedScriptureQuery;
 
 	public void onViewCreated(View view, Bundle savedInstanceState){
 		super.onViewCreated(view, savedInstanceState);
@@ -104,20 +107,20 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 		displayScriptureContent(bundledScriptureList.getInt(String.valueOf(positionOnScreen)));
 
 		//Check all unreviewedScriptures.
-		/*String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID,
+		String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID,
 				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
-		Cursor unreviewedScriptureQuery = wordservant_db.query(
+		mUnreviewedScriptureQuery = mDatabaseConnection.query(
 				WordServantContract.ScriptureEntry.TABLE_NAME, 
 				columnsToRetrieve, 
 				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now') OR "+WordServantContract.ScriptureEntry._ID+"="+bundledScriptureList.getInt(String.valueOf(positionOnScreen)), 
 				null, null, null, null);
 
 		//Set the row in the unreviewed scripture query to match the selected item in Today's Memory Verses.
-		unreviewedScriptureQuery.moveToFirst();
-		while(unreviewedScriptureQuery.getInt(0)!=bundledScriptureList.getInt(String.valueOf(positionOnScreen))){
-			unreviewedScriptureQuery.moveToNext();
-			if(unreviewedScriptureQuery.isAfterLast()){
-				unreviewedScriptureQuery.moveToFirst();
+		mUnreviewedScriptureQuery.moveToFirst();
+		while(mUnreviewedScriptureQuery.getInt(0)!=bundledScriptureList.getInt(String.valueOf(positionOnScreen))){
+			mUnreviewedScriptureQuery.moveToNext();
+			if(mUnreviewedScriptureQuery.isAfterLast()){
+				mUnreviewedScriptureQuery.moveToFirst();
 			}
 		}
 
@@ -127,7 +130,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				setNextScriptureId();
-				displayScriptureContent(unreviewedScriptureQuery.getInt(0));
+				displayScriptureContent(mUnreviewedScriptureQuery.getInt(0));
 			}
 
 		});
@@ -138,8 +141,8 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID};
-				updateReviewedScripture(getActivity(), unreviewedScriptureQuery.getInt(0));
-				Cursor unreviewedScriptureQuery = wordservant_db.query(
+				updateReviewedScripture(getActivity(), mUnreviewedScriptureQuery.getInt(0));
+				Cursor unreviewedScriptureQuery = mDatabaseConnection.query(
 						WordServantContract.ScriptureEntry.TABLE_NAME, 
 						columnsToRetrieve, 
 						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now')",
@@ -154,7 +157,13 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 				displayScriptureContent(unreviewedScriptureQuery.getInt(0));
 			}
 
-		});*/
+			private void updateReviewedScripture(FragmentActivity activity,
+					int int1) {
+				// TODO Auto-generated method stub
+				
+			}
+
+		});
 	}
 	
 	protected void displayScriptureContent(int scriptureId) {
@@ -204,6 +213,22 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 		} catch(SQLiteException e){
 			System.err.println("Database issue..");
 			e.printStackTrace();
+		}
+	}
+	
+	private void setNextScriptureId(){
+		//If there are no or just one we just need to display a message and return that scripture id.
+		if(mUnreviewedScriptureQuery.getCount()==0){
+			return;
+		}
+		else if(mUnreviewedScriptureQuery.getCount()==1){// && mUnreviewedScriptureQuery.getInt(0)==scriptureQuery.getInt(3)){
+			Toast.makeText(getActivity(), "This is the last unchecked scripture.", Toast.LENGTH_SHORT).show();
+		}
+		else{
+			mUnreviewedScriptureQuery.moveToNext();
+			if(mUnreviewedScriptureQuery.isAfterLast()){
+				mUnreviewedScriptureQuery.moveToFirst();
+			}
 		}
 	}
 	
