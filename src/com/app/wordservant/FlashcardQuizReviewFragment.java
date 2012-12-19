@@ -1,6 +1,5 @@
 package com.app.wordservant;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import android.content.ContentValues;
@@ -30,6 +29,59 @@ public class FlashcardQuizReviewFragment extends Fragment{
 	private SparseIntArray mAllScriptureIds;
 	private Cursor quizData;
 
+	public void onViewCreated(View view, Bundle savedInstanceState){
+		super.onViewCreated(view, savedInstanceState);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		final ViewSwitcher cardFlipper = (ViewSwitcher) getView().findViewById(R.id.cardSwitcher);
+		OnClickListener flipViewListener = new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(cardFlipper.getDisplayedChild()==0)
+					cardFlipper.setDisplayedChild(1);
+				else
+					cardFlipper.setDisplayedChild(0);
+			}
+		};
+		LinearLayout referenceLayout = (LinearLayout) getView().findViewById(R.id.referenceLayout);
+		TextView scriptureText = (TextView) getView().findViewById(R.id.scriptureText);
+		referenceLayout.setOnClickListener(flipViewListener);
+		scriptureText.setOnClickListener(flipViewListener);
+		((Button) getView().findViewById(R.id.flipCardButton)).setOnClickListener(flipViewListener);
+
+		mEditScriptureReference = (TextView) getView().findViewById(R.id.referenceText);
+		mEditCategory = (TextView) getView().findViewById(R.id.scriptureTags);
+		mEditScripture = (TextView) getView().findViewById(R.id.scriptureText);
+		
+		//Set up coloring.
+		//Define the front and back of the cards.
+		LinearLayout frontCard;
+		LinearLayout backCard;
+		if(sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture")){
+			cardFlipper.setDisplayedChild(1);
+			frontCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
+			backCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
+		}else{
+			cardFlipper.setDisplayedChild(0);
+			frontCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
+			backCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
+		}
+
+		//Change the color for these cards accordingly.
+		frontCard.setBackgroundColor(getResources().getColor(R.color.card_front_background_color));
+		for (int i=0;i<frontCard.getChildCount();i++){
+			TextView textView = (TextView) frontCard.getChildAt(i);
+			textView.setBackgroundColor(getResources().getColor(R.color.card_front_background_color));
+			textView.setTextColor(getResources().getColor(R.color.card_front_text_color));
+		}
+		backCard.setBackgroundColor(getResources().getColor(R.color.card_back_background_color));
+		for (int i=0;i<backCard.getChildCount();i++){
+			TextView textView = (TextView) backCard.getChildAt(i);
+			textView.setBackgroundColor(getResources().getColor(R.color.card_back_background_color));
+			textView.setTextColor(getResources().getColor(R.color.card_back_text_color));
+		}
+	}
+	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 	}
@@ -56,29 +108,6 @@ public class FlashcardQuizReviewFragment extends Fragment{
 						columns, selection, null, null, null, null);
 			}
 		}.loadInBackground();
-
-		final ViewSwitcher cardFlipper = (ViewSwitcher) getView().findViewById(R.id.cardSwitcher);
-		OnClickListener flipViewListener = new OnClickListener(){
-			@Override
-			public void onClick(View view) {
-				// TODO Auto-generated method stub
-				if((cardFlipper).getDisplayedChild()==0)
-					(cardFlipper).setDisplayedChild(1);
-				else
-					(cardFlipper).setDisplayedChild(0);
-			}
-		};
-		cardFlipper.setOnClickListener(flipViewListener);
-		LinearLayout referenceLayout = (LinearLayout) getView().findViewById(R.id.referenceLayout);
-		TextView scriptureText = (TextView) getView().findViewById(R.id.scriptureText);
-		referenceLayout.setOnClickListener(flipViewListener);
-		scriptureText.setOnClickListener(flipViewListener);
-		((Button) getView().findViewById(R.id.flipCardButton)).setOnClickListener(flipViewListener);
-
-		//Display the scripture information on the screen.
-		mEditScriptureReference = (TextView) getView().findViewById(R.id.referenceText);
-		mEditCategory = (TextView) getView().findViewById(R.id.scriptureTags);
-		mEditScripture = (TextView) getView().findViewById(R.id.scriptureText);
 
 		//Put all Ids in a sparse int array.
 		mAllScriptureIds  = new SparseIntArray(quizData.getCount());
