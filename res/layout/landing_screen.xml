@@ -1,40 +1,70 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/LinearLayout1"
+    android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/card_back_text_color"
     android:gravity="center"
     android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/todaysMemoryVerses"
+    <LinearLayout
+        android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="0dp"
-        android:text="@string/title_activity_todays_memory_verses" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/scriptureBank"
+        <Button
+            android:id="@+id/todaysMemoryVerses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/imageView1"
+            android:fadingEdge="horizontal"
+            android:fadingEdgeLength="100dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/title_activity_todays_memory_verses" />
+
+        <Button
+            android:id="@+id/scriptureBank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/todaysMemoryVerses"
+            android:text="@string/title_activity_scripture_bank" />
+
+        <Button
+            android:id="@+id/quizReview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/scriptureBank"
+            android:text="Quiz / Review" />
+
+        <Button
+            android:id="@+id/statistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/quizReview"
+            android:text="Statistics" />
+
+        <Button
+            android:id="@+id/scriptureSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/statistics"
+            android:text="Scripture Search" />
+    </LinearLayout>
+
+    <!-- <ImageView
+        android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_activity_scripture_bank" />
+        android:layout_above="@id/buttons"
+        android:adjustViewBounds="true"
+        android:src="@drawable/bible_opening" /> -->
 
-    <Button
-        android:id="@+id/quizReview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Quiz / Review" />
-
-    <Button
-        android:id="@+id/statistics"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Statistics" />
-
-    <Button
-        android:id="@+id/scriptureSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Scripture Search" />
-
-</LinearLayout>
+</RelativeLayout>
