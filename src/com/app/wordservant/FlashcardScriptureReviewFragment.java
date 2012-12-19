@@ -1,9 +1,13 @@
 package com.app.wordservant;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -26,6 +30,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 	private TextView mEditScriptureReference;
 	private TextView mEditCategory;
 	private TextView mEditScripture;
+	private Integer mFirstSelectedScriptureId;
 	private SQLiteDatabase mDatabaseConnection;
 	private Cursor mUnreviewedScriptureQuery;
 
@@ -95,7 +100,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 
 	public void onStart(){
 		super.onStart();
-		
+
 		//Get the date for today.
 		SimpleDateFormat dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
 		dbDateFormat.format(Calendar.getInstance().getTime());
@@ -104,7 +109,9 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 		mDatabaseConnection = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
 		Integer positionOnScreen = getActivity().getIntent().getIntExtra("positionOnScreen", 0);
 		final Bundle bundledScriptureList = getActivity().getIntent().getBundleExtra("bundledScriptureList");
-		displayScriptureContent(bundledScriptureList.getInt(String.valueOf(positionOnScreen)));
+		mFirstSelectedScriptureId = bundledScriptureList.getInt(String.valueOf(positionOnScreen));
+
+		displayScriptureContent(mFirstSelectedScriptureId);
 
 		//Check all unreviewedScriptures.
 		String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID,
@@ -112,8 +119,9 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 		mUnreviewedScriptureQuery = mDatabaseConnection.query(
 				WordServantContract.ScriptureEntry.TABLE_NAME, 
 				columnsToRetrieve, 
-				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now') OR "+WordServantContract.ScriptureEntry._ID+"="+bundledScriptureList.getInt(String.valueOf(positionOnScreen)), 
-				null, null, null, null);
+				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now') OR "+
+						WordServantContract.ScriptureEntry._ID+"="+mFirstSelectedScriptureId, 
+						null, null, null, null);
 
 		//Set the row in the unreviewed scripture query to match the selected item in Today's Memory Verses.
 		mUnreviewedScriptureQuery.moveToFirst();
@@ -124,48 +132,130 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 			}
 		}
 
-		Button nextButton = (Button) getView().findViewById(R.id.dueTodayNextButton);
-		nextButton.setOnClickListener(new OnClickListener(){
+		Button nextButton = (Button) getActivity().findViewById(R.id.dueTodayNextButton);
+		if(mUnreviewedScriptureQuery.getCount()==1){
+			nextButton.setVisibility(Button.GONE);
+		}else{
+			nextButton.setOnClickListener(new OnClickListener(){
 
-			@Override
-			public void onClick(View view) {
-				setNextScriptureId();
-				displayScriptureContent(mUnreviewedScriptureQuery.getInt(0));
-			}
+				@Override
+				public void onClick(View view) {
+					setNextScriptureId();
+					displayScriptureContent(mUnreviewedScriptureQuery.getInt(0));
+				}
 
-		});
-
-		Button reviewedButton = (Button) getView().findViewById(R.id.dueTodayFinishedButton);
+			});
+		}
+		Button reviewedButton = (Button) getActivity().findViewById(R.id.dueTodayFinishedButton);
 		reviewedButton.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View view) {
-				String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID};
+				//Update the database.
 				updateReviewedScripture(getActivity(), mUnreviewedScriptureQuery.getInt(0));
-				Cursor unreviewedScriptureQuery = mDatabaseConnection.query(
-						WordServantContract.ScriptureEntry.TABLE_NAME, 
-						columnsToRetrieve, 
-						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now')",
-						null, null, null, null);
-				unreviewedScriptureQuery.moveToFirst();
-				//Select the next.
-				setNextScriptureId();
-				if(unreviewedScriptureQuery.getCount()==0){
+				
+				if(mUnreviewedScriptureQuery.getInt(0) == mFirstSelectedScriptureId){
+					mFirstSelectedScriptureId = -1;
+				}
+				
+				if(mUnreviewedScriptureQuery.getCount()==1){
 					getActivity().finish();
 					return;
 				}
-				displayScriptureContent(unreviewedScriptureQuery.getInt(0));
-			}
-
-			private void updateReviewedScripture(FragmentActivity activity,
-					int int1) {
-				// TODO Auto-generated method stub
 				
+				String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID};
+				mUnreviewedScriptureQuery = mDatabaseConnection.query(
+						WordServantContract.ScriptureEntry.TABLE_NAME, 
+						columnsToRetrieve, 
+						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now') OR "+
+								WordServantContract.ScriptureEntry._ID+"="+mFirstSelectedScriptureId,
+								null, null, null, null);
+				mUnreviewedScriptureQuery.moveToFirst();
+				Button nextButton = (Button) getActivity().findViewById(R.id.dueTodayNextButton);
+				if(mUnreviewedScriptureQuery.getCount()==1){
+					nextButton.setVisibility(Button.GONE);
+				}
+				
+				//Select the next.
+				setNextScriptureId();
+				displayScriptureContent(mUnreviewedScriptureQuery.getInt(0));
+				
+
 			}
 
 		});
 	}
-	
+
+	public static void updateReviewedScripture(Context context, int scriptureId){
+		SQLiteDatabase wordservant_db = new WordServantDbHelper(context, WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
+		String [] columns_to_retrieve = {
+				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, 
+				WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE,
+				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED,
+				WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE};
+		Cursor scriptureQuery = wordservant_db.query(
+				WordServantContract.ScriptureEntry.TABLE_NAME, 
+				columns_to_retrieve, 
+				WordServantContract.ScriptureEntry._ID+"="+scriptureId, 
+				null, null, null, null);
+		scriptureQuery.moveToFirst();
+
+		// Update the database showing that the scripture was reviewed.
+		ContentValues updatedValues = new ContentValues();
+		SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
+
+		//Update the times reviewed.
+		Date currentDate = Calendar.getInstance().getTime();
+		currentDate.setHours(0);
+		currentDate.setMinutes(0);
+		currentDate.setSeconds(0);
+
+		try {
+			if(scriptureQuery.getString(3) == null){
+				updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED, 1);
+			}
+
+			else if(dbDateFormat.parse(scriptureQuery.getString(3)).before(currentDate) && !dbDateFormat.parse(scriptureQuery.getString(3)).equals(currentDate)){
+				updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED, scriptureQuery.getInt(2)+1);
+				if(scriptureQuery.getInt(2) == 6){
+					updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE, "weekly");
+				}else if(scriptureQuery.getInt(2)==13){
+					updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE, "monthly");
+				}else if(scriptureQuery.getInt(2)==20){
+					updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE, "yearly");
+				}
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		//Update the last reviewed date to be today.
+		updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE, todaysDate);
+
+		//Calculate when the next review should be and update that date.
+		Calendar calculatedDate = Calendar.getInstance();
+		if(scriptureQuery.getString(1).equals("daily")){
+			calculatedDate.add(Calendar.DATE, 1);
+		}else if(scriptureQuery.getString(1).equals("weekly")){
+			calculatedDate.add(Calendar.DATE, 7);
+		}else if(scriptureQuery.getString(1).equals("monthly")){
+			calculatedDate.add(Calendar.MONTH, 1);
+		}else if(scriptureQuery.getString(1).equals("yearly")){
+			calculatedDate.add(Calendar.YEAR, 1);
+		}
+
+		updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, dbDateFormat.format(calculatedDate.getTime()));
+
+		wordservant_db.update(
+				WordServantContract.ScriptureEntry.TABLE_NAME, 
+				updatedValues, 
+				WordServantContract.ScriptureEntry._ID+"="+scriptureId, 
+				null);
+
+	}
+
 	protected void displayScriptureContent(int scriptureId) {
 		// TODO Auto-generated method stub
 		try{		
@@ -180,7 +270,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 					null, null, null, null);
 			scriptureQuery.moveToFirst();
 			mEditScriptureReference.setText(scriptureQuery.getString(0));
-			
+
 			//Set the tag text.
 			/*String tagText = "";
 			Cursor tagTextQuery = mDatabaseConnection.rawQuery("select "+WordServantContract.TagEntry.COLUMN_NAME_TAG_NAME+
@@ -199,39 +289,24 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 			}
 			editCategory.setText(tagText);*/
 			mEditScripture.setText(scriptureQuery.getString(1));
-			String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID};
-			Cursor unreviewedScriptureQuery = mDatabaseConnection.query(
-					WordServantContract.ScriptureEntry.TABLE_NAME, 
-					columnsToRetrieve, 
-					WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now') OR "+
-					WordServantContract.ScriptureEntry._ID+"="+scriptureId,
-					null, null, null, null);
-			if(unreviewedScriptureQuery.getCount()==1){
-				Button nextButton = (Button) getActivity().findViewById(R.id.dueTodayNextButton);
-				nextButton.setVisibility(Button.GONE);
-			}
 		} catch(SQLiteException e){
 			System.err.println("Database issue..");
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void setNextScriptureId(){
 		//If there are no or just one we just need to display a message and return that scripture id.
 		if(mUnreviewedScriptureQuery.getCount()==0){
 			return;
-		}
-		else if(mUnreviewedScriptureQuery.getCount()==1){// && mUnreviewedScriptureQuery.getInt(0)==scriptureQuery.getInt(3)){
-			Toast.makeText(getActivity(), "This is the last unchecked scripture.", Toast.LENGTH_SHORT).show();
-		}
-		else{
+		}else{
 			mUnreviewedScriptureQuery.moveToNext();
 			if(mUnreviewedScriptureQuery.isAfterLast()){
 				mUnreviewedScriptureQuery.moveToFirst();
 			}
 		}
 	}
-	
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		if(sharedPreferences.getString("pref_key_review_select", "none").equals("showing_reference") ||
@@ -240,10 +315,10 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 		}
 		return inflater.inflate(R.layout.layout_no_edit_scripture, null);
 	}
-	
+
 	public void onDestroy(){
 		super.onDestroy();
-		
+
 		//Close the DB connection.
 		mDatabaseConnection.close();
 	}
