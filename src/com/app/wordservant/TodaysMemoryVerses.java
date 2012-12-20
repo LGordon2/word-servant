@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;

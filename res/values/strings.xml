@@ -14,12 +14,10 @@
     <string name="select_new_scripture_button_text">Select New Scripture</string>
     <string name="scripture_reference_text_field_hint">Scripture Reference*</string>
     <string name="done_button_text">Done</string>
-    <string name="title_activity_due_today">Scripture Review</string>
     <string name="got_it_button_text">Got it!</string>
     <string name="next_button_text">Next&gt;&gt;</string>
     <string name="database_name">wordservant_db</string>
     <string name="scripture_table_name">scriptures</string>
-    <string name="tag_table_name">tags</string>
 
     <string-array name="limit_strings">
         <item>1 (Default)</item>
@@ -36,22 +34,8 @@
 
     <string name="title_activity_select_scripture">Select Scripture</string>
 
-    <string-array name="tags">
-        <item>Faith</item>
-        <item>Creation</item>
-        <item>Love</item>
-        <item>Hope</item>
-        <item>Daisy</item>
-        <item>Petey</item>
-        <item>Wario</item>
-        <item>Peach</item>
-        <item>Luigi</item>
-    </string-array>
-
     <string name="date_format">yyyy-MM-dd</string>
     <string name="title_activity_display_selected_scripture">DisplaySelectedScripture</string>
-    <string name="title_activity_scripture_bank_fragment">ScriptureBankFragmentActivity</string>
-    <string name="title_activity_input_scripture">InputScriptureActivity</string>
 
     <string-array name="review_select">
         <item>Static Display</item><item>Flash Card (Showing Reference)</item><item>Flash Card (Showing Scripture)</item>
@@ -67,9 +51,6 @@
         <item>line_by_line</item>
         
     </string-array>
-
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_quiz_review">Quiz/Review</string>
-    <string name="title_activity_quiz_review_fragment">QuizReviewFragment</string>
 
 </resources>

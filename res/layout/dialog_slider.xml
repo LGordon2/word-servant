@@ -15,7 +15,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:textColor="#ffffff"
-        android:textSize="22dp"
+        android:textSize="22sp"
         android:textStyle="normal"
         android:typeface="sans" />
 
