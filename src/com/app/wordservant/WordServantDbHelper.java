@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class WordServantDbHelper extends SQLiteOpenHelper{
 
-	public static final int DATABASE_VERSION = 7;
+	public static final int DATABASE_VERSION = 9;
 	private static String SCRIPTURE_BANK_TABLE_CREATE = "CREATE TABLE "+ WordServantContract.ScriptureEntry.TABLE_NAME+ " ("+
 			WordServantContract.ScriptureEntry._ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
 			WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE+" TEXT NOT NULL, "+
@@ -82,7 +82,8 @@ public class WordServantDbHelper extends SQLiteOpenHelper{
 			"when 'yearly' then 'year' "+
 			"end), "+WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+"="+
 			"case when old."+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" < new."+
-			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" then date('now') end"+
+			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" then date('now') else "+
+			" date("+WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+") end"+
 			" WHERE _id = new._id; END;";
 
 	public WordServantDbHelper(Context context, String name,
