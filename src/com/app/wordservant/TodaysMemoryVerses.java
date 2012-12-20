@@ -120,17 +120,9 @@ public class TodaysMemoryVerses extends Activity{
 					public void onClick(View v) {
 						// Reset the NEXT_REVIEW_DATE if we are unchecking, otherwise mark the scripture as reviewed.
 						if(!((CheckBox) v).isChecked()){
-							ContentValues newValues = new ContentValues();
-							SimpleDateFormat dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
-							String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
-							newValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, todaysDate);
-							mDatabaseConnection.update(
-									WordServantContract.ScriptureEntry.TABLE_NAME, 
-									newValues, 
-									WordServantContract.ScriptureEntry._ID+"="+bundledScriptureList.getInt(String.valueOf(position)), 
-									null);
+							FlashcardScriptureReviewFragment.updateReviewedScripture(TodaysMemoryVerses.this, bundledScriptureList.getInt(String.valueOf(position)), false);
 						}else{
-							FlashcardScriptureReviewFragment.updateReviewedScripture(TodaysMemoryVerses.this, bundledScriptureList.getInt(String.valueOf(position)));
+							FlashcardScriptureReviewFragment.updateReviewedScripture(TodaysMemoryVerses.this, bundledScriptureList.getInt(String.valueOf(position)), true);
 						}
 					}
 					

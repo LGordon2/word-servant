@@ -1,12 +1,9 @@
 package com.app.wordservant;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -150,7 +147,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				//Update the database.
-				updateReviewedScripture(getActivity(), mUnreviewedScriptureQuery.getInt(0));
+				updateReviewedScripture(getActivity(), mUnreviewedScriptureQuery.getInt(0), true);
 				
 				if(mUnreviewedScriptureQuery.getInt(0) == mFirstSelectedScriptureId){
 					mFirstSelectedScriptureId = -1;
@@ -184,13 +181,14 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 		});
 	}
 
-	public static void updateReviewedScripture(Context context, int scriptureId){
+	public static void updateReviewedScripture(Context context, int scriptureId, boolean increment){
 		SQLiteDatabase wordservant_db = new WordServantDbHelper(context, WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
-
+		String plusMinus = increment?"+":"-";
 		wordservant_db.execSQL("update "+WordServantContract.ScriptureEntry.TABLE_NAME+" set "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"="+
-				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"+1 where "+
-				WordServantContract.ScriptureEntry._ID+"="+scriptureId);
+				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"+" +
+				plusMinus+
+				"1 where "+WordServantContract.ScriptureEntry._ID+"="+scriptureId);
 
 		wordservant_db.close();
 	}
