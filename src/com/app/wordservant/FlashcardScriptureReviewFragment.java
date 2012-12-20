@@ -15,7 +15,6 @@ import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 public class FlashcardScriptureReviewFragment extends Fragment {
@@ -188,72 +186,13 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 
 	public static void updateReviewedScripture(Context context, int scriptureId){
 		SQLiteDatabase wordservant_db = new WordServantDbHelper(context, WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
-		String [] columns_to_retrieve = {
-				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, 
-				WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE,
-				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED,
-				WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE};
-		Cursor scriptureQuery = wordservant_db.query(
-				WordServantContract.ScriptureEntry.TABLE_NAME, 
-				columns_to_retrieve, 
-				WordServantContract.ScriptureEntry._ID+"="+scriptureId, 
-				null, null, null, null);
-		scriptureQuery.moveToFirst();
 
-		// Update the database showing that the scripture was reviewed.
-		ContentValues updatedValues = new ContentValues();
-		SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
+		wordservant_db.execSQL("update "+WordServantContract.ScriptureEntry.TABLE_NAME+" set "+
+				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"="+
+				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"+1 where "+
+				WordServantContract.ScriptureEntry._ID+"="+scriptureId);
 
-		//Update the times reviewed.
-		Date currentDate = Calendar.getInstance().getTime();
-		currentDate.setHours(0);
-		currentDate.setMinutes(0);
-		currentDate.setSeconds(0);
-
-		try {
-			if(scriptureQuery.getString(3) == null){
-				updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED, 1);
-			}
-
-			else if(dbDateFormat.parse(scriptureQuery.getString(3)).before(currentDate) && !dbDateFormat.parse(scriptureQuery.getString(3)).equals(currentDate)){
-				updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED, scriptureQuery.getInt(2)+1);
-				if(scriptureQuery.getInt(2) == 6){
-					updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE, "weekly");
-				}else if(scriptureQuery.getInt(2)==13){
-					updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE, "monthly");
-				}else if(scriptureQuery.getInt(2)==20){
-					updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE, "yearly");
-				}
-			}
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		//Update the last reviewed date to be today.
-		updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE, todaysDate);
-
-		//Calculate when the next review should be and update that date.
-		Calendar calculatedDate = Calendar.getInstance();
-		if(scriptureQuery.getString(1).equals("daily")){
-			calculatedDate.add(Calendar.DATE, 1);
-		}else if(scriptureQuery.getString(1).equals("weekly")){
-			calculatedDate.add(Calendar.DATE, 7);
-		}else if(scriptureQuery.getString(1).equals("monthly")){
-			calculatedDate.add(Calendar.MONTH, 1);
-		}else if(scriptureQuery.getString(1).equals("yearly")){
-			calculatedDate.add(Calendar.YEAR, 1);
-		}
-
-		updatedValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, dbDateFormat.format(calculatedDate.getTime()));
-
-		wordservant_db.update(
-				WordServantContract.ScriptureEntry.TABLE_NAME, 
-				updatedValues, 
-				WordServantContract.ScriptureEntry._ID+"="+scriptureId, 
-				null);
-
+		wordservant_db.close();
 	}
 
 	protected void displayScriptureContent(int scriptureId) {

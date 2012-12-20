@@ -31,19 +31,19 @@ import android.widget.Toast;
 
 public class TodaysMemoryVerses extends Activity{
 
-    private SQLiteDatabase wordservant_db;
-	private Cursor scriptureQuery;
+    private SQLiteDatabase mDatabaseConnection;
+	private Cursor mScriptureQuery;
 	private java.text.DateFormat dbDateFormat;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todays_memory_verses);
-        wordservant_db = new WordServantDbHelper(this, WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
+        mDatabaseConnection = new WordServantDbHelper(this, WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
         
     }
 	
-	protected void onStart(){
+	public void onStart(){
     	super.onStart();
     	LinearLayout allSections = (LinearLayout) findViewById(R.id.test);
     	allSections.removeAllViews();
@@ -58,9 +58,9 @@ public class TodaysMemoryVerses extends Activity{
 		for(int i=0;i<4;i++){
 			String whereClause = WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+" <= date('now','-"+i+" day')";
 			whereClause += i==0?" OR "+WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+" = date('now')":"";
-			scriptureQuery = wordservant_db.query(false, getResources().getString(R.string.scripture_table_name), queryColumns, whereClause, null, null, null, null, null);
+			mScriptureQuery = mDatabaseConnection.query(false, getResources().getString(R.string.scripture_table_name), queryColumns, whereClause, null, null, null, null, null);
 			
-			if (scriptureQuery.getCount()==0 && i>0){
+			if (mScriptureQuery.getCount()==0 && i>0){
 				continue;
 			}
 			
@@ -77,7 +77,7 @@ public class TodaysMemoryVerses extends Activity{
 			allSections.addView(scriptureSection);
 			
 			//Display the scripture list.
-	    	displayScriptureList((ListView) scriptureSection.getChildAt(1), scriptureQuery, i==0?true:false);
+	    	displayScriptureList((ListView) scriptureSection.getChildAt(1), mScriptureQuery, i==0?true:false);
 		}
     }
 	
@@ -124,13 +124,13 @@ public class TodaysMemoryVerses extends Activity{
 							SimpleDateFormat dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
 							String todaysDate = dbDateFormat.format(Calendar.getInstance().getTime());
 							newValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, todaysDate);
-							wordservant_db.update(
+							mDatabaseConnection.update(
 									WordServantContract.ScriptureEntry.TABLE_NAME, 
 									newValues, 
 									WordServantContract.ScriptureEntry._ID+"="+bundledScriptureList.getInt(String.valueOf(position)), 
 									null);
 						}else{
-							ScriptureReview.updateReviewedScripture(getApplicationContext(), bundledScriptureList.getInt(String.valueOf(position)));
+							FlashcardScriptureReviewFragment.updateReviewedScripture(TodaysMemoryVerses.this, bundledScriptureList.getInt(String.valueOf(position)));
 						}
 					}
 					
@@ -154,7 +154,7 @@ public class TodaysMemoryVerses extends Activity{
 					LinearLayout view = (LinearLayout) dueTodayView;
 					CheckBox checkBox = (CheckBox) view.getChildAt(0);
 					if(!checkBox.isPressed()){
-						Intent intent = new Intent(dueTodayView.getContext(),ScriptureReviewFragmentActivity.class);
+						Intent intent = new Intent(TodaysMemoryVerses.this,ScriptureReviewFragmentActivity.class);
 						intent.putExtra("bundledScriptureList",bundledScriptureList);
 						intent.putExtra("positionOnScreen", position);
 				    	startActivity(intent);
@@ -189,7 +189,7 @@ public class TodaysMemoryVerses extends Activity{
     
 	protected void onDestroy(){
 		super.onDestroy();
-		wordservant_db.close();
-		scriptureQuery.close();
+		mDatabaseConnection.close();
+		mScriptureQuery.close();
 	}
 }
