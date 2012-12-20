@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class WordServantDbHelper extends SQLiteOpenHelper{
 
-	public static final int DATABASE_VERSION = 4;
+	public static final int DATABASE_VERSION = 7;
 	private static String SCRIPTURE_BANK_TABLE_CREATE = "CREATE TABLE "+ WordServantContract.ScriptureEntry.TABLE_NAME+ " ("+
 			WordServantContract.ScriptureEntry._ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
 			WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE+" TEXT NOT NULL, "+
@@ -45,25 +45,29 @@ public class WordServantDbHelper extends SQLiteOpenHelper{
 	private static String TRIGGER_SCHEDULE_DAILY = "CREATE TRIGGER "+TRIGGER_NAME_SCHEDULE_DAILY+" AFTER UPDATE OF "+
 			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" ON "+WordServantContract.ScriptureEntry.TABLE_NAME+
 			" BEGIN UPDATE "+WordServantContract.ScriptureEntry.TABLE_NAME+" SET "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+
-			"='daily' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<7; END;";
+			"='daily' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<7"+
+			" AND _id = new._id; END;";
 	
 	private static String TRIGGER_SCHEDULE_WEEKLY = "CREATE TRIGGER "+TRIGGER_NAME_SCHEDULE_WEEKLY+" AFTER UPDATE OF "+
 			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" ON "+WordServantContract.ScriptureEntry.TABLE_NAME+
 			" BEGIN UPDATE "+WordServantContract.ScriptureEntry.TABLE_NAME+" SET "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+
 			"='weekly' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">=7 AND "+
-			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<14; END;";
+			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<14"+
+			" AND _id = new._id; END;";
 	
 	private static String TRIGGER_SCHEDULE_MONTHLY = "CREATE TRIGGER "+TRIGGER_NAME_SCHEDULE_MONTHLY+" AFTER UPDATE OF "+
 			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" ON "+WordServantContract.ScriptureEntry.TABLE_NAME+
 			" BEGIN UPDATE "+WordServantContract.ScriptureEntry.TABLE_NAME+" SET "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+
 			"='monthly' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">=14 AND "+
-			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<21; END;";
+			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<21"+
+			" AND _id = new._id; END;";
 	
 	private static String TRIGGER_SCHEDULE_YEARLY = "CREATE TRIGGER "+TRIGGER_NAME_SCHEDULE_YEARLY+" AFTER UPDATE OF "+
 			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" ON "+WordServantContract.ScriptureEntry.TABLE_NAME+
 			" BEGIN UPDATE "+WordServantContract.ScriptureEntry.TABLE_NAME+" SET "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+
 			"='yearly' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">=21 AND "+
-			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<28; END;";
+			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<28"+
+			" AND _id = new._id; END;";
 	
 	private static String TRIGGER_AUTO_UPDATE_DATE = "CREATE TRIGGER "+TRIGGER_NAME_AUTO_UPDATE_DATE+" AFTER UPDATE OF "+
 			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" ON "+WordServantContract.ScriptureEntry.TABLE_NAME+
@@ -76,9 +80,10 @@ public class WordServantDbHelper extends SQLiteOpenHelper{
 			"when 'weekly' then 'week' "+
 			"when 'monthly' then 'month' "+
 			"when 'yearly' then 'year' "+
-			"end), last_reviewed_date = "+
+			"end), "+WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+"="+
 			"case when old."+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" < new."+
-			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" then date('now') else null end; end;";
+			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" then date('now') end"+
+			" WHERE _id = new._id; END;";
 
 	public WordServantDbHelper(Context context, String name,
 			CursorFactory factory, int version) {
