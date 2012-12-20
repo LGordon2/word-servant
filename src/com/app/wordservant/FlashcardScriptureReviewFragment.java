@@ -147,7 +147,11 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				//Update the database.
-				updateReviewedScripture(getActivity(), mUnreviewedScriptureQuery.getInt(0), true);
+				Cursor dateQuery = mDatabaseConnection.rawQuery("SELECT date('now')",null);
+				dateQuery.moveToFirst();
+				if(mUnreviewedScriptureQuery.getString(mUnreviewedScriptureQuery.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE)).equals(dateQuery.getString(0))){
+					updateReviewedScripture(getActivity(), mUnreviewedScriptureQuery.getInt(0), true);
+				}
 				
 				if(mUnreviewedScriptureQuery.getInt(0) == mFirstSelectedScriptureId){
 					mFirstSelectedScriptureId = -1;
@@ -199,7 +203,8 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 			String [] columns_to_retrieve = {
 					WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE,
 					WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT,
-					WordServantContract.ScriptureEntry._ID};
+					WordServantContract.ScriptureEntry._ID,
+					WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
 			Cursor scriptureQuery = mDatabaseConnection.query(
 					WordServantContract.ScriptureEntry.TABLE_NAME, 
 					columns_to_retrieve, 
