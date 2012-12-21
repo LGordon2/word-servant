@@ -22,28 +22,32 @@
             android:fillViewport="true"
             android:focusable="false" >
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/referenceLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/cards"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/referenceText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:gravity="center_horizontal"
-                    android:textSize="30sp" />
+                android:layout_height="match_parent"
+                android:background="@drawable/front_of_flashcard"
+                android:gravity="center" >
 
                 <TextView
                     android:id="@+id/scriptureTags"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/referenceText"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
                     android:text="Tags" />
-            </LinearLayout>
+
+                <TextView
+                    android:id="@+id/referenceText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:focusable="false"
+                    android:text="Genesis"
+                    android:textSize="30sp" />
+            </RelativeLayout>
         </ScrollView>
 
         <ScrollView
@@ -53,23 +57,24 @@
             android:fillViewport="true"
             android:focusable="false" >
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/scriptureLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/cards"
+                android:background="@drawable/front_of_flashcard"
                 android:orientation="vertical" >
 
                 <TextView
                     android:id="@+id/scriptureText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
                     android:paddingBottom="50dp"
                     android:paddingTop="50dp"
                     android:textSize="20sp" />
-
-            </LinearLayout>
+            </RelativeLayout>
         </ScrollView>
     </ViewSwitcher>
 

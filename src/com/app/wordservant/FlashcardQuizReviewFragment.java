@@ -68,16 +68,14 @@ public class FlashcardQuizReviewFragment extends Fragment{
 		}
 
 		//Change the color for these cards accordingly.
-		frontCard.setBackgroundColor(getResources().getColor(R.color.card_front_background_color));
+		frontCard.setBackgroundResource(getResources().getColor(R.drawable.front_of_flashcard));
 		for (int i=0;i<frontCard.getChildCount();i++){
 			TextView textView = (TextView) frontCard.getChildAt(i);
-			textView.setBackgroundColor(getResources().getColor(R.color.card_front_background_color));
 			textView.setTextColor(getResources().getColor(R.color.card_front_text_color));
 		}
-		backCard.setBackgroundColor(getResources().getColor(R.color.card_back_background_color));
+		backCard.setBackgroundResource(getResources().getColor(R.drawable.back_of_flashcard));
 		for (int i=0;i<backCard.getChildCount();i++){
 			TextView textView = (TextView) backCard.getChildAt(i);
-			textView.setBackgroundColor(getResources().getColor(R.color.card_back_background_color));
 			textView.setTextColor(getResources().getColor(R.color.card_back_text_color));
 		}
 	}

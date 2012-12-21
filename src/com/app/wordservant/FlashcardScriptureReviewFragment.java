@@ -18,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -49,7 +50,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 						cardFlipper.setDisplayedChild(0);
 				}
 			};
-			LinearLayout referenceLayout = (LinearLayout) getView().findViewById(R.id.referenceLayout);
+			RelativeLayout referenceLayout = (RelativeLayout) getView().findViewById(R.id.referenceLayout);
 			TextView scriptureText = (TextView) getView().findViewById(R.id.scriptureText);
 			referenceLayout.setOnClickListener(flipViewListener);
 			scriptureText.setOnClickListener(flipViewListener);
@@ -61,31 +62,31 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 
 			//Set up coloring.
 			//Define the front and back of the cards.
-			LinearLayout frontCard;
-			LinearLayout backCard;
+			
+			RelativeLayout frontCard;
+			RelativeLayout backCard;
+			
 			if(sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture")){
 				cardFlipper.setDisplayedChild(1);
-				//frontCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
-				//backCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
+				frontCard = (RelativeLayout) cardFlipper.findViewById(R.id.scriptureLayout);
+				backCard = (RelativeLayout) cardFlipper.findViewById(R.id.referenceLayout);
 			}else{
 				cardFlipper.setDisplayedChild(0);
-				//frontCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
-				//backCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
+				frontCard = (RelativeLayout) cardFlipper.findViewById(R.id.referenceLayout);
+				backCard = (RelativeLayout) cardFlipper.findViewById(R.id.scriptureLayout);
 			}
 
 			//Change the color for these cards accordingly.
-			/*frontCard.setBackgroundColor(getResources().getColor(R.color.card_front_background_color));
+			frontCard.setBackgroundResource(R.drawable.front_of_flashcard);
 			for (int i=0;i<frontCard.getChildCount();i++){
 				TextView textView = (TextView) frontCard.getChildAt(i);
-				textView.setBackgroundColor(getResources().getColor(R.color.card_front_background_color));
 				textView.setTextColor(getResources().getColor(R.color.card_front_text_color));
 			}
-			backCard.setBackgroundColor(getResources().getColor(R.color.card_back_background_color));
+			backCard.setBackgroundResource(R.drawable.back_of_flashcard);
 			for (int i=0;i<backCard.getChildCount();i++){
 				TextView textView = (TextView) backCard.getChildAt(i);
-				textView.setBackgroundColor(getResources().getColor(R.color.card_back_background_color));
 				textView.setTextColor(getResources().getColor(R.color.card_back_text_color));
-			}*/
+			}
 		}else{
 			mEditScriptureReference = (TextView) getView().findViewById(R.id.dueTodayScriptureReference);
 			mEditCategory = (TextView) getView().findViewById(R.id.dueTodayTags);
