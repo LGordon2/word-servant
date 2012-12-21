@@ -26,6 +26,7 @@
                 android:id="@+id/referenceLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/cards"
                 android:gravity="center_horizontal"
                 android:orientation="vertical" >
 
@@ -56,6 +57,7 @@
                 android:id="@+id/scriptureLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/cards"
                 android:orientation="vertical" >
 
                 <TextView
@@ -63,7 +65,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_horizontal"
+                    android:paddingBottom="50dp"
+                    android:paddingTop="50dp"
                     android:textSize="20sp" />
+
             </LinearLayout>
         </ScrollView>
     </ViewSwitcher>

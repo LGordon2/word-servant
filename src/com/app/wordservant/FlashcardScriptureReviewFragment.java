@@ -65,16 +65,16 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 			LinearLayout backCard;
 			if(sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture")){
 				cardFlipper.setDisplayedChild(1);
-				frontCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
-				backCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
+				//frontCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
+				//backCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
 			}else{
 				cardFlipper.setDisplayedChild(0);
-				frontCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
-				backCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
+				//frontCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
+				//backCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
 			}
 
 			//Change the color for these cards accordingly.
-			frontCard.setBackgroundColor(getResources().getColor(R.color.card_front_background_color));
+			/*frontCard.setBackgroundColor(getResources().getColor(R.color.card_front_background_color));
 			for (int i=0;i<frontCard.getChildCount();i++){
 				TextView textView = (TextView) frontCard.getChildAt(i);
 				textView.setBackgroundColor(getResources().getColor(R.color.card_front_background_color));
@@ -85,7 +85,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 				TextView textView = (TextView) backCard.getChildAt(i);
 				textView.setBackgroundColor(getResources().getColor(R.color.card_back_background_color));
 				textView.setTextColor(getResources().getColor(R.color.card_back_text_color));
-			}
+			}*/
 		}else{
 			mEditScriptureReference = (TextView) getView().findViewById(R.id.dueTodayScriptureReference);
 			mEditCategory = (TextView) getView().findViewById(R.id.dueTodayTags);
