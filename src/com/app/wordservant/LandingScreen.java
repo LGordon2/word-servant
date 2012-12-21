@@ -16,13 +16,19 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Surface;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.Toast;
 
 public class LandingScreen extends Activity{
@@ -109,15 +115,19 @@ public class LandingScreen extends Activity{
 	private void displayLandingScreen() {
 		setContentView(R.layout.landing_screen);
 
-
+		ImageView image = (ImageView) findViewById(R.id.imageView1);
+		Display display = ((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+		if(display.getRotation() == Surface.ROTATION_90 || display.getRotation() == Surface.ROTATION_270){
+			image.setScaleType(ScaleType.FIT_XY);
+		}
+		
 		//Today's Memory Verses button
-		Button todaysMemoryVerses = (Button) this.findViewById(R.id.todaysMemoryVerses);
-		todaysMemoryVerses.setOnClickListener(new OnClickListener(){
+		((Button) this.findViewById(R.id.todaysMemoryVerses)).setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
 				// Starts a new Today's Memory Verses activity.
-				Intent intent = new Intent(v.getContext(),TodaysMemoryVerses.class);
+				Intent intent = new Intent(LandingScreen.this,TodaysMemoryVerses.class);
 				Toast.makeText(LandingScreen.this, R.string.title_activity_todays_memory_verses, Toast.LENGTH_SHORT).show();
 				startActivity(intent);
 			}
@@ -135,7 +145,7 @@ public class LandingScreen extends Activity{
 				startActivity(intent);
 			}
 		});
-		
+
 		//Quiz/Review button.
 		((Button) this.findViewById(R.id.quizReview)).setOnClickListener(new OnClickListener(){
 
@@ -146,7 +156,7 @@ public class LandingScreen extends Activity{
 				Toast.makeText(LandingScreen.this, R.string.title_activity_quiz_review, Toast.LENGTH_SHORT).show();
 				startActivity(intent);
 			}
-			
+
 		});
 
 	}
