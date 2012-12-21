@@ -54,7 +54,6 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 			TextView scriptureText = (TextView) getView().findViewById(R.id.scriptureText);
 			referenceLayout.setOnClickListener(flipViewListener);
 			scriptureText.setOnClickListener(flipViewListener);
-			((Button) getView().findViewById(R.id.flipCardButton)).setOnClickListener(flipViewListener);
 
 			mEditScriptureReference = (TextView) getView().findViewById(R.id.referenceText);
 			mEditCategory = (TextView) getView().findViewById(R.id.scriptureTags);
@@ -78,12 +77,12 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 
 			//Change the color for these cards accordingly.
 			frontCard.setBackgroundResource(R.drawable.front_of_flashcard);
-			for (int i=0;i<frontCard.getChildCount();i++){
+			for (int i=0;i<frontCard.getChildCount()-1;i++){
 				TextView textView = (TextView) frontCard.getChildAt(i);
 				textView.setTextColor(getResources().getColor(R.color.card_front_text_color));
 			}
 			backCard.setBackgroundResource(R.drawable.back_of_flashcard);
-			for (int i=0;i<backCard.getChildCount();i++){
+			for (int i=0;i<backCard.getChildCount()-1;i++){
 				TextView textView = (TextView) backCard.getChildAt(i);
 				textView.setTextColor(getResources().getColor(R.color.card_back_text_color));
 			}
