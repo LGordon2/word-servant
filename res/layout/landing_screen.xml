@@ -4,9 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/monogram_background" >
 
     <Button
+        android:background="@drawable/test"
         android:id="@+id/todaysMemoryVerses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,36 +18,39 @@
         android:text="@string/title_activity_todays_memory_verses" />
 
     <Button
+        android:background="@drawable/test"
         android:id="@+id/scriptureBank"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_activity_scripture_bank" />
 
     <Button
+        android:background="@drawable/test"
         android:id="@+id/quizReview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Quiz / Review" />
 
     <Button
+        android:background="@drawable/test"
         android:id="@+id/statistics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Statistics" />
 
     <Button
+        android:background="@drawable/test"
         android:id="@+id/scriptureSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Scripture Search" />
 
-    <!--
-          <ImageView
+    <!-- <ImageView
         android:id="@+id/imageView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/buttons"
         android:adjustViewBounds="true"
-        android:src="@drawable/bible_opening" />   -->
+        android:src="@drawable/monogram-background" /> -->
 
 </LinearLayout>

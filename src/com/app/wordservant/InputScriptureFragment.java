@@ -83,7 +83,7 @@ public class InputScriptureFragment extends Fragment {
 				//Open the database and add the row.
 				try{
 					wordservant_db = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
-					wordservant_db.insert(getResources().getString(R.string.scripture_table_name), null, scriptureValues);
+					wordservant_db.insert(WordServantContract.ScriptureEntry.TABLE_NAME, null, scriptureValues);
 				} catch(SQLiteException e){
 					System.err.println("Error with SQL statement.");
 					e.printStackTrace();
