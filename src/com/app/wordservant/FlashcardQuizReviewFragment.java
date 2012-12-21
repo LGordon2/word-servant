@@ -18,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -43,7 +44,7 @@ public class FlashcardQuizReviewFragment extends Fragment{
 					cardFlipper.setDisplayedChild(0);
 			}
 		};
-		LinearLayout referenceLayout = (LinearLayout) getView().findViewById(R.id.referenceLayout);
+		RelativeLayout referenceLayout = (RelativeLayout) getView().findViewById(R.id.referenceLayout);
 		TextView scriptureText = (TextView) getView().findViewById(R.id.scriptureText);
 		referenceLayout.setOnClickListener(flipViewListener);
 		scriptureText.setOnClickListener(flipViewListener);
@@ -55,25 +56,25 @@ public class FlashcardQuizReviewFragment extends Fragment{
 		
 		//Set up coloring.
 		//Define the front and back of the cards.
-		LinearLayout frontCard;
-		LinearLayout backCard;
+		RelativeLayout frontCard;
+		RelativeLayout backCard;
 		if(sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture")){
 			cardFlipper.setDisplayedChild(1);
-			frontCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
-			backCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
+			frontCard = (RelativeLayout) cardFlipper.findViewById(R.id.scriptureLayout);
+			backCard = (RelativeLayout) cardFlipper.findViewById(R.id.referenceLayout);
 		}else{
 			cardFlipper.setDisplayedChild(0);
-			frontCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
-			backCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
+			frontCard = (RelativeLayout) cardFlipper.findViewById(R.id.referenceLayout);
+			backCard = (RelativeLayout) cardFlipper.findViewById(R.id.scriptureLayout);
 		}
 
 		//Change the color for these cards accordingly.
-		frontCard.setBackgroundResource(getResources().getColor(R.drawable.front_of_flashcard));
+		frontCard.setBackgroundResource(R.drawable.front_of_flashcard);
 		for (int i=0;i<frontCard.getChildCount();i++){
 			TextView textView = (TextView) frontCard.getChildAt(i);
 			textView.setTextColor(getResources().getColor(R.color.card_front_text_color));
 		}
-		backCard.setBackgroundResource(getResources().getColor(R.drawable.back_of_flashcard));
+		backCard.setBackgroundResource(R.drawable.back_of_flashcard);
 		for (int i=0;i<backCard.getChildCount();i++){
 			TextView textView = (TextView) backCard.getChildAt(i);
 			textView.setTextColor(getResources().getColor(R.color.card_back_text_color));
@@ -231,39 +232,6 @@ public class FlashcardQuizReviewFragment extends Fragment{
 			if(mAllScriptureIds.size()==1){
 				Button nextButton = (Button) getActivity().findViewById(R.id.nextButton);
 				nextButton.setVisibility(Button.GONE);
-			}
-			SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-			if(sharedPref.getString("pref_key_review_select", "none").equals("showing_reference") ||
-					sharedPref.getString("pref_key_review_select", "none").equals("showing_scripture")){
-				ViewSwitcher cardFlipper = (ViewSwitcher) getActivity().findViewById(R.id.cardSwitcher);
-				cardFlipper.reset();
-
-				//Define the front and back of the cards.
-				LinearLayout frontCard;
-				LinearLayout backCard;
-				if(sharedPref.getString("pref_key_review_select", "none").equals("showing_scripture")){
-					cardFlipper.setDisplayedChild(1);
-					frontCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
-					backCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
-				}else{
-					cardFlipper.setDisplayedChild(0);
-					frontCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
-					backCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
-				}
-
-				//Change the color for these cards accordingly.
-				frontCard.setBackgroundColor(getResources().getColor(android.R.color.black));
-				for (int i=0;i<frontCard.getChildCount();i++){
-					TextView textView = (TextView) frontCard.getChildAt(i);
-					textView.setBackgroundColor(getResources().getColor(android.R.color.black));
-					textView.setTextColor(getResources().getColor(android.R.color.white));
-				}
-				backCard.setBackgroundColor(getResources().getColor(android.R.color.white));
-				for (int i=0;i<backCard.getChildCount();i++){
-					TextView textView = (TextView) backCard.getChildAt(i);
-					textView.setBackgroundColor(getResources().getColor(android.R.color.white));
-					textView.setTextColor(getResources().getColor(android.R.color.black));
-				}
 			}
 
 			//Get random index.
