@@ -10,13 +10,14 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Display;
@@ -157,6 +158,19 @@ public class LandingScreen extends Activity{
 				startActivity(intent);
 			}
 
+		});
+		
+		//Scripture Search button.
+		((Button) this.findViewById(R.id.scriptureSearch)).setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(LandingScreen.this,TestGridActivity.class);
+				Toast.makeText(LandingScreen.this, "Testing", Toast.LENGTH_SHORT).show();
+				startActivity(intent);
+			}
+			
 		});
 
 	}
