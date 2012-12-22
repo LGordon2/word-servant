@@ -46,7 +46,7 @@ public class DeleteScriptureDialogFragment extends DialogFragment {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// Delete scripture code here...
-					SQLiteDatabase db = new WordServantDbHelper(getActivity(), "wordservant_db", null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
+					SQLiteDatabase db = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 					String whereClause = WordServantContract.ScriptureEntry._ID+"="+getArguments().getString("_id");
 					db.delete(WordServantContract.ScriptureEntry.TABLE_NAME, whereClause, null);
 					String [] columns = {
@@ -55,7 +55,7 @@ public class DeleteScriptureDialogFragment extends DialogFragment {
 					};
 					Cursor cursor = db.query(WordServantContract.ScriptureEntry.TABLE_NAME, columns, 
 							WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+"='daily' AND "+
-							WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=CURRENT_DATE", null, null, null, null);
+							WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now','localtime')", null, null, null, null);
 					if(cursor.getCount()==0){
 						String [] updateColumns = {
 							WordServantContract.ScriptureEntry._ID,
@@ -72,9 +72,9 @@ public class DeleteScriptureDialogFragment extends DialogFragment {
 						for(int i=0;i<cursor.getCount();i++){
 							cursor.moveToPosition(i);
 							currentId = cursor.getInt(0);
-							updateValues.put("next_review_date", "date('now','localtime' '+"+i*7+" days')");
+							updateValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, "date('now','localtime', '+"+i*7+" days')");
 							db.execSQL("update "+WordServantContract.ScriptureEntry.TABLE_NAME+
-									" set next_review_date=date('now','localtime' '+"+i*7+" days') "+
+									" set "+WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now','localtime', '+"+i*7+" days') "+
 									" where "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+"='daily' and "+
 									WordServantContract.ScriptureEntry._ID+"="+currentId);
 						}
