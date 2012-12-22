@@ -115,7 +115,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 		mUnreviewedScriptureQuery = mDatabaseConnection.query(
 				WordServantContract.ScriptureEntry.TABLE_NAME, 
 				columnsToRetrieve, 
-				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now') OR "+
+				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now','localtime') OR "+
 						WordServantContract.ScriptureEntry._ID+"="+mFirstSelectedScriptureId, 
 						null, null, null, null);
 
@@ -148,7 +148,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				//Update the database.
-				Cursor dateQuery = mDatabaseConnection.rawQuery("SELECT date('now')",null);
+				Cursor dateQuery = mDatabaseConnection.rawQuery("SELECT date('now','localtime')",null);
 				dateQuery.moveToFirst();
 				if(mUnreviewedScriptureQuery.getString(mUnreviewedScriptureQuery.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE)).equals(dateQuery.getString(0))){
 					updateReviewedScripture(getActivity(), mUnreviewedScriptureQuery.getInt(0), true);
@@ -167,7 +167,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 				mUnreviewedScriptureQuery = mDatabaseConnection.query(
 						WordServantContract.ScriptureEntry.TABLE_NAME, 
 						columnsToRetrieve, 
-						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now') OR "+
+						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now','localtime') OR "+
 								WordServantContract.ScriptureEntry._ID+"="+mFirstSelectedScriptureId,
 								null, null, null, null);
 				mUnreviewedScriptureQuery.moveToFirst();

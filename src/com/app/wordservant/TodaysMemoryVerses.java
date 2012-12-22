@@ -55,8 +55,8 @@ public class TodaysMemoryVerses extends Activity{
 		dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
 
 		for(int i=0;i<4;i++){
-			String whereClause = WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+" <= date('now','-"+i+" day')";
-			whereClause += i==0?" OR "+WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+" = date('now')":"";
+			String whereClause = WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+" <= date('now','localtime','-"+i+" day')";
+			whereClause += i==0?" OR "+WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+" = date('now','localtime')":"";
 			mScriptureQuery = mDatabaseConnection.query(false, getResources().getString(R.string.scripture_table_name), queryColumns, whereClause, null, null, null, null, null);
 			
 			if (mScriptureQuery.getCount()==0 && i>0){

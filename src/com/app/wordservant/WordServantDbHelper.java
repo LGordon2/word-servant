@@ -7,16 +7,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class WordServantDbHelper extends SQLiteOpenHelper{
 
-	public static final int DATABASE_VERSION = 9;
+	public static final int DATABASE_VERSION = 11;
 	private static String SCRIPTURE_BANK_TABLE_CREATE = "CREATE TABLE "+ WordServantContract.ScriptureEntry.TABLE_NAME+ " ("+
 			WordServantContract.ScriptureEntry._ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
 			WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE+" TEXT NOT NULL, "+
 			WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT+" TEXT NOT NULL, "+
 			WordServantContract.ScriptureEntry.COLUMN_NAME_CREATED_DATE+" TEXT DEFAULT CURRENT_DATE, "+
 			WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+" TEXT NOT NULL DEFAULT daily, "+
-			WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+" TEXT DEFAULT NULL, "+
+			WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+" TEXT, "+
 			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" INTEGER NOT NULL DEFAULT 0, "+
-			WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+" TEXT DEFAULT CURRENT_DATE, "+
+			WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+" TEXT DEFAULT (date('now','localtime')), "+
 			WordServantContract.ScriptureEntry.COLUMN_NAME_CORRECTLY_REVIEWED_COUNT+" INTEGER NOT NULL DEFAULT 0, "+
 			WordServantContract.ScriptureEntry.COLUMN_NAME_INCORRECTLY_REVIEWED_COUNT+" INTEGER NOT NULL DEFAULT 0, "+
 			WordServantContract.ScriptureEntry.COLUMN_NAME_SKIPPED_REVIEW_COUNT+" INTEGER NOT NULL DEFAULT 0 "+
@@ -82,7 +82,7 @@ public class WordServantDbHelper extends SQLiteOpenHelper{
 			"when 'yearly' then 'year' "+
 			"end), "+WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+"="+
 			"case when old."+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" < new."+
-			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" then date('now') else "+
+			WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" then date('now','localtime') else "+
 			" date("+WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+") end"+
 			" WHERE _id = new._id; END;";
 

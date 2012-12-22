@@ -72,9 +72,9 @@ public class DeleteScriptureDialogFragment extends DialogFragment {
 						for(int i=0;i<cursor.getCount();i++){
 							cursor.moveToPosition(i);
 							currentId = cursor.getInt(0);
-							updateValues.put("next_review_date", "date('now', '+"+i*7+" days')");
+							updateValues.put("next_review_date", "date('now','localtime' '+"+i*7+" days')");
 							db.execSQL("update "+WordServantContract.ScriptureEntry.TABLE_NAME+
-									" set next_review_date=date('now', '+"+i*7+" days') "+
+									" set next_review_date=date('now','localtime' '+"+i*7+" days') "+
 									" where "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+"='daily' and "+
 									WordServantContract.ScriptureEntry._ID+"="+currentId);
 						}

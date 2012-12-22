@@ -99,7 +99,7 @@ public class FlashcardQuizReviewFragment extends Fragment{
 						WordServantContract.ScriptureEntry.COLUMN_NAME_INCORRECTLY_REVIEWED_COUNT,
 						WordServantContract.ScriptureEntry.COLUMN_NAME_SKIPPED_REVIEW_COUNT
 				};
-				String selection = WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"<=date('now') OR "+
+				String selection = WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"<=date('now','localtime') OR "+
 						WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">0";
 				SQLiteDatabase db = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
 				return db.query(
