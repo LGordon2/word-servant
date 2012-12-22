@@ -136,6 +136,29 @@ public class SelectScripture extends Activity {
 								}
 
 							});
+							Button previewChapter = (Button) findViewById(R.id.previewChapter);
+							previewChapter.setOnClickListener(new OnClickListener(){
+
+								@Override
+								public void onClick(View v) {
+									// TODO Auto-generated method stub
+									Intent intent = new Intent(SelectScripture.this,DisplaySelectedScripture.class);
+									intent.putExtra("book_name", b.bookName);
+									intent.putExtra("chapter_number", Integer.valueOf(chapter.chapterNumber).intValue());
+									Bundle bundle = new Bundle();
+									
+									//Add all to the array list
+									for(int i=1;i<=chapter.getVersesArray().length;i++){
+										checkedCheckBoxes.add(i);
+									}
+									Collections.sort(checkedCheckBoxes);
+									bundle.putIntegerArrayList("verses", checkedCheckBoxes);
+									intent.putExtra("bundle", bundle);
+
+									startActivityForResult(intent, 0);
+								}
+								
+							});
 							ArrayAdapter<String> adapter;
 							adapter = new ArrayAdapter<String>(SelectScripture.this, android.R.layout.simple_list_item_checked, chapter.getVersesArray()){
 								public View getView(int position, View convertView, ViewGroup parent){
