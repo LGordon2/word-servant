@@ -110,7 +110,7 @@ public class TodaysMemoryVerses extends Activity{
 				//Display a checkbox.
 				CheckBox newCheckBox = (CheckBox) newLayout.getChildAt(0);
 				newCheckBox.setEnabled(enabled);
-				if(dbDateFormat.parse(scriptureQuery.getString(2)).getTime()>Calendar.getInstance().getTimeInMillis()){
+				if(dbDateFormat.parse(scriptureQuery.getString(2)).getTime()>Calendar.getInstance(Locale.getDefault()).getTimeInMillis()){
 					newCheckBox.setChecked(true);
 				}
 				
