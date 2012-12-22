@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.CursorLoader;
+import android.text.Html;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -256,7 +257,7 @@ public class FlashcardQuizReviewFragment extends Fragment{
 					tagText += ", ";
 			}
 			editCategory.setText(tagText);*/
-			mEditScripture.setText(scriptureQuery.getString(2));
+			mEditScripture.setText(Html.fromHtml(scriptureQuery.getString(2)));
 
 		} catch(SQLiteException e){
 			System.err.println("Database issue..");

@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -230,7 +231,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 					tagText += ", ";
 			}
 			editCategory.setText(tagText);*/
-			mEditScripture.setText(scriptureQuery.getString(1));
+			mEditScripture.setText(Html.fromHtml(scriptureQuery.getString(1)));
 		} catch(SQLiteException e){
 			System.err.println("Database issue..");
 			e.printStackTrace();
