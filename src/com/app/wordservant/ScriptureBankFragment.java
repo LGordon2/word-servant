@@ -123,7 +123,7 @@ public class ScriptureBankFragment extends Fragment{
 	}
 	public void redraw() {
 		// Reset the progress bar layout.
-		ProgressBar pBar = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
+		ProgressBar pBar = (ProgressBar) getActivity().findViewById(R.id.loadingCircle);
 		TextView loadingText = (TextView) getActivity().findViewById(R.id.loadingText);
 		LinearLayout listLayout = (LinearLayout) getActivity().findViewById(R.id.listLayout);
 		ListView scriptureList = (ListView) getActivity().findViewById(R.id.scripture_bank_list);

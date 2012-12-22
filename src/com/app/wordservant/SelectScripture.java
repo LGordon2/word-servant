@@ -162,7 +162,11 @@ public class SelectScripture extends Activity {
 							ArrayAdapter<String> adapter;
 							adapter = new ArrayAdapter<String>(SelectScripture.this, android.R.layout.simple_list_item_checked, chapter.getVersesArray()){
 								public View getView(int position, View convertView, ViewGroup parent){
-									CheckedTextView textView = (CheckedTextView) getLayoutInflater().inflate(android.R.layout.simple_list_item_checked, null);
+									CheckedTextView textView;
+									if(convertView == null)
+										textView = (CheckedTextView) getLayoutInflater().inflate(android.R.layout.simple_list_item_checked, null);
+									else
+										textView = (CheckedTextView) convertView;
 									textView.setText(String.valueOf(position+1));
 									if(checkedCheckBoxes.contains(position+1))
 										textView.setChecked(true);
