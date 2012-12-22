@@ -24,44 +24,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
-                <RelativeLayout
-                    android:id="@+id/tab3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:focusable="false" >
-
-                    <GridView
-                        android:id="@+id/gridView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_above="@+id/displayScriptures"
-                        android:layout_alignParentTop="true"
-                        android:choiceMode="multipleChoice"
-                        android:focusable="false"
-                        android:numColumns="4"
-                        android:scrollingCache="false" >
-                    </GridView>
-
-                    <Button
-                        android:id="@id/displayScriptures"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignTop="@+id/Preview"
-                        android:layout_toRightOf="@+id/Preview"
-                        android:enabled="false"
-                        android:text="Display Scriptures" />
-
-                    <Button
-                        android:id="@+id/previewChapter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentLeft="true"
-                        android:text="Preview" />
-
-                </RelativeLayout>
-
                 <LinearLayout
                     android:id="@+id/tab1"
                     android:layout_width="match_parent"
@@ -103,6 +65,43 @@
                         android:numColumns="5" >
                     </GridView>
                 </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/tab3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="false" >
+
+                    <GridView
+                        android:id="@+id/gridView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/displayScriptures"
+                        android:layout_alignParentTop="true"
+                        android:choiceMode="multipleChoice"
+                        android:focusable="false"
+                        android:numColumns="4"
+                        android:scrollingCache="false" >
+                    </GridView>
+
+                    <Button
+                        android:id="@+id/previewChapter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:text="Preview" />
+
+                    <Button
+                        android:id="@id/displayScriptures"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toRightOf="@+id/previewChapter"
+                        android:enabled="false"
+                        android:text="Display Scriptures" />
+                </RelativeLayout>
+
             </FrameLayout>
         </LinearLayout>
     </TabHost>
