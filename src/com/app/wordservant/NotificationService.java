@@ -29,7 +29,7 @@ public class NotificationService extends IntentService{
 			try {
 				String contentText = null;
 				SQLiteDatabase wordservant_db = new WordServantDbHelper(this, getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
-				Cursor wordservantCursor = wordservant_db.query("scriptures", new String[]{"NEXT_REVIEW_DATE"}, "NEXT_REVIEW_DATE<=date('now')", null, null, null, null);
+				Cursor wordservantCursor = wordservant_db.query("scriptures", new String[]{"NEXT_REVIEW_DATE"}, "NEXT_REVIEW_DATE<=date('now','localtime')", null, null, null, null);
 				NotificationManager mNotificationManager =
 						(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 				if (wordservantCursor.getCount() == 0){

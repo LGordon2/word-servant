@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.CursorLoader;
+import android.text.Html;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -43,11 +45,10 @@ public class FlashcardQuizReviewFragment extends Fragment{
 					cardFlipper.setDisplayedChild(0);
 			}
 		};
-		LinearLayout referenceLayout = (LinearLayout) getView().findViewById(R.id.referenceLayout);
+		RelativeLayout referenceLayout = (RelativeLayout) getView().findViewById(R.id.referenceLayout);
 		TextView scriptureText = (TextView) getView().findViewById(R.id.scriptureText);
 		referenceLayout.setOnClickListener(flipViewListener);
 		scriptureText.setOnClickListener(flipViewListener);
-		((Button) getView().findViewById(R.id.flipCardButton)).setOnClickListener(flipViewListener);
 
 		mEditScriptureReference = (TextView) getView().findViewById(R.id.referenceText);
 		mEditCategory = (TextView) getView().findViewById(R.id.scriptureTags);
@@ -55,29 +56,27 @@ public class FlashcardQuizReviewFragment extends Fragment{
 		
 		//Set up coloring.
 		//Define the front and back of the cards.
-		LinearLayout frontCard;
-		LinearLayout backCard;
+		RelativeLayout frontCard;
+		RelativeLayout backCard;
 		if(sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture")){
 			cardFlipper.setDisplayedChild(1);
-			frontCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
-			backCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
+			frontCard = (RelativeLayout) cardFlipper.findViewById(R.id.scriptureLayout);
+			backCard = (RelativeLayout) cardFlipper.findViewById(R.id.referenceLayout);
 		}else{
 			cardFlipper.setDisplayedChild(0);
-			frontCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
-			backCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
+			frontCard = (RelativeLayout) cardFlipper.findViewById(R.id.referenceLayout);
+			backCard = (RelativeLayout) cardFlipper.findViewById(R.id.scriptureLayout);
 		}
 
 		//Change the color for these cards accordingly.
-		frontCard.setBackgroundColor(getResources().getColor(R.color.card_front_background_color));
-		for (int i=0;i<frontCard.getChildCount();i++){
+		frontCard.setBackgroundResource(R.drawable.front_of_flashcard);
+		for (int i=0;i<frontCard.getChildCount()-1;i++){
 			TextView textView = (TextView) frontCard.getChildAt(i);
-			textView.setBackgroundColor(getResources().getColor(R.color.card_front_background_color));
 			textView.setTextColor(getResources().getColor(R.color.card_front_text_color));
 		}
-		backCard.setBackgroundColor(getResources().getColor(R.color.card_back_background_color));
-		for (int i=0;i<backCard.getChildCount();i++){
+		backCard.setBackgroundResource(R.drawable.back_of_flashcard);
+		for (int i=0;i<backCard.getChildCount()-1;i++){
 			TextView textView = (TextView) backCard.getChildAt(i);
-			textView.setBackgroundColor(getResources().getColor(R.color.card_back_background_color));
 			textView.setTextColor(getResources().getColor(R.color.card_back_text_color));
 		}
 	}
@@ -100,7 +99,7 @@ public class FlashcardQuizReviewFragment extends Fragment{
 						WordServantContract.ScriptureEntry.COLUMN_NAME_INCORRECTLY_REVIEWED_COUNT,
 						WordServantContract.ScriptureEntry.COLUMN_NAME_SKIPPED_REVIEW_COUNT
 				};
-				String selection = WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"<=date('now') OR "+
+				String selection = WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"<=date('now','localtime') OR "+
 						WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">0";
 				SQLiteDatabase db = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
 				return db.query(
@@ -234,39 +233,6 @@ public class FlashcardQuizReviewFragment extends Fragment{
 				Button nextButton = (Button) getActivity().findViewById(R.id.nextButton);
 				nextButton.setVisibility(Button.GONE);
 			}
-			SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-			if(sharedPref.getString("pref_key_review_select", "none").equals("showing_reference") ||
-					sharedPref.getString("pref_key_review_select", "none").equals("showing_scripture")){
-				ViewSwitcher cardFlipper = (ViewSwitcher) getActivity().findViewById(R.id.cardSwitcher);
-				cardFlipper.reset();
-
-				//Define the front and back of the cards.
-				LinearLayout frontCard;
-				LinearLayout backCard;
-				if(sharedPref.getString("pref_key_review_select", "none").equals("showing_scripture")){
-					cardFlipper.setDisplayedChild(1);
-					frontCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
-					backCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
-				}else{
-					cardFlipper.setDisplayedChild(0);
-					frontCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
-					backCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
-				}
-
-				//Change the color for these cards accordingly.
-				frontCard.setBackgroundColor(getResources().getColor(android.R.color.black));
-				for (int i=0;i<frontCard.getChildCount();i++){
-					TextView textView = (TextView) frontCard.getChildAt(i);
-					textView.setBackgroundColor(getResources().getColor(android.R.color.black));
-					textView.setTextColor(getResources().getColor(android.R.color.white));
-				}
-				backCard.setBackgroundColor(getResources().getColor(android.R.color.white));
-				for (int i=0;i<backCard.getChildCount();i++){
-					TextView textView = (TextView) backCard.getChildAt(i);
-					textView.setBackgroundColor(getResources().getColor(android.R.color.white));
-					textView.setTextColor(getResources().getColor(android.R.color.black));
-				}
-			}
 
 			//Get random index.
 			Integer randomIndex = getRandomIdIndex(mAllScriptureIds);
@@ -291,7 +257,7 @@ public class FlashcardQuizReviewFragment extends Fragment{
 					tagText += ", ";
 			}
 			editCategory.setText(tagText);*/
-			mEditScripture.setText(scriptureQuery.getString(2));
+			mEditScripture.setText(Html.fromHtml(scriptureQuery.getString(2)));
 
 		} catch(SQLiteException e){
 			System.err.println("Database issue..");

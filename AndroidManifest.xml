@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.wordservant"
     android:versionCode="1"
-    android:versionName="0.5" >
+    android:versionName="0.5.1" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -11,11 +11,10 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/word_servant_icon_new"
-        android:label="@string/title_activity_main" >
+        android:label="@string/title_activity_main">
         <activity
             android:name="com.app.wordservant.LandingScreen"
-            android:label="@string/title_activity_main"
-            android:theme="@style/MenuTheme" >
+            android:theme='@android:style/Theme.NoTitleBar' >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

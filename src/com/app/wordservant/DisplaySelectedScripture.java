@@ -12,11 +12,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DisplaySelectedScripture extends Activity {
 
@@ -37,7 +39,7 @@ public class DisplaySelectedScripture extends Activity {
 		for(int i=0;i<verseNumbers.size();i++){
 			//verses.add(Bible.getInstance().getBook(bookName).chapters.get(chapterNumber).getVerse(i));
 			currentVerse = Bible.getInstance().getBook(bookName).chapters.get(chapterNumber-1).getVerse(verseNumbers.get(i)-1);
-			createdScriptureText += currentVerse.verseNumber+currentVerse.text;
+			createdScriptureText += "<sup><small>"+currentVerse.verseNumber+"</small></sup>"+currentVerse.text;
 			if(i==0){
 				verseString = String.valueOf(verseNumbers.get(i));
 			}else if(verseNumbers.get(i)==verseNumbers.get(i-1)+1){
@@ -45,7 +47,7 @@ public class DisplaySelectedScripture extends Activity {
 				i+=1;
 				while(i<verseNumbers.size() && verseNumbers.get(i)==verseNumbers.get(i-1)+1){
 					currentVerse = Bible.getInstance().getBook(bookName).chapters.get(chapterNumber-1).getVerse(verseNumbers.get(i)-1);
-					createdScriptureText += currentVerse.verseNumber+currentVerse.text;
+					createdScriptureText += "<sup><small>"+currentVerse.verseNumber+"</small></sup>"+currentVerse.text;
 					i+=1;
 				}
 				i-=1;
@@ -58,7 +60,7 @@ public class DisplaySelectedScripture extends Activity {
 		}
 		final String reference = bookName+" "+chapterNumber+":"+verseString;
 		final String scriptureText = createdScriptureText;
-		text.setText(scriptureText);
+		text.setText(Html.fromHtml(scriptureText));
 		referenceView.setText(reference);
 		
 		Button addScriptureButton = (Button) findViewById(R.id.addSelectedScripture);

@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,9 +20,9 @@ import android.widget.EditText;
 
 public class EditScripture extends Activity {
 
-	private EditText editScriptureReference;
-	private EditText editCategory;
-	private EditText editScripture;
+	private EditText mEditScriptureReference;
+	private EditText mEditCategory;
+	private EditText mEditScripture;
 	private int selectedScriptureId;
 
 	private class ScriptureQuerier extends AsyncTask<Integer, Integer, Cursor>{
@@ -61,9 +62,9 @@ public class EditScripture extends Activity {
         setContentView(R.layout.activity_input_scripture_manual);
         
         //Associate Java objects with the edit fields displayed on the screen.
-        editScriptureReference = (EditText) findViewById(R.id.scriptureReference);
+        mEditScriptureReference = (EditText) findViewById(R.id.scriptureReference);
        // editCategory = (EditText) findViewById(R.id.categoryName);
-        editScripture = (EditText) findViewById(R.id.scriptureText);
+        mEditScripture = (EditText) findViewById(R.id.scriptureText);
         
         Button editDoneButton = (Button) findViewById(R.id.doneButton);
 		editDoneButton.setOnClickListener(new OnClickListener(){
@@ -73,9 +74,9 @@ public class EditScripture extends Activity {
 				// TODO Auto-generated method stub
 				
 				ContentValues updatedItems = new ContentValues();
-				updatedItems.put("reference", editScriptureReference.getText().toString());
+				updatedItems.put("reference", mEditScriptureReference.getText().toString());
 				//updatedItems.put("category", editCategory.getText().toString());
-				updatedItems.put("text", editScripture.getText().toString());
+				updatedItems.put("text", mEditScripture.getText().toString());
 				SQLiteDatabase wordservantReadableDatabase = new WordServantDbHelper(
 						EditScripture.this, 
 						WordServantContract.DB_NAME, 
@@ -95,9 +96,9 @@ public class EditScripture extends Activity {
         //Get the information from database.
         try{
         	Cursor scriptureQuery = dbQuerier.get();
-			editScriptureReference.setText(scriptureQuery.getString(1));
+			mEditScriptureReference.setText(scriptureQuery.getString(1));
 			//meditCategory.setText(scriptureQuery.getString(2));
-			editScripture.setText(scriptureQuery.getString(2));
+			mEditScripture.setText(Html.fromHtml(scriptureQuery.getString(2)));
 			scriptureQuery.close();
         } catch(SQLiteException e){
         	System.err.println("Database issue. Scripture not found.");
