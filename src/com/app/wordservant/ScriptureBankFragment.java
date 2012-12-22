@@ -49,7 +49,7 @@ public class ScriptureBankFragment extends Fragment{
 			ListView scriptureList = (ListView) getActivity().findViewById(R.id.scripture_bank_list);
 			
 			//Remove progress bar and show list.
-			ProgressBar pBar = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
+			ProgressBar pBar = (ProgressBar) getActivity().findViewById(R.id.loadingCircle);
 			TextView loadingText = (TextView) getActivity().findViewById(R.id.loadingText);
 			LinearLayout listLayout = (LinearLayout) getActivity().findViewById(R.id.listLayout);
 			listLayout.setGravity(Gravity.NO_GRAVITY);

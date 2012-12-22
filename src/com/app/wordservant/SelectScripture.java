@@ -146,13 +146,13 @@ public class SelectScripture extends Activity {
 									intent.putExtra("book_name", b.bookName);
 									intent.putExtra("chapter_number", Integer.valueOf(chapter.chapterNumber).intValue());
 									Bundle bundle = new Bundle();
-									
+									ArrayList<Integer> allCheckBoxes = new ArrayList<Integer>();
 									//Add all to the array list
 									for(int i=1;i<=chapter.getVersesArray().length;i++){
-										checkedCheckBoxes.add(i);
+										allCheckBoxes.add(i);
 									}
-									Collections.sort(checkedCheckBoxes);
-									bundle.putIntegerArrayList("verses", checkedCheckBoxes);
+									Collections.sort(allCheckBoxes);
+									bundle.putIntegerArrayList("verses", allCheckBoxes);
 									intent.putExtra("bundle", bundle);
 
 									startActivityForResult(intent, 0);
