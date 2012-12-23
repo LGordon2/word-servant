@@ -13,6 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,6 +24,9 @@ import android.widget.Toast;
 public class DisplaySelectedScripture extends Activity {
 
 	String mReference;
+	ArrayList<Integer> mVerseNumbers;
+	int mChapterNumber;
+	String mBookName;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,41 +36,47 @@ public class DisplaySelectedScripture extends Activity {
 		TextView referenceView = (TextView) findViewById(R.id.scriptureReference);
 
 		//Grabbing intent values..
-		final ArrayList<Integer> verseNumbers = this.getIntent().getBundleExtra("bundle").getIntegerArrayList("verses");
-		final int chapterNumber = this.getIntent().getIntExtra("chapter_number", 0);
-		final String bookName = this.getIntent().getStringExtra("book_name");
+		if(savedInstanceState==null){
+			mVerseNumbers = this.getIntent().getBundleExtra("bundle").getIntegerArrayList("verses");
+			mChapterNumber = this.getIntent().getIntExtra("chapter_number", 0);
+			mBookName = this.getIntent().getStringExtra("book_name");
+		}else{
+			mVerseNumbers = savedInstanceState.getIntegerArrayList("verses");
+			mChapterNumber = savedInstanceState.getInt("chapter_number", 0);
+			mBookName = savedInstanceState.getString("book_name");
+		}
 		String createdScriptureText = "";
 		String verseString = "";
 		Bible.BibleVerse currentVerse = null;
-		if(verseNumbers.size() < Bible.getInstance().getBook(bookName).chapters.get(chapterNumber-1).getVersesArray().length){
-			for(int i=0;i<verseNumbers.size();i++){
+		if(mVerseNumbers.size() < Bible.getInstance().getBook(mBookName).chapters.get(mChapterNumber-1).getVersesArray().length){
+			for(int i=0;i<mVerseNumbers.size();i++){
 				//verses.add(Bible.getInstance().getBook(bookName).chapters.get(chapterNumber).getVerse(i));
-				currentVerse = Bible.getInstance().getBook(bookName).chapters.get(chapterNumber-1).getVerse(verseNumbers.get(i)-1);
+				currentVerse = Bible.getInstance().getBook(mBookName).chapters.get(mChapterNumber-1).getVerse(mVerseNumbers.get(i)-1);
 				createdScriptureText += "<sup><small>"+currentVerse.verseNumber+"</small></sup>"+currentVerse.text;
 				if(i==0){
-					verseString = String.valueOf(verseNumbers.get(i));
-				}else if(verseNumbers.get(i)==verseNumbers.get(i-1)+1){
+					verseString = String.valueOf(mVerseNumbers.get(i));
+				}else if(mVerseNumbers.get(i)==mVerseNumbers.get(i-1)+1){
 					verseString+= "-";
 					i+=1;
-					while(i<verseNumbers.size() && verseNumbers.get(i)==verseNumbers.get(i-1)+1){
-						currentVerse = Bible.getInstance().getBook(bookName).chapters.get(chapterNumber-1).getVerse(verseNumbers.get(i)-1);
+					while(i<mVerseNumbers.size() && mVerseNumbers.get(i)==mVerseNumbers.get(i-1)+1){
+						currentVerse = Bible.getInstance().getBook(mBookName).chapters.get(mChapterNumber-1).getVerse(mVerseNumbers.get(i)-1);
 						createdScriptureText += "<sup><small>"+currentVerse.verseNumber+"</small></sup>"+currentVerse.text;
 						i+=1;
 					}
 					i-=1;
-					verseString+= verseNumbers.get(i);
+					verseString+= mVerseNumbers.get(i);
 				}else{
 					verseString+=",";
-					verseString+=verseNumbers.get(i);
+					verseString+=mVerseNumbers.get(i);
 				}
 
 			}
-			mReference = bookName+" "+chapterNumber+":"+verseString;
+			mReference = mBookName+" "+mChapterNumber+":"+verseString;
 		}
 		else{
-			mReference = bookName+" "+chapterNumber;
-			for(int i=0;i<verseNumbers.size();i++){
-				currentVerse = Bible.getInstance().getBook(bookName).chapters.get(chapterNumber-1).getVerse(verseNumbers.get(i)-1);
+			mReference = mBookName+" "+mChapterNumber;
+			for(int i=0;i<mVerseNumbers.size();i++){
+				currentVerse = Bible.getInstance().getBook(mBookName).chapters.get(mChapterNumber-1).getVerse(mVerseNumbers.get(i)-1);
 				createdScriptureText += "<sup><small>"+currentVerse.verseNumber+"</small></sup>"+currentVerse.text;
 			}
 		}
@@ -124,6 +134,12 @@ public class DisplaySelectedScripture extends Activity {
 		});
 	}
 
+	protected void onSaveInstanceState(Bundle outState){
+		super.onSaveInstanceState(outState);
+		outState.putIntegerArrayList("verses", this.getIntent().getBundleExtra("bundle").getIntegerArrayList("verses"));
+		outState.putInt("chapter_number", this.getIntent().getIntExtra("chapter_number", 0));
+		outState.putString("book_name", this.getIntent().getStringExtra("book_name"));
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
