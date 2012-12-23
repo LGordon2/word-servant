@@ -15,7 +15,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckedTextView;
@@ -25,12 +24,13 @@ import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.wordservant.Bible.BibleBook;
 
 public class SelectScripture extends Activity {
 	private class WaitForBibleLoad extends AsyncTask<Void, Void, Void>{
+
+		boolean checkedActivatedFix = true;
 
 		@Override
 		protected Void doInBackground(Void... arg0) {
@@ -81,19 +81,29 @@ public class SelectScripture extends Activity {
 									if(Build.VERSION.SDK_INT<11){
 										CheckedTextView textView = (CheckedTextView) view;
 										textView.setChecked(!textView.isChecked());
-										if(textView.isChecked()){
+										if(textView.isChecked()==checkedActivatedFix){
 											checkedCheckBoxes.add(Integer.valueOf((String) textView.getText()));
 										}
 										else{
-											checkedCheckBoxes.remove(checkedCheckBoxes.indexOf((Integer) position+1));
+											try{
+												checkedCheckBoxes.remove(checkedCheckBoxes.indexOf((Integer) position+1));
+											}catch(ArrayIndexOutOfBoundsException e){
+												checkedActivatedFix = !checkedActivatedFix;
+												checkedCheckBoxes.add(Integer.valueOf((String) textView.getText()));
+											}
 										}
 									}else{
 										TextView textView = (TextView) view;
-										if(textView.isActivated()){
+										if(textView.isActivated()==checkedActivatedFix){
 											checkedCheckBoxes.add(Integer.valueOf((String) textView.getText()));
 										}
 										else{
-											checkedCheckBoxes.remove(checkedCheckBoxes.indexOf((Integer) position+1));
+											try{
+												checkedCheckBoxes.remove(checkedCheckBoxes.indexOf((Integer) position+1));
+											}catch(ArrayIndexOutOfBoundsException e){
+												checkedActivatedFix = !checkedActivatedFix;
+												checkedCheckBoxes.add(Integer.valueOf((String) textView.getText()));
+											}
 										}
 									}
 
