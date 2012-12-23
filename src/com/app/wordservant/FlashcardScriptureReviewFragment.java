@@ -18,8 +18,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -175,7 +175,6 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 				if(mUnreviewedScriptureQuery.getCount()==1){
 					nextButton.setVisibility(Button.GONE);
 				}
-				
 				//Select the next.
 				setNextScriptureId();
 				displayScriptureContent(mUnreviewedScriptureQuery.getInt(0));

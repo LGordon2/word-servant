@@ -28,8 +28,12 @@ public class NotificationService extends IntentService{
 		synchronized (this) {
 			try {
 				String contentText = null;
-				SQLiteDatabase wordservant_db = new WordServantDbHelper(this, getResources().getString(R.string.database_name), null, 1).getReadableDatabase();
-				Cursor wordservantCursor = wordservant_db.query("scriptures", new String[]{"NEXT_REVIEW_DATE"}, "NEXT_REVIEW_DATE<=date('now','localtime')", null, null, null, null);
+				SQLiteDatabase wordservant_db = new WordServantDbHelper(this, WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
+				Cursor wordservantCursor = wordservant_db.query(
+						WordServantContract.ScriptureEntry.TABLE_NAME, 
+						new String[]{WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE}, 
+						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"<=date('now','localtime')", 
+						null, null, null, null);
 				NotificationManager mNotificationManager =
 						(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 				if (wordservantCursor.getCount() == 0){
