@@ -12,12 +12,13 @@ import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -49,11 +50,10 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 						cardFlipper.setDisplayedChild(0);
 				}
 			};
-			LinearLayout referenceLayout = (LinearLayout) getView().findViewById(R.id.referenceLayout);
+			RelativeLayout referenceLayout = (RelativeLayout) getView().findViewById(R.id.referenceLayout);
 			TextView scriptureText = (TextView) getView().findViewById(R.id.scriptureText);
 			referenceLayout.setOnClickListener(flipViewListener);
 			scriptureText.setOnClickListener(flipViewListener);
-			((Button) getView().findViewById(R.id.flipCardButton)).setOnClickListener(flipViewListener);
 
 			mEditScriptureReference = (TextView) getView().findViewById(R.id.referenceText);
 			mEditCategory = (TextView) getView().findViewById(R.id.scriptureTags);
@@ -61,29 +61,29 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 
 			//Set up coloring.
 			//Define the front and back of the cards.
-			LinearLayout frontCard;
-			LinearLayout backCard;
+			
+			RelativeLayout frontCard;
+			RelativeLayout backCard;
+			
 			if(sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture")){
 				cardFlipper.setDisplayedChild(1);
-				frontCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
-				backCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
+				frontCard = (RelativeLayout) cardFlipper.findViewById(R.id.scriptureLayout);
+				backCard = (RelativeLayout) cardFlipper.findViewById(R.id.referenceLayout);
 			}else{
 				cardFlipper.setDisplayedChild(0);
-				frontCard = (LinearLayout) cardFlipper.findViewById(R.id.referenceLayout);
-				backCard = (LinearLayout) cardFlipper.findViewById(R.id.scriptureLayout);
+				frontCard = (RelativeLayout) cardFlipper.findViewById(R.id.referenceLayout);
+				backCard = (RelativeLayout) cardFlipper.findViewById(R.id.scriptureLayout);
 			}
 
 			//Change the color for these cards accordingly.
-			frontCard.setBackgroundColor(getResources().getColor(R.color.card_front_background_color));
-			for (int i=0;i<frontCard.getChildCount();i++){
+			frontCard.setBackgroundResource(R.drawable.front_of_flashcard);
+			for (int i=0;i<frontCard.getChildCount()-1;i++){
 				TextView textView = (TextView) frontCard.getChildAt(i);
-				textView.setBackgroundColor(getResources().getColor(R.color.card_front_background_color));
 				textView.setTextColor(getResources().getColor(R.color.card_front_text_color));
 			}
-			backCard.setBackgroundColor(getResources().getColor(R.color.card_back_background_color));
-			for (int i=0;i<backCard.getChildCount();i++){
+			backCard.setBackgroundResource(R.drawable.back_of_flashcard);
+			for (int i=0;i<backCard.getChildCount()-1;i++){
 				TextView textView = (TextView) backCard.getChildAt(i);
-				textView.setBackgroundColor(getResources().getColor(R.color.card_back_background_color));
 				textView.setTextColor(getResources().getColor(R.color.card_back_text_color));
 			}
 		}else{
@@ -114,7 +114,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 		mUnreviewedScriptureQuery = mDatabaseConnection.query(
 				WordServantContract.ScriptureEntry.TABLE_NAME, 
 				columnsToRetrieve, 
-				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now') OR "+
+				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now','localtime') OR "+
 						WordServantContract.ScriptureEntry._ID+"="+mFirstSelectedScriptureId, 
 						null, null, null, null);
 
@@ -147,7 +147,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				//Update the database.
-				Cursor dateQuery = mDatabaseConnection.rawQuery("SELECT date('now')",null);
+				Cursor dateQuery = mDatabaseConnection.rawQuery("SELECT date('now','localtime')",null);
 				dateQuery.moveToFirst();
 				if(mUnreviewedScriptureQuery.getString(mUnreviewedScriptureQuery.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE)).equals(dateQuery.getString(0))){
 					updateReviewedScripture(getActivity(), mUnreviewedScriptureQuery.getInt(0), true);
@@ -166,7 +166,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 				mUnreviewedScriptureQuery = mDatabaseConnection.query(
 						WordServantContract.ScriptureEntry.TABLE_NAME, 
 						columnsToRetrieve, 
-						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now') OR "+
+						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now','localtime') OR "+
 								WordServantContract.ScriptureEntry._ID+"="+mFirstSelectedScriptureId,
 								null, null, null, null);
 				mUnreviewedScriptureQuery.moveToFirst();
@@ -174,7 +174,6 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 				if(mUnreviewedScriptureQuery.getCount()==1){
 					nextButton.setVisibility(Button.GONE);
 				}
-				
 				//Select the next.
 				setNextScriptureId();
 				displayScriptureContent(mUnreviewedScriptureQuery.getInt(0));
@@ -230,7 +229,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 					tagText += ", ";
 			}
 			editCategory.setText(tagText);*/
-			mEditScripture.setText(scriptureQuery.getString(1));
+			mEditScripture.setText(Html.fromHtml(scriptureQuery.getString(1)));
 		} catch(SQLiteException e){
 			System.err.println("Database issue..");
 			e.printStackTrace();

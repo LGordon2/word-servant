@@ -3,6 +3,7 @@ package com.app.wordservant;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -14,7 +15,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckedTextView;
@@ -24,12 +24,13 @@ import android.widget.ProgressBar;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.wordservant.Bible.BibleBook;
 
 public class SelectScripture extends Activity {
 	private class WaitForBibleLoad extends AsyncTask<Void, Void, Void>{
+
+		boolean checkedActivatedFix = true;
 
 		@Override
 		protected Void doInBackground(Void... arg0) {
@@ -72,23 +73,39 @@ public class SelectScripture extends Activity {
 							final ArrayList<Integer> checkedCheckBoxes = new ArrayList<Integer>();
 							gView.setOnItemClickListener(new OnItemClickListener(){
 
+								@SuppressLint("NewApi")
 								@Override
 								public void onItemClick(AdapterView<?> aView,
 										View view, int position, long id) {
 									// Get scriptures and send them to the displayed scripture screen.
-									CheckedTextView textView = (CheckedTextView) view;
-
 									if(Build.VERSION.SDK_INT<11){
+										CheckedTextView textView = (CheckedTextView) view;
 										textView.setChecked(!textView.isChecked());
+										if(textView.isChecked()==checkedActivatedFix){
+											checkedCheckBoxes.add(Integer.valueOf((String) textView.getText()));
+										}
+										else{
+											try{
+												checkedCheckBoxes.remove(checkedCheckBoxes.indexOf((Integer) position+1));
+											}catch(ArrayIndexOutOfBoundsException e){
+												checkedActivatedFix = !checkedActivatedFix;
+												checkedCheckBoxes.add(Integer.valueOf((String) textView.getText()));
+											}
+										}
+									}else{
+										TextView textView = (TextView) view;
+										if(textView.isActivated()==checkedActivatedFix){
+											checkedCheckBoxes.add(Integer.valueOf((String) textView.getText()));
+										}
+										else{
+											try{
+												checkedCheckBoxes.remove(checkedCheckBoxes.indexOf((Integer) position+1));
+											}catch(ArrayIndexOutOfBoundsException e){
+												checkedActivatedFix = !checkedActivatedFix;
+												checkedCheckBoxes.add(Integer.valueOf((String) textView.getText()));
+											}
+										}
 									}
-
-									if((Build.VERSION.SDK_INT<11 && textView.isChecked()) || (Build.VERSION.SDK_INT>=11 && !textView.isChecked())){
-										checkedCheckBoxes.add(Integer.valueOf((String) textView.getText()));
-									}
-									else{
-										checkedCheckBoxes.remove(checkedCheckBoxes.indexOf((Integer) position+1));
-									}
-
 
 									Button displayScriptures = (Button) findViewById(R.id.displayScriptures);
 
@@ -98,23 +115,6 @@ public class SelectScripture extends Activity {
 									else{
 										displayScriptures.setEnabled(false);
 									}
-								}
-
-							});
-							gView.setOnItemSelectedListener(new OnItemSelectedListener(){
-
-								@Override
-								public void onItemSelected(AdapterView<?> arg0,
-										View arg1, int arg2, long arg3) {
-									// TODO Auto-generated method stub
-									Toast.makeText(getApplicationContext(), "yay", Toast.LENGTH_SHORT).show();
-								}
-
-								@Override
-								public void onNothingSelected(
-										AdapterView<?> arg0) {
-									// TODO Auto-generated method stub
-
 								}
 
 							});
@@ -136,14 +136,59 @@ public class SelectScripture extends Activity {
 								}
 
 							});
-							ArrayAdapter<String> adapter;
-							adapter = new ArrayAdapter<String>(SelectScripture.this, android.R.layout.simple_list_item_checked, chapter.getVersesArray()){
+							Button previewChapter = (Button) findViewById(R.id.previewChapter);
+							previewChapter.setOnClickListener(new OnClickListener(){
+
+								@Override
+								public void onClick(View v) {
+									// TODO Auto-generated method stub
+									Intent intent = new Intent(SelectScripture.this,DisplaySelectedScripture.class);
+									intent.putExtra("book_name", b.bookName);
+									intent.putExtra("chapter_number", Integer.valueOf(chapter.chapterNumber).intValue());
+									Bundle bundle = new Bundle();
+									ArrayList<Integer> allCheckBoxes = new ArrayList<Integer>();
+									//Add all to the array list
+									for(int i=1;i<=chapter.getVersesArray().length;i++){
+										allCheckBoxes.add(i);
+									}
+									Collections.sort(allCheckBoxes);
+									bundle.putIntegerArrayList("verses", allCheckBoxes);
+									intent.putExtra("bundle", bundle);
+
+									startActivityForResult(intent, 0);
+								}
+
+							});
+							int layoutResource;
+							if(Build.VERSION.SDK_INT < 11)
+								layoutResource = android.R.layout.simple_list_item_checked;
+							else
+								layoutResource = android.R.layout.simple_list_item_activated_1;
+							ArrayAdapter<String> adapter = new ArrayAdapter<String>(SelectScripture.this, layoutResource, chapter.getVersesArray()){
+								@SuppressLint("NewApi")
 								public View getView(int position, View convertView, ViewGroup parent){
-									CheckedTextView textView = (CheckedTextView) getLayoutInflater().inflate(android.R.layout.simple_list_item_checked, null);
-									textView.setText(String.valueOf(position+1));
-									if(checkedCheckBoxes.contains(position+1))
-										textView.setChecked(true);
-									return textView;
+									if(Build.VERSION.SDK_INT < 11){
+										CheckedTextView textView;
+										if(convertView==null)
+											textView = (CheckedTextView) getLayoutInflater().inflate(android.R.layout.simple_list_item_checked, null);
+										else
+											textView = (CheckedTextView) convertView;
+										textView.setText(String.valueOf(position+1));
+										if(checkedCheckBoxes.contains(position+1))
+											textView.setChecked(true);
+										return textView;
+									}else{
+										TextView textView;
+										if(convertView == null){
+											textView = (TextView) getLayoutInflater().inflate(android.R.layout.simple_list_item_activated_1, null);
+										}else{
+											textView = (TextView) convertView;
+										}
+										textView.setText(String.valueOf(position+1));
+										if(checkedCheckBoxes.contains(position+1))
+											textView.setActivated(true);
+										return textView;
+									}
 								}
 							};
 							gView.setAdapter(adapter);

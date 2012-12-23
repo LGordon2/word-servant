@@ -3,54 +3,77 @@
     android:id="@+id/buttons"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:background="@drawable/gradient_background"
+    android:gravity="bottom"
     android:orientation="vertical"
-    android:background="@drawable/monogram_background" >
+    android:paddingBottom="50dp" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.46"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bible2" />
 
     <Button
-        android:background="@drawable/test"
         android:id="@+id/todaysMemoryVerses"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fadingEdge="horizontal"
-        android:fadingEdgeLength="100dp"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="@string/title_activity_todays_memory_verses" />
+        android:background="@drawable/landing_screen_button"
+        android:drawableRight="@drawable/content_event"
+        android:gravity="right|center_vertical"
+        android:paddingTop="10dp"
+        android:text="today&apos;s memory verses"
+        android:textColor="@android:color/white"
+        android:textSize="26sp" />
 
     <Button
-        android:background="@drawable/test"
         android:id="@+id/scriptureBank"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_activity_scripture_bank" />
+        android:background="@drawable/landing_screen_button"
+        android:drawableRight="@drawable/content_new"
+        android:gravity="right|center_vertical"
+        android:paddingTop="10dp"
+        android:text="scripture bank"
+        android:textColor="@android:color/white"
+        android:textSize="26sp" />
 
     <Button
-        android:background="@drawable/test"
         android:id="@+id/quizReview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Quiz / Review" />
+        android:background="@drawable/landing_screen_button"
+        android:drawablePadding="18dp"
+        android:gravity="right|center_vertical"
+        android:paddingTop="5dp"
+        android:text="quiz / review"
+        android:textColor="#C894D1"
+        android:textSize="20sp" />
 
     <Button
-        android:background="@drawable/test"
         android:id="@+id/statistics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Statistics" />
+        android:background="@drawable/landing_screen_button"
+        android:gravity="right|center_vertical"
+        android:paddingTop="5dp"
+        android:text="statistics"
+        android:textColor="#C894D1"
+        android:textSize="20sp" />
 
     <Button
-        android:background="@drawable/test"
         android:id="@+id/scriptureSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Scripture Search" />
+        android:background="@drawable/landing_screen_button"
+        android:gravity="right|center_vertical"
+        android:paddingTop="5dp"
+        android:text="search"
+        android:textColor="#C894D1"
+        android:textSize="20sp" />
 
-    <!-- <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/buttons"
-        android:adjustViewBounds="true"
-        android:src="@drawable/monogram-background" /> -->
 
 </LinearLayout>

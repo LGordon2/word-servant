@@ -1,80 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ViewSwitcher xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/flashCardLayout"
+    android:id="@+id/cardSwitcher"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:animateFirstView="false"
+    android:inAnimation="@anim/grow_from_middle"
+    android:outAnimation="@anim/shrink_to_middle"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp" >
 
-    <ViewSwitcher
-        android:id="@+id/cardSwitcher"
+    <ScrollView
+        android:id="@+id/referenceScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/flipCardButton"
-        android:animateFirstView="false"
-        android:inAnimation="@anim/grow_from_middle"
-        android:outAnimation="@anim/shrink_to_middle" >
+        android:fillViewport="true"
+        android:focusable="false" >
 
-        <ScrollView
-            android:id="@+id/referenceScroll"
+        <RelativeLayout
+            android:id="@+id/referenceLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:focusable="false" >
+            android:background="@drawable/front_of_flashcard" >
 
-            <LinearLayout
-                android:id="@+id/referenceLayout"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/referenceText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:orientation="vertical" >
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:focusable="false"
+                android:text="Genesis"
+                android:textSize="30sp" />
 
-                <TextView
-                    android:id="@+id/referenceText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:gravity="center_horizontal"
-                    android:textSize="30sp" />
-
-                <TextView
-                    android:id="@+id/scriptureTags"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tags" />
-            </LinearLayout>
-        </ScrollView>
-
-        <ScrollView
-            android:id="@+id/scriptureScroll"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:focusable="false" >
-
-            <LinearLayout
-                android:id="@+id/scriptureLayout"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/scriptureTags"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:layout_below="@+id/referenceText"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Tags" />
 
-                <TextView
-                    android:id="@+id/scriptureText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:textSize="20sp" />
-            </LinearLayout>
-        </ScrollView>
-    </ViewSwitcher>
+            <TextView
+                android:id="@+id/tapToFlipReference"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Tap screen to flip card"
+                android:textColor="#947E04" />
+        </RelativeLayout>
+    </ScrollView>
 
-    <Button
-        android:id="@+id/flipCardButton"
+    <ScrollView
+        android:id="@+id/scriptureScroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="Flip card" />
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:focusable="false" >
 
-</RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/scriptureLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/back_of_flashcard"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/scriptureText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:paddingBottom="50dp"
+                android:paddingTop="50dp"
+                android:text="This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test. This is a test."
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tapToFlipScripture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="Tap screen to flip card"
+                android:textColor="#947E04" />
+        </RelativeLayout>
+    </ScrollView>
+
+</ViewSwitcher>
