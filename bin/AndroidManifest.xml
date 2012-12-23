@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.wordservant"
     android:versionCode="1"
-    android:versionName="0.0.2" >
+    android:versionName="0.5" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -49,10 +49,6 @@
             android:label="@string/title_activity_todays_memory_verses" >
         </activity>
         <activity
-            android:name="com.app.wordservant.ScriptureReview"
-            android:label="@string/title_activity_due_today" >
-        </activity>
-        <activity
             android:name="com.app.wordservant.SelectScripture"
             android:label="@string/title_activity_select_scripture" >
             <meta-data
@@ -79,6 +75,13 @@
         <activity
             android:name="com.app.wordservant.QuizReviewActivity"
             android:label="@string/title_activity_quiz_review"
+            android:parentActivityName="android.support.v4.app.FragmentActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.support.v4.app.FragmentActivity" />
+        </activity>
+        <activity
+            android:name="ScriptureReviewFragmentActivity"
             android:parentActivityName="android.support.v4.app.FragmentActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
