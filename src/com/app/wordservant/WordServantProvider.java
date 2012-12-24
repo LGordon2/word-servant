@@ -27,7 +27,7 @@ public class WordServantProvider extends ContentProvider {
 	/**
 	 * The database version
 	 */
-	private static final int DATABASE_VERSION = 11;
+	private static final int DATABASE_VERSION = 12;
 
 	/**
 	 * A UriMatcher instance
@@ -183,19 +183,19 @@ public class WordServantProvider extends ContentProvider {
 				"='yearly' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">=21 AND "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<28"+
 				" AND _id = new._id; END;";
-
+//FIXME trigger issue!!
 		private static String TRIGGER_AUTO_UPDATE_DATE = "CREATE TRIGGER "+TRIGGER_NAME_AUTO_UPDATE_DATE+" AFTER UPDATE OF "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" ON "+WordServantContract.ScriptureEntry.TABLE_NAME+
 				" BEGIN UPDATE "+WordServantContract.ScriptureEntry.TABLE_NAME+" SET "+WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+
-				"=date("+WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+", "+
+				"=date('now', 'localtime', "+
 				"case when old."+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" < new."+
-				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" then '+' else '-' end ||'1 '||"+
-				"case "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+" "+"" +
-				"when 'daily' then 'day' "+
-				"when 'weekly' then 'week' "+
-				"when 'monthly' then 'month' "+
-				"when 'yearly' then 'year' "+
-				"end), "+WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+"="+
+				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" then "+
+				"case "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+" "+
+				"when 'daily' then '+1 day' "+
+				"when 'weekly' then '+7 day' "+
+				"when 'monthly' then '+1 month' "+
+				"when 'yearly' then '+365 days' "+
+				"end else '+0 day' end), "+WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+"="+
 				"case when old."+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" < new."+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" then date('now','localtime') else "+
 				" date("+WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+") end"+
@@ -230,6 +230,7 @@ public class WordServantProvider extends ContentProvider {
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
 			// Kills the table and existing data
+			//db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_NAME);
 			db.execSQL("DROP TABLE IF EXISTS "+ WordServantContract.ScriptureEntry.TABLE_NAME);
 			db.execSQL("DROP TABLE IF EXISTS "+ WordServantContract.TagEntry.TABLE_NAME);
 			db.execSQL("DROP TABLE IF EXISTS "+ WordServantContract.CategoryEntry.TABLE_NAME);
@@ -358,6 +359,7 @@ public class WordServantProvider extends ContentProvider {
 	@Override
 	public boolean onCreate() {
 		mOpenHelper = new WordServantDatabaseHelper(getContext());
+		mOpenHelper.getWritableDatabase();
 		return true;
 	}
 

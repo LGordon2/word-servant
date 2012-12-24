@@ -1,5 +1,6 @@
 package com.app.wordservant;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -61,10 +62,10 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 
 			//Set up coloring.
 			//Define the front and back of the cards.
-			
+
 			RelativeLayout frontCard;
 			RelativeLayout backCard;
-			
+
 			if(sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture")){
 				cardFlipper.setDisplayedChild(1);
 				frontCard = (RelativeLayout) cardFlipper.findViewById(R.id.scriptureLayout);
@@ -148,20 +149,26 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 				//Update the database.
 				Calendar calendar = Calendar.getInstance();
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-				calendar.getTime();
-				if(mUnreviewedScriptureQuery.getString(mUnreviewedScriptureQuery.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE)).equals(dateFormat.format(calendar.getTime()))){
-					updateReviewedScripture(getActivity(), mUnreviewedScriptureQuery.getInt(0), true);
+				String scriptureDateNextReviewDate = mUnreviewedScriptureQuery.getString(mUnreviewedScriptureQuery.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE));
+				try {
+					if(dateFormat.parse(scriptureDateNextReviewDate).compareTo(calendar.getTime())<=0){
+					//if(mUnreviewedScriptureQuery.getString(mUnreviewedScriptureQuery.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE))<=(dateFormat.format(calendar.getTime()))){
+						updateReviewedScripture(getActivity(), mUnreviewedScriptureQuery.getInt(0), true);
+					}
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				
+
 				if(mUnreviewedScriptureQuery.getInt(0) == mFirstSelectedScriptureId){
 					mFirstSelectedScriptureId = -1;
 				}
-				
+
 				if(mUnreviewedScriptureQuery.getCount()==1){
 					getActivity().finish();
 					return;
 				}
-				
+
 				String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID};
 				mUnreviewedScriptureQuery = getActivity().getContentResolver().query(
 						WordServantContract.ScriptureEntry.CONTENT_URI, 
@@ -177,7 +184,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 				//Select the next.
 				setNextScriptureId();
 				displayScriptureContent(mUnreviewedScriptureQuery.getInt(0));
-				
+
 
 			}
 
