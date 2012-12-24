@@ -46,6 +46,7 @@
         <activity
             android:name="com.app.wordservant.TodaysMemoryVerses"
             android:label="@string/title_activity_todays_memory_verses" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="android.support.v4.app.FragmentActivity"/>
         </activity>
         <activity
             android:name="com.app.wordservant.SelectScripture"

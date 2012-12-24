@@ -45,6 +45,12 @@ public class WordServantProvider extends ContentProvider {
 
 	// The incoming URI matches the Note ID URI pattern
 	private static final int SCRIPTURE_ID = 2;
+	
+	// The incoming URI matches the Note ID URI pattern
+	private static final int INCREMENT_TIMES_REVIEWED = 3;
+	
+	// The incoming URI matches the Note ID URI pattern
+	private static final int DECREMENT_TIMES_REVIEWED = 4;
 
 	// Handle to a new DatabaseHelper.
 	private WordServantDatabaseHelper mOpenHelper;
@@ -66,6 +72,14 @@ public class WordServantProvider extends ContentProvider {
 		// Add a pattern that routes URIs terminated with "scriptures" plus an integer
 		// to a scripture ID operation
 		sUriMatcher.addURI(WordServantContract.AUTHORITY, "scriptures/#", SCRIPTURE_ID);
+		
+		// Add a pattern that routes URIs terminated with "scriptures" plus an integer
+		// to a scripture ID operation
+		sUriMatcher.addURI(WordServantContract.AUTHORITY, "scriptures/#/INCREMENT_TIMES_REVIEWED", INCREMENT_TIMES_REVIEWED);
+		
+		// Add a pattern that routes URIs terminated with "scriptures" plus an integer
+		// to a scripture ID operation
+		sUriMatcher.addURI(WordServantContract.AUTHORITY, "scriptures/#/DECREMENT_TIMES_REVIEWED", DECREMENT_TIMES_REVIEWED);
 
 		/*
 		 * Creates and initializes a projection map that returns all columns
@@ -389,7 +403,13 @@ public class WordServantProvider extends ContentProvider {
 		SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 		int count;
 		String finalWhere;
+		String [] timesReviewedProjection = {
+				WordServantContract.ScriptureEntry._ID,
+				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED
+		};
 
+		Cursor cursor;
+		String scriptureId;
 		// Does the update based on the incoming URI pattern
 		switch (sUriMatcher.match(uri)) {
 
@@ -410,7 +430,7 @@ public class WordServantProvider extends ContentProvider {
 			// data, but modifies the where clause to restrict it to the particular note ID.
 		case SCRIPTURE_ID:
 			// From the incoming URI, get the note ID
-			String scriptureId = uri.getPathSegments().get(WordServantContract.ScriptureEntry.SCRIPTURE_ID_PATH_POSITION);
+			scriptureId = uri.getPathSegments().get(WordServantContract.ScriptureEntry.SCRIPTURE_ID_PATH_POSITION);
 
 			/*
 			 * Starts creating the final WHERE clause by restricting it to the incoming
@@ -431,6 +451,83 @@ public class WordServantProvider extends ContentProvider {
 
 
 			// Does the update and returns the number of rows updated.
+			count = db.update(
+					WordServantContract.ScriptureEntry.TABLE_NAME, // The database table name.
+					values,                   // A map of column names and new values to use.
+					finalWhere,               // The final WHERE clause to use
+					// placeholders for whereArgs
+					whereArgs                 // The where clause column values to select on, or
+					// null if the values are in the where argument.
+					);
+			break;
+			// If the incoming pattern is invalid, throws an exception.
+			
+		case INCREMENT_TIMES_REVIEWED:
+			scriptureId = uri.getPathSegments().get(WordServantContract.ScriptureEntry.SCRIPTURE_ID_PATH_POSITION);
+
+			/*
+			 * Starts creating the final WHERE clause by restricting it to the incoming
+			 * note ID.
+			 */
+			finalWhere =
+					WordServantContract.ScriptureEntry._ID +                              // The ID column name
+					" = " +                                          // test for equality
+					uri.getPathSegments().                           // the incoming note ID
+					get(WordServantContract.ScriptureEntry.SCRIPTURE_ID_PATH_POSITION)
+					;
+
+			// If there were additional selection criteria, append them to the final WHERE
+			// clause
+			if (where !=null) {
+				finalWhere = finalWhere + " AND " + where;
+			}
+			
+			// Does the update and returns the number of rows updated.
+			cursor = this.query(uri, timesReviewedProjection, null, null, null);
+			cursor.moveToFirst();
+			values = new ContentValues();
+			values.put(WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED, cursor.getInt(cursor.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED))+1);
+
+			count = db.update(
+					WordServantContract.ScriptureEntry.TABLE_NAME, // The database table name.
+					values,                   // A map of column names and new values to use.
+					finalWhere,               // The final WHERE clause to use
+					// placeholders for whereArgs
+					whereArgs                 // The where clause column values to select on, or
+					// null if the values are in the where argument.
+					);
+			break;
+
+			// If the incoming URI matches a single note ID, does the update based on the incoming
+			// data, but modifies the where clause to restrict it to the particular note ID.
+		case DECREMENT_TIMES_REVIEWED:
+			scriptureId = uri.getPathSegments().get(WordServantContract.ScriptureEntry.SCRIPTURE_ID_PATH_POSITION);
+
+			/*
+			 * Starts creating the final WHERE clause by restricting it to the incoming
+			 * note ID.
+			 */
+			finalWhere =
+					WordServantContract.ScriptureEntry._ID +                              // The ID column name
+					" = " +                                          // test for equality
+					uri.getPathSegments().                           // the incoming note ID
+					get(WordServantContract.ScriptureEntry.SCRIPTURE_ID_PATH_POSITION)
+					;
+
+			// If there were additional selection criteria, append them to the final WHERE
+			// clause
+			if (where !=null) {
+				finalWhere = finalWhere + " AND " + where;
+			}
+			
+			
+			// Does the update and returns the number of rows updated.
+
+			cursor = this.query(uri, timesReviewedProjection, null, null, null);
+			cursor.moveToFirst();
+			values = new ContentValues();
+			values.put(WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED, cursor.getInt(cursor.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED))-1);
+
 			count = db.update(
 					WordServantContract.ScriptureEntry.TABLE_NAME, // The database table name.
 					values,                   // A map of column names and new values to use.

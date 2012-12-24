@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -27,7 +28,6 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 	private TextView mEditCategory;
 	private TextView mEditScripture;
 	private Integer mFirstSelectedScriptureId;
-	private SQLiteDatabase mDatabaseConnection;
 	private Cursor mUnreviewedScriptureQuery;
 
 	public void onViewCreated(View view, Bundle savedInstanceState){
@@ -101,7 +101,6 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 		dbDateFormat.format(Calendar.getInstance().getTime());
 
 		//Open the database.
-		mDatabaseConnection = new WordServantDbHelper(getActivity(), WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
 		Integer positionOnScreen = getActivity().getIntent().getIntExtra("positionOnScreen", 0);
 		final Bundle bundledScriptureList = getActivity().getIntent().getBundleExtra("bundledScriptureList");
 		mFirstSelectedScriptureId = bundledScriptureList.getInt(String.valueOf(positionOnScreen));
@@ -111,12 +110,12 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 		//Check all unreviewedScriptures.
 		String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID,
 				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
-		mUnreviewedScriptureQuery = mDatabaseConnection.query(
-				WordServantContract.ScriptureEntry.TABLE_NAME, 
+		mUnreviewedScriptureQuery = getActivity().getContentResolver().query(
+				WordServantContract.ScriptureEntry.CONTENT_URI, 
 				columnsToRetrieve, 
 				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now','localtime') OR "+
 						WordServantContract.ScriptureEntry._ID+"="+mFirstSelectedScriptureId, 
-						null, null, null, null);
+						null, null);
 
 		//Set the row in the unreviewed scripture query to match the selected item in Today's Memory Verses.
 		mUnreviewedScriptureQuery.moveToFirst();
@@ -147,9 +146,10 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				//Update the database.
-				Cursor dateQuery = mDatabaseConnection.rawQuery("SELECT date('now','localtime')",null);
-				dateQuery.moveToFirst();
-				if(mUnreviewedScriptureQuery.getString(mUnreviewedScriptureQuery.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE)).equals(dateQuery.getString(0))){
+				Calendar calendar = Calendar.getInstance();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				calendar.getTime();
+				if(mUnreviewedScriptureQuery.getString(mUnreviewedScriptureQuery.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE)).equals(dateFormat.format(calendar.getTime()))){
 					updateReviewedScripture(getActivity(), mUnreviewedScriptureQuery.getInt(0), true);
 				}
 				
@@ -163,12 +163,12 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 				}
 				
 				String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID};
-				mUnreviewedScriptureQuery = mDatabaseConnection.query(
-						WordServantContract.ScriptureEntry.TABLE_NAME, 
+				mUnreviewedScriptureQuery = getActivity().getContentResolver().query(
+						WordServantContract.ScriptureEntry.CONTENT_URI, 
 						columnsToRetrieve, 
 						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now','localtime') OR "+
 								WordServantContract.ScriptureEntry._ID+"="+mFirstSelectedScriptureId,
-								null, null, null, null);
+								null, null);
 				mUnreviewedScriptureQuery.moveToFirst();
 				Button nextButton = (Button) getActivity().findViewById(R.id.dueTodayNextButton);
 				if(mUnreviewedScriptureQuery.getCount()==1){
@@ -184,16 +184,11 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 		});
 	}
 
-	public static void updateReviewedScripture(Context context, int scriptureId, boolean increment){
-		SQLiteDatabase wordservant_db = new WordServantDbHelper(context, WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
-		String plusMinus = increment?"+":"-";
-		wordservant_db.execSQL("update "+WordServantContract.ScriptureEntry.TABLE_NAME+" set "+
-				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"="+
-				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"+" +
-				plusMinus+
-				"1 where "+WordServantContract.ScriptureEntry._ID+"="+scriptureId);
-
-		wordservant_db.close();
+	public void updateReviewedScripture(Context context, int scriptureId, boolean increment){
+		String incrementOrDecrement = increment
+				?"INCREMENT_TIMES_REVIEWED":"DECREMENT_TIMES_REVIEWED";
+		getActivity().getContentResolver().update(
+				Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE, String.valueOf(scriptureId)+"/"+incrementOrDecrement), null, null, null);
 	}
 
 	protected void displayScriptureContent(int scriptureId) {
@@ -204,11 +199,10 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 					WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT,
 					WordServantContract.ScriptureEntry._ID,
 					WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
-			Cursor scriptureQuery = mDatabaseConnection.query(
-					WordServantContract.ScriptureEntry.TABLE_NAME, 
+			Cursor scriptureQuery = getActivity().getContentResolver().query(
+					Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(scriptureId)), 
 					columns_to_retrieve, 
-					WordServantContract.ScriptureEntry._ID+"="+scriptureId, 
-					null, null, null, null);
+					null, null, null);
 			scriptureQuery.moveToFirst();
 			mEditScriptureReference.setText(scriptureQuery.getString(0));
 
@@ -259,8 +253,5 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 
 	public void onDestroy(){
 		super.onDestroy();
-
-		//Close the DB connection.
-		mDatabaseConnection.close();
 	}
 }

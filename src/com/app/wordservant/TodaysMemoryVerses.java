@@ -5,13 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
 import android.view.HapticFeedbackConstants;
 import android.view.Menu;
@@ -28,9 +28,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class TodaysMemoryVerses extends Activity{
+public class TodaysMemoryVerses extends FragmentActivity{
 
-    private SQLiteDatabase mDatabaseConnection;
 	private Cursor mScriptureQuery;
 	private java.text.DateFormat dbDateFormat;
 
@@ -38,7 +37,6 @@ public class TodaysMemoryVerses extends Activity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todays_memory_verses);
-        mDatabaseConnection = new WordServantDbHelper(this, WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
         
     }
 	
@@ -57,7 +55,7 @@ public class TodaysMemoryVerses extends Activity{
 		for(int i=0;i<4;i++){
 			String whereClause = WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+" <= date('now','localtime','-"+i+" day')";
 			whereClause += i==0?" OR "+WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+" = date('now','localtime')":"";
-			mScriptureQuery = mDatabaseConnection.query(false, getResources().getString(R.string.scripture_table_name), queryColumns, whereClause, null, null, null, null, null);
+			mScriptureQuery = this.getContentResolver().query(WordServantContract.ScriptureEntry.CONTENT_URI, queryColumns, whereClause, null, null);
 			
 			if (mScriptureQuery.getCount()==0 && i>0){
 				continue;
@@ -119,9 +117,11 @@ public class TodaysMemoryVerses extends Activity{
 					public void onClick(View v) {
 						// Reset the NEXT_REVIEW_DATE if we are unchecking, otherwise mark the scripture as reviewed.
 						if(!((CheckBox) v).isChecked()){
-							FlashcardScriptureReviewFragment.updateReviewedScripture(TodaysMemoryVerses.this, bundledScriptureList.getInt(String.valueOf(position)), false);
+							getContentResolver().update(
+									Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE, bundledScriptureList.getInt(String.valueOf(position))+"/DECREMENT_TIMES_REVIEWED"), null, null, null);
 						}else{
-							FlashcardScriptureReviewFragment.updateReviewedScripture(TodaysMemoryVerses.this, bundledScriptureList.getInt(String.valueOf(position)), true);
+							getContentResolver().update(
+									Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE, bundledScriptureList.getInt(String.valueOf(position))+"/INCREMENT_TIMES_REVIEWED"), null, null, null);
 						}
 					}
 					
@@ -180,7 +180,6 @@ public class TodaysMemoryVerses extends Activity{
     
 	protected void onDestroy(){
 		super.onDestroy();
-		mDatabaseConnection.close();
 		mScriptureQuery.close();
 	}
 }

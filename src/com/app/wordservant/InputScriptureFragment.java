@@ -24,18 +24,18 @@ import android.widget.Toast;
 
 public class InputScriptureFragment extends Fragment {
 
-    private SQLiteDatabase wordservant_db;
+	private SQLiteDatabase wordservant_db;
 
 	@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 	}
 	public void onStart(){
 		super.onStart();
-        Button doneButton = (Button) getActivity().findViewById(R.id.doneButton);
-        doneButton.setOnClickListener(new OnClickListener(){
+		Button doneButton = (Button) getActivity().findViewById(R.id.doneButton);
+		doneButton.setOnClickListener(new OnClickListener(){
 
-			
+
 			/**
 			 * Provides the functionality for the done button.
 			 */
@@ -43,7 +43,7 @@ public class InputScriptureFragment extends Fragment {
 				// Get the referenced fields.
 				EditText scriptureReference = (EditText) getActivity().findViewById(R.id.scriptureReference);
 				EditText scriptureText = (EditText) getActivity().findViewById(R.id.scriptureText);
-				
+
 				// Check for required fields.
 				if (scriptureReference.getText().toString().equals("")){
 					Toast.makeText(inputScriptureView.getContext(),"Scripture Reference is a required field.", Toast.LENGTH_SHORT).show();
@@ -65,8 +65,10 @@ public class InputScriptureFragment extends Fragment {
 						WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE,
 						WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED,
 						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
-				SQLiteDatabase wordservant_db_readable = new WordServantDbHelper(getActivity(), WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
-				Cursor runningScriptureQuery = wordservant_db_readable.query(WordServantContract.ScriptureEntry.TABLE_NAME, columnsToRetrieve, "SCHEDULE='daily' AND TIMES_REVIEWED<7", null, null, null, null);
+				Cursor runningScriptureQuery = getActivity().getContentResolver().query(
+						WordServantContract.ScriptureEntry.CONTENT_URI, 
+						columnsToRetrieve, 
+						"SCHEDULE='daily' AND TIMES_REVIEWED<7", null, null);
 				if (runningScriptureQuery.getCount()>0){
 					runningScriptureQuery.moveToLast();
 					Calendar currentCalendar = Calendar.getInstance();
@@ -79,48 +81,41 @@ public class InputScriptureFragment extends Fragment {
 					scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, dbDateFormat.format(currentCalendar.getTime()));
 				}
 				r.gc();
-				
+
 				//Open the database and add the row.
-				try{
-					wordservant_db = new WordServantDbHelper(getActivity(), WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
-					wordservant_db.insert(WordServantContract.ScriptureEntry.TABLE_NAME, null, scriptureValues);
-				} catch(SQLiteException e){
-					System.err.println("Error with SQL statement.");
-					e.printStackTrace();
-				} finally{
-					wordservant_db.close();
-				}
-				
-				
+				getActivity().getContentResolver().insert(WordServantContract.ScriptureEntry.CONTENT_URI, scriptureValues);
+
+
+
 				//Go back to the scripture bank screen.
 				if(getFragmentManager().findFragmentById(R.id.scriptureBankFragment) == null){
 					getActivity().finish();
 				}else{
 					getFragmentManager().findFragmentById(R.id.scriptureBankFragment).onStart();
-					
+
 					FragmentManager fragmentManager = getFragmentManager();
 					FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 					fragmentTransaction.remove(fragmentManager.findFragmentByTag("input_scripture"));
 					fragmentTransaction.commit();
 				}
 			}
-        	
-        });
-        Button addTagButton = (Button) getActivity().findViewById(R.id.addTagButton);
-        addTagButton.setOnClickListener(new OnClickListener(){
+
+		});
+		Button addTagButton = (Button) getActivity().findViewById(R.id.addTagButton);
+		addTagButton.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				//Toast.makeText(getActivity(), "Not yet implemented.", Toast.LENGTH_SHORT).show();
-				AddTagDialogFragmentAlt dialogFragment = new AddTagDialogFragmentAlt();
-				dialogFragment.show(getFragmentManager(), "tags");
+				//AddTagDialogFragmentAlt dialogFragment = new AddTagDialogFragmentAlt();
+				//dialogFragment.show(getFragmentManager(), "tags");
 			}
-        	
-        });
-    }
+
+		});
+	}
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		return inflater.inflate(R.layout.activity_input_scripture_manual, null);
-		
+
 	}
 }
