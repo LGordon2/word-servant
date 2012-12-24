@@ -27,7 +27,7 @@ public class AddTagDialogFragment extends DialogFragment {
 		}
 
 		public Cursor loadInBackground(){
-			SQLiteDatabase db = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
+			SQLiteDatabase db = new WordServantDbHelper(getActivity(), WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 			String [] columns = {
 					WordServantContract.TagEntry._ID,
 					WordServantContract.TagEntry.COLUMN_NAME_TAG_NAME
@@ -53,7 +53,7 @@ public class AddTagDialogFragment extends DialogFragment {
 
 					EditText editText = (EditText) ((RelativeLayout) view.getParent()).findViewById(R.id.tagTextField);
 
-					SQLiteDatabase db = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
+					SQLiteDatabase db = new WordServantDbHelper(getActivity(), WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 					String [] columns = {
 							WordServantContract.TagEntry._ID,
 							WordServantContract.TagEntry.COLUMN_NAME_TAG_NAME
@@ -118,7 +118,7 @@ public class AddTagDialogFragment extends DialogFragment {
 
 						EditText editText = (EditText) ((RelativeLayout) view.getParent()).findViewById(R.id.tagTextField);
 
-						SQLiteDatabase db = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
+						SQLiteDatabase db = new WordServantDbHelper(getActivity(), WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 						String [] columns = {
 								WordServantContract.TagEntry._ID,
 								WordServantContract.TagEntry.COLUMN_NAME_TAG_NAME
@@ -141,7 +141,7 @@ public class AddTagDialogFragment extends DialogFragment {
 					}
 				});
 
-				SQLiteDatabase db = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
+				SQLiteDatabase db = new WordServantDbHelper(getActivity(), WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 				String [] columns = {
 						WordServantContract.TagEntry._ID,
 						WordServantContract.TagEntry.COLUMN_NAME_TAG_NAME

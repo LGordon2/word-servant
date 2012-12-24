@@ -101,7 +101,7 @@ public class FlashcardQuizReviewFragment extends Fragment{
 				};
 				String selection = WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"<=date('now','localtime') OR "+
 						WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">0";
-				SQLiteDatabase db = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
+				SQLiteDatabase db = new WordServantDbHelper(getActivity(), WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
 				return db.query(
 						WordServantContract.ScriptureEntry.TABLE_NAME, 
 						columns, selection, null, null, null, null);
@@ -133,7 +133,7 @@ public class FlashcardQuizReviewFragment extends Fragment{
 						quizData.getInt(quizData.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_SKIPPED_REVIEW_COUNT))+1);
 				SQLiteDatabase db = new WordServantDbHelper(
 						getActivity(), 
-						WordServantContract.DB_NAME, 
+						WordServantContract.DATABASE_NAME, 
 						null, 
 						WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 				String whereClause = WordServantContract.ScriptureEntry._ID+"="+id;
@@ -164,7 +164,7 @@ public class FlashcardQuizReviewFragment extends Fragment{
 						quizData.getInt(quizData.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_CORRECTLY_REVIEWED_COUNT))+1);
 				SQLiteDatabase db = new WordServantDbHelper(
 						getActivity(), 
-						WordServantContract.DB_NAME, 
+						WordServantContract.DATABASE_NAME, 
 						null, 
 						WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 				String whereClause = WordServantContract.ScriptureEntry._ID+"="+id;
@@ -196,7 +196,7 @@ public class FlashcardQuizReviewFragment extends Fragment{
 						quizData.getInt(quizData.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_INCORRECTLY_REVIEWED_COUNT))+1);
 				SQLiteDatabase db = new WordServantDbHelper(
 						getActivity(), 
-						WordServantContract.DB_NAME, 
+						WordServantContract.DATABASE_NAME, 
 						null, 
 						WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 				String whereClause = WordServantContract.ScriptureEntry._ID+"="+id;

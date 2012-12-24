@@ -28,7 +28,7 @@ public class NotificationService extends IntentService{
 		synchronized (this) {
 			try {
 				String contentText = null;
-				SQLiteDatabase wordservant_db = new WordServantDbHelper(this, WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
+				SQLiteDatabase wordservant_db = new WordServantDbHelper(this, WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
 				Cursor wordservantCursor = wordservant_db.query(
 						WordServantContract.ScriptureEntry.TABLE_NAME, 
 						new String[]{WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE}, 

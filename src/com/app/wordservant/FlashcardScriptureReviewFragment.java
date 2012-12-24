@@ -101,7 +101,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 		dbDateFormat.format(Calendar.getInstance().getTime());
 
 		//Open the database.
-		mDatabaseConnection = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
+		mDatabaseConnection = new WordServantDbHelper(getActivity(), WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
 		Integer positionOnScreen = getActivity().getIntent().getIntExtra("positionOnScreen", 0);
 		final Bundle bundledScriptureList = getActivity().getIntent().getBundleExtra("bundledScriptureList");
 		mFirstSelectedScriptureId = bundledScriptureList.getInt(String.valueOf(positionOnScreen));
@@ -185,7 +185,7 @@ public class FlashcardScriptureReviewFragment extends Fragment {
 	}
 
 	public static void updateReviewedScripture(Context context, int scriptureId, boolean increment){
-		SQLiteDatabase wordservant_db = new WordServantDbHelper(context, WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
+		SQLiteDatabase wordservant_db = new WordServantDbHelper(context, WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 		String plusMinus = increment?"+":"-";
 		wordservant_db.execSQL("update "+WordServantContract.ScriptureEntry.TABLE_NAME+" set "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"="+

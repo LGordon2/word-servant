@@ -100,7 +100,7 @@ public class DisplaySelectedScripture extends Activity {
 						WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE,
 						WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED,
 						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
-				SQLiteDatabase wordservant_db = new WordServantDbHelper(DisplaySelectedScripture.this, WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
+				SQLiteDatabase wordservant_db = new WordServantDbHelper(DisplaySelectedScripture.this, WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 				Cursor runningScriptureQuery = wordservant_db.query(
 						WordServantContract.ScriptureEntry.TABLE_NAME, 
 						columnsToRetrieve, 
@@ -121,6 +121,7 @@ public class DisplaySelectedScripture extends Activity {
 				//Open the database and add the row.
 				try{
 					wordservant_db.insert(WordServantContract.ScriptureEntry.TABLE_NAME, null, scriptureValues);
+					DisplaySelectedScripture.this.getContentResolver().notifyChange(WordServantContract.ScriptureEntry.CONTENT_URI, null);
 				} catch(SQLiteException e){
 					System.err.println("Error with SQL statement.");
 					e.printStackTrace();

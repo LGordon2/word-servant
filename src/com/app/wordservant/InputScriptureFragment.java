@@ -65,7 +65,7 @@ public class InputScriptureFragment extends Fragment {
 						WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE,
 						WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED,
 						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
-				SQLiteDatabase wordservant_db_readable = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
+				SQLiteDatabase wordservant_db_readable = new WordServantDbHelper(getActivity(), WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
 				Cursor runningScriptureQuery = wordservant_db_readable.query(WordServantContract.ScriptureEntry.TABLE_NAME, columnsToRetrieve, "SCHEDULE='daily' AND TIMES_REVIEWED<7", null, null, null, null);
 				if (runningScriptureQuery.getCount()>0){
 					runningScriptureQuery.moveToLast();
@@ -82,7 +82,7 @@ public class InputScriptureFragment extends Fragment {
 				
 				//Open the database and add the row.
 				try{
-					wordservant_db = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
+					wordservant_db = new WordServantDbHelper(getActivity(), WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 					wordservant_db.insert(WordServantContract.ScriptureEntry.TABLE_NAME, null, scriptureValues);
 				} catch(SQLiteException e){
 					System.err.println("Error with SQL statement.");

@@ -86,6 +86,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.support.v4.app.FragmentActivity" />
         </activity>
+        <provider android:authorities="com.app.provider.wordservant" android:name="WordServantProvider" android:exported="false"></provider>
     </application>
 
 </manifest>

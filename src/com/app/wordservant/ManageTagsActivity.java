@@ -20,7 +20,7 @@ public class ManageTagsActivity extends Activity {
 		}
 
 		public Cursor loadInBackground(){
-			SQLiteDatabase db = new WordServantDbHelper(ManageTagsActivity.this, WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
+			SQLiteDatabase db = new WordServantDbHelper(ManageTagsActivity.this, WordServantContract.DATABASE_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
 			String [] columns = {
 					WordServantContract.TagEntry._ID,
 					WordServantContract.TagEntry.COLUMN_NAME_TAG_NAME
