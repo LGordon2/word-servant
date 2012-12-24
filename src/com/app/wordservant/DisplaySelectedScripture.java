@@ -89,7 +89,6 @@ public class DisplaySelectedScripture extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 
 				SimpleDateFormat dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
 				ContentValues scriptureValues = new ContentValues();
@@ -100,12 +99,9 @@ public class DisplaySelectedScripture extends Activity {
 						WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE,
 						WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED,
 						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
-				SQLiteDatabase wordservant_db = new WordServantDbHelper(DisplaySelectedScripture.this, WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
-				Cursor runningScriptureQuery = wordservant_db.query(
-						WordServantContract.ScriptureEntry.TABLE_NAME, 
-						columnsToRetrieve, 
+				Cursor runningScriptureQuery = DisplaySelectedScripture.this.getContentResolver().query(WordServantContract.ScriptureEntry.CONTENT_URI, columnsToRetrieve, 
 						WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+"='daily' AND "+
-								WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<7", null, null, null, null);
+								WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<7", null, null);
 				if (runningScriptureQuery.getCount()>0){
 					runningScriptureQuery.moveToLast();
 					Calendar currentCalendar = Calendar.getInstance();
@@ -119,14 +115,7 @@ public class DisplaySelectedScripture extends Activity {
 				}
 
 				//Open the database and add the row.
-				try{
-					wordservant_db.insert(WordServantContract.ScriptureEntry.TABLE_NAME, null, scriptureValues);
-				} catch(SQLiteException e){
-					System.err.println("Error with SQL statement.");
-					e.printStackTrace();
-				} finally{
-					wordservant_db.close();
-				}
+				DisplaySelectedScripture.this.getContentResolver().insert(WordServantContract.ScriptureEntry.CONTENT_URI, scriptureValues);
 				setResult(0);
 				finish();
 			}

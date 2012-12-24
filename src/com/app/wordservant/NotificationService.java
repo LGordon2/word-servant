@@ -9,7 +9,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
@@ -28,12 +27,11 @@ public class NotificationService extends IntentService{
 		synchronized (this) {
 			try {
 				String contentText = null;
-				SQLiteDatabase wordservant_db = new WordServantDbHelper(this, WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
-				Cursor wordservantCursor = wordservant_db.query(
-						WordServantContract.ScriptureEntry.TABLE_NAME, 
+				Cursor wordservantCursor = this.getContentResolver().query(
+						WordServantContract.ScriptureEntry.CONTENT_URI, 
 						new String[]{WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE}, 
 						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"<=date('now','localtime')", 
-						null, null, null, null);
+						null, null);
 				NotificationManager mNotificationManager =
 						(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 				if (wordservantCursor.getCount() == 0){
@@ -72,8 +70,6 @@ public class NotificationService extends IntentService{
 				mBuilder.setContentIntent(resultPendingIntent);
 				// mId allows you to update the notification later on.
 				mNotificationManager.notify(0, mBuilder.build());
-				wordservant_db.close();
-				wordservantCursor.close();
 			} catch (Exception e) {
 			}
 		}

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -101,10 +102,9 @@ public class FlashcardQuizReviewFragment extends Fragment{
 				};
 				String selection = WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"<=date('now','localtime') OR "+
 						WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">0";
-				SQLiteDatabase db = new WordServantDbHelper(getActivity(), WordServantContract.DB_NAME, null, WordServantDbHelper.DATABASE_VERSION).getReadableDatabase();
-				return db.query(
-						WordServantContract.ScriptureEntry.TABLE_NAME, 
-						columns, selection, null, null, null, null);
+				return getActivity().getContentResolver().query(
+						WordServantContract.ScriptureEntry.CONTENT_URI, 
+						columns, selection, null, null);
 			}
 		}.loadInBackground();
 
@@ -131,17 +131,9 @@ public class FlashcardQuizReviewFragment extends Fragment{
 				contentValues.put(
 						WordServantContract.ScriptureEntry.COLUMN_NAME_SKIPPED_REVIEW_COUNT,
 						quizData.getInt(quizData.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_SKIPPED_REVIEW_COUNT))+1);
-				SQLiteDatabase db = new WordServantDbHelper(
-						getActivity(), 
-						WordServantContract.DB_NAME, 
-						null, 
-						WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
-				String whereClause = WordServantContract.ScriptureEntry._ID+"="+id;
-				db.update(
-						WordServantContract.ScriptureEntry.TABLE_NAME,
-						contentValues, 
-						whereClause, 
-						null);
+				getActivity().getContentResolver().update(
+						Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(id)),
+						contentValues, null, null);
 
 				//Display new scripture.
 				displayScriptureContent(quizData);
@@ -162,18 +154,9 @@ public class FlashcardQuizReviewFragment extends Fragment{
 				contentValues.put(
 						WordServantContract.ScriptureEntry.COLUMN_NAME_CORRECTLY_REVIEWED_COUNT,
 						quizData.getInt(quizData.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_CORRECTLY_REVIEWED_COUNT))+1);
-				SQLiteDatabase db = new WordServantDbHelper(
-						getActivity(), 
-						WordServantContract.DB_NAME, 
-						null, 
-						WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
-				String whereClause = WordServantContract.ScriptureEntry._ID+"="+id;
-				db.update(
-						WordServantContract.ScriptureEntry.TABLE_NAME,
-						contentValues, 
-						whereClause, 
-						null);
-
+				getActivity().getContentResolver().update(
+						Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(id)),
+						contentValues, null, null);
 				//Display new scripture.
 				displayScriptureContent(quizData);
 
@@ -194,17 +177,9 @@ public class FlashcardQuizReviewFragment extends Fragment{
 				contentValues.put(
 						WordServantContract.ScriptureEntry.COLUMN_NAME_INCORRECTLY_REVIEWED_COUNT,
 						quizData.getInt(quizData.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_INCORRECTLY_REVIEWED_COUNT))+1);
-				SQLiteDatabase db = new WordServantDbHelper(
-						getActivity(), 
-						WordServantContract.DB_NAME, 
-						null, 
-						WordServantDbHelper.DATABASE_VERSION).getWritableDatabase();
-				String whereClause = WordServantContract.ScriptureEntry._ID+"="+id;
-				db.update(
-						WordServantContract.ScriptureEntry.TABLE_NAME,
-						contentValues, 
-						whereClause, 
-						null);
+				getActivity().getContentResolver().update(
+						Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(id)),
+						contentValues, null, null);
 
 				//Display new scripture.
 				displayScriptureContent(quizData);

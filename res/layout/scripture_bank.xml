@@ -27,33 +27,14 @@
             android:text="@string/select_new_scripture_button_text" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/listLayout"
+    <fragment
+        android:id="@+id/fragment1"
+        android:name="com.app.wordservant.ScriptureBank$ScriptureBankFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/button_layout"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="vertical" >
-
-        <ProgressBar
-            android:id="@+id/loadingCircle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/loadingText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Loading..." />
-
-            <ListView
-                android:id="@+id/scripture_bank_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                tools:listitem="@layout/list_layout" >
-            </ListView>
-
-    </LinearLayout>
+        tools:layout="@layout/fragment_list_layout" />
 
 </RelativeLayout>
