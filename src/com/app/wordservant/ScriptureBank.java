@@ -40,9 +40,9 @@ public class ScriptureBank extends FragmentActivity{
 			String [] fromColumns = {WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE};
 
 			mAdapter = new SimpleCursorAdapter(getActivity(), 
-					android.R.layout.simple_list_item_1, null, 
+					R.layout.list_layout, null, 
 					fromColumns, 
-					new int []{android.R.id.text1});
+					new int []{R.id.list_entry});
 			setListAdapter(mAdapter);
 			this.setListShown(false);
 			getLoaderManager().initLoader(0, null, this);
