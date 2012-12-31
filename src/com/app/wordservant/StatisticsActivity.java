@@ -156,7 +156,6 @@ public class StatisticsActivity extends FragmentActivity{
 		@Override
 		public void onLoaderReset(Loader<Cursor> loader) {
 			// TODO Auto-generated method stub
-
 		}
 	}
 }

@@ -3,4 +3,5 @@
     <style name="AppTheme" parent="android:Theme.Light.NoTitleBar"></style>
 
     <style name="MenuTheme" parent="android:Theme"></style>
+    <dimen name="medium_text_size">24sp</dimen>
 </resources>
