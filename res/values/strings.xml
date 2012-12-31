@@ -32,24 +32,26 @@
     </string-array>
 
     <string name="title_activity_select_scripture">Select Scripture</string>
-
     <string name="date_format">yyyy-MM-dd</string>
     <string name="title_activity_display_selected_scripture">DisplaySelectedScripture</string>
 
     <string-array name="review_select">
-        <item>Static Display</item><item>Flash Card (Showing Reference)</item><item>Flash Card (Showing Scripture)</item>
-        
+        <item>Static Display</item>
+        <item>Flash Card (Showing Reference)</item>
+        <item>Flash Card (Showing Scripture)</item>
         <item>Word Masking</item>
         <item>Line By Line Reveal</item>
-        
     </string-array>
     <string-array name="review_select_values">
-        <item>none</item><item>showing_reference</item><item>showing_scripture</item>
-        
+        <item>none</item>
+        <item>showing_reference</item>
+        <item>showing_scripture</item>
         <item>word_masking</item>
         <item>line_by_line</item>
-        
     </string-array>
+
     <string name="title_activity_quiz_review">Quiz/Review</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_statistics">StatisticsActivity</string>
 
 </resources>

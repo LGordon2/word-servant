@@ -11,10 +11,10 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/word_servant_icon_new"
-        android:label="@string/title_activity_main">
+        android:label="@string/title_activity_main" >
         <activity
             android:name="com.app.wordservant.LandingScreen"
-            android:theme='@android:style/Theme.NoTitleBar' >
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -80,13 +80,27 @@
                 android:value="android.support.v4.app.FragmentActivity" />
         </activity>
         <activity
-            android:name="ScriptureReviewFragmentActivity"
+            android:name="com.app.wordservant.ScriptureReviewFragmentActivity"
             android:parentActivityName="android.support.v4.app.FragmentActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.support.v4.app.FragmentActivity" />
         </activity>
-        <provider android:authorities="com.app.provider.wordservant" android:name="WordServantProvider" android:exported="false"></provider>
+
+        <provider
+            android:name="com.app.wordservant.WordServantProvider"
+            android:authorities="com.app.provider.wordservant"
+            android:exported="false" >
+        </provider>
+
+        <activity
+            android:name="com.app.wordservant.StatisticsActivity"
+            android:label="@string/title_activity_statistics"
+            android:parentActivityName="android.support.v4.app.FragmentActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.support.v4.app.FragmentActivity" />
+        </activity>
     </application>
 
 </manifest>

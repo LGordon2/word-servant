@@ -47,6 +47,9 @@ public final class R {
         public static final int LinearLayout1=0x7f0b0011;
         public static final int RelativeLayout1=0x7f0b0008;
         public static final int ScrollView1=0x7f0b0003;
+        public static final int TextView01=0x7f0b0057;
+        public static final int TextView02=0x7f0b0051;
+        public static final int TextView03=0x7f0b0055;
         public static final int addNewTag=0x7f0b004a;
         public static final int addSelectedScripture=0x7f0b0001;
         public static final int addTagButton=0x7f0b0007;
@@ -55,7 +58,7 @@ public final class R {
         public static final int buttons=0x7f0b0028;
         public static final int cardSwitcher=0x7f0b001e;
         public static final int checkBox1=0x7f0b0018;
-        public static final int deleteScriptureMenuItem=0x7f0b0052;
+        public static final int deleteScriptureMenuItem=0x7f0b005a;
         public static final int displayScriptures=0x7f0b0044;
         public static final int doneButton=0x7f0b0005;
         public static final int dueTodayButtonLayout=0x7f0b000c;
@@ -68,7 +71,7 @@ public final class R {
         public static final int fragmentHolder=0x7f0b0013;
         public static final int gridView1=0x7f0b0041;
         public static final int gridView2=0x7f0b0043;
-        public static final int help=0x7f0b0054;
+        public static final int help=0x7f0b005c;
         public static final int horizontalScrollView1=0x7f0b0034;
         public static final int imageView1=0x7f0b0029;
         public static final int imageView2=0x7f0b0039;
@@ -77,8 +80,9 @@ public final class R {
         public static final int list_entry=0x7f0b004c;
         public static final int loadingCircle=0x7f0b0027;
         public static final int loadingText=0x7f0b003f;
-        public static final int menu_settings=0x7f0b0051;
+        public static final int menu_settings=0x7f0b0059;
         public static final int missedButton=0x7f0b000d;
+        public static final int missedCount=0x7f0b0056;
         public static final int nextButton=0x7f0b000f;
         public static final int noEditLayout=0x7f0b0030;
         public static final int onOffButton=0x7f0b0048;
@@ -86,11 +90,14 @@ public final class R {
         public static final int progressBar1=0x7f0b003d;
         public static final int quizReview=0x7f0b002c;
         public static final int quizReviewFragment=0x7f0b0010;
+        public static final int reference=0x7f0b0052;
         public static final int referenceLayout=0x7f0b0020;
         public static final int referenceScroll=0x7f0b001f;
         public static final int referenceText=0x7f0b0021;
-        public static final int refresh=0x7f0b0053;
+        public static final int refresh=0x7f0b005b;
         public static final int removeButton=0x7f0b0046;
+        public static final int reviewedCount=0x7f0b0054;
+        public static final int reviewedTextEdit=0x7f0b0053;
         public static final int scriptureBank=0x7f0b002b;
         public static final int scriptureBankFragment=0x7f0b0012;
         public static final int scriptureLayout=0x7f0b0025;
@@ -102,7 +109,7 @@ public final class R {
         public static final int scriptureText=0x7f0b0006;
         public static final int scriptureTextScroll=0x7f0b003a;
         public static final int scrollView=0x7f0b0009;
-        public static final int search=0x7f0b0055;
+        public static final int search=0x7f0b005d;
         public static final int seekBarPrefBarContainer=0x7f0b001d;
         public static final int seekBarPrefUnitsLeft=0x7f0b001c;
         public static final int seekBarPrefUnitsRight=0x7f0b001a;
@@ -110,6 +117,7 @@ public final class R {
         public static final int select_scripture=0x7f0b0050;
         public static final int selectedScriptureTags=0x7f0b0002;
         public static final int selectedScriptureText=0x7f0b0004;
+        public static final int skippedCount=0x7f0b0058;
         public static final int standardCheckBoxView=0x7f0b002f;
         public static final int statistics=0x7f0b002d;
         public static final int tab1=0x7f0b003c;
@@ -133,25 +141,27 @@ public final class R {
         public static final int activity_quiz_review=0x7f030003;
         public static final int activity_scripture_bank_fragment=0x7f030004;
         public static final int activity_scripture_review=0x7f030005;
-        public static final int activity_todays_memory_verses=0x7f030006;
-        public static final int checkbox_list_layout=0x7f030007;
-        public static final int dialog_slider=0x7f030008;
-        public static final int flashcard_layout=0x7f030009;
-        public static final int fragment_list_layout=0x7f03000a;
-        public static final int landing_screen=0x7f03000b;
-        public static final int layout_checkbox_item=0x7f03000c;
-        public static final int layout_fragment_holder=0x7f03000d;
-        public static final int layout_no_edit_scripture=0x7f03000e;
-        public static final int layout_select_scripture=0x7f03000f;
-        public static final int layout_tag_item=0x7f030010;
-        public static final int layout_tag_item_alternate=0x7f030011;
-        public static final int layout_tag_select=0x7f030012;
-        public static final int layout_tag_select_alternate=0x7f030013;
-        public static final int list_layout=0x7f030014;
-        public static final int manage_tags_item=0x7f030015;
-        public static final int review_scripture_layout=0x7f030016;
-        public static final int scripture_bank=0x7f030017;
-        public static final int settings=0x7f030018;
+        public static final int activity_statistics=0x7f030006;
+        public static final int activity_todays_memory_verses=0x7f030007;
+        public static final int checkbox_list_layout=0x7f030008;
+        public static final int dialog_slider=0x7f030009;
+        public static final int flashcard_layout=0x7f03000a;
+        public static final int fragment_list_layout=0x7f03000b;
+        public static final int landing_screen=0x7f03000c;
+        public static final int layout_checkbox_item=0x7f03000d;
+        public static final int layout_fragment_holder=0x7f03000e;
+        public static final int layout_no_edit_scripture=0x7f03000f;
+        public static final int layout_select_scripture=0x7f030010;
+        public static final int layout_tag_item=0x7f030011;
+        public static final int layout_tag_item_alternate=0x7f030012;
+        public static final int layout_tag_select=0x7f030013;
+        public static final int layout_tag_select_alternate=0x7f030014;
+        public static final int list_layout=0x7f030015;
+        public static final int manage_tags_item=0x7f030016;
+        public static final int review_scripture_layout=0x7f030017;
+        public static final int scripture_bank=0x7f030018;
+        public static final int settings=0x7f030019;
+        public static final int statistics_fragment=0x7f03001a;
     }
     public static final class menu {
         public static final int activity_display_selected_scripture=0x7f0a0000;
@@ -159,7 +169,8 @@ public final class R {
         public static final int activity_input_scripture_manual=0x7f0a0002;
         public static final int activity_quiz_review=0x7f0a0003;
         public static final int activity_scripture_bank_fragment=0x7f0a0004;
-        public static final int activity_todays_memory_verses=0x7f0a0005;
+        public static final int activity_statistics=0x7f0a0005;
+        public static final int activity_todays_memory_verses=0x7f0a0006;
     }
     public static final class raw {
         public static final int kjv=0x7f050000;
@@ -169,6 +180,7 @@ public final class R {
         public static final int date_format=0x7f070011;
         public static final int done_button_text=0x7f07000c;
         public static final int got_it_button_text=0x7f07000d;
+        public static final int hello_world=0x7f070014;
         public static final int input_scripture_button_text=0x7f070004;
         public static final int menu_settings=0x7f070000;
         public static final int next_button_text=0x7f07000e;
@@ -184,6 +196,7 @@ public final class R {
         public static final int title_activity_scripture_bank=0x7f070003;
         public static final int title_activity_select_scripture=0x7f070010;
         public static final int title_activity_settings=0x7f070002;
+        public static final int title_activity_statistics=0x7f070015;
         public static final int title_activity_todays_memory_verses=0x7f070007;
     }
     public static final class style {

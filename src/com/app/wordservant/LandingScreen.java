@@ -157,6 +157,19 @@ public class LandingScreen extends Activity{
 			}
 
 		});
+		
+		//Statistics button.
+		((Button) this.findViewById(R.id.statistics)).setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(v.getContext(),StatisticsActivity.class);
+				Toast.makeText(LandingScreen.this, R.string.title_activity_statistics, Toast.LENGTH_SHORT).show();
+				startActivity(intent);
+			}
+			
+		});
 
 
 	}
