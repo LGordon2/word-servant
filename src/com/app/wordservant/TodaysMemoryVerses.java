@@ -145,7 +145,7 @@ public class TodaysMemoryVerses extends FragmentActivity{
 					LinearLayout view = (LinearLayout) dueTodayView;
 					CheckBox checkBox = (CheckBox) view.getChildAt(0);
 					if(!checkBox.isPressed()){
-						Intent intent = new Intent(TodaysMemoryVerses.this,ScriptureReviewFragmentActivity.class);
+						Intent intent = new Intent(TodaysMemoryVerses.this,ScriptureReview.class);
 						intent.putExtra("bundledScriptureList",bundledScriptureList);
 						intent.putExtra("positionOnScreen", position);
 				    	startActivity(intent);

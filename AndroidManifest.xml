@@ -85,7 +85,7 @@
                 android:value="android.support.v4.app.FragmentActivity" />
         </activity>
         <activity
-            android:name="com.app.wordservant.ScriptureReviewFragmentActivity"
+            android:name="com.app.wordservant.ScriptureReview"
             android:parentActivityName="android.support.v4.app.FragmentActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

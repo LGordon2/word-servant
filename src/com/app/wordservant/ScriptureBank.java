@@ -22,6 +22,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -90,7 +91,7 @@ public class ScriptureBank extends FragmentActivity{
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.scripture_bank);
 		//Functionality for the input scripture button.
-		Button inputScripture = (Button) this.findViewById(R.id.input_scripture);
+		ImageButton inputScripture = (ImageButton) this.findViewById(R.id.inputScripture);
         inputScripture.setOnClickListener(new OnClickListener(){
 
 			public void onClick(View scriptureBank) {
@@ -112,7 +113,7 @@ public class ScriptureBank extends FragmentActivity{
         });
 
         //Functionality for the selected scripture button.
-        Button selectScripture = (Button) this.findViewById(R.id.select_scripture);
+        ImageButton selectScripture = (ImageButton) this.findViewById(R.id.selectScripture);
         selectScripture.setOnClickListener(new OnClickListener(){
 
 			@Override

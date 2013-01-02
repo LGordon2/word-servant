@@ -2,39 +2,154 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="top" >
 
-    <LinearLayout
-        android:id="@+id/button_layout"
+    <RelativeLayout
+        android:id="@+id/bottomLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true" >
+        android:layout_alignParentBottom="true" >
 
-        <Button
-            android:id="@+id/input_scripture"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:maxLines="1"
-            android:text="@string/input_scripture_button_text" />
+        <LinearLayout
+            android:id="@+id/buttonContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" >
 
-        <Button
-            android:id="@+id/select_scripture"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/select_new_scripture_button_text" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/inputScriptureLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/homeLayout"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/TextView02"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Input"
+                    android:textSize="18sp" />
+
+                <ImageButton
+                    android:id="@+id/inputScripture"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/landing_screen_button"
+                    android:baselineAlignBottom="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/word_servant_icon_new" />
+
+                <TextView
+                    android:id="@+id/TextView01"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Scripture"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/selectScriptureButtonLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/inputScriptureLayout"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Select"
+                    android:textSize="18sp" />
+
+                <ImageButton
+                    android:id="@+id/selectScripture"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/landing_screen_button"
+                    android:baselineAlignBottom="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/word_servant_icon_new" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Scripture"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/homeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/TextView04"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Home"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/ImageButton02"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:background="@drawable/landing_screen_button"
+                android:baselineAlignBottom="true"
+                android:scaleType="fitCenter"
+                android:src="@android:drawable/stat_notify_voicemail" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/TextView03"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Search"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/ImageButton01"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:background="@drawable/landing_screen_button"
+                android:baselineAlignBottom="true"
+                android:scaleType="fitCenter"
+                android:src="@android:drawable/ic_menu_search" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <fragment
         android:id="@+id/fragment1"
         android:name="com.app.wordservant.ScriptureBank$ScriptureBankFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button_layout"
         tools:layout="@layout/fragment_list_layout" />
 
 </RelativeLayout>

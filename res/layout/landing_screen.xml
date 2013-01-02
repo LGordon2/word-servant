@@ -14,8 +14,8 @@
         android:layout_height="0dip"
         android:layout_weight="0.46"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/bible2" />
+        android:scaleType="fitXY"
+        android:src="@drawable/landing_image" />
 
     <Button
         android:id="@+id/todaysMemoryVerses"

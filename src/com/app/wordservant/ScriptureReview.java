@@ -25,40 +25,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.Gallery;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
-public class ScriptureReviewFragmentActivity extends FragmentActivity {
-	
+public class ScriptureReview extends FragmentActivity {
+
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_scripture_review);
 	}
-	
-	protected void onActivityResult (int requestCode, int resultCode, Intent data){
-        if (resultCode == RESULT_OK) {
-            // Image captured and saved to fileUri specified in the Intent
-            Toast.makeText(this, "Image saved to:\n" +
-                     data, Toast.LENGTH_LONG).show();
-            ((ImageView)((Fragment) this.getSupportFragmentManager().findFragmentById(R.id.fragment1)).getView().findViewById(R.id.mainImage)).setImageURI(data.getData());
-        } else if (resultCode == RESULT_CANCELED) {
-            // User cancelled the image capture
-        } else {
-            // Image capture failed, advise user
-        }
-	}
-	
+
 	public static class ScriptureReviewFragment extends Fragment {
 		private TextView mEditScriptureReference;
 		private TextView mEditCategory;
 		private TextView mEditScripture;
 		private Integer mFirstSelectedScriptureId;
 		private Cursor mUnreviewedScriptureQuery;
+		private Uri fileUri;
+		public static final int MEDIA_TYPE_IMAGE = 1;
+		public static final int MEDIA_TYPE_VIDEO = 2;
+		private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+		private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
 
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -68,49 +62,74 @@ public class ScriptureReviewFragmentActivity extends FragmentActivity {
 			}
 			return inflater.inflate(R.layout.layout_no_edit_scripture, null);
 		}
-		
-		public static final int MEDIA_TYPE_IMAGE = 1;
-		public static final int MEDIA_TYPE_VIDEO = 2;
+
 
 		/** Create a file Uri for saving an image or video */
 		private static Uri getOutputMediaFileUri(int type){
-		      return Uri.fromFile(getOutputMediaFile(type));
+			return Uri.fromFile(getOutputMediaFile(type));
 		}
 
 		/** Create a File for saving an image or video */
 		private static File getOutputMediaFile(int type){
-		    // To be safe, you should check that the SDCard is mounted
-		    // using Environment.getExternalStorageState() before doing this.
+			// To be safe, you should check that the SDCard is mounted
+			// using Environment.getExternalStorageState() before doing this.
 
-		    File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-		              Environment.DIRECTORY_PICTURES), "WordServant");
-		    // This location works best if you want the created images to be shared
-		    // between applications and persist after your app has been uninstalled.
+			File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+					Environment.DIRECTORY_PICTURES), "WordServant");
+			// This location works best if you want the created images to be shared
+			// between applications and persist after your app has been uninstalled.
 
-		    // Create the storage directory if it does not exist
-		    if (! mediaStorageDir.exists()){
-		        if (! mediaStorageDir.mkdirs()){
-		            Log.d("WordServant", "failed to create directory");
-		            return null;
-		        }
-		    }
+			// Create the storage directory if it does not exist
+			if (! mediaStorageDir.exists()){
+				if (! mediaStorageDir.mkdirs()){
+					Log.d("WordServant", "failed to create directory");
+					return null;
+				}
+			}
 
-		    // Create a media file name
-		    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-		    File mediaFile;
-		    if (type == MEDIA_TYPE_IMAGE){
-		        mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-		        "IMG_"+ timeStamp + ".jpg");
-		    } else if(type == MEDIA_TYPE_VIDEO) {
-		        mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-		        "VID_"+ timeStamp + ".mp4");
-		    } else {
-		        return null;
-		    }
+			// Create a media file name
+			String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+			File mediaFile;
+			if (type == MEDIA_TYPE_IMAGE){
+				mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+						"IMG_"+ timeStamp + ".jpg");
+			} else if(type == MEDIA_TYPE_VIDEO) {
+				mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+						"VID_"+ timeStamp + ".mp4");
+			} else {
+				return null;
+			}
 
-		    return mediaFile;
+			return mediaFile;
 		}
-		
+
+		public void onActivityResult(int requestCode, int resultCode, Intent data) {
+			super.onActivityResult(requestCode, resultCode, data);
+			if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+				if (resultCode == RESULT_OK) {
+					// Image captured and saved to fileUri specified in the Intent
+					// Toast.makeText(getActivity(), "Image saved to:\n" +
+					//        data.getData(), Toast.LENGTH_LONG).show();
+				} else if (resultCode == RESULT_CANCELED) {
+					// User cancelled the image capture
+				} else {
+					// Image capture failed, advise user
+				}
+			}
+
+			if (requestCode == CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE) {
+				if (resultCode == RESULT_OK) {
+					// Video captured and saved to fileUri specified in the Intent
+					Toast.makeText(getActivity(), "Video saved to:\n" +
+							data.getData(), Toast.LENGTH_LONG).show();
+				} else if (resultCode == RESULT_CANCELED) {
+					// User cancelled the video capture
+				} else {
+					// Video capture failed, advise user
+				}
+			}
+		}
+
 		public void onViewCreated(View view, Bundle savedInstanceState){
 			super.onViewCreated(view, savedInstanceState);
 
@@ -171,18 +190,31 @@ public class ScriptureReviewFragmentActivity extends FragmentActivity {
 				mEditScriptureReference = (TextView) getView().findViewById(R.id.dueTodayScriptureReference);
 				mEditCategory = (TextView) getView().findViewById(R.id.dueTodayTags);
 				mEditScripture = (TextView) getView().findViewById(R.id.scriptureText);
-				
+
+				@SuppressWarnings("deprecation")
+				Gallery g = (Gallery) getView().findViewById(R.id.gallery1);
+				g.setAdapter(new ImageAdapter(getActivity()));
+			    g.setOnItemClickListener(new OnItemClickListener() {
+			        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+			            Toast.makeText(getActivity(), "" + position, Toast.LENGTH_SHORT).show();
+			        }
+			    });
+
 				((ImageButton) getView().findViewById(R.id.takePictureButton)).setOnClickListener(new OnClickListener(){
 
 					@Override
 					public void onClick(View view) {
-						// TODO Auto-generated method stub
+						// create Intent to take a picture and return control to the calling application
 						Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-					    Uri fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
-					    intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
-						startActivityForResult(intent, 100);
+
+						fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
+						intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+
+						// start the image capture Intent
+						startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+						//((ImageView) getView().findViewById(R.id.mainImage)).setImageURI(fileUri);
 					}
-					
+
 				});
 			}
 		}
@@ -245,7 +277,7 @@ public class ScriptureReviewFragmentActivity extends FragmentActivity {
 					String scriptureDateNextReviewDate = mUnreviewedScriptureQuery.getString(mUnreviewedScriptureQuery.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE));
 					try {
 						if(dateFormat.parse(scriptureDateNextReviewDate).compareTo(calendar.getTime())<=0){
-						//if(mUnreviewedScriptureQuery.getString(mUnreviewedScriptureQuery.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE))<=(dateFormat.format(calendar.getTime()))){
+							//if(mUnreviewedScriptureQuery.getString(mUnreviewedScriptureQuery.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE))<=(dateFormat.format(calendar.getTime()))){
 							updateReviewedScripture(getActivity(), mUnreviewedScriptureQuery.getInt(0), true);
 						}
 					} catch (ParseException e) {
