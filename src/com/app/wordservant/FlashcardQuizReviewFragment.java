@@ -78,7 +78,7 @@ public class FlashcardQuizReviewFragment extends Fragment{
 		backCard.setBackgroundResource(R.drawable.back_of_flashcard);
 		for (int i=0;i<backCard.getChildCount()-1;i++){
 			TextView textView = (TextView) backCard.getChildAt(i);
-			textView.setTextColor(getResources().getColor(R.color.card_back_text_color));
+			textView.setTextColor(getResources().getColor(R.color.word_servant_purple));
 		}
 	}
 	

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="card_front_text_color">#FFFFFF</color>
-    <color name="card_back_text_color">#7E0494</color>
+    <color name="word_servant_purple">#895fa8</color>
 </resources>
