@@ -9,13 +9,13 @@
         android:id="@+id/bottomLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
+        android:layout_alignParentBottom="true"
+        android:visibility="visible" >
 
         <LinearLayout
             android:id="@+id/buttonContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" >
 
             <LinearLayout
@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:layout_toRightOf="@id/homeLayout"
+                android:layout_toRightOf="@+id/homeLayout"
                 android:orientation="vertical" >
 
                 <TextView
@@ -90,10 +90,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/homeLayout"
+            android:id="@id/homeLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignBottom="@id/buttonContainer"
             android:layout_alignParentLeft="true"
             android:orientation="vertical" >
 
@@ -114,14 +114,14 @@
                 android:background="@drawable/landing_screen_button"
                 android:baselineAlignBottom="true"
                 android:scaleType="fitCenter"
-                android:src="@android:drawable/stat_notify_voicemail" />
+                android:src="@android:drawable/ic_menu_home" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/searchLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignBottom="@id/buttonContainer"
             android:layout_alignParentRight="true"
             android:orientation="vertical" >
 
@@ -149,7 +149,9 @@
         android:id="@+id/fragment1"
         android:name="com.app.wordservant.ScriptureBank$ScriptureBankFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottomLayout"
+        android:layout_alignParentTop="true"
         tools:layout="@layout/fragment_list_layout" />
 
 </RelativeLayout>
