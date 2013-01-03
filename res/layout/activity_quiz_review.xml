@@ -35,7 +35,7 @@
 
     <fragment
         android:id="@+id/quizReviewFragment"
-        android:name="com.app.wordservant.FlashcardQuizReviewFragment"
+        android:name="com.app.wordservant.QuizReviewActivity$FlashcardQuizReviewFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/dueTodayButtonLayout"
