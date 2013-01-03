@@ -16,21 +16,21 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,10 +50,12 @@ public class ScriptureReview extends FragmentActivity {
 		private Integer mFirstSelectedScriptureId;
 		private Cursor mUnreviewedScriptureQuery;
 		private Uri fileUri;
+		private ImageAdapter adapter;
 		public static final int MEDIA_TYPE_IMAGE = 1;
 		public static final int MEDIA_TYPE_VIDEO = 2;
 		private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 		private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
+		
 
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -192,22 +194,26 @@ public class ScriptureReview extends FragmentActivity {
 				mEditCategory = (TextView) getView().findViewById(R.id.dueTodayTags);
 				mEditScripture = (TextView) getView().findViewById(R.id.scriptureText);
 
+				
+				
 				@SuppressWarnings("deprecation")
-				final ImageAdapter adapter = new ImageAdapter(getActivity());
-//				DisplayMetrics metrics = new DisplayMetrics();
-//				getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
 				Gallery gallery = (Gallery) getView().findViewById(R.id.gallery1);
+				adapter = new ImageAdapter(getActivity());
 				gallery.setAdapter(adapter);
-//				MarginLayoutParams mlp = (MarginLayoutParams) gallery.getLayoutParams();
-//				mlp.setMargins(-(metrics.widthPixels/2), 
-//				               mlp.topMargin, 
-//				               mlp.rightMargin, 
-//				               mlp.bottomMargin
-//				);
+				
+				//Find all the WordServantFiles and add them to the gallery.
+				File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+						Environment.DIRECTORY_PICTURES), "WordServant");
+				for(int i=0;i<mediaStorageDir.listFiles().length;i++){
+					adapter.addImage(mediaStorageDir.listFiles()[i]);
+				}
+				
 				gallery.setOnItemClickListener(new OnItemClickListener() {
 			        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-			            Toast.makeText(getActivity(), "" + position, Toast.LENGTH_SHORT).show();
+						File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+								Environment.DIRECTORY_PICTURES), "WordServant");
+			            ((ImageView) getView().findViewById(R.id.mainImage)).setImageBitmap(
+			            		ImageAdapter.decodeSampledBitmapFromResource(mediaStorageDir.listFiles()[position], 140, 140));
 			        }
 			    });
 
@@ -216,14 +222,13 @@ public class ScriptureReview extends FragmentActivity {
 					@Override
 					public void onClick(View view) {
 						// create Intent to take a picture and return control to the calling application
-						adapter.addImage(R.drawable.bigbird);
-						/*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+						Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 						fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
 						intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
 						// start the image capture Intent
-						startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);*/
+						startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 						//((ImageView) getView().findViewById(R.id.mainImage)).setImageURI(fileUri);
 					}
 
