@@ -16,15 +16,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -192,9 +193,19 @@ public class ScriptureReview extends FragmentActivity {
 				mEditScripture = (TextView) getView().findViewById(R.id.scriptureText);
 
 				@SuppressWarnings("deprecation")
-				Gallery g = (Gallery) getView().findViewById(R.id.gallery1);
-				g.setAdapter(new ImageAdapter(getActivity()));
-			    g.setOnItemClickListener(new OnItemClickListener() {
+				final ImageAdapter adapter = new ImageAdapter(getActivity());
+//				DisplayMetrics metrics = new DisplayMetrics();
+//				getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+				Gallery gallery = (Gallery) getView().findViewById(R.id.gallery1);
+				gallery.setAdapter(adapter);
+//				MarginLayoutParams mlp = (MarginLayoutParams) gallery.getLayoutParams();
+//				mlp.setMargins(-(metrics.widthPixels/2), 
+//				               mlp.topMargin, 
+//				               mlp.rightMargin, 
+//				               mlp.bottomMargin
+//				);
+				gallery.setOnItemClickListener(new OnItemClickListener() {
 			        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 			            Toast.makeText(getActivity(), "" + position, Toast.LENGTH_SHORT).show();
 			        }
@@ -205,13 +216,14 @@ public class ScriptureReview extends FragmentActivity {
 					@Override
 					public void onClick(View view) {
 						// create Intent to take a picture and return control to the calling application
-						Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+						adapter.addImage(R.drawable.bigbird);
+						/*Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 						fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE); // create a file to save the image
 						intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
 						// start the image capture Intent
-						startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+						startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);*/
 						//((ImageView) getView().findViewById(R.id.mainImage)).setImageURI(fileUri);
 					}
 

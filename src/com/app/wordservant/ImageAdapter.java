@@ -1,21 +1,25 @@
 package com.app.wordservant;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
+import android.widget.Gallery;
 import android.widget.ImageView;
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
+    private ArrayList<Integer> mThumbIds;
 
     public ImageAdapter(Context c) {
         mContext = c;
+        mThumbIds = new ArrayList<Integer>();
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        return mThumbIds.size();
     }
 
     public Object getItem(int position) {
@@ -31,19 +35,22 @@ public class ImageAdapter extends BaseAdapter {
         ImageView imageView;
         if (convertView == null) {  // if it's not recycled, initialize some attributes
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
+//            imageView.setAdjustViewBounds(true);
+//            imageView.setMaxHeight(85);
+//            imageView.setMaxWidth(85);
+            imageView.setLayoutParams(new Gallery.LayoutParams(Gallery.LayoutParams.WRAP_CONTENT, Gallery.LayoutParams.WRAP_CONTENT));
+            imageView.setAdjustViewBounds(true);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         } else {
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageResource(mThumbIds[position]);
+        imageView.setImageResource(mThumbIds.get(position));
         return imageView;
     }
-
-    // references to our images
-    private Integer[] mThumbIds = {
-    		R.drawable.bigbird
-    };
+    
+    public void addImage(Integer resId){
+    	mThumbIds.add(resId);
+    	notifyDataSetChanged();
+    }
 }

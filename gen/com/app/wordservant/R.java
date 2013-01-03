@@ -73,11 +73,11 @@ public final class R {
         public static final int fragment1=0x7f0c0016;
         public static final int fragmentHolder=0x7f0c0013;
         public static final int gallery1=0x7f0c0036;
+        public static final int galleryLayout=0x7f0c0034;
         public static final int gridView1=0x7f0c003e;
         public static final int gridView2=0x7f0c0040;
         public static final int help=0x7f0c0062;
         public static final int homeLayout=0x7f0c004e;
-        public static final int horizontalScrollView1=0x7f0c0034;
         public static final int imageView1=0x7f0c0029;
         public static final int inputScripture=0x7f0c0050;
         public static final int inputScriptureLayout=0x7f0c004d;
