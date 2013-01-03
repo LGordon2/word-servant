@@ -55,7 +55,7 @@ public class ScriptureReview extends FragmentActivity {
 		public static final int MEDIA_TYPE_VIDEO = 2;
 		private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 		private static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
-		
+
 
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 			SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -194,28 +194,30 @@ public class ScriptureReview extends FragmentActivity {
 				mEditCategory = (TextView) getView().findViewById(R.id.dueTodayTags);
 				mEditScripture = (TextView) getView().findViewById(R.id.scriptureText);
 
-				
-				
+
+
 				@SuppressWarnings("deprecation")
 				Gallery gallery = (Gallery) getView().findViewById(R.id.gallery1);
 				adapter = new ImageAdapter(getActivity());
 				gallery.setAdapter(adapter);
-				
+
 				//Find all the WordServantFiles and add them to the gallery.
 				File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
 						Environment.DIRECTORY_PICTURES), "WordServant");
-				for(int i=0;i<mediaStorageDir.listFiles().length;i++){
-					adapter.addImage(mediaStorageDir.listFiles()[i]);
+				if(mediaStorageDir.exists()){
+					for(int i=0;i<mediaStorageDir.listFiles().length;i++){
+						adapter.addImage(mediaStorageDir.listFiles()[i]);
+					}
 				}
-				
+
 				gallery.setOnItemClickListener(new OnItemClickListener() {
-			        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+					public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 						File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
 								Environment.DIRECTORY_PICTURES), "WordServant");
-			            ((ImageView) getView().findViewById(R.id.mainImage)).setImageBitmap(
-			            		ImageAdapter.decodeSampledBitmapFromResource(mediaStorageDir.listFiles()[position], 140, 140));
-			        }
-			    });
+						((ImageView) getView().findViewById(R.id.mainImage)).setImageBitmap(
+								ImageAdapter.decodeSampledBitmapFromResource(mediaStorageDir.listFiles()[position], 140, 140));
+					}
+				});
 
 				((ImageButton) getView().findViewById(R.id.takePictureButton)).setOnClickListener(new OnClickListener(){
 
