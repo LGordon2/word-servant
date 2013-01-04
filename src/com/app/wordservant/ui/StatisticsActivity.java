@@ -1,7 +1,13 @@
-package com.app.wordservant;
+package com.app.wordservant.ui;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import com.app.wordservant.R;
+import com.app.wordservant.R.id;
+import com.app.wordservant.R.layout;
+import com.app.wordservant.R.menu;
+import com.app.wordservant.provider.WordServantContract;
 
 import android.app.Activity;
 import android.database.Cursor;

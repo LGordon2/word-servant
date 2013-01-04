@@ -1,9 +1,15 @@
-package com.app.wordservant;
+package com.app.wordservant.ui;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
+import com.app.wordservant.R;
+import com.app.wordservant.R.id;
+import com.app.wordservant.R.layout;
+import com.app.wordservant.R.string;
+import com.app.wordservant.provider.WordServantContract;
 
 import android.content.ContentValues;
 import android.database.Cursor;

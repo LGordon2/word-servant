@@ -1,4 +1,4 @@
-package com.app.wordservant;
+package com.app.wordservant.ui;
 
 import java.io.File;
 import java.text.ParseException;
@@ -6,6 +6,15 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import com.app.wordservant.R;
+import com.app.wordservant.R.color;
+import com.app.wordservant.R.drawable;
+import com.app.wordservant.R.id;
+import com.app.wordservant.R.layout;
+import com.app.wordservant.R.string;
+import com.app.wordservant.helper_classes.ImageAdapter;
+import com.app.wordservant.provider.WordServantContract;
 
 import android.content.Context;
 import android.content.Intent;
@@ -110,6 +119,7 @@ public class ScriptureReview extends FragmentActivity {
 			super.onActivityResult(requestCode, resultCode, data);
 			if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 				if (resultCode == RESULT_OK) {
+					adapter.notifyDataSetChanged();
 					// Image captured and saved to fileUri specified in the Intent
 					// Toast.makeText(getActivity(), "Image saved to:\n" +
 					//        data.getData(), Toast.LENGTH_LONG).show();

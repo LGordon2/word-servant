@@ -1,7 +1,9 @@
-package com.app.wordservant;
+package com.app.wordservant.ui;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+
+import com.app.wordservant.provider.WordServantContract;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

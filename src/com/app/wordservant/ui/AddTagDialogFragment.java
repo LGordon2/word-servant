@@ -1,3 +1,4 @@
+package com.app.wordservant.ui;
 //package com.app.wordservant;
 //
 //import android.app.AlertDialog;

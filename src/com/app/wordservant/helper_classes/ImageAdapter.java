@@ -1,9 +1,14 @@
-package com.app.wordservant;
+package com.app.wordservant.helper_classes;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
+import com.app.wordservant.R;
+import com.app.wordservant.R.drawable;
+
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -11,6 +16,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.support.v4.util.LruCache;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -20,10 +26,37 @@ import android.widget.ImageView;
 public class ImageAdapter extends BaseAdapter {
 	private Context mContext;
 	private ArrayList<File> mThumbIds;
+	private LruCache<String, Bitmap> mMemoryCache;
 
 	public ImageAdapter(Context c) {
 		mContext = c;
 		mThumbIds = new ArrayList<File>();
+	    // Get memory class of this device, exceeding this amount will throw an
+	    // OutOfMemory exception.
+	    final int memClass = ((ActivityManager) c.getSystemService(
+	            Context.ACTIVITY_SERVICE)).getMemoryClass();
+
+	    // Use 1/8th of the available memory for this memory cache.
+	    final int cacheSize = 1024 * 1024 * memClass / 8;
+
+	    mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+	        @Override
+	        protected int sizeOf(String key, Bitmap bitmap) {
+	            // The cache size will be measured in bytes rather than number of items.
+	        	ByteArrayOutputStream bao = new ByteArrayOutputStream();
+	        	bitmap.compress(Bitmap.CompressFormat.PNG, 100, bao);
+	        	byte[] ba = bao.toByteArray();
+	        	return ba.length;
+	        }
+	    };
+	}
+	public void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+	    if (getBitmapFromMemCache(key) == null) {
+	        mMemoryCache.put(key, bitmap);
+	    }
+	}
+	public Bitmap getBitmapFromMemCache(String key) {
+	    return mMemoryCache.get(key);
 	}
 
 	public int getCount() {
@@ -56,14 +89,16 @@ public class ImageAdapter extends BaseAdapter {
 	}
 
 	private void loadBitmap(File file, ImageView imageView) {
-		// TODO Auto-generated method stub
-        if (cancelPotentialWork(file, imageView)) {
-            final BitmapWorkerTask task = new BitmapWorkerTask(imageView);
-            final AsyncDrawable asyncDrawable =
-                    new AsyncDrawable(mContext.getResources(), BitmapFactory.decodeResource(mContext.getResources(), R.drawable.bigbird), task);
-            imageView.setImageDrawable(asyncDrawable);
-            task.execute(file);
-        }
+	    final String imageKey = file.getName();
+
+	    final Bitmap bitmap = getBitmapFromMemCache(imageKey);
+	    if (bitmap != null) {
+	        imageView.setImageBitmap(bitmap);
+	    } else {
+	    	imageView.setImageResource(R.drawable.bigbird);
+	        BitmapWorkerTask task = new BitmapWorkerTask(imageView);
+	        task.execute(file);
+	    }
 	}
 	
     static class AsyncDrawable extends BitmapDrawable {
@@ -120,8 +155,9 @@ public class ImageAdapter extends BaseAdapter {
         // Decode image in background.
         @Override
         protected Bitmap doInBackground(File... params) {
-            data = params[0];
-            return decodeSampledBitmapFromResource(data, 100, 100);
+            final Bitmap bitmap = decodeSampledBitmapFromResource(params[0], 100, 100);
+            addBitmapToMemoryCache(params[0].getName(), bitmap);
+            return bitmap;
         }
 
         // Once complete, see if ImageView is still around and set bitmap.

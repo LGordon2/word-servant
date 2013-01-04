@@ -1,6 +1,14 @@
-package com.app.wordservant;
+package com.app.wordservant.ui;
 
 import java.util.Random;
+
+import com.app.wordservant.R;
+import com.app.wordservant.R.color;
+import com.app.wordservant.R.drawable;
+import com.app.wordservant.R.id;
+import com.app.wordservant.R.layout;
+import com.app.wordservant.R.menu;
+import com.app.wordservant.provider.WordServantContract;
 
 import android.content.ContentValues;
 import android.content.SharedPreferences;

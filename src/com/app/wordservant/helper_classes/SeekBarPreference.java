@@ -1,4 +1,8 @@
-package com.app.wordservant;
+package com.app.wordservant.helper_classes;
+
+import com.app.wordservant.R;
+import com.app.wordservant.R.id;
+import com.app.wordservant.R.layout;
 
 import android.content.Context;
 import android.content.SharedPreferences;
