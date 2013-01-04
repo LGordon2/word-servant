@@ -147,7 +147,7 @@
 
     <fragment
         android:id="@+id/fragment1"
-        android:name="com.app.wordservant.ScriptureBank$ScriptureBankFragment"
+        android:name="com.app.wordservant.ui.ScriptureBank$ScriptureBankFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/bottomLayout"
