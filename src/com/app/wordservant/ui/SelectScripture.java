@@ -1,4 +1,4 @@
-package com.app.wordservant;
+package com.app.wordservant.ui;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +25,11 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
-import com.app.wordservant.Bible.BibleBook;
+import com.app.wordservant.R;
+import com.app.wordservant.R.id;
+import com.app.wordservant.R.layout;
+import com.app.wordservant.ui.Bible.BibleBook;
+import com.app.wordservant.ui.Bible.BibleChapter;
 
 public class SelectScripture extends Activity {
 	private class WaitForBibleLoad extends AsyncTask<Void, Void, Void>{

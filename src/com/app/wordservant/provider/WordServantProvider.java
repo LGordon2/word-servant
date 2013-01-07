@@ -1,4 +1,4 @@
-package com.app.wordservant;
+package com.app.wordservant.provider;
 
 import java.util.HashMap;
 

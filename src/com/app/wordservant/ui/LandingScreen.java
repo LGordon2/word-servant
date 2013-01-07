@@ -1,4 +1,4 @@
-package com.app.wordservant;
+package com.app.wordservant.ui;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -9,6 +9,16 @@ import java.util.concurrent.TimeUnit;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
+
+import com.app.wordservant.R;
+import com.app.wordservant.R.id;
+import com.app.wordservant.R.layout;
+import com.app.wordservant.R.raw;
+import com.app.wordservant.R.string;
+import com.app.wordservant.notifications.NotificationService;
+import com.app.wordservant.ui.Bible.BibleBook;
+import com.app.wordservant.ui.Bible.BibleChapter;
+import com.app.wordservant.ui.Bible.BibleVerse;
 
 import android.app.Activity;
 import android.app.AlarmManager;

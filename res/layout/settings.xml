@@ -46,7 +46,7 @@
             android:summary="Select the method you wish to use to review your daily scriptures."
             android:title="Scripture Review Method" />
 
-        <com.app.wordservant.SeekBarPreference
+        <com.app.wordservant.helper_classes.SeekBarPreference
             android:defaultValue="0"
             android:key="pref_key_word_masking"
             android:max="100"

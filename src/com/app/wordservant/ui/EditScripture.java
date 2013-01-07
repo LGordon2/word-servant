@@ -1,4 +1,10 @@
-package com.app.wordservant;
+package com.app.wordservant.ui;
+
+import com.app.wordservant.R;
+import com.app.wordservant.R.id;
+import com.app.wordservant.R.layout;
+import com.app.wordservant.R.menu;
+import com.app.wordservant.provider.WordServantContract;
 
 import android.content.ContentValues;
 import android.database.Cursor;

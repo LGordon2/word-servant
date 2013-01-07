@@ -1,4 +1,4 @@
-package com.app.wordservant;
+package com.app.wordservant.ui;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

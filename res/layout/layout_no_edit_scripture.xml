@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/noEditLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <ImageView
-        android:id="@+id/ImageView1"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/mainImage"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:minHeight="0dp"
@@ -20,7 +21,7 @@
         android:id="@+id/dueTodayTags"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/ImageView1"
+        android:layout_alignBottom="@+id/mainImage"
         android:layout_alignLeft="@+id/dueTodayScriptureReference"
         android:ems="10"
         android:hint="@string/category_text_field_hint"
@@ -34,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/dueTodayTags"
-        android:layout_toRightOf="@+id/ImageView1"
+        android:layout_toRightOf="@+id/mainImage"
         android:ems="10"
         android:gravity="bottom"
         android:hint="@string/scripture_reference_text_field_hint"
@@ -42,79 +43,50 @@
         android:text="Genesis 1:1"
         android:textSize="26sp" />
 
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/ImageView1"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp" >
+    <LinearLayout
+        android:id="@+id/galleryLayout"
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:dividerPadding="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_below="@id/mainImage"
+        android:showDividers="end" >
 
-        <LinearLayout
+        <ImageButton
+            android:id="@+id/takePictureButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_camera" />
+
+        <Gallery
+            android:id="@+id/gallery1"
             android:layout_width="match_parent"
-            android:layout_height="74dp"
-            android:dividerPadding="20dp"
-            android:orientation="horizontal"
-            android:showDividers="end" >
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:gravity="center_vertical"
+            android:spacing="20dp" />
 
-            <ImageView
-                android:id="@+id/ImageView04"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:src="@drawable/bigbird" />
-
-            <ImageView
-                android:id="@+id/ImageView03"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:src="@drawable/bigbird" />
-
-            <ImageView
-                android:id="@+id/ImageView02"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:src="@drawable/bigbird" />
-
-            <ImageView
-                android:id="@+id/ImageView01"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:src="@drawable/bigbird" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:src="@drawable/bigbird" />
-
-        </LinearLayout>
-    </HorizontalScrollView>
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/scriptureTextScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/horizontalScrollView1" >
+        android:layout_below="@id/galleryLayout" >
 
         <TextView
             android:id="@+id/scriptureText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
             android:ems="10"
             android:gravity="top"
             android:hint="@string/scripture_text_text_field_hint"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             android:scrollbars="vertical"
             android:text=" This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test. This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test. This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test."
             android:textSize="15sp" />
-
     </ScrollView>
 
 </RelativeLayout>

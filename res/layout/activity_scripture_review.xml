@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:id="@+id/dueTodayButtonLayout"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" >
@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/fragment1"
-        android:name="com.app.wordservant.FlashcardScriptureReviewFragment"
+        android:name="com.app.wordservant.ui.ScriptureReview$ScriptureReviewFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/dueTodayButtonLayout"

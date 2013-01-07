@@ -1,7 +1,12 @@
 /**
  * 
  */
-package com.app.wordservant;
+package com.app.wordservant.notifications;
+
+import com.app.wordservant.R;
+import com.app.wordservant.R.drawable;
+import com.app.wordservant.provider.WordServantContract;
+import com.app.wordservant.ui.TodaysMemoryVerses;
 
 import android.app.IntentService;
 import android.app.NotificationManager;

@@ -1,4 +1,9 @@
-package com.app.wordservant;
+package com.app.wordservant.ui;
+
+import com.app.wordservant.R;
+import com.app.wordservant.R.id;
+import com.app.wordservant.R.layout;
+import com.app.wordservant.R.menu;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
