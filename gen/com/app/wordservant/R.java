@@ -33,15 +33,19 @@ public final class R {
     public static final class drawable {
         public static final int back_of_flashcard=0x7f020000;
         public static final int bigbird=0x7f020001;
-        public static final int content_event=0x7f020002;
-        public static final int content_new=0x7f020003;
-        public static final int front_of_flashcard=0x7f020004;
-        public static final int gradient_background=0x7f020005;
-        public static final int landing_image=0x7f020006;
-        public static final int landing_screen_button=0x7f020007;
-        public static final int landing_screen_button_default=0x7f020008;
-        public static final int landing_screen_button_selected=0x7f020009;
-        public static final int word_servant_icon_new=0x7f02000a;
+        public static final int comingsoon=0x7f020002;
+        public static final int content_event=0x7f020003;
+        public static final int content_new=0x7f020004;
+        public static final int filestrip=0x7f020005;
+        public static final int front_of_flashcard=0x7f020006;
+        public static final int gradient_background=0x7f020007;
+        public static final int home=0x7f020008;
+        public static final int landing_image=0x7f020009;
+        public static final int landing_screen_button=0x7f02000a;
+        public static final int landing_screen_button_default=0x7f02000b;
+        public static final int landing_screen_button_selected=0x7f02000c;
+        public static final int search=0x7f02000d;
+        public static final int word_servant_icon_new=0x7f02000e;
     }
     public static final class id {
         public static final int ImageButton01=0x7f0c0059;
@@ -162,17 +166,18 @@ public final class R {
         public static final int layout_checkbox_item=0x7f03000d;
         public static final int layout_fragment_holder=0x7f03000e;
         public static final int layout_no_edit_scripture=0x7f03000f;
-        public static final int layout_select_scripture=0x7f030010;
-        public static final int layout_tag_item=0x7f030011;
-        public static final int layout_tag_item_alternate=0x7f030012;
-        public static final int layout_tag_select=0x7f030013;
-        public static final int layout_tag_select_alternate=0x7f030014;
-        public static final int list_layout=0x7f030015;
-        public static final int manage_tags_item=0x7f030016;
-        public static final int review_scripture_layout=0x7f030017;
-        public static final int scripture_bank=0x7f030018;
-        public static final int settings=0x7f030019;
-        public static final int statistics_fragment=0x7f03001a;
+        public static final int layout_no_edit_scripture_with_gallery=0x7f030010;
+        public static final int layout_select_scripture=0x7f030011;
+        public static final int layout_tag_item=0x7f030012;
+        public static final int layout_tag_item_alternate=0x7f030013;
+        public static final int layout_tag_select=0x7f030014;
+        public static final int layout_tag_select_alternate=0x7f030015;
+        public static final int list_layout=0x7f030016;
+        public static final int manage_tags_item=0x7f030017;
+        public static final int review_scripture_layout=0x7f030018;
+        public static final int scripture_bank=0x7f030019;
+        public static final int settings=0x7f03001a;
+        public static final int statistics_fragment=0x7f03001b;
     }
     public static final class menu {
         public static final int activity_display_selected_scripture=0x7f0b0000;
