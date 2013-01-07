@@ -26,7 +26,7 @@
         android:ems="10"
         android:hint="@string/category_text_field_hint"
         android:paddingLeft="5dp"
-        android:text="Creation"
+        android:text="Tag"
         android:textColor="#C894D1"
         android:textSize="15sp" />
 

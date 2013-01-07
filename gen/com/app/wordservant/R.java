@@ -33,25 +33,24 @@ public final class R {
     public static final class drawable {
         public static final int back_of_flashcard=0x7f020000;
         public static final int bigbird=0x7f020001;
-        public static final int comingsoon=0x7f020002;
-        public static final int content_event=0x7f020003;
-        public static final int content_new=0x7f020004;
-        public static final int filestrip=0x7f020005;
-        public static final int front_of_flashcard=0x7f020006;
-        public static final int gradient_background=0x7f020007;
-        public static final int home=0x7f020008;
+        public static final int content_event=0x7f020002;
+        public static final int content_new=0x7f020003;
+        public static final int filestrip=0x7f020004;
+        public static final int front_of_flashcard=0x7f020005;
+        public static final int gradient_background=0x7f020006;
+        public static final int ic_home=0x7f020007;
+        public static final int ic_search=0x7f020008;
         public static final int landing_image=0x7f020009;
         public static final int landing_screen_button=0x7f02000a;
         public static final int landing_screen_button_default=0x7f02000b;
         public static final int landing_screen_button_selected=0x7f02000c;
-        public static final int search=0x7f02000d;
-        public static final int word_servant_icon_new=0x7f02000e;
+        public static final int word_servant_icon_new=0x7f02000d;
     }
     public static final class id {
         public static final int ImageButton01=0x7f0c0059;
         public static final int ImageButton02=0x7f0c0056;
         public static final int LinearLayout1=0x7f0c0011;
-        public static final int RelativeLayout1=0x7f0c0008;
+        public static final int RelativeLayout1=0x7f0c0007;
         public static final int ScrollView1=0x7f0c0003;
         public static final int TextView01=0x7f0c0051;
         public static final int TextView02=0x7f0c004f;
@@ -59,7 +58,7 @@ public final class R {
         public static final int TextView04=0x7f0c0055;
         public static final int addNewTag=0x7f0c0047;
         public static final int addSelectedScripture=0x7f0c0001;
-        public static final int addTagButton=0x7f0c0007;
+        public static final int addTagButton=0x7f0c0009;
         public static final int bottomLayout=0x7f0c004b;
         public static final int button1=0x7f0c0048;
         public static final int buttonContainer=0x7f0c004c;
@@ -77,7 +76,7 @@ public final class R {
         public static final int finishedButton=0x7f0c000e;
         public static final int fragment1=0x7f0c0016;
         public static final int fragmentHolder=0x7f0c0013;
-        public static final int gallery1=0x7f0c0036;
+        public static final int gallery1=0x7f0c0037;
         public static final int galleryLayout=0x7f0c0034;
         public static final int gridView1=0x7f0c003e;
         public static final int gridView2=0x7f0c0040;
@@ -118,8 +117,8 @@ public final class R {
         public static final int scriptureSearch=0x7f0c002e;
         public static final int scriptureTags=0x7f0c0022;
         public static final int scriptureText=0x7f0c0006;
-        public static final int scriptureTextScroll=0x7f0c0037;
-        public static final int scrollView=0x7f0c0009;
+        public static final int scriptureTextScroll=0x7f0c0036;
+        public static final int scrollView=0x7f0c0008;
         public static final int search=0x7f0c0063;
         public static final int searchLayout=0x7f0c0057;
         public static final int seekBarPrefBarContainer=0x7f0c001d;
@@ -218,5 +217,6 @@ public final class R {
     public static final class style {
         public static final int AppTheme=0x7f0a0000;
         public static final int MenuTheme=0x7f0a0001;
+        public static final int WordServant=0x7f0a0002;
     }
 }

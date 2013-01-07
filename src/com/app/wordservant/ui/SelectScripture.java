@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -77,7 +78,8 @@ public class SelectScripture extends Activity {
 							final ArrayList<Integer> checkedCheckBoxes = new ArrayList<Integer>();
 							gView.setOnItemClickListener(new OnItemClickListener(){
 
-								@SuppressLint("NewApi")
+							
+								@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 								@Override
 								public void onItemClick(AdapterView<?> aView,
 										View view, int position, long id) {

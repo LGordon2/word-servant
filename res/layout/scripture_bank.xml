@@ -115,7 +115,7 @@
                 android:background="@drawable/landing_screen_button"
                 android:baselineAlignBottom="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/home" />
+                android:src="@drawable/ic_home" />
         </LinearLayout>
 
         <LinearLayout
@@ -143,7 +143,7 @@
                 android:background="@drawable/landing_screen_button"
                 android:baselineAlignBottom="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/search" />
+                android:src="@drawable/ic_search" />
         </LinearLayout>
     </RelativeLayout>
 

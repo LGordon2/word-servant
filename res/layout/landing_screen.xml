@@ -14,7 +14,7 @@
         android:layout_height="0dip"
         android:layout_weight="0.46"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
         android:src="@drawable/landing_image" />
 
     <Button

@@ -16,7 +16,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/word_servant_icon_new"
-        android:label="@string/title_activity_main" >
+        android:label="@string/title_activity_main" android:theme="@style/WordServant">
         <activity
             android:name=".ui.LandingScreen"
             android:theme="@android:style/Theme.NoTitleBar" >
@@ -33,8 +33,7 @@
         </activity>
         <activity
             android:name=".ui.ScriptureBank"
-            android:label="@string/title_activity_scripture_bank"
-            android:theme="@style/MenuTheme" >
+            android:label="@string/title_activity_scripture_bank" >
         </activity>
         <activity
             android:name=".ui.InputScriptureManual"
