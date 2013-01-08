@@ -25,7 +25,7 @@
         android:drawableRight="@drawable/content_event"
         android:gravity="right|center_vertical"
         android:paddingTop="10dp"
-        android:text="today's memory verses"
+        android:text="due today"
         android:textColor="@android:color/white"
         android:textSize="26sp" />
 
@@ -37,7 +37,7 @@
         android:drawableRight="@drawable/content_new"
         android:gravity="right|center_vertical"
         android:paddingTop="10dp"
-        android:text="scripture bank"
+        android:text="my memory verses"
         android:textColor="@android:color/white"
         android:textSize="26sp" />
 
@@ -50,30 +50,8 @@
         android:gravity="right|center_vertical"
         android:paddingTop="5dp"
         android:text="quiz / review"
-        android:textColor="@color/word_servant_purple"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/statistics"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/landing_screen_button"
-        android:gravity="right|center_vertical"
-        android:paddingTop="5dp"
-        android:text="statistics"
-        android:textColor="@color/word_servant_purple"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/scriptureSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/landing_screen_button"
-        android:gravity="right|center_vertical"
-        android:paddingTop="5dp"
-        android:text="search"
-        android:textColor="@color/word_servant_purple"
-        android:textSize="20sp" />
+        android:textColor="@android:color/white"
+        android:textSize="26sp" />
 
 
 </LinearLayout>

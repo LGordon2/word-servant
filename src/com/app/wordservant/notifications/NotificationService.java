@@ -3,11 +3,6 @@
  */
 package com.app.wordservant.notifications;
 
-import com.app.wordservant.R;
-import com.app.wordservant.R.drawable;
-import com.app.wordservant.provider.WordServantContract;
-import com.app.wordservant.ui.TodaysMemoryVerses;
-
 import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,6 +11,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+
+import com.app.wordservant.R;
+import com.app.wordservant.provider.WordServantContract;
+import com.app.wordservant.ui.TodaysMemoryVerses;
 
 /**
  * @author lewis.gordon
@@ -62,7 +61,7 @@ public class NotificationService extends IntentService{
 				// started Activity.
 				// This ensures that navigating backward from the Activity leads out of
 				// your application to the Home screen.
-				TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+				/*TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 				// Adds the back stack for the Intent (but not the Intent itself)
 				stackBuilder.addParentStack(TodaysMemoryVerses.class);
 				// Adds the Intent that starts the Activity to the top of the stack
@@ -72,9 +71,9 @@ public class NotificationService extends IntentService{
 								0,
 								PendingIntent.FLAG_UPDATE_CURRENT
 								);
-				mBuilder.setContentIntent(resultPendingIntent);
+				mBuilder.setContentIntent(resultPendingIntent);*/
 				// mId allows you to update the notification later on.
-				mNotificationManager.notify(0, mBuilder.build());
+				//mNotificationManager.notify(0, mBuilder.build());
 			} catch (Exception e) {
 			}
 		}

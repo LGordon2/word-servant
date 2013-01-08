@@ -206,7 +206,7 @@ public class ScriptureReview extends FragmentActivity {
 
 
 
-				@SuppressWarnings("deprecation")
+				/*@SuppressWarnings("deprecation")
 				Gallery gallery = (Gallery) getView().findViewById(R.id.gallery1);
 				adapter = new ImageAdapter(getActivity());
 				gallery.setAdapter(adapter);
@@ -244,7 +244,7 @@ public class ScriptureReview extends FragmentActivity {
 						//((ImageView) getView().findViewById(R.id.mainImage)).setImageURI(fileUri);
 					}
 
-				});
+				});*/
 			}
 		}
 

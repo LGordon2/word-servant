@@ -16,9 +16,10 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/word_servant_icon_new"
-        android:label="@string/title_activity_main" android:theme="@style/WordServant">
+        android:label="@string/title_activity_main"
+        android:theme="@style/WordServantTheme" >
         <activity
-            android:name=".ui.LandingScreen"
+            android:name="com.app.wordservant.ui.LandingScreen"
             android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,16 +28,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.Settings"
-            android:label="@string/title_activity_settings"
-            android:theme="@style/MenuTheme" >
+            android:name="com.app.wordservant.ui.Settings"
+            android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name=".ui.ScriptureBank"
-            android:label="@string/title_activity_scripture_bank" >
-        </activity>
-        <activity
-            android:name=".ui.InputScriptureManual"
+            android:name="com.app.wordservant.ui.InputScriptureManual"
             android:label="@string/title_activity_input_scripture_manual"
             android:parentActivityName="android.support.v4.app.FragmentActivity" >
             <meta-data
@@ -44,15 +40,15 @@
                 android:value="android.support.v4.app.FragmentActivity" />
         </activity>
         <activity
-            android:name=".ui.EditScripture"
+            android:name="com.app.wordservant.ui.EditScripture"
             android:label="@string/title_activity_edit_scripture" >
         </activity>
         <activity
-            android:name=".ui.TodaysMemoryVerses"
+            android:name="com.app.wordservant.ui.TodaysMemoryVerses"
             android:label="@string/title_activity_todays_memory_verses" >
         </activity>
         <activity
-            android:name=".ui.SelectScripture"
+            android:name="com.app.wordservant.ui.SelectScripture"
             android:label="@string/title_activity_select_scripture" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -60,22 +56,22 @@
         </activity>
 
         <service
-            android:name=".notifications.NotificationService"
+            android:name="com.app.wordservant.notifications.NotificationService"
             android:exported="false" >
         </service>
 
-        <receiver android:name=".notifications.BootBroadcastReceiver" >
+        <receiver android:name="com.app.wordservant.notifications.BootBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name=".ui.DisplaySelectedScripture"
+            android:name="com.app.wordservant.ui.DisplaySelectedScripture"
             android:label="@string/title_activity_display_selected_scripture" >
         </activity>
         <activity
-            android:name=".ui.QuizReviewActivity"
+            android:name="com.app.wordservant.ui.QuizReviewActivity"
             android:label="@string/title_activity_quiz_review"
             android:parentActivityName="android.support.v4.app.FragmentActivity" >
             <meta-data
@@ -83,7 +79,7 @@
                 android:value="android.support.v4.app.FragmentActivity" />
         </activity>
         <activity
-            android:name=".ui.ScriptureReview"
+            android:name="com.app.wordservant.ui.ScriptureReview"
             android:parentActivityName="android.support.v4.app.FragmentActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -91,14 +87,22 @@
         </activity>
 
         <provider
-            android:name=".provider.WordServantProvider"
+            android:name="com.app.wordservant.provider.WordServantProvider"
             android:authorities="com.app.provider.wordservant"
             android:exported="false" >
         </provider>
 
         <activity
-            android:name=".ui.StatisticsActivity"
+            android:name="com.app.wordservant.ui.StatisticsActivity"
             android:label="@string/title_activity_statistics"
+            android:parentActivityName="android.support.v4.app.FragmentActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.support.v4.app.FragmentActivity" />
+        </activity>
+        <activity
+            android:name="com.app.wordservant.ui.ScriptureBankActivity"
+            android:label="@string/title_activity_scripture_bank"
             android:parentActivityName="android.support.v4.app.FragmentActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="false"
-            tools:listitem="@android:layout/simple_list_item_1" >
+            tools:listitem="@layout/small_list_layout" >
 
         </ListView>
     </LinearLayout>
@@ -67,7 +67,7 @@
             android:id="@+id/missedCount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@android:layout/simple_list_item_1" >
+            tools:listitem="@layout/list_layout" >
         </ListView>
     </LinearLayout>
 

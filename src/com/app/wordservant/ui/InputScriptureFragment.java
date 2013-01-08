@@ -107,18 +107,6 @@ public class InputScriptureFragment extends Fragment {
 			}
 
 		});
-		Button addTagButton = (Button) getActivity().findViewById(R.id.addTagButton);
-		addTagButton.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				//Toast.makeText(getActivity(), "Not yet implemented.", Toast.LENGTH_SHORT).show();
-				//AddTagDialogFragmentAlt dialogFragment = new AddTagDialogFragmentAlt();
-				//dialogFragment.show(getFragmentManager(), "tags");
-			}
-
-		});
 	}
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		return inflater.inflate(R.layout.activity_input_scripture_manual, null);

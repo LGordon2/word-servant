@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/lewis.gordon/Downloads/JakeWharton-ActionBarSherlock-4.2.0-0-g90939dc/JakeWharton-ActionBarSherlock-e5c2d1c/library/libs/android-support-v4.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="WordServantTheme" parent="Theme.Sherlock">
+        <item name="android:editTextStyle">@style/EditTextWordServantTheme</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewWordServantTheme</item>
+        <item name="android:checkboxStyle">@style/CheckBoxWordServantTheme</item>
+        <item name="android:buttonStyle">@style/ButtonWordServantTheme</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonWordServantTheme</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarWordServantTheme</item>
+        <item name="android:buttonStyleToggle">@style/ToggleWordServantTheme</item>
+        <item name="android:listViewStyle">@style/ListViewWordServantTheme</item>
+        <item name="android:listViewWhiteStyle">@style/ListViewWordServantTheme.White</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItemWordServantTheme</item>
+        <item name="android:seekBarStyle">@style/SeekBarWordServantTheme</item>
+    </style>
+
+</resources>

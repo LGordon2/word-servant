@@ -5,24 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import com.app.wordservant.R;
-import com.app.wordservant.R.id;
-import com.app.wordservant.R.layout;
-import com.app.wordservant.R.menu;
-import com.app.wordservant.R.string;
-import com.app.wordservant.provider.WordServantContract;
-
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.text.format.DateFormat;
 import android.view.HapticFeedbackConstants;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -35,7 +25,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class TodaysMemoryVerses extends FragmentActivity{
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.app.wordservant.R;
+import com.app.wordservant.provider.WordServantContract;
+
+public class TodaysMemoryVerses extends SherlockFragmentActivity{
 
 	private Cursor mScriptureQuery;
 	private java.text.DateFormat dbDateFormat;
@@ -167,13 +162,13 @@ public class TodaysMemoryVerses extends FragmentActivity{
 		
 	}
 
-	@Override
+	/*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_todays_memory_verses, menu);
         return true;
-    }
+    }*/
 	
-	@Override
+	/*@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
 	    switch (item.getItemId()) {
@@ -183,7 +178,7 @@ public class TodaysMemoryVerses extends FragmentActivity{
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
-	}
+	}*/
     
 	protected void onDestroy(){
 		super.onDestroy();

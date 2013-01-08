@@ -3,29 +3,23 @@ package com.app.wordservant.ui;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import com.app.wordservant.R;
-import com.app.wordservant.R.id;
-import com.app.wordservant.R.layout;
-import com.app.wordservant.R.menu;
-import com.app.wordservant.provider.WordServantContract;
-
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.app.NavUtils;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.app.wordservant.R;
+import com.app.wordservant.provider.WordServantContract;
 
 public class StatisticsActivity extends FragmentActivity{
 
@@ -75,7 +69,7 @@ public class StatisticsActivity extends FragmentActivity{
 		//Display content.
 	}
 
-	@Override
+	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.activity_statistics, menu);
@@ -97,7 +91,7 @@ public class StatisticsActivity extends FragmentActivity{
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
+	}*/
 
 	public static class StatisticsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -129,15 +123,15 @@ public class StatisticsActivity extends FragmentActivity{
 			// Set up references adapter
 			((ListView) getView().findViewById(R.id.reference)).setAdapter(
 					new SimpleCursorAdapter(getActivity(),
-							R.layout.list_layout,
+							R.layout.small_list_layout,
 							data,
 							new String []{WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE},
 							new int []{R.id.list_entry}));
 
 			//Set up the other adapters
-			ArrayAdapter<String> correctReviewedAdapter = new ArrayAdapter<String>(getActivity(),R.layout.list_layout,R.id.list_entry,new ArrayList<String>());
-			ArrayAdapter<String> incorrectReviewedAdapter = new ArrayAdapter<String>(getActivity(),R.layout.list_layout,R.id.list_entry,new ArrayList<String>());
-			ArrayAdapter<String> missedReviewedAdapter = new ArrayAdapter<String>(getActivity(),R.layout.list_layout,R.id.list_entry,new ArrayList<String>());
+			ArrayAdapter<String> correctReviewedAdapter = new ArrayAdapter<String>(getActivity(),R.layout.small_list_layout,R.id.list_entry,new ArrayList<String>());
+			ArrayAdapter<String> incorrectReviewedAdapter = new ArrayAdapter<String>(getActivity(),R.layout.small_list_layout,R.id.list_entry,new ArrayList<String>());
+			ArrayAdapter<String> missedReviewedAdapter = new ArrayAdapter<String>(getActivity(),R.layout.small_list_layout,R.id.list_entry,new ArrayList<String>());
 
 			((ListView) getView().findViewById(R.id.reviewedCount)).setAdapter(correctReviewedAdapter);
 			((ListView) getView().findViewById(R.id.missedCount)).setAdapter(incorrectReviewedAdapter);
