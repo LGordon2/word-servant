@@ -4,35 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <LinearLayout
-        android:id="@+id/dueTodayButtonLayout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/todaysDate"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" >
+        android:layout_above="@+id/fragment1"
+        android:text="Thursday, January 1, 1970" />
 
-        <Button
-            android:id="@+id/dueTodayFinishedButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/got_it_button_text" />
-
-        <Button
-            android:id="@+id/dueTodayNextButton"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/next_button_text" />
-
-    </LinearLayout>
-
-    <fragment
-        android:id="@+id/fragment1"
-        android:name="com.app.wordservant.ui.ScriptureReview$ScriptureReviewFragment"
+    <FrameLayout
+        android:id="@id/fragmentHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/dueTodayButtonLayout"
-        tools:layout="@layout/flashcard_layout" />
+        android:layout_below="@+id/todaysDate" >
+
+    </FrameLayout>
 
 </RelativeLayout>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:gravity="top" >
 
-    <RelativeLayout
+   <!--  <RelativeLayout
         android:id="@+id/bottomLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -145,14 +145,13 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_search" />
         </LinearLayout>
-    </RelativeLayout>
+    </RelativeLayout> -->
 
     <fragment
         android:id="@+id/fragment1"
         android:name="com.app.wordservant.ui.ScriptureBank$ScriptureBankFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/bottomLayout"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         tools:layout="@layout/fragment_list_layout" />
 

@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.app.wordservant.R;
 import com.app.wordservant.provider.WordServantContract;
 
@@ -39,7 +40,7 @@ public class TodaysMemoryVerses extends SherlockFragmentActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todays_memory_verses);
-        
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 	
 	public void onStart(){
@@ -162,23 +163,32 @@ public class TodaysMemoryVerses extends SherlockFragmentActivity{
 		
 	}
 
-	/*@Override
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_todays_memory_verses, menu);
+        getSupportMenuInflater().inflate(R.menu.activity_todays_memory_verses, menu);
         return true;
-    }*/
+    }
 	
-	/*@Override
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
+		Intent intent;
 	    switch (item.getItemId()) {
 	        case R.id.menu_settings:
-	        	Intent intent = new Intent(this, Settings.class);
+	        	intent = new Intent(this, Settings.class);
 	        	startActivity(intent);
+	        	break;
+	        case android.R.id.home:
+	            // app icon in action bar clicked; go home
+	            intent = new Intent(this, LandingScreen.class);
+	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            startActivity(intent);
+	            break;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
-	}*/
+	    return true;
+	}
     
 	protected void onDestroy(){
 		super.onDestroy();

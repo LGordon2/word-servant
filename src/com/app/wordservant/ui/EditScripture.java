@@ -1,32 +1,38 @@
 package com.app.wordservant.ui;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.Html;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.app.wordservant.R;
 import com.app.wordservant.provider.WordServantContract;
 
-public class EditScripture extends FragmentActivity{
+public class EditScripture extends SherlockFragmentActivity{
 
-	public static class EditScriptureFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+	public static class EditScriptureFragment extends SherlockFragment implements LoaderManager.LoaderCallbacks<Cursor>{
 		private EditText mEditScriptureReference;
 		private EditText mEditCategory;
 		private EditText mEditScripture;
+		
+		public void onCreate(Bundle savedInstanceState){
+			super.onCreate(savedInstanceState);
+			this.setHasOptionsMenu(true);
+		}
 		
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 			return inflater.inflate(R.layout.activity_input_scripture_manual, null);
@@ -39,7 +45,7 @@ public class EditScripture extends FragmentActivity{
 	       // editCategory = (EditText) findViewById(R.id.categoryName);
 	        mEditScripture = (EditText) getView().findViewById(R.id.scriptureText);
 	        getActivity().getSupportLoaderManager().initLoader(0, null, this);
-	        Button editDoneButton = (Button) getView().findViewById(R.id.doneButton);
+	        /*Button editDoneButton = (Button) getView().findViewById(R.id.doneButton);
 			editDoneButton.setOnClickListener(new OnClickListener(){
 
 				@Override
@@ -55,7 +61,7 @@ public class EditScripture extends FragmentActivity{
 					getActivity().finish();
 				}
 				
-			});
+			});*/
 		}
 		
 		@Override
@@ -83,44 +89,40 @@ public class EditScripture extends FragmentActivity{
 		public void onLoaderReset(Loader<Cursor> loader) {
 			// TODO Auto-generated method stub
 		}
+		public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+			// Inflate the menu; this adds items to the action bar if it is present.
+			inflater.inflate(R.menu.activity_input_scripture_manual, menu);
+		}
+		
+		public boolean onOptionsItemSelected(MenuItem item) {
+			Intent intent;
+			switch (item.getItemId()) {
+			case android.R.id.home:
+				// app icon in action bar clicked; go home
+				intent = new Intent(getActivity(), ScriptureBankActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				break;
+			case R.id.done:
+				ContentValues updatedItems = new ContentValues();
+				updatedItems.put("reference", mEditScriptureReference.getText().toString());
+				//updatedItems.put("category", editCategory.getText().toString());
+				updatedItems.put("text", Html.toHtml(mEditScripture.getText()));
+				getActivity().getContentResolver().update(Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE, String.valueOf(getActivity().getIntent().getLongExtra("scripture_id", 0))), 
+						updatedItems, null, null);
+				getActivity().finish();
+			}
+			return true;
+		}
 		
 	}
-	
-
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         //Open the database as readable and get the scripture id from the intent passed to the activity.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_scripture);
-        
-
-        
-        //Get the information from database.
-        /*try{
-        	Cursor scriptureQuery = dbQuerier.get();
-			mEditScriptureReference.setText(scriptureQuery.getString(1));
-			//meditCategory.setText(scriptureQuery.getString(2));
-			mEditScripture.setText(Html.fromHtml(scriptureQuery.getString(2)));
-			scriptureQuery.close();
-        } catch(SQLiteException e){
-        	System.err.println("Database issue. Scripture not found.");
-        	e.printStackTrace();
-        } catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_edit_scripture, menu);
-        return true;
-    }
-
 
 }

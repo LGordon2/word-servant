@@ -19,20 +19,19 @@
         <requestFocus />
     </EditText>
 
-    <Button
+  <!--   <Button
         android:id="@+id/doneButton"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="@string/done_button_text" />
+        android:text="@string/done_button_text" /> -->
 
     <EditText
         android:id="@+id/scriptureText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/doneButton"
         android:layout_below="@+id/scriptureReference"
         android:ems="10"
         android:gravity="top|center_vertical"

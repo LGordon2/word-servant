@@ -1,6 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
     <item
-        android:id="@+id/deleteScriptureMenuItem"
-        android:title="Delete Scripture"/>
+        android:id="@+id/inputScripture"
+        android:showAsAction="always"
+        android:title="Type Scripture">
+    </item>
+     <item
+        android:id="@+id/selectScripture"
+        android:showAsAction="always"
+        android:title="Select Scripture">
+    </item>
 
 </menu>

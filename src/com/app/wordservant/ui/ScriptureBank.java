@@ -3,25 +3,15 @@ package com.app.wordservant.ui;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.app.NavUtils;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -88,48 +78,8 @@ public class ScriptureBank extends Fragment{
 	}
 
 	public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-		return inflater.inflate(R.layout.scripture_bank, container);
+		return inflater.inflate(R.layout.scripture_bank, null);
 	}
 	
-	@Override
-	public void onViewCreated (View view, Bundle savedInstanceState){
-		super.onActivityCreated(savedInstanceState);
-		//Functionality for the input scripture button.
-		ImageButton inputScripture = (ImageButton) getView().findViewById(R.id.inputScripture);
-        inputScripture.setOnClickListener(new OnClickListener(){
-
-			public void onClick(View scriptureBank) {
-				// Starts a new input scripture.
-				if(getActivity().findViewById(R.id.fragmentHolder)==null){
-					Intent intent = new Intent(getActivity(),InputScriptureManual.class);
-			    	startActivity(intent);
-				}else{
-					FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-					FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-					InputScriptureFragment inputScriptureFragment = new InputScriptureFragment();
-					fragmentTransaction.add(R.id.fragmentHolder, inputScriptureFragment, "input_scripture");
-					fragmentTransaction.commit();
-				}
-
-			}
-
-        });
-
-        //Functionality for the selected scripture button.
-        ImageButton selectScripture = (ImageButton) getView().findViewById(R.id.selectScripture);
-        selectScripture.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(getActivity(),SelectScripture.class);
-				startActivity(intent);
-			}
-
-        });
-	}
-
-
-
+	
 }
