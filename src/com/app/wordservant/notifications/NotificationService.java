@@ -61,7 +61,7 @@ public class NotificationService extends IntentService{
 				// started Activity.
 				// This ensures that navigating backward from the Activity leads out of
 				// your application to the Home screen.
-				/*TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+				TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
 				// Adds the back stack for the Intent (but not the Intent itself)
 				stackBuilder.addParentStack(TodaysMemoryVerses.class);
 				// Adds the Intent that starts the Activity to the top of the stack
@@ -71,9 +71,9 @@ public class NotificationService extends IntentService{
 								0,
 								PendingIntent.FLAG_UPDATE_CURRENT
 								);
-				mBuilder.setContentIntent(resultPendingIntent);*/
+				mBuilder.setContentIntent(resultPendingIntent);
 				// mId allows you to update the notification later on.
-				//mNotificationManager.notify(0, mBuilder.build());
+				mNotificationManager.notify(0, mBuilder.build());
 			} catch (Exception e) {
 			}
 		}

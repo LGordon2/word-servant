@@ -84,7 +84,7 @@
                         android:scrollingCache="false" >
                     </GridView>
 
-                    <Button
+                 <!--    <Button
                         android:id="@+id/previewChapter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -99,7 +99,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_toRightOf="@+id/previewChapter"
                         android:enabled="false"
-                        android:text="Display Scriptures" />
+                        android:text="Display Scriptures" /> -->
                 </RelativeLayout>
 
             </FrameLayout>

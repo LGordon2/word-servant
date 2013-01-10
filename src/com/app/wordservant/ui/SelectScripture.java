@@ -2,15 +2,19 @@ package com.app.wordservant.ui;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -26,21 +30,26 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
 import com.app.wordservant.R;
-import com.app.wordservant.R.id;
-import com.app.wordservant.R.layout;
 import com.app.wordservant.ui.Bible.BibleBook;
-import com.app.wordservant.ui.Bible.BibleChapter;
+import com.app.wordservant.util.BibleImporter;
+import com.app.wordservant.util.Constants;
 
-public class SelectScripture extends Activity {
+public class SelectScripture extends SherlockActivity{
 	private class WaitForBibleLoad extends AsyncTask<Void, Void, Void>{
 
 		boolean checkedActivatedFix = true;
 
 		@Override
 		protected Void doInBackground(Void... arg0) {
-			// TODO Auto-generated method stub
-			while(Bible.getInstance().books.size()<66){
+			if(Bible.getInstance().getImportStatus().equals(Constants.IMPORT_STATUS_NOT_STARTED)){
+				Runnable bibleSetup = new BibleImporter(getResources().openRawResource(R.raw.kjv));
+				ThreadPoolExecutor tpe = new ThreadPoolExecutor(10, 10, 10000, TimeUnit.MILLISECONDS, new SynchronousQueue<Runnable>());
+				tpe.execute(bibleSetup);
+			}
+			while(!Bible.getInstance().isImported()){
 				if(this.isCancelled())
 					return null;
 			}
@@ -78,7 +87,7 @@ public class SelectScripture extends Activity {
 							final ArrayList<Integer> checkedCheckBoxes = new ArrayList<Integer>();
 							gView.setOnItemClickListener(new OnItemClickListener(){
 
-							
+
 								@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 								@Override
 								public void onItemClick(AdapterView<?> aView,
@@ -124,7 +133,7 @@ public class SelectScripture extends Activity {
 								}
 
 							});
-							Button displayScripture = (Button) findViewById(R.id.displayScriptures);
+							/*Button displayScripture = (Button) findViewById(R.id.displayScriptures);
 							displayScripture.setOnClickListener(new OnClickListener(){
 
 								@Override
@@ -164,7 +173,7 @@ public class SelectScripture extends Activity {
 									startActivityForResult(intent, 0);
 								}
 
-							});
+							});*/
 							int layoutResource;
 							if(Build.VERSION.SDK_INT < 11)
 								layoutResource = android.R.layout.simple_list_item_checked;
@@ -242,7 +251,7 @@ public class SelectScripture extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		//getMenuInflater().inflate(R.menu.tag_preview, menu);
+		getSupportMenuInflater().inflate(R.menu.activity_select_scripture, menu);
 		return true;
 	}
 

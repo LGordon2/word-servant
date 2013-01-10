@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.TreeMap;
 
+import com.app.wordservant.util.Constants;
+
 
 public class Bible{
 	private static class BibleHolder { 
@@ -12,11 +14,24 @@ public class Bible{
 	public static Bible getInstance() {
 		return BibleHolder.INSTANCE;
 	}
+	
 	TreeMap<Integer, String> bookNumbers;
 	Hashtable<String, BibleBook> books;
+	private String mImportStatus;
+	
 	private Bible(){
 		books = new Hashtable<String,BibleBook>();
 		bookNumbers = new TreeMap<Integer, String>();
+		mImportStatus = Constants.IMPORT_STATUS_NOT_STARTED;
+	}
+	public boolean isImported(){
+		return mImportStatus.equals(Constants.IMPORT_STATUS_COMPLETED)?true:false;
+	}
+	public void setImportStatus(String importStatus){
+		mImportStatus = importStatus;
+	}
+	public String getImportStatus(){
+		return mImportStatus;
 	}
 	public String[] getBookNames() {
 		// TODO Auto-generated method stub

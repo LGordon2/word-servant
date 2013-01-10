@@ -75,7 +75,7 @@ public class ScriptureBankActivity extends SherlockFragmentActivity {
 
 			break;
 		case R.id.selectScripture:
-			intent = new Intent(this,SelectScripture.class);
+			intent = new Intent(this,SelectScriptureFragmentActivity.class);
 			startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);

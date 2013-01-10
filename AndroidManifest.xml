@@ -17,7 +17,7 @@
         android:allowBackup="true"
         android:icon="@drawable/word_servant_icon_new"
         android:label="@string/title_activity_main"
-        android:theme="@style/WordServantTheme">
+        android:theme="@style/WordServantTheme" >
         <activity
             android:name="com.app.wordservant.ui.LandingScreen"
             android:theme="@android:style/Theme.NoTitleBar" >
@@ -80,7 +80,8 @@
         </activity>
         <activity
             android:name="com.app.wordservant.ui.ScriptureReview"
-            android:parentActivityName="android.support.v4.app.FragmentActivity" android:uiOptions="splitActionBarWhenNarrow">
+            android:parentActivityName="android.support.v4.app.FragmentActivity"
+            android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.support.v4.app.FragmentActivity" />
@@ -101,12 +102,18 @@
                 android:value="android.support.v4.app.FragmentActivity" />
         </activity>
         <activity
-            android:name="com.app.wordservant.ui.ScriptureBankActivity"
+            android:name=".ui.ScriptureBankActivity"
             android:label="@string/title_activity_scripture_bank"
-            android:parentActivityName="android.support.v4.app.FragmentActivity" android:uiOptions="splitActionBarWhenNarrow">
+            android:parentActivityName="android.support.v4.app.FragmentActivity"
+            android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.support.v4.app.FragmentActivity" />
+        </activity>
+        <activity android:name=".ui.SelectScriptureFragmentActivity" android:uiOptions="splitActionBarWhenNarrow">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.app.wordservant.LandingScreen" />
         </activity>
     </application>
 
