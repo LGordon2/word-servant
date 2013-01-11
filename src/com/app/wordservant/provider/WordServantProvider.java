@@ -27,7 +27,7 @@ public class WordServantProvider extends ContentProvider {
 	/**
 	 * The database version
 	 */
-	private static final int DATABASE_VERSION = 12;
+	private static final int DATABASE_VERSION = 13;
 
 	/**
 	 * A UriMatcher instance

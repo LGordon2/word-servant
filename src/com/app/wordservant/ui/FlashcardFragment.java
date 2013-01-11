@@ -22,11 +22,6 @@ public class FlashcardFragment extends SherlockFragment implements ReviewFragmen
 	
 	public void onActivityCreated (Bundle savedInstanceState){
 		super.onActivityCreated(savedInstanceState);
-		//Integer positionOnScreen = getActivity().getIntent().getIntExtra("positionOnScreen", 0);
-		//final Bundle bundledScriptureList = getActivity().getIntent().getBundleExtra("bundledScriptureList");
-		//this.displayScriptureContent(bundledScriptureList.getInt(String.valueOf(positionOnScreen)));
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		referenceOnFront = sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture") ? false : true;
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -35,6 +30,8 @@ public class FlashcardFragment extends SherlockFragment implements ReviewFragmen
 	
 	public void onViewCreated(View view, Bundle savedInstanceState){
 		super.onViewCreated(view, savedInstanceState);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		referenceOnFront = sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture") ? false : true;
 		//Set up click events, as well as fields.
 		final ViewSwitcher cardFlipper = (ViewSwitcher) getView().findViewById(R.id.cardSwitcher);
 		OnClickListener flipViewListener = new OnClickListener(){

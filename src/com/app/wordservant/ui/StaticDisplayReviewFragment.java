@@ -4,28 +4,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.app.wordservant.R;
 
 public class StaticDisplayReviewFragment extends SherlockFragment implements ReviewFragment{
-	public void onActivityCreated (Bundle savedInstanceState){
-		super.onActivityCreated(savedInstanceState);
-		Integer positionOnScreen = getActivity().getIntent().getIntExtra("positionOnScreen", 0);
-		final Bundle bundledScriptureList = getActivity().getIntent().getBundleExtra("bundledScriptureList");
-		//this.displayScriptureContent(bundledScriptureList.getInt(String.valueOf(positionOnScreen)));
-	}
-	
+	private TextView mScriptureReferenceField;
+	private TextView mScriptureTextField;
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		return inflater.inflate(R.layout.layout_no_edit_scripture, null);
 	}
 	
 	public void onViewCreated(View view, Bundle savedInstanceState){
 		super.onViewCreated(view, savedInstanceState);
-//		mEditScriptureReference = (TextView) getView().findViewById(R.id.dueTodayScriptureReference);
-//		mEditCategory = (TextView) getView().findViewById(R.id.dueTodayTags);
-//		mEditScripture = (TextView) getView().findViewById(R.id.scriptureText);
-
+		mScriptureReferenceField = (TextView) getView().findViewById(R.id.referenceText);
+		mScriptureTextField = (TextView) getView().findViewById(R.id.scriptureText);
 
 
 		/*@SuppressWarnings("deprecation")
@@ -72,24 +67,24 @@ public class StaticDisplayReviewFragment extends SherlockFragment implements Rev
 	@Override
 	public void setScriptureReference(CharSequence reference) {
 		// TODO Auto-generated method stub
-		
+		mScriptureReferenceField.setText(reference);
 	}
 
 	@Override
 	public CharSequence getScriptureReference() {
 		// TODO Auto-generated method stub
-		return null;
+		return mScriptureReferenceField.getText();
 	}
 
 	@Override
 	public void setScriptureText(CharSequence text) {
 		// TODO Auto-generated method stub
-		
+		mScriptureTextField.setText(text);
 	}
 
 	@Override
 	public CharSequence getScriptureText() {
 		// TODO Auto-generated method stub
-		return null;
+		return mScriptureTextField.getText();
 	}
 }
