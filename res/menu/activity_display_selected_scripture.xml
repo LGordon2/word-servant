@@ -4,6 +4,6 @@
         android:id="@+id/add"
         android:orderInCategory="100"
         android:showAsAction="always"
-        android:title="Add To Scripture Bank" android:titleCondensed="Add"/>
+        android:title="Add To My Memory Verses"/>
 
 </menu>

@@ -1,16 +1,18 @@
 package com.app.wordservant.ui;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.text.Html;
-import android.util.SparseIntArray;
+import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -18,11 +20,13 @@ import com.actionbarsherlock.view.MenuItem;
 import com.app.wordservant.R;
 import com.app.wordservant.provider.WordServantContract;
 
-
-
-public class QuizReviewActivity extends SherlockFragmentActivity {
-	private SparseIntArray mAllScriptureIds;
-	private Cursor quizData;
+public class QuizReviewActivity extends SherlockFragmentActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+	private ArrayList<Integer> mScriptureIds;
+	private Cursor mQuizData;
+	private Integer mCurrentScriptureId;
+	private int mCurrentScriptureReviewCount;
+	private int mCurrentScriptureSkipCount;
+	private int mCurrentScriptureIncorrectCount;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,21 +34,13 @@ public class QuizReviewActivity extends SherlockFragmentActivity {
 		setContentView(R.layout.activity_quiz_review);
 		// Show the Up button in the action bar.
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-	}
 
-	public void onStart(){
-		super.onStart();
-		quizData = new CursorLoader(this){
+		mQuizData = new CursorLoader(this){
 			public Cursor loadInBackground(){
 				//Open the database.
 
 				String [] columns = {
 						WordServantContract.ScriptureEntry._ID,
-						WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE,
-						WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT,
-						WordServantContract.ScriptureEntry.COLUMN_NAME_CORRECTLY_REVIEWED_COUNT,
-						WordServantContract.ScriptureEntry.COLUMN_NAME_INCORRECTLY_REVIEWED_COUNT,
-						WordServantContract.ScriptureEntry.COLUMN_NAME_SKIPPED_REVIEW_COUNT
 				};
 				String selection = WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"<=date('now','localtime') OR "+
 						WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">0";
@@ -54,15 +50,26 @@ public class QuizReviewActivity extends SherlockFragmentActivity {
 			}
 		}.loadInBackground();
 
-		//Put all Ids in a sparse int array.
-		mAllScriptureIds  = new SparseIntArray(quizData.getCount());
-		for(int i=0;i<quizData.getCount();i++){
-			quizData.moveToPosition(i);
-			mAllScriptureIds.append(i,quizData.getInt(0));
+		if(mQuizData.getCount()==0)
+			finish();
+		
+		//Pick a random card.
+		this.invalidateOptionsMenu();
+
+		//Get all scriptures for the quiz.
+		mScriptureIds = new ArrayList<Integer>();
+		for(int i=0;i<mQuizData.getCount();i++){
+			mQuizData.moveToPosition(i);
+			mScriptureIds.add(mQuizData.getInt(0));
 		}
+	}
 
-		displayScriptureContent(quizData);
-
+	public void onStart(){
+		super.onStart();
+		
+		//Randomly pick a scripture to display.
+		mCurrentScriptureId = mScriptureIds.get((int) getRandomIdIndex(mScriptureIds.size()));
+		getSupportLoaderManager().restartLoader(0, null, this);
 	}
 
 	@Override
@@ -71,12 +78,17 @@ public class QuizReviewActivity extends SherlockFragmentActivity {
 		getSupportMenuInflater().inflate(R.menu.activity_quiz_review, menu);
 		return true;
 	}
+	public boolean onPrepareOptionsMenu(Menu menu){
+		super.onPrepareOptionsMenu(menu);
+		if(mScriptureIds!=null && mScriptureIds.size()<=1){
+			menu.getItem(2).setEnabled(false);
+		}
+		return true;
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		//Id.
-		Integer id = quizData.getInt(0);
-
+		
 		//Update missed.
 		ContentValues contentValues = new ContentValues();
 
@@ -92,74 +104,95 @@ public class QuizReviewActivity extends SherlockFragmentActivity {
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		case R.id.reviewed:
+			//Put the new values in.
 			contentValues.put(
 					WordServantContract.ScriptureEntry.COLUMN_NAME_CORRECTLY_REVIEWED_COUNT,
-					quizData.getInt(quizData.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_CORRECTLY_REVIEWED_COUNT))+1);
+					mCurrentScriptureReviewCount+1);
+			mScriptureIds.remove(mCurrentScriptureId);
 			getContentResolver().update(
-					Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(id)),
+					Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(mCurrentScriptureId)),
 					contentValues, null, null);
-			//Display new scripture.
-			displayScriptureContent(quizData);
+			if(mScriptureIds.size()==0){
+				finish();
+				return super.onOptionsItemSelected(item);
+			}
+			mCurrentScriptureId = mScriptureIds.get((int) getRandomIdIndex(mScriptureIds.size()));
+			getSupportLoaderManager().restartLoader(0, null, this);
+			this.invalidateOptionsMenu();
 			break;
 		case R.id.skip:
-			mAllScriptureIds.put(quizData.getPosition(), id);
 			contentValues.put(
 					WordServantContract.ScriptureEntry.COLUMN_NAME_SKIPPED_REVIEW_COUNT,
-					quizData.getInt(quizData.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_SKIPPED_REVIEW_COUNT))+1);
+					mCurrentScriptureSkipCount+1);
 			getContentResolver().update(
-					Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(id)),
+					Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(mCurrentScriptureId)),
 					contentValues, null, null);
-
-			//Display new scripture.
-			displayScriptureContent(quizData);
+			if(mScriptureIds.size()==0){
+				finish();
+				return super.onOptionsItemSelected(item);
+			}
+			mCurrentScriptureId = mScriptureIds.get((int) getRandomIdIndex(mScriptureIds.size()));
+			getSupportLoaderManager().restartLoader(0, null, this);
+			this.invalidateOptionsMenu();
 			break;
 		case R.id.missed:
 			contentValues.put(
 					WordServantContract.ScriptureEntry.COLUMN_NAME_INCORRECTLY_REVIEWED_COUNT,
-					quizData.getInt(quizData.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_INCORRECTLY_REVIEWED_COUNT))+1);
+					mCurrentScriptureIncorrectCount+1);
+			mScriptureIds.remove(mCurrentScriptureId);
 			getContentResolver().update(
-					Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(id)),
+					Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(mCurrentScriptureId)),
 					contentValues, null, null);
-
-			//Display new scripture.
-			displayScriptureContent(quizData);
+			if(mScriptureIds.size()==0){
+				finish();
+				return super.onOptionsItemSelected(item);
+			}
+			mCurrentScriptureId = mScriptureIds.get((int) getRandomIdIndex(mScriptureIds.size()));
+			getSupportLoaderManager().restartLoader(0, null, this);
+			this.invalidateOptionsMenu();
 		}
+
 		return super.onOptionsItemSelected(item);
 	}
 
-	protected void displayScriptureContent(Cursor scriptureQuery) {
+	private Integer getRandomIdIndex(Integer size) {
 		// TODO Auto-generated method stub
-		try{
-			if(mAllScriptureIds.size()==0){
-				finish();
-				return;
-			}
-			/*if(mAllScriptureIds.size()==1){
-				Button nextButton = (Button) findViewById(R.id.nextButton);
-				nextButton.setVisibility(Button.GONE);
-			}*/
-
-			//Get random index.
-			Integer randomIndex = getRandomIdIndex(mAllScriptureIds);
-			scriptureQuery.moveToPosition(mAllScriptureIds.keyAt(randomIndex));
-			mAllScriptureIds.removeAt(randomIndex);
-			ReviewFragment fragment = (ReviewFragment) getSupportFragmentManager().findFragmentById(R.id.quizReviewFragment);
-			fragment.setScriptureReference(scriptureQuery.getString(1));
-
-			fragment.setScriptureText(Html.fromHtml(scriptureQuery.getString(2)));
-
-		} catch(SQLiteException e){
-			System.err.println("Database issue..");
-			e.printStackTrace();
-		}
+		if(size<=1)
+			return 0;
+		return ((Integer) Math.abs(new Random().nextInt()) % size);
 	}
 
-	private Integer getRandomIdIndex(SparseIntArray allScriptureIds) {
+	@Override
+	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		// TODO Auto-generated method stub
-		if(allScriptureIds.size()==1)
-			return 0;
-		Integer randomIndex = ((Integer) Math.abs(new Random().nextInt()) % allScriptureIds.size());
-		return mAllScriptureIds.keyAt(randomIndex) != quizData.getPosition() ? randomIndex : getRandomIdIndex(allScriptureIds);
+		String [] columns_to_retrieve = {WordServantContract.ScriptureEntry._ID, 
+				WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE,
+				WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT,
+				WordServantContract.ScriptureEntry.COLUMN_NAME_CORRECTLY_REVIEWED_COUNT,
+				WordServantContract.ScriptureEntry.COLUMN_NAME_SKIPPED_REVIEW_COUNT,
+				WordServantContract.ScriptureEntry.COLUMN_NAME_INCORRECTLY_REVIEWED_COUNT};
+		return new CursorLoader(this, 
+				Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(mCurrentScriptureId)), 
+				columns_to_retrieve, 
+				null, null, null);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+		// TODO Auto-generated method stub
+		data.moveToFirst();
+		ReviewFragment reviewFragment = (ReviewFragment) getSupportFragmentManager().findFragmentById(R.id.quizReviewFragment);
+		reviewFragment.setScriptureReference(data.getString(1));
+		reviewFragment.setScriptureText(Html.fromHtml(data.getString(2)));
+		mCurrentScriptureReviewCount = data.getInt(3);
+		mCurrentScriptureSkipCount = data.getInt(4);
+		mCurrentScriptureIncorrectCount = data.getInt(5);
+	}
+
+	@Override
+	public void onLoaderReset(Loader<Cursor> loader) {
+		// TODO Auto-generated method stub
+		Log.d("WordServant","loader reset");
 	}
 
 }

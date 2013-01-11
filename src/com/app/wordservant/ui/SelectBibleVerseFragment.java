@@ -32,7 +32,6 @@ import com.app.wordservant.R;
 public class SelectBibleVerseFragment extends SherlockFragment{
 	private int mBookNumber;
 	private int mChapterNumber;
-	private boolean checkedActivatedFix;
 	private ArrayAdapter<String> mAdapter;
 	private GridView mGridView;
 	private ArrayList<Integer> mCheckedCheckBoxes;
@@ -53,7 +52,6 @@ public class SelectBibleVerseFragment extends SherlockFragment{
 		mChapterNumber = ((SelectScriptureFragmentActivity) getActivity()).chapterNumber;
 		mBookName = ((SelectScriptureFragmentActivity) getActivity()).bookName;
 		mCheckedCheckBoxes = ((SelectScriptureFragmentActivity) getActivity()).mVerseNumbers;
-		checkedActivatedFix = ((SelectScriptureFragmentActivity) getActivity()).checkedActivatedFix;
 		updateTitle();
 		
 		mGridView = (GridView) getView().findViewById(R.id.gridView1);
@@ -67,7 +65,7 @@ public class SelectBibleVerseFragment extends SherlockFragment{
 				// Get scriptures and send them to the displayed scripture screen.
 				if(Build.VERSION.SDK_INT>=11){
 					TextView textView = (TextView) view;
-					if(textView.isActivated()==checkedActivatedFix){
+					if(textView.isActivated()==((SelectScriptureFragmentActivity) getActivity()).checkedActivatedFix){
 						mCheckedCheckBoxes.add(Integer.valueOf((String) textView.getText()));
 						textView.setActivated(true);
 					}
@@ -76,7 +74,7 @@ public class SelectBibleVerseFragment extends SherlockFragment{
 							mCheckedCheckBoxes.remove(mCheckedCheckBoxes.indexOf((Integer) position+1));
 							textView.setActivated(false);
 						}catch(ArrayIndexOutOfBoundsException e){
-							((SelectScriptureFragmentActivity) getActivity()).checkedActivatedFix = !checkedActivatedFix;
+							((SelectScriptureFragmentActivity) getActivity()).checkedActivatedFix = !((SelectScriptureFragmentActivity) getActivity()).checkedActivatedFix;
 							mCheckedCheckBoxes.add(Integer.valueOf((String) textView.getText()));
 							textView.setActivated(true);
 
@@ -113,14 +111,14 @@ public class SelectBibleVerseFragment extends SherlockFragment{
 						public void onCheckedChanged(CompoundButton button,
 								boolean checked) {
 							// TODO Auto-generated method stub
-							if(checked==checkedActivatedFix){
+							if(checked==((SelectScriptureFragmentActivity) getActivity()).checkedActivatedFix){
 								mCheckedCheckBoxes.add(Integer.valueOf((String) button.getText()));
 							}
 							else{
 								try{
 									mCheckedCheckBoxes.remove(mCheckedCheckBoxes.indexOf((Integer) currrentPosition+1));
 								}catch(ArrayIndexOutOfBoundsException e){
-									((SelectScriptureFragmentActivity) getActivity()).checkedActivatedFix = !checkedActivatedFix;
+									((SelectScriptureFragmentActivity) getActivity()).checkedActivatedFix = !((SelectScriptureFragmentActivity) getActivity()).checkedActivatedFix;
 									mCheckedCheckBoxes.add(Integer.valueOf((String) button.getText()));
 								}
 							}
