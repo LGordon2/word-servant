@@ -1,5 +1,6 @@
 package com.app.wordservant.ui;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +16,16 @@ import com.app.wordservant.R;
 public class SelectBibleChapterFragment extends SherlockFragment{
 	private ArrayAdapter<String> mAdapter;
 	private int mBookNumber;
+	private String mBookName;
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		return inflater.inflate(R.layout.select_bible_chapter, null);
 	}
-	public void onStart(){
-		super.onStart();
-		getSherlockActivity().getSupportActionBar().setTitle(((SelectScriptureFragmentActivity) getActivity()).bookName);
+	public void onViewCreated (View view, Bundle savedInstanceState){
+		super.onViewCreated(view, savedInstanceState);
 		mBookNumber = ((SelectScriptureFragmentActivity) getActivity()).bookNumber;
+		mBookName = ((SelectScriptureFragmentActivity) getActivity()).bookName;
+		getSherlockActivity().getSupportActionBar().setTitle(mBookName);
 		mAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,Bible.getInstance().getBook(mBookNumber).getChaptersArray());
 		GridView chapterView = (GridView) getView().findViewById(R.id.gridView1);
 		chapterView.setAdapter(mAdapter);

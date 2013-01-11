@@ -14,12 +14,12 @@
         android:text="TextView"
         android:textSize="24sp" />
 
-    <Button
+ <!--    <Button
         android:id="@+id/addSelectedScripture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Add Scripture To Scripture Bank" />
+        android:text="Add Scripture To Scripture Bank" /> -->
 
     <TextView
         android:id="@+id/selectedScriptureTags"

@@ -11,15 +11,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.app.wordservant.R;
 
-public class FlashcardFragment extends ReviewFragment{
-
+public class FlashcardFragment extends SherlockFragment implements ReviewFragment{
+	
+	private TextView mScriptureTextField;
+	private TextView mScriptureReferenceField;
+	private boolean referenceOnFront;
+	
 	public void onActivityCreated (Bundle savedInstanceState){
 		super.onActivityCreated(savedInstanceState);
-		Integer positionOnScreen = getActivity().getIntent().getIntExtra("positionOnScreen", 0);
-		final Bundle bundledScriptureList = getActivity().getIntent().getBundleExtra("bundledScriptureList");
-		this.displayScriptureContent(bundledScriptureList.getInt(String.valueOf(positionOnScreen)));
+		//Integer positionOnScreen = getActivity().getIntent().getIntExtra("positionOnScreen", 0);
+		//final Bundle bundledScriptureList = getActivity().getIntent().getBundleExtra("bundledScriptureList");
+		//this.displayScriptureContent(bundledScriptureList.getInt(String.valueOf(positionOnScreen)));
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		referenceOnFront = sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture") ? false : true;
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -41,9 +48,10 @@ public class FlashcardFragment extends ReviewFragment{
 			}
 		};
 		RelativeLayout referenceLayout = (RelativeLayout) getView().findViewById(R.id.referenceLayout);
-		TextView scriptureText = (TextView) getView().findViewById(R.id.scriptureText);
+		mScriptureReferenceField = (TextView) getView().findViewById(R.id.referenceText);
+		mScriptureTextField = (TextView) getView().findViewById(R.id.scriptureText);
 		referenceLayout.setOnClickListener(flipViewListener);
-		scriptureText.setOnClickListener(flipViewListener);
+		mScriptureTextField.setOnClickListener(flipViewListener);
 
 		//Set up coloring.
 		//Define the front and back of the cards.
@@ -51,8 +59,7 @@ public class FlashcardFragment extends ReviewFragment{
 		RelativeLayout frontCard;
 		RelativeLayout backCard;
 
-		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		if(sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture")){
+		if(!referenceOnFront){
 			cardFlipper.setDisplayedChild(1);
 			frontCard = (RelativeLayout) cardFlipper.findViewById(R.id.scriptureLayout);
 			backCard = (RelativeLayout) cardFlipper.findViewById(R.id.referenceLayout);
@@ -73,5 +80,29 @@ public class FlashcardFragment extends ReviewFragment{
 			TextView textView = (TextView) backCard.getChildAt(i);
 			textView.setTextColor(getResources().getColor(R.color.word_servant_purple));
 		}
+	}
+
+	@Override
+	public void setScriptureReference(CharSequence reference) {
+		// TODO Auto-generated method stub
+		mScriptureReferenceField.setText(reference);
+	}
+
+	@Override
+	public CharSequence getScriptureReference() {
+		// TODO Auto-generated method stub
+		return mScriptureReferenceField.getText();
+	}
+
+	@Override
+	public void setScriptureText(CharSequence text) {
+		// TODO Auto-generated method stub
+		mScriptureTextField.setText(text);
+	}
+
+	@Override
+	public CharSequence getScriptureText() {
+		// TODO Auto-generated method stub
+		return mScriptureTextField.getText();
 	}
 }

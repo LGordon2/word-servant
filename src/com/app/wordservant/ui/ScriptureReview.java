@@ -48,7 +48,7 @@ public class ScriptureReview extends SherlockFragmentActivity {
 			fragment = new FlashcardFragment();
 			
 		}else{
-			fragment = new StaticDisplayReviewFragment();
+			//fragment = new StaticDisplayReviewFragment();
 		}
 		fragmentTransaction.replace(R.id.fragmentHolder, fragment);
 		fragmentTransaction.commit();

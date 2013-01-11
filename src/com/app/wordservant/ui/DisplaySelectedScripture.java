@@ -6,35 +6,28 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-import com.app.wordservant.R;
-import com.app.wordservant.R.id;
-import com.app.wordservant.R.layout;
-import com.app.wordservant.R.menu;
-import com.app.wordservant.R.string;
-import com.app.wordservant.provider.WordServantContract;
-import com.app.wordservant.ui.Bible.BibleVerse;
-
-import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class DisplaySelectedScripture extends Activity {
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.app.wordservant.R;
+import com.app.wordservant.provider.WordServantContract;
+
+public class DisplaySelectedScripture extends SherlockActivity {
 
 	String mReference;
 	ArrayList<Integer> mVerseNumbers;
 	int mChapterNumber;
 	String mBookName;
+	private String mScriptureText;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,47 +81,9 @@ public class DisplaySelectedScripture extends Activity {
 				createdScriptureText += "<sup><small>"+currentVerse.verseNumber+"</small></sup>"+currentVerse.text;
 			}
 		}
-		final String scriptureText = createdScriptureText;
-		text.setText(Html.fromHtml(scriptureText));
+		mScriptureText = createdScriptureText;
+		text.setText(Html.fromHtml(mScriptureText));
 		referenceView.setText(mReference);
-
-		Button addScriptureButton = (Button) findViewById(R.id.addSelectedScripture);
-		addScriptureButton.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-
-				SimpleDateFormat dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
-				ContentValues scriptureValues = new ContentValues();
-				scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE, mReference);
-				scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT, scriptureText);
-
-				String [] columnsToRetrieve = {
-						WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE,
-						WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED,
-						WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
-				Cursor runningScriptureQuery = DisplaySelectedScripture.this.getContentResolver().query(WordServantContract.ScriptureEntry.CONTENT_URI, columnsToRetrieve, 
-						WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+"='daily' AND "+
-								WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<7", null, null);
-				if (runningScriptureQuery.getCount()>0){
-					runningScriptureQuery.moveToLast();
-					Calendar currentCalendar = Calendar.getInstance();
-					try {
-						currentCalendar.setTime(dbDateFormat.parse(runningScriptureQuery.getString(2)));
-					} catch (ParseException e) {
-						e.printStackTrace();
-					}
-					currentCalendar.add(Calendar.DATE, 7-runningScriptureQuery.getInt(1));
-					scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, dbDateFormat.format(currentCalendar.getTime()));
-				}
-
-				//Open the database and add the row.
-				DisplaySelectedScripture.this.getContentResolver().insert(WordServantContract.ScriptureEntry.CONTENT_URI, scriptureValues);
-				setResult(0);
-				finish();
-			}
-
-		});
 	}
 
 	protected void onSaveInstanceState(Bundle outState){
@@ -140,8 +95,42 @@ public class DisplaySelectedScripture extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_display_selected_scripture,
+		getSupportMenuInflater().inflate(R.menu.activity_display_selected_scripture,
 				menu);
+		return true;
+	}
+	public boolean onMenuItemSelected(int featureId, MenuItem item){
+		switch(item.getItemId()){
+		case R.id.add:
+			SimpleDateFormat dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
+			ContentValues scriptureValues = new ContentValues();
+			scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE, mReference);
+			scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT, mScriptureText);
+
+			String [] columnsToRetrieve = {
+					WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE,
+					WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED,
+					WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
+			Cursor runningScriptureQuery = DisplaySelectedScripture.this.getContentResolver().query(WordServantContract.ScriptureEntry.CONTENT_URI, columnsToRetrieve, 
+					WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+"='daily' AND "+
+							WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<7", null, null);
+			if (runningScriptureQuery.getCount()>0){
+				runningScriptureQuery.moveToLast();
+				Calendar currentCalendar = Calendar.getInstance();
+				try {
+					currentCalendar.setTime(dbDateFormat.parse(runningScriptureQuery.getString(2)));
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				currentCalendar.add(Calendar.DATE, 7-runningScriptureQuery.getInt(1));
+				scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, dbDateFormat.format(currentCalendar.getTime()));
+			}
+
+			//Open the database and add the row.
+			DisplaySelectedScripture.this.getContentResolver().insert(WordServantContract.ScriptureEntry.CONTENT_URI, scriptureValues);
+			setResult(0);
+			finish();
+		}
 		return true;
 	}
 	public void onBackPressed(){

@@ -5,14 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.actionbarsherlock.app.SherlockFragment;
 import com.app.wordservant.R;
 
-public class StaticDisplayReviewFragment extends ReviewFragment{
+public class StaticDisplayReviewFragment extends SherlockFragment implements ReviewFragment{
 	public void onActivityCreated (Bundle savedInstanceState){
 		super.onActivityCreated(savedInstanceState);
 		Integer positionOnScreen = getActivity().getIntent().getIntExtra("positionOnScreen", 0);
 		final Bundle bundledScriptureList = getActivity().getIntent().getBundleExtra("bundledScriptureList");
-		this.displayScriptureContent(bundledScriptureList.getInt(String.valueOf(positionOnScreen)));
+		//this.displayScriptureContent(bundledScriptureList.getInt(String.valueOf(positionOnScreen)));
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -66,5 +67,29 @@ public class StaticDisplayReviewFragment extends ReviewFragment{
 			}
 
 		});*/
+	}
+
+	@Override
+	public void setScriptureReference(CharSequence reference) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public CharSequence getScriptureReference() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setScriptureText(CharSequence text) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public CharSequence getScriptureText() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

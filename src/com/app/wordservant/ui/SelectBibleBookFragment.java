@@ -51,11 +51,11 @@ public class SelectBibleBookFragment extends SherlockListFragment{
 			setListShown(true);
 		}
 	}
-	
-	public void onStart(){
-		super.onStart();
-		getSherlockActivity().getSupportActionBar().setTitle("Select Scripture");
+	public void onViewCreated(View view, Bundle savedInstanceState){
+		super.onViewCreated(view, savedInstanceState);
+		((SelectScriptureFragmentActivity) getActivity()).getSupportActionBar().setTitle("Select Scripture");
 	}
+	@SuppressWarnings("unchecked")
 	public void onListItemClick(ListView list, View v, int position, long id){
 		((SelectScriptureFragmentActivity) getActivity()).bookNumber = position;
 		((SelectScriptureFragmentActivity) getActivity()).bookName = ((ArrayAdapter<String>) list.getAdapter()).getItem(position);

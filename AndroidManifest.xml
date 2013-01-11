@@ -67,13 +67,13 @@
         </receiver>
 
         <activity
-            android:name="com.app.wordservant.ui.DisplaySelectedScripture"
-            android:label="@string/title_activity_display_selected_scripture" >
+            android:name=".ui.DisplaySelectedScripture"
+            android:label="@string/title_activity_display_selected_scripture" android:uiOptions="splitActionBarWhenNarrow">
         </activity>
         <activity
-            android:name="com.app.wordservant.ui.QuizReviewActivity"
+            android:name=".ui.QuizReviewActivity"
             android:label="@string/title_activity_quiz_review"
-            android:parentActivityName="android.support.v4.app.FragmentActivity" >
+            android:parentActivityName="android.support.v4.app.FragmentActivity" android:uiOptions="splitActionBarWhenNarrow">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.support.v4.app.FragmentActivity" />
