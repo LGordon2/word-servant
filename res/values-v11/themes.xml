@@ -3,6 +3,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="WordServantTheme" parent="android:Theme.Holo">
+        <item name="android:actionBarItemBackground">@drawable/item_background_holo_dark</item>
         <item name="android:actionBarStyle">@style/ActionBarWordServantTheme</item>
         <item name="android:editTextBackground">@drawable/edit_text_holo_dark</item>
         <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewWordServantTheme</item>
@@ -14,12 +15,6 @@
         <item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_holo_dark</item>
         <item name="android:activatedBackgroundIndicator">@drawable/activated_background_holo_dark</item>
         <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb_holo</item>
-        <item name="android:seekBarStyle">@style/SeekBarWordServantTheme</item>
-        <!-- <item name="android:tabWidgetStyle">@style/TabWordServantTheme</item> -->
-    </style>
-
-    <style name="Widget.Holo.TabText" parent="android:Widget.Holo.ActionBar.TabText">
-        <item name="android:maxWidth">180dip</item>
     </style>
 
 </resources>

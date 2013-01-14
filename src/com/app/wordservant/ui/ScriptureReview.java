@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +21,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.Html;
 import android.text.format.DateFormat;
-import android.widget.TextView;
+import android.view.View;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -31,7 +32,6 @@ import com.app.wordservant.provider.WordServantContract;
 public class ScriptureReview extends SherlockFragmentActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
 	private ArrayList<Integer> mUnreviewedScriptureIds;
-	private final int UNREVIEWED_SCRIPTURE_QUERY = 0;
 	private final int CURRENT_SCRIPTURE_QUERY = 1;
 	private int mCurrentIdPosition;
 
@@ -39,33 +39,34 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_scripture_review);
 		Calendar currentCalendar = Calendar.getInstance();
-		((TextView) this.findViewById(R.id.todaysDate)).setText(DateFormat.format("EEEE, MMMM dd, yyyy", currentCalendar));
+		getSupportActionBar().setSubtitle(DateFormat.format("EEEE, MMMM dd, yyyy", currentCalendar));
+		//((TextView) this.findViewById(R.id.todaysDate)).setText(DateFormat.format("EEEE, MMMM dd, yyyy", currentCalendar));
 		mUnreviewedScriptureIds = new ArrayList<Integer>();
-		mCurrentIdPosition = getIntent().getIntExtra("positionOnScreen", 0);
-		final Bundle bundledScriptureList = getIntent().getBundleExtra("bundledScriptureList");
-		int mFirstSelectedScriptureId = bundledScriptureList.getInt(String.valueOf(mCurrentIdPosition));
-		
+		mCurrentIdPosition = 0;
 
 		String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID};
 		Cursor mUnreviewedScriptureQuery = new CursorLoader(this, WordServantContract.ScriptureEntry.CONTENT_URI, columnsToRetrieve, 
-				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now','localtime') OR "+
-						WordServantContract.ScriptureEntry._ID+"="+mFirstSelectedScriptureId, null, null).loadInBackground();
-		
+				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now','localtime')", null, null).loadInBackground();
+
 		for(int i=0;i<mUnreviewedScriptureQuery.getCount();i++){
 			mUnreviewedScriptureQuery.moveToPosition(i);
 			mUnreviewedScriptureIds.add(mUnreviewedScriptureQuery.getInt(0));
 		}
 		this.invalidateOptionsMenu();
 	}
-	
+
 	public void onStart(){
 		super.onStart();
-		
+
+		if(mUnreviewedScriptureIds.size()==0){
+			this.findViewById(R.id.nothingToReview).setVisibility(View.VISIBLE);
+			return;
+		}
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		Fragment fragment = null;
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-		
+
 		//Display flashcards if the setting is enabled.
 		if(sharedPreferences.getString("pref_key_review_select", "none").equals("showing_reference") ||
 				sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture")){
@@ -88,10 +89,13 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 	public boolean onPrepareOptionsMenu (Menu menu){
 		if(mUnreviewedScriptureIds.size()==1){
 			menu.findItem(R.id.skip).setEnabled(false);
+		}else if(mUnreviewedScriptureIds.size()==0){
+			menu.setGroupVisible(R.id.reviewButtons, false);
+			menu.findItem(R.id.settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle item selection
@@ -107,7 +111,7 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 			currentScriptureReviewDateQuery.moveToFirst();
 			//Update the database.
 			Calendar calendar = Calendar.getInstance();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 			String scriptureDateNextReviewDate = currentScriptureReviewDateQuery.getString(currentScriptureReviewDateQuery.getColumnIndex(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE));
 			try {
 				if(dateFormat.parse(scriptureDateNextReviewDate).compareTo(calendar.getTime())<=0){
@@ -117,10 +121,12 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			mUnreviewedScriptureIds.remove(mCurrentIdPosition);
 			if(mUnreviewedScriptureIds.size()==0){
-				finish();
+				this.findViewById(R.id.nothingToReview).setVisibility(View.VISIBLE);
+				this.findViewById(R.id.fragmentHolder).setVisibility(View.GONE);
+				this.invalidateOptionsMenu();
 				return true;
 			}
 			mCurrentIdPosition = mCurrentIdPosition < mUnreviewedScriptureIds.size() ? mCurrentIdPosition : 0;
@@ -130,9 +136,9 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 			getSupportLoaderManager().restartLoader(CURRENT_SCRIPTURE_QUERY, null, this);
 			break;
 		case R.id.settings:
-        	intent = new Intent(this, Settings.class);
-        	startActivityForResult(intent, 10);
-        	break;
+			intent = new Intent(this, Settings.class);
+			startActivityForResult(intent, 10);
+			break;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -149,16 +155,13 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		// TODO Auto-generated method stub
-		if(id == CURRENT_SCRIPTURE_QUERY){
-			String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID,
-					WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE,
-					WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT};
-			return new CursorLoader(this, 
-					Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(mUnreviewedScriptureIds.get(mCurrentIdPosition))), 
-					columnsToRetrieve, 
-					null, null, null);
-		}
-		return null;
+		String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID,
+				WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE,
+				WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT};
+		return new CursorLoader(this, 
+				Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(mUnreviewedScriptureIds.get(mCurrentIdPosition))), 
+				columnsToRetrieve, 
+				null, null, null);
 	}
 
 	@Override

@@ -37,11 +37,14 @@
             android:parentActivityName="android.support.v4.app.FragmentActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="android.support.v4.app.FragmentActivity" />
+                android:value=".ui.ScriptureBankActivity" />
         </activity>
         <activity
             android:name="com.app.wordservant.ui.EditScripture"
             android:label="@string/title_activity_edit_scripture" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.ScriptureBankActivity" />
         </activity>
         <activity
             android:name="com.app.wordservant.ui.TodaysMemoryVerses"
@@ -54,52 +57,38 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.app.wordservant.LandingScreen" />
         </activity>
-
-        <service
-            android:name="com.app.wordservant.notifications.NotificationService"
-            android:exported="false" >
-        </service>
-
-        <receiver android:name="com.app.wordservant.notifications.BootBroadcastReceiver" >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
         <activity
             android:name=".ui.DisplaySelectedScripture"
-            android:label="@string/title_activity_display_selected_scripture" android:uiOptions="splitActionBarWhenNarrow">
+            android:label="@string/title_activity_display_selected_scripture"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.ScriptureBankActivity" />
         </activity>
         <activity
             android:name=".ui.QuizReviewActivity"
             android:label="@string/title_activity_quiz_review"
-            android:parentActivityName="android.support.v4.app.FragmentActivity" android:uiOptions="splitActionBarWhenNarrow">
+            android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="android.support.v4.app.FragmentActivity" />
+                android:value=".ui.LandingScreen" />
         </activity>
         <activity
-            android:name="com.app.wordservant.ui.ScriptureReview"
+            android:name=".ui.ScriptureReview"
+            android:label="@string/title_activity_scripture_review"
             android:parentActivityName="android.support.v4.app.FragmentActivity"
             android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="android.support.v4.app.FragmentActivity" />
+                android:value=".ui.LandingScreen" />
         </activity>
-
-        <provider
-            android:name="com.app.wordservant.provider.WordServantProvider"
-            android:authorities="com.app.provider.wordservant"
-            android:exported="false" >
-        </provider>
-
         <activity
-            android:name="com.app.wordservant.ui.StatisticsActivity"
+            android:name=".ui.StatisticsActivity"
             android:label="@string/title_activity_statistics"
-            android:parentActivityName="android.support.v4.app.FragmentActivity" >
+            android:parentActivityName=".ui.QuizReviewActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="android.support.v4.app.FragmentActivity" />
+                android:value=".ui.QuizReviewActivity" />
         </activity>
         <activity
             android:name=".ui.ScriptureBankActivity"
@@ -108,13 +97,32 @@
             android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="android.support.v4.app.FragmentActivity" />
+                android:value=".ui.LandingScreen" />
         </activity>
-        <activity android:name=".ui.SelectScriptureFragmentActivity" android:uiOptions="splitActionBarWhenNarrow">
+        <activity
+            android:name=".ui.SelectScriptureFragmentActivity"
+            android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.app.wordservant.LandingScreen" />
+                android:value=".ui.LandingScreen" />
         </activity>
+
+        <service
+            android:name="com.app.wordservant.notifications.NotificationService"
+            android:exported="false" >
+        </service>
+
+        <provider
+            android:name="com.app.wordservant.provider.WordServantProvider"
+            android:authorities="com.app.provider.wordservant"
+            android:exported="false" >
+        </provider>
+
+        <receiver android:name="com.app.wordservant.notifications.BootBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

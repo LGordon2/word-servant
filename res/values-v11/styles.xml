@@ -28,25 +28,18 @@
         <item name="android:background">@drawable/btn_toggle_holo_dark</item>
     </style>
 
+    <style name="TabWidgetWordServantTheme" parent="android:Widget.Holo.TabWidget">
+        <item name="android:textColor">@color/word_servant_purple</item>
+    </style>
+
     <style name="TabWordServantTheme" parent="android:Widget.Holo.Tab">
-        <item name="android:background">@drawable/tab_indicator_holo</item>
+        <item name="android:background">#FFFFFF</item>
     </style>
 
     <style name="SeekBarWordServantTheme" parent="android:Widget.Holo.SeekBar">
         <item name="android:progressDrawable">@drawable/scrubber_progress_horizontal_holo_dark</item>
         <item name="android:indeterminateDrawable">@drawable/scrubber_progress_horizontal_holo_dark</item>
         <item name="android:thumb">@drawable/scrubber_control_selector_holo_dark</item>
-    </style>
-
-    <style name="Widget.Holo.TabWidget" parent="android:Widget.TabWidget">
-        <item name="android:tabStripLeft">@null</item>
-        <item name="android:tabStripRight">@null</item>
-        <item name="android:tabStripEnabled">false</item>
-        <item name="android:divider">?android:attr/dividerVertical</item>
-        <item name="android:showDividers">middle</item>
-        <item name="android:dividerPadding">8dip</item>
-        <item name="android:measureWithLargestChild">true</item>
-        <item name="android:layout">@layout/tab_indicator_holo</item>
     </style>
 
 </resources>

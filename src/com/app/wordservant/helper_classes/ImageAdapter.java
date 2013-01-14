@@ -95,7 +95,7 @@ public class ImageAdapter extends BaseAdapter {
 	    if (bitmap != null) {
 	        imageView.setImageBitmap(bitmap);
 	    } else {
-	    	imageView.setImageResource(R.drawable.bigbird);
+	    	//imageView.setImageResource(R.drawable.bigbird);
 	        BitmapWorkerTask task = new BitmapWorkerTask(imageView);
 	        task.execute(file);
 	    }

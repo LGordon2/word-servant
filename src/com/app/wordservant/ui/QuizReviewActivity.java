@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -54,7 +55,7 @@ public class QuizReviewActivity extends SherlockFragmentActivity implements Load
 			finish();
 		
 		//Pick a random card.
-		this.invalidateOptionsMenu();
+		
 
 		//Get all scriptures for the quiz.
 		mScriptureIds = new ArrayList<Integer>();
@@ -62,6 +63,7 @@ public class QuizReviewActivity extends SherlockFragmentActivity implements Load
 			mQuizData.moveToPosition(i);
 			mScriptureIds.add(mQuizData.getInt(0));
 		}
+		this.invalidateOptionsMenu();
 	}
 
 	public void onStart(){
@@ -91,7 +93,7 @@ public class QuizReviewActivity extends SherlockFragmentActivity implements Load
 		
 		//Update missed.
 		ContentValues contentValues = new ContentValues();
-
+		Intent intent;
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			// This ID represents the Home or Up button. In the case of this
@@ -100,7 +102,6 @@ public class QuizReviewActivity extends SherlockFragmentActivity implements Load
 			// more details, see the Navigation pattern on Android Design:
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		case R.id.reviewed:
@@ -150,6 +151,9 @@ public class QuizReviewActivity extends SherlockFragmentActivity implements Load
 			mCurrentScriptureId = mScriptureIds.get((int) getRandomIdIndex(mScriptureIds.size()));
 			getSupportLoaderManager().restartLoader(0, null, this);
 			this.invalidateOptionsMenu();
+		case R.id.statistics:
+			intent = new Intent(this, StatisticsActivity.class);
+			startActivity(intent);
 		}
 
 		return super.onOptionsItemSelected(item);

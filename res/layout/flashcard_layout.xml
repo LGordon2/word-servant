@@ -11,6 +11,43 @@
     android:paddingRight="20dp" >
 
     <ScrollView
+        android:id="@+id/scriptureScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:focusable="false" >
+
+        <RelativeLayout
+            android:id="@+id/scriptureLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/back_of_flashcard"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/scriptureText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/back_of_flashcard"
+                android:gravity="center"
+                android:paddingBottom="50dp"
+                android:paddingTop="50dp"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tapToFlipScripture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="Tap screen to flip card"
+                android:textColor="#7EA85F" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <ScrollView
         android:id="@+id/referenceScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -48,42 +85,6 @@
                 android:layout_centerHorizontal="true"
                 android:text="Tap screen to flip card"
                 android:textColor="#5FA889" />
-        </RelativeLayout>
-    </ScrollView>
-
-    <ScrollView
-        android:id="@+id/scriptureScroll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:focusable="false" >
-
-        <RelativeLayout
-            android:id="@+id/scriptureLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/back_of_flashcard"
-            android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/scriptureText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:gravity="center"
-                android:paddingBottom="50dp"
-                android:paddingTop="50dp"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tapToFlipScripture"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:text="Tap screen to flip card"
-                android:textColor="#7EA85F" />
         </RelativeLayout>
     </ScrollView>
 

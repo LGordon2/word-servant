@@ -7,8 +7,8 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -18,61 +18,25 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.app.wordservant.R;
 import com.app.wordservant.provider.WordServantContract;
 
-public class StatisticsActivity extends FragmentActivity{
-
-	/*public static class SelectScriptureDialog extends DialogFragment{
-
-		private SimpleCursorAdapter mAdapter;
-
-		@SuppressWarnings("deprecation")
-		public Dialog onCreateDialog(Bundle savedInstanceState){
-			String [] fromColumns = {WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE};
-			String [] projection = {
-				WordServantContract.ScriptureEntry._ID,
-				WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE
-			};
-			final Cursor c = getActivity().getContentResolver().query(WordServantContract.ScriptureEntry.CONTENT_URI, projection, null, null, null);
-			mAdapter = new SimpleCursorAdapter(getActivity(), 
-					R.layout.list_layout, c, 
-					fromColumns, 
-					new int []{R.id.list_entry});
-			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setAdapter(mAdapter, new OnClickListener(){
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
-					c.moveToPosition(which);
-
-				}
-			}).setTitle("Select scripture");
-			return builder.create();
-		}
-
-	}
-
-	public static class StatisticsFragment extends Fragment{
-
-	}*/
-
+public class StatisticsActivity extends SherlockFragmentActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_statistics);
-
-		//Select scripture dialog appears.
-		/*DialogFragment dialog = new SelectScriptureDialog();
-		dialog.show(getSupportFragmentManager(), "SelectScriptureDialog");*/
-
-		//Display content.
+		// Show the Up button in the action bar.
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
-	/*@Override
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_statistics, menu);
+		getSupportMenuInflater().inflate(R.menu.activity_statistics, menu);
 		return true;
 	}
 
@@ -91,7 +55,7 @@ public class StatisticsActivity extends FragmentActivity{
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}*/
+	}
 
 	public static class StatisticsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -106,7 +70,6 @@ public class StatisticsActivity extends FragmentActivity{
 
 		@Override
 		public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-			// TODO Auto-generated method stub
 			String [] projection = {
 					WordServantContract.ScriptureEntry._ID,
 					WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE,
@@ -142,9 +105,9 @@ public class StatisticsActivity extends FragmentActivity{
 				double totalReviewedCount = data.getInt(2)+data.getInt(3)+data.getInt(4);
 				DecimalFormat formatter = new DecimalFormat("#%");
 				String [] percents = {
-					totalReviewedCount!=0f?formatter.format(((double) data.getInt(2)/totalReviewedCount)):"0%",
-					totalReviewedCount!=0f?formatter.format(((double) data.getInt(3)/totalReviewedCount)):"0%",
-					totalReviewedCount!=0f?formatter.format(((double) data.getInt(4)/totalReviewedCount)):"0%"
+						totalReviewedCount!=0f?formatter.format(((double) data.getInt(2)/totalReviewedCount)):"0%",
+						totalReviewedCount!=0f?formatter.format(((double) data.getInt(3)/totalReviewedCount)):"0%",
+						totalReviewedCount!=0f?formatter.format(((double) data.getInt(4)/totalReviewedCount)):"0%"
 				};
 
 				correctReviewedAdapter.add(percents[0]);
@@ -155,8 +118,7 @@ public class StatisticsActivity extends FragmentActivity{
 
 		@Override
 		public void onLoaderReset(Loader<Cursor> loader) {
-			// TODO Auto-generated method stub
-
+			//Nothing to do here...
 		}
 	}
 }

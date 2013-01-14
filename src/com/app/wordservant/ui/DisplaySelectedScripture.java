@@ -10,9 +10,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Html;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -33,8 +31,8 @@ public class DisplaySelectedScripture extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_selected_scripture);
+		this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		TextView text = (TextView) findViewById(R.id.selectedScriptureText);
-		TextView referenceView = (TextView) findViewById(R.id.scriptureReference);
 
 		//Grabbing intent values..
 		if(savedInstanceState==null){
@@ -83,7 +81,7 @@ public class DisplaySelectedScripture extends SherlockActivity {
 		}
 		mScriptureText = createdScriptureText;
 		text.setText(Html.fromHtml(mScriptureText));
-		referenceView.setText(mReference);
+		getSupportActionBar().setTitle(mReference);
 	}
 
 	protected void onSaveInstanceState(Bundle outState){

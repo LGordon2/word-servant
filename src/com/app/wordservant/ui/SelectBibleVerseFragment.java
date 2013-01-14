@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,11 +17,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CheckedTextView;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -195,7 +194,8 @@ public class SelectBibleVerseFragment extends SherlockFragment{
 			}
 		}
 		intent.putExtra("bundle", bundle);
-		startActivityForResult(intent, 0);
+		startActivityForResult(intent,0);
 		return true;
 	}
+
 }

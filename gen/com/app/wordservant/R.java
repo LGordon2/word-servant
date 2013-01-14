@@ -510,30 +510,6 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int subtitleTextStyle=0x7f010001;
-        /**  Layout used to organize each tab's content. 
-         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-         */
-        public static final int tabLayout=0x7f010064;
-        /**  Determines whether the strip under the tab indicators is drawn or not. 
-         <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-         */
-        public static final int tabStripEnabled=0x7f010061;
-        /**  Drawable used to draw the left part of the strip underneath the tabs. 
-         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-         */
-        public static final int tabStripLeft=0x7f010062;
-        /**  Drawable used to draw the right part of the strip underneath the tabs. 
-         <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-         */
-        public static final int tabStripRight=0x7f010063;
         /**  Text color, typeface, size, and style for the text inside of a popup menu. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -962,48 +938,48 @@ containing a value of this type.
         public static final int abs__textfield_searchview_right_holo_light=0x7f02006f;
         public static final int activated_background_holo_dark=0x7f020070;
         public static final int back_of_flashcard=0x7f020071;
-        public static final int bigbird=0x7f020072;
-        public static final int btn_check_holo_dark=0x7f020073;
-        public static final int btn_check_off_disabled_focused_holo_dark=0x7f020074;
-        public static final int btn_check_off_disabled_holo_dark=0x7f020075;
-        public static final int btn_check_off_focused_holo_dark=0x7f020076;
-        public static final int btn_check_off_holo_dark=0x7f020077;
-        public static final int btn_check_off_pressed_holo_dark=0x7f020078;
-        public static final int btn_check_on_disabled_focused_holo_dark=0x7f020079;
-        public static final int btn_check_on_disabled_holo_dark=0x7f02007a;
-        public static final int btn_check_on_focused_holo_dark=0x7f02007b;
-        public static final int btn_check_on_holo_dark=0x7f02007c;
-        public static final int btn_check_on_pressed_holo_dark=0x7f02007d;
-        public static final int btn_default_disabled_focused_holo_dark=0x7f02007e;
-        public static final int btn_default_disabled_holo_dark=0x7f02007f;
-        public static final int btn_default_focused_holo_dark=0x7f020080;
-        public static final int btn_default_holo_dark=0x7f020081;
-        public static final int btn_default_normal_holo_dark=0x7f020082;
-        public static final int btn_default_pressed_holo_dark=0x7f020083;
-        public static final int btn_toggle_holo_dark=0x7f020084;
-        public static final int btn_toggle_off_disabled_focused_holo_dark=0x7f020085;
-        public static final int btn_toggle_off_disabled_holo_dark=0x7f020086;
-        public static final int btn_toggle_off_focused_holo_dark=0x7f020087;
-        public static final int btn_toggle_off_normal_holo_dark=0x7f020088;
-        public static final int btn_toggle_off_pressed_holo_dark=0x7f020089;
-        public static final int btn_toggle_on_disabled_focused_holo_dark=0x7f02008a;
-        public static final int btn_toggle_on_disabled_holo_dark=0x7f02008b;
-        public static final int btn_toggle_on_focused_holo_dark=0x7f02008c;
-        public static final int btn_toggle_on_normal_holo_dark=0x7f02008d;
-        public static final int btn_toggle_on_pressed_holo_dark=0x7f02008e;
-        public static final int content_event=0x7f02008f;
-        public static final int content_new=0x7f020090;
-        public static final int edit_text_holo_dark=0x7f020091;
-        public static final int fastscroll_thumb_default_holo=0x7f020092;
-        public static final int fastscroll_thumb_holo=0x7f020093;
-        public static final int fastscroll_thumb_pressed_holo=0x7f020094;
-        public static final int filestrip=0x7f020095;
-        public static final int front_of_flashcard=0x7f020096;
-        public static final int gradient_background=0x7f020097;
-        public static final int ic_home=0x7f020098;
-        public static final int ic_input_scripture=0x7f020099;
-        public static final int ic_search=0x7f02009a;
-        public static final int ic_select_scripture=0x7f02009b;
+        public static final int btn_check_holo_dark=0x7f020072;
+        public static final int btn_check_off_disabled_focused_holo_dark=0x7f020073;
+        public static final int btn_check_off_disabled_holo_dark=0x7f020074;
+        public static final int btn_check_off_focused_holo_dark=0x7f020075;
+        public static final int btn_check_off_holo_dark=0x7f020076;
+        public static final int btn_check_off_pressed_holo_dark=0x7f020077;
+        public static final int btn_check_on_disabled_focused_holo_dark=0x7f020078;
+        public static final int btn_check_on_disabled_holo_dark=0x7f020079;
+        public static final int btn_check_on_focused_holo_dark=0x7f02007a;
+        public static final int btn_check_on_holo_dark=0x7f02007b;
+        public static final int btn_check_on_pressed_holo_dark=0x7f02007c;
+        public static final int btn_default_disabled_focused_holo_dark=0x7f02007d;
+        public static final int btn_default_disabled_holo_dark=0x7f02007e;
+        public static final int btn_default_focused_holo_dark=0x7f02007f;
+        public static final int btn_default_holo_dark=0x7f020080;
+        public static final int btn_default_normal_holo_dark=0x7f020081;
+        public static final int btn_default_pressed_holo_dark=0x7f020082;
+        public static final int btn_toggle_holo_dark=0x7f020083;
+        public static final int btn_toggle_off_disabled_focused_holo_dark=0x7f020084;
+        public static final int btn_toggle_off_disabled_holo_dark=0x7f020085;
+        public static final int btn_toggle_off_focused_holo_dark=0x7f020086;
+        public static final int btn_toggle_off_normal_holo_dark=0x7f020087;
+        public static final int btn_toggle_off_pressed_holo_dark=0x7f020088;
+        public static final int btn_toggle_on_disabled_focused_holo_dark=0x7f020089;
+        public static final int btn_toggle_on_disabled_holo_dark=0x7f02008a;
+        public static final int btn_toggle_on_focused_holo_dark=0x7f02008b;
+        public static final int btn_toggle_on_normal_holo_dark=0x7f02008c;
+        public static final int btn_toggle_on_pressed_holo_dark=0x7f02008d;
+        public static final int content_event=0x7f02008e;
+        public static final int content_new=0x7f02008f;
+        public static final int edit_text_holo_dark=0x7f020090;
+        public static final int fastscroll_thumb_default_holo=0x7f020091;
+        public static final int fastscroll_thumb_holo=0x7f020092;
+        public static final int fastscroll_thumb_pressed_holo=0x7f020093;
+        public static final int filestrip=0x7f020094;
+        public static final int front_of_flashcard=0x7f020095;
+        public static final int gradient_background=0x7f020096;
+        public static final int ic_home=0x7f020097;
+        public static final int ic_input_scripture=0x7f020098;
+        public static final int ic_search=0x7f020099;
+        public static final int ic_select_scripture=0x7f02009a;
+        public static final int item_background_holo_dark=0x7f02009b;
         public static final int landing_image=0x7f02009c;
         public static final int landing_screen_button=0x7f02009d;
         public static final int landing_screen_button_default=0x7f02009e;
@@ -1015,46 +991,50 @@ containing a value of this type.
         public static final int list_selector_background_transition_holo_dark=0x7f0200a4;
         public static final int list_selector_disabled_holo_dark=0x7f0200a5;
         public static final int list_selector_holo_dark=0x7f0200a6;
-        public static final int progress_bg_holo_dark=0x7f0200a7;
-        public static final int progress_horizontal_holo_dark=0x7f0200a8;
-        public static final int progress_indeterminate_horizontal_holo_dark=0x7f0200a9;
-        public static final int progress_primary_holo=0x7f0200aa;
-        public static final int progress_secondary_holo=0x7f0200ab;
-        public static final int progressbar_indeterminate_holo1=0x7f0200ac;
-        public static final int progressbar_indeterminate_holo2=0x7f0200ad;
-        public static final int progressbar_indeterminate_holo3=0x7f0200ae;
-        public static final int progressbar_indeterminate_holo4=0x7f0200af;
-        public static final int progressbar_indeterminate_holo5=0x7f0200b0;
-        public static final int progressbar_indeterminate_holo6=0x7f0200b1;
-        public static final int progressbar_indeterminate_holo7=0x7f0200b2;
-        public static final int progressbar_indeterminate_holo8=0x7f0200b3;
-        public static final int scrubber_control_disabled_holo=0x7f0200b4;
-        public static final int scrubber_control_focused_holo=0x7f0200b5;
-        public static final int scrubber_control_normal_holo=0x7f0200b6;
-        public static final int scrubber_control_pressed_holo=0x7f0200b7;
-        public static final int scrubber_control_selector_holo_dark=0x7f0200b8;
-        public static final int scrubber_primary_holo=0x7f0200b9;
-        public static final int scrubber_progress_horizontal_holo_dark=0x7f0200ba;
-        public static final int scrubber_secondary_holo=0x7f0200bb;
-        public static final int scrubber_track_holo_dark=0x7f0200bc;
-        public static final int tab_indicator_holo=0x7f0200bd;
-        public static final int tab_selected_focused_holo=0x7f0200be;
-        public static final int tab_selected_holo=0x7f0200bf;
-        public static final int tab_selected_pressed_holo=0x7f0200c0;
-        public static final int tab_unselected_focused_holo=0x7f0200c1;
-        public static final int tab_unselected_holo=0x7f0200c2;
-        public static final int tab_unselected_pressed_holo=0x7f0200c3;
-        public static final int textfield_activated_holo_dark=0x7f0200c4;
-        public static final int textfield_default_holo_dark=0x7f0200c5;
-        public static final int textfield_disabled_focused_holo_dark=0x7f0200c6;
-        public static final int textfield_disabled_holo_dark=0x7f0200c7;
-        public static final int textfield_focused_holo_dark=0x7f0200c8;
-        public static final int word_servant_icon_new=0x7f0200c9;
+        public static final int menuitem_background=0x7f0200a7;
+        public static final int menuitem_background_focus=0x7f0200a8;
+        public static final int menuitem_background_pressed=0x7f0200a9;
+        public static final int progress_bg_holo_dark=0x7f0200aa;
+        public static final int progress_horizontal_holo_dark=0x7f0200ab;
+        public static final int progress_indeterminate_horizontal_holo_dark=0x7f0200ac;
+        public static final int progress_primary_holo=0x7f0200ad;
+        public static final int progress_secondary_holo=0x7f0200ae;
+        public static final int progressbar_indeterminate_holo1=0x7f0200af;
+        public static final int progressbar_indeterminate_holo2=0x7f0200b0;
+        public static final int progressbar_indeterminate_holo3=0x7f0200b1;
+        public static final int progressbar_indeterminate_holo4=0x7f0200b2;
+        public static final int progressbar_indeterminate_holo5=0x7f0200b3;
+        public static final int progressbar_indeterminate_holo6=0x7f0200b4;
+        public static final int progressbar_indeterminate_holo7=0x7f0200b5;
+        public static final int progressbar_indeterminate_holo8=0x7f0200b6;
+        public static final int scrubber_control_disabled_holo=0x7f0200b7;
+        public static final int scrubber_control_focused_holo=0x7f0200b8;
+        public static final int scrubber_control_normal_holo=0x7f0200b9;
+        public static final int scrubber_control_pressed_holo=0x7f0200ba;
+        public static final int scrubber_control_selector_holo_dark=0x7f0200bb;
+        public static final int scrubber_primary_holo=0x7f0200bc;
+        public static final int scrubber_progress_horizontal_holo_dark=0x7f0200bd;
+        public static final int scrubber_secondary_holo=0x7f0200be;
+        public static final int scrubber_track_holo_dark=0x7f0200bf;
+        public static final int tab_indicator_ab_holo=0x7f0200c0;
+        public static final int tab_indicator_holo=0x7f0200c1;
+        public static final int tab_selected_focused_holo=0x7f0200c2;
+        public static final int tab_selected_holo=0x7f0200c3;
+        public static final int tab_selected_pressed_holo=0x7f0200c4;
+        public static final int tab_unselected_focused_holo=0x7f0200c5;
+        public static final int tab_unselected_holo=0x7f0200c6;
+        public static final int tab_unselected_pressed_holo=0x7f0200c7;
+        public static final int textfield_activated_holo_dark=0x7f0200c8;
+        public static final int textfield_default_holo_dark=0x7f0200c9;
+        public static final int textfield_disabled_focused_holo_dark=0x7f0200ca;
+        public static final int textfield_disabled_holo_dark=0x7f0200cb;
+        public static final int textfield_focused_holo_dark=0x7f0200cc;
+        public static final int word_servant_icon_new=0x7f0200cd;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f060073;
-        public static final int RelativeLayout1=0x7f06003a;
-        public static final int ScrollView1=0x7f060035;
+        public static final int RelativeLayout1=0x7f060038;
+        public static final int ScrollView1=0x7f060033;
         public static final int TextView01=0x7f06007e;
         public static final int TextView02=0x7f060078;
         public static final int TextView03=0x7f06007c;
@@ -1100,8 +1080,7 @@ containing a value of this type.
         public static final int abs__up=0x7f06000b;
         public static final int add=0x7f060080;
         public static final int addNewTag=0x7f060074;
-        public static final int addSelectedScripture=0x7f060036;
-        public static final int addTagButton=0x7f06003c;
+        public static final int addTagButton=0x7f06003a;
         public static final int button1=0x7f060075;
         public static final int buttons=0x7f060057;
         public static final int cardSwitcher=0x7f06004d;
@@ -1113,62 +1092,65 @@ containing a value of this type.
         public static final int dueTodayScriptureReference=0x7f060063;
         public static final int dueTodayTags=0x7f060062;
         public static final int edit_query=0x7f060027;
-        public static final int fragment1=0x7f060044;
-        public static final int fragmentHolder=0x7f060042;
-        public static final int frags=0x7f060040;
+        public static final int fragment1=0x7f060045;
+        public static final int fragmentHolder=0x7f060040;
+        public static final int frags=0x7f06003e;
         public static final int gallery1=0x7f060064;
-        public static final int galleryLayout=0x7f06005f;
+        public static final int galleryLayout=0x7f06005e;
         public static final int gridView1=0x7f06006b;
         public static final int gridView2=0x7f06006d;
-        public static final int help=0x7f06008d;
+        public static final int help=0x7f06008e;
         public static final int homeAsUp=0x7f060006;
         public static final int imageView1=0x7f060058;
         public static final int inputScripture=0x7f060088;
         public static final int listMode=0x7f060002;
         public static final int listView1=0x7f060068;
         public static final int list_entry=0x7f060076;
-        public static final int list_frag=0x7f060038;
+        public static final int list_frag=0x7f060035;
         public static final int loadingCircle=0x7f060056;
         public static final int loadingText=0x7f060069;
-        public static final int mainImage=0x7f06005e;
+        public static final int mainImage=0x7f060061;
         public static final int menu_settings=0x7f060081;
         public static final int missed=0x7f060084;
         public static final int missedCount=0x7f06007d;
         public static final int noEditLayout=0x7f06005d;
         public static final int normal=0x7f060001;
+        public static final int nothingToReview=0x7f060041;
+        public static final int nothingToReviewText=0x7f060042;
         public static final int onOffButton=0x7f060071;
-        public static final int preview=0x7f06008b;
+        public static final int preview=0x7f06008c;
         public static final int progressBar1=0x7f060067;
         public static final int quizReview=0x7f06005b;
-        public static final int quizReviewFragment=0x7f06003f;
-        public static final int realtabcontent=0x7f060045;
+        public static final int quizReviewFragment=0x7f06003d;
+        public static final int realtabcontent=0x7f060044;
         public static final int reference=0x7f060079;
-        public static final int referenceLayout=0x7f06004f;
-        public static final int referenceScroll=0x7f06004e;
-        public static final int referenceText=0x7f060050;
-        public static final int refresh=0x7f06008c;
+        public static final int referenceLayout=0x7f060052;
+        public static final int referenceScroll=0x7f060051;
+        public static final int referenceText=0x7f060053;
+        public static final int refresh=0x7f06008d;
         public static final int removeButton=0x7f06006f;
+        public static final int rereviewButton=0x7f060043;
+        public static final int reviewButtons=0x7f06008b;
         public static final int reviewed=0x7f060083;
         public static final int reviewedCount=0x7f06007b;
         public static final int reviewedTextEdit=0x7f06007a;
         public static final int scriptureBank=0x7f06005a;
-        public static final int scriptureBankFragment=0x7f060041;
-        public static final int scriptureLayout=0x7f060054;
-        public static final int scriptureReference=0x7f060033;
-        public static final int scriptureReviewLayout=0x7f06003e;
-        public static final int scriptureScroll=0x7f060053;
-        public static final int scriptureTags=0x7f060051;
-        public static final int scriptureText=0x7f060039;
-        public static final int scriptureTextScroll=0x7f060061;
-        public static final int scrollView=0x7f06003b;
-        public static final int search=0x7f06008e;
+        public static final int scriptureBankFragment=0x7f06003f;
+        public static final int scriptureLayout=0x7f06004f;
+        public static final int scriptureReference=0x7f060036;
+        public static final int scriptureReviewLayout=0x7f06003c;
+        public static final int scriptureScroll=0x7f06004e;
+        public static final int scriptureTags=0x7f060054;
+        public static final int scriptureText=0x7f060037;
+        public static final int scriptureTextScroll=0x7f060060;
+        public static final int scrollView=0x7f060039;
+        public static final int search=0x7f06008f;
         public static final int seekBarPrefBarContainer=0x7f06004c;
         public static final int seekBarPrefUnitsLeft=0x7f06004b;
         public static final int seekBarPrefUnitsRight=0x7f060049;
         public static final int seekBarPrefValue=0x7f06004a;
         public static final int selectScripture=0x7f060089;
-        public static final int selectedScriptureTags=0x7f060034;
-        public static final int selectedScriptureText=0x7f060037;
+        public static final int selectedScriptureText=0x7f060034;
         public static final int settings=0x7f060087;
         public static final int showCustom=0x7f060008;
         public static final int showHome=0x7f060005;
@@ -1182,16 +1164,15 @@ containing a value of this type.
         public static final int tab3=0x7f06006c;
         public static final int tabMode=0x7f060003;
         public static final int tabhost=0x7f060065;
-        public static final int tagLayout=0x7f06003d;
+        public static final int tagLayout=0x7f06003b;
         public static final int tagList=0x7f060072;
         public static final int tagText=0x7f060077;
         public static final int tagTextField=0x7f060070;
-        public static final int takePictureButton=0x7f060060;
-        public static final int tapToFlipReference=0x7f060052;
-        public static final int tapToFlipScripture=0x7f060055;
+        public static final int takePictureButton=0x7f06005f;
+        public static final int tapToFlipReference=0x7f060055;
+        public static final int tapToFlipScripture=0x7f060050;
         public static final int test=0x7f060046;
         public static final int textView1=0x7f060048;
-        public static final int todaysDate=0x7f060043;
         public static final int todaysMemoryVerses=0x7f060059;
         public static final int useLogo=0x7f060004;
         public static final int wrap_content=0x7f060000;
@@ -1259,7 +1240,6 @@ containing a value of this type.
         public static final int sherlock_spinner_item=0x7f030038;
         public static final int small_list_layout=0x7f030039;
         public static final int statistics_fragment=0x7f03003a;
-        public static final int tab_indicator_holo=0x7f03003b;
     }
     public static final class menu {
         public static final int activity_display_selected_scripture=0x7f0e0000;
@@ -1326,7 +1306,6 @@ containing a value of this type.
         public static final int date_format=0x7f0b001f;
         public static final int done_button_text=0x7f0b001b;
         public static final int got_it_button_text=0x7f0b001c;
-        public static final int hello_world=0x7f0b0022;
         public static final int input_scripture_button_text=0x7f0b0013;
         public static final int menu_settings=0x7f0b000f;
         public static final int next_button_text=0x7f0b001d;
@@ -1339,9 +1318,10 @@ containing a value of this type.
         public static final int title_activity_main=0x7f0b0010;
         public static final int title_activity_quiz_review=0x7f0b0021;
         public static final int title_activity_scripture_bank=0x7f0b0012;
+        public static final int title_activity_scripture_review=0x7f0b0023;
         public static final int title_activity_select_scripture=0x7f0b001e;
         public static final int title_activity_settings=0x7f0b0011;
-        public static final int title_activity_statistics=0x7f0b0023;
+        public static final int title_activity_statistics=0x7f0b0022;
         public static final int title_activity_todays_memory_verses=0x7f0b0016;
     }
     public static final class style {
@@ -1370,7 +1350,8 @@ containing a value of this type.
         public static final int Sherlock___Widget_Holo_Spinner=0x7f0c0023;
         public static final int Sherlock___Widget_SearchAutoCompleteTextView=0x7f0c0033;
         public static final int SpinnerItemWordServantTheme=0x7f0c0062;
-        public static final int TabWordServantTheme=0x7f0c0065;
+        public static final int TabWidgetWordServantTheme=0x7f0c0065;
+        public static final int TabWordServantTheme=0x7f0c0066;
         public static final int TextAppearance_Sherlock_DialogWindowTitle=0x7f0c0048;
         public static final int TextAppearance_Sherlock_Light_DialogWindowTitle=0x7f0c0049;
         public static final int TextAppearance_Sherlock_Light_Small=0x7f0c004c;
@@ -1401,8 +1382,6 @@ containing a value of this type.
         public static final int Theme_Sherlock_NoActionBar=0x7f0c0055;
         public static final int ToggleWordServantTheme=0x7f0c005f;
         public static final int Widget=0x7f0c0000;
-        public static final int Widget_Holo_TabText=0x7f0c0068;
-        public static final int Widget_Holo_TabWidget=0x7f0c0066;
         public static final int Widget_Sherlock_ActionBar=0x7f0c0002;
         public static final int Widget_Sherlock_ActionBar_Solid=0x7f0c0003;
         public static final int Widget_Sherlock_ActionBar_TabBar=0x7f0c000a;
@@ -1449,8 +1428,6 @@ containing a value of this type.
         public static final int Widget_Sherlock_SearchAutoCompleteTextView=0x7f0c0034;
         public static final int Widget_Sherlock_Spinner_DropDown_ActionBar=0x7f0c0024;
         public static final int Widget_Sherlock_TextView_SpinnerItem=0x7f0c0032;
-        /**  <item name="android:tabWidgetStyle">@style/TabWordServantTheme</item> 
-         */
         public static final int WordServantTheme=0x7f0c0067;
     }
     public static final class styleable {
@@ -3585,91 +3562,5 @@ containing a value of this type.
           @attr name android:android_focusable
         */
         public static final int SherlockView_android_focusable = 0;
-        /** Attributes that can be used with a TabWidget.
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #TabWidget_divider com.app.wordservant:divider}</code></td><td> Drawable used to draw the divider between tabs.</td></tr>
-           <tr><td><code>{@link #TabWidget_tabLayout com.app.wordservant:tabLayout}</code></td><td> Layout used to organize each tab's content.</td></tr>
-           <tr><td><code>{@link #TabWidget_tabStripEnabled com.app.wordservant:tabStripEnabled}</code></td><td> Determines whether the strip under the tab indicators is drawn or not.</td></tr>
-           <tr><td><code>{@link #TabWidget_tabStripLeft com.app.wordservant:tabStripLeft}</code></td><td> Drawable used to draw the left part of the strip underneath the tabs.</td></tr>
-           <tr><td><code>{@link #TabWidget_tabStripRight com.app.wordservant:tabStripRight}</code></td><td> Drawable used to draw the right part of the strip underneath the tabs.</td></tr>
-           </table>
-           @see #TabWidget_divider
-           @see #TabWidget_tabLayout
-           @see #TabWidget_tabStripEnabled
-           @see #TabWidget_tabStripLeft
-           @see #TabWidget_tabStripRight
-         */
-        public static final int[] TabWidget = {
-            0x7f010005, 0x7f010061, 0x7f010062, 0x7f010063,
-            0x7f010064
-        };
-        /**
-          <p>
-          @attr description
-           Drawable used to draw the divider between tabs. 
-
-
-          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          <p>This is a private symbol.
-          @attr name android:divider
-        */
-        public static final int TabWidget_divider = 0;
-        /**
-          <p>
-          @attr description
-           Layout used to organize each tab's content. 
-
-
-          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          <p>This is a private symbol.
-          @attr name android:tabLayout
-        */
-        public static final int TabWidget_tabLayout = 4;
-        /**
-          <p>
-          @attr description
-           Determines whether the strip under the tab indicators is drawn or not. 
-
-
-          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>This may also be a reference to a resource (in the form
-"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
-theme attribute (in the form
-"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
-containing a value of this type.
-          <p>This is a private symbol.
-          @attr name android:tabStripEnabled
-        */
-        public static final int TabWidget_tabStripEnabled = 1;
-        /**
-          <p>
-          @attr description
-           Drawable used to draw the left part of the strip underneath the tabs. 
-
-
-          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          <p>This is a private symbol.
-          @attr name android:tabStripLeft
-        */
-        public static final int TabWidget_tabStripLeft = 2;
-        /**
-          <p>
-          @attr description
-           Drawable used to draw the right part of the strip underneath the tabs. 
-
-
-          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          <p>This is a private symbol.
-          @attr name android:tabStripRight
-        */
-        public static final int TabWidget_tabStripRight = 3;
     };
 }
