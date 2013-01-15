@@ -15,23 +15,23 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.app.wordservant.R;
 
 public class FlashcardFragment extends SherlockFragment implements ReviewFragment{
-	
+
 	private TextView mScriptureTextField;
 	private TextView mScriptureReferenceField;
-	private boolean referenceOnFront;
-	
+
 	public void onActivityCreated (Bundle savedInstanceState){
 		super.onActivityCreated(savedInstanceState);
 	}
-	
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 		return inflater.inflate(R.layout.flashcard_layout, null);
 	}
-	
+
 	public void onViewCreated(View view, Bundle savedInstanceState){
 		super.onViewCreated(view, savedInstanceState);
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		referenceOnFront = sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture") ? false : true;
+		boolean referenceOnFront = sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture") ? false : true;
+		//Set up click events, as well as fields.
 		//Set up click events, as well as fields.
 		final ViewSwitcher cardFlipper = (ViewSwitcher) getView().findViewById(R.id.cardSwitcher);
 		OnClickListener flipViewListener = new OnClickListener(){
@@ -45,10 +45,12 @@ public class FlashcardFragment extends SherlockFragment implements ReviewFragmen
 			}
 		};
 		RelativeLayout referenceLayout = (RelativeLayout) getView().findViewById(R.id.referenceLayout);
+		TextView scriptureText = (TextView) getView().findViewById(R.id.scriptureText);
+		referenceLayout.setOnClickListener(flipViewListener);
+		scriptureText.setOnClickListener(flipViewListener);
+
 		mScriptureReferenceField = (TextView) getView().findViewById(R.id.referenceText);
 		mScriptureTextField = (TextView) getView().findViewById(R.id.scriptureText);
-		referenceLayout.setOnClickListener(flipViewListener);
-		mScriptureTextField.setOnClickListener(flipViewListener);
 
 		//Set up coloring.
 		//Define the front and back of the cards.
@@ -56,7 +58,7 @@ public class FlashcardFragment extends SherlockFragment implements ReviewFragmen
 		RelativeLayout frontCard;
 		RelativeLayout backCard;
 
-		if(!referenceOnFront){
+		if(sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture")){
 			cardFlipper.setDisplayedChild(1);
 			frontCard = (RelativeLayout) cardFlipper.findViewById(R.id.scriptureLayout);
 			backCard = (RelativeLayout) cardFlipper.findViewById(R.id.referenceLayout);
