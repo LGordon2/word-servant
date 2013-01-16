@@ -4,78 +4,37 @@
     android:id="@+id/noEditLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical" >
-
-    <LinearLayout
-        android:id="@+id/galleryLayout"
-        android:layout_width="match_parent"
-        android:layout_height="74dp"
-        android:dividerPadding="20dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:showDividers="end" >
-
-        <ImageButton
-            android:id="@+id/takePictureButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_camera" />
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:src="@drawable/filestrip" />
-
-    </LinearLayout>
-
-    <ScrollView
-        android:id="@+id/scriptureTextScroll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/galleryLayout" >
-
-        <TextView
-            android:id="@+id/scriptureText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:gravity="top"
-            android:hint="@string/scripture_text_text_field_hint"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:scrollbars="vertical"
-            android:text=" This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test. This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test. This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test.This is a test. This is a test. This is a test."
-            android:textSize="15sp" />
-    </ScrollView>
-
-    <TextView
-        android:id="@+id/scriptureTags"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/mainImage"
-        android:layout_alignLeft="@+id/referenceText"
-        android:layout_alignParentRight="true"
-        android:ems="10"
-        android:hint="@string/category_text_field_hint"
-        android:paddingLeft="5dp"
-        android:text="Tag"
-        android:textColor="#C894D1"
-        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/referenceText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/scriptureTags"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/mainImage"
-        android:ems="10"
-        android:gravity="bottom"
-        android:hint="@string/scripture_reference_text_field_hint"
-        android:paddingLeft="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
         android:text="Genesis 1:1"
-        android:textSize="26sp" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ScrollView
+        android:id="@+id/scriptureScroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/referenceText"
+        android:layout_centerHorizontal="true" >
+
+        <TextView
+            android:id="@+id/scriptureText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="@string/scripture_text_text_field_hint"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:scrollbars="vertical"
+            android:text="This is a test"
+            android:textSize="15sp" />
+
+    </ScrollView>
 
 </RelativeLayout>

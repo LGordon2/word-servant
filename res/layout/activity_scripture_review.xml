@@ -4,32 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <RelativeLayout
-        android:id="@+id/nothingToReview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone" >
-
-        <TextView
-            android:id="@+id/nothingToReviewText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nothing to review"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <Button
-            android:id="@+id/rereviewButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/nothingToReviewText"
-            android:layout_centerHorizontal="true"
-            android:text="Rereview" />
-    </RelativeLayout>
-
     <FrameLayout
-        android:id="@id/fragmentHolder"
+        android:id="@+id/fragmentHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </FrameLayout>

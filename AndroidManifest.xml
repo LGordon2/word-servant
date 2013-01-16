@@ -15,9 +15,10 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@drawable/word_servant_icon_new"
         android:label="@string/title_activity_main"
-        android:theme="@style/WordServantTheme" android:hardwareAccelerated="false">
+        android:theme="@style/WordServantTheme" >
         <activity
             android:name="com.app.wordservant.ui.LandingScreen"
             android:theme="@android:style/Theme.NoTitleBar" >
@@ -58,7 +59,7 @@
                 android:value="com.app.wordservant.LandingScreen" />
         </activity>
         <activity
-            android:name=".ui.DisplaySelectedScripture"
+            android:name="com.app.wordservant.ui.DisplaySelectedScripture"
             android:label="@string/title_activity_display_selected_scripture"
             android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
@@ -66,7 +67,7 @@
                 android:value=".ui.ScriptureBankActivity" />
         </activity>
         <activity
-            android:name=".ui.QuizReviewActivity"
+            android:name="com.app.wordservant.ui.QuizReviewActivity"
             android:label="@string/title_activity_quiz_review"
             android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
@@ -74,7 +75,7 @@
                 android:value=".ui.LandingScreen" />
         </activity>
         <activity
-            android:name=".ui.ScriptureReview"
+            android:name="com.app.wordservant.ui.ScriptureReview"
             android:label="@string/title_activity_scripture_review"
             android:parentActivityName="android.support.v4.app.FragmentActivity"
             android:uiOptions="splitActionBarWhenNarrow" >
@@ -83,7 +84,7 @@
                 android:value=".ui.LandingScreen" />
         </activity>
         <activity
-            android:name=".ui.StatisticsActivity"
+            android:name="com.app.wordservant.ui.StatisticsActivity"
             android:label="@string/title_activity_statistics"
             android:parentActivityName=".ui.QuizReviewActivity" >
             <meta-data
@@ -91,7 +92,7 @@
                 android:value=".ui.QuizReviewActivity" />
         </activity>
         <activity
-            android:name=".ui.ScriptureBankActivity"
+            android:name="com.app.wordservant.ui.ScriptureBankActivity"
             android:label="@string/title_activity_scripture_bank"
             android:parentActivityName="android.support.v4.app.FragmentActivity"
             android:uiOptions="splitActionBarWhenNarrow" >
@@ -100,7 +101,7 @@
                 android:value=".ui.LandingScreen" />
         </activity>
         <activity
-            android:name=".ui.SelectScriptureFragmentActivity"
+            android:name="com.app.wordservant.ui.SelectScriptureFragmentActivity"
             android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -123,6 +124,15 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".ui.DueTodayNoScriptures"
+            android:label="@string/title_activity_due_today_no_scriptures"
+            android:parentActivityName="com.app.wordservant.ui.LandingScreen" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.app.wordservant.ui.LandingScreen" />
+        </activity>
     </application>
 
 </manifest>

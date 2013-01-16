@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,12 +23,16 @@ import android.support.v4.content.Loader;
 import android.text.Html;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ScrollView;
+import android.widget.ViewSwitcher;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.app.wordservant.R;
 import com.app.wordservant.provider.WordServantContract;
+import com.app.wordservant.ui.RereviewScriptureDialogFragment.DialogListener;
 
 public class ScriptureReview extends SherlockFragmentActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
@@ -40,27 +45,31 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 		setContentView(R.layout.activity_scripture_review);
 		Calendar currentCalendar = Calendar.getInstance();
 		getSupportActionBar().setSubtitle(DateFormat.format("EEEE, MMMM dd, yyyy", currentCalendar));
-		//((TextView) this.findViewById(R.id.todaysDate)).setText(DateFormat.format("EEEE, MMMM dd, yyyy", currentCalendar));
-		mUnreviewedScriptureIds = new ArrayList<Integer>();
-		mCurrentIdPosition = 0;
 
-		String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID};
-		Cursor mUnreviewedScriptureQuery = new CursorLoader(this, WordServantContract.ScriptureEntry.CONTENT_URI, columnsToRetrieve, 
-				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now','localtime')", null, null).loadInBackground();
+		if(savedInstanceState==null){
+			//((TextView) this.findViewById(R.id.todaysDate)).setText(DateFormat.format("EEEE, MMMM dd, yyyy", currentCalendar));
+			mUnreviewedScriptureIds = getIntent().getIntegerArrayListExtra("unreviewedScriptureIds");
+			String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID};
+			Cursor mUnreviewedScriptureQuery = new CursorLoader(this, WordServantContract.ScriptureEntry.CONTENT_URI, columnsToRetrieve, 
+					WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now','localtime')", null, null).loadInBackground();
 
-		for(int i=0;i<mUnreviewedScriptureQuery.getCount();i++){
-			mUnreviewedScriptureQuery.moveToPosition(i);
-			mUnreviewedScriptureIds.add(mUnreviewedScriptureQuery.getInt(0));
+			for(int i=0;i<mUnreviewedScriptureQuery.getCount();i++){
+				mUnreviewedScriptureQuery.moveToPosition(i);
+				mUnreviewedScriptureIds.add(mUnreviewedScriptureQuery.getInt(0));
+			}
+			mCurrentIdPosition = 0;
+		}else{
+			mUnreviewedScriptureIds = savedInstanceState.getIntegerArrayList("unreviewedScriptureIds");
+			mCurrentIdPosition = savedInstanceState.getInt("currentPos",0);
 		}
+		
 		this.invalidateOptionsMenu();
 	}
 
 	public void onStart(){
 		super.onStart();
-
 		if(mUnreviewedScriptureIds.size()==0){
-			this.findViewById(R.id.nothingToReview).setVisibility(View.VISIBLE);
-			return;
+			finish();
 		}
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -124,12 +133,12 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 
 			mUnreviewedScriptureIds.remove(mCurrentIdPosition);
 			if(mUnreviewedScriptureIds.size()==0){
-				this.findViewById(R.id.nothingToReview).setVisibility(View.VISIBLE);
-				this.findViewById(R.id.fragmentHolder).setVisibility(View.GONE);
-				this.invalidateOptionsMenu();
+				finish();
 				return true;
 			}
 			mCurrentIdPosition = mCurrentIdPosition < mUnreviewedScriptureIds.size() ? mCurrentIdPosition : 0;
+			getSupportLoaderManager().restartLoader(CURRENT_SCRIPTURE_QUERY, null, this);
+			this.invalidateOptionsMenu();
 			break;
 		case R.id.skip:
 			mCurrentIdPosition = mCurrentIdPosition+1 < mUnreviewedScriptureIds.size() ? mCurrentIdPosition+1 : 0;
@@ -162,22 +171,32 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 				Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(mUnreviewedScriptureIds.get(mCurrentIdPosition))), 
 				columnsToRetrieve, 
 				null, null, null);
+
 	}
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		// TODO Auto-generated method stub
-		if(loader.getId() == CURRENT_SCRIPTURE_QUERY){
-			data.moveToFirst();
-			FragmentManager fragmentManager = getSupportFragmentManager();
-			((ReviewFragment) fragmentManager.findFragmentById(R.id.fragmentHolder)).setScriptureReference(data.getString(1));
-			((ReviewFragment) fragmentManager.findFragmentById(R.id.fragmentHolder)).setScriptureText(Html.fromHtml(data.getString(2)));
-		}
+		data.moveToFirst();
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		if((ViewSwitcher) fragmentManager.findFragmentById(R.id.fragmentHolder).getView().findViewById(R.id.cardSwitcher)!=null)
+			((ViewSwitcher) fragmentManager.findFragmentById(R.id.fragmentHolder).getView().findViewById(R.id.cardSwitcher)).setDisplayedChild(0);
+		((ScrollView) fragmentManager.findFragmentById(R.id.fragmentHolder).getView().findViewById(R.id.scriptureScroll)).scrollTo(0,0);
+		((ReviewFragment) fragmentManager.findFragmentById(R.id.fragmentHolder)).setScriptureReference(data.getString(1));
+		((ReviewFragment) fragmentManager.findFragmentById(R.id.fragmentHolder)).setScriptureText(Html.fromHtml(data.getString(2)));
 	}
 
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public void onSaveInstanceState(Bundle outState){
+		super.onSaveInstanceState(outState);
+		if(outState==null)
+			outState = new Bundle();
+		outState.putIntegerArrayList("unreviewedScriptureIds", mUnreviewedScriptureIds);
+		outState.putInt("currentPos", mCurrentIdPosition);
 	}
 }
