@@ -61,7 +61,7 @@
         <RelativeLayout
             android:id="@+id/scriptureLayout"
             android:layout_width="match_parent"
-            android:layout_height="404dp"
+            android:layout_height="match_parent"
             android:background="@drawable/back_of_flashcard"
             android:orientation="vertical" >
 
@@ -69,7 +69,6 @@
                 android:id="@+id/scriptureText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentBottom="true"
                 android:layout_below="@+id/tapToFlipScripture"
                 android:gravity="center"
                 android:paddingBottom="50dp"
