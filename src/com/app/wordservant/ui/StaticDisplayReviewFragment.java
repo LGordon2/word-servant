@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
@@ -86,5 +87,11 @@ public class StaticDisplayReviewFragment extends SherlockFragment implements Rev
 	public CharSequence getScriptureText() {
 		// TODO Auto-generated method stub
 		return mScriptureTextField.getText();
+	}
+
+	@Override
+	public void resetView() {
+		// TODO Auto-generated method stub
+		((ScrollView) getView().findViewById(R.id.scriptureScroll)).scrollTo(0,0);
 	}
 }

@@ -18,6 +18,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.Html;
@@ -43,11 +44,13 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_scripture_review);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		//Set up the title bar.
 		Calendar currentCalendar = Calendar.getInstance();
 		getSupportActionBar().setSubtitle(DateFormat.format("EEEE, MMMM dd, yyyy", currentCalendar));
-
+		
+		//Get all the unreviewed scripture ids.
 		if(savedInstanceState==null){
-			//((TextView) this.findViewById(R.id.todaysDate)).setText(DateFormat.format("EEEE, MMMM dd, yyyy", currentCalendar));
 			mUnreviewedScriptureIds = getIntent().getIntegerArrayListExtra("unreviewedScriptureIds");
 			String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID};
 			Cursor mUnreviewedScriptureQuery = new CursorLoader(this, WordServantContract.ScriptureEntry.CONTENT_URI, columnsToRetrieve, 
@@ -63,14 +66,17 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 			mCurrentIdPosition = savedInstanceState.getInt("currentPos",0);
 		}
 		
+		//If we have no unreviewed scripture ids, exit.
+		if(mUnreviewedScriptureIds.size()==0){
+			Intent intent = new Intent(this, DueTodayNoScriptures.class);
+			startActivity(intent);
+			finish();
+		}
 		this.invalidateOptionsMenu();
 	}
 
 	public void onStart(){
 		super.onStart();
-		if(mUnreviewedScriptureIds.size()==0){
-			finish();
-		}
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		Fragment fragment = null;
@@ -98,9 +104,6 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 	public boolean onPrepareOptionsMenu (Menu menu){
 		if(mUnreviewedScriptureIds.size()==1){
 			menu.findItem(R.id.skip).setEnabled(false);
-		}else if(mUnreviewedScriptureIds.size()==0){
-			menu.setGroupVisible(R.id.reviewButtons, false);
-			menu.findItem(R.id.settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 		}
 		return true;
 	}
@@ -110,6 +113,9 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 		// Handle item selection
 		Intent intent;
 		switch (item.getItemId()) {
+		case android.R.id.home:
+			NavUtils.navigateUpFromSameTask(this);
+			break;
 		case R.id.reviewed:
 			String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID,
 					WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
@@ -133,6 +139,8 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 
 			mUnreviewedScriptureIds.remove(mCurrentIdPosition);
 			if(mUnreviewedScriptureIds.size()==0){
+				intent = new Intent(this, DueTodayNoScriptures.class);
+				startActivity(intent);
 				finish();
 				return true;
 			}
@@ -146,7 +154,7 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 			break;
 		case R.id.settings:
 			intent = new Intent(this, Settings.class);
-			startActivityForResult(intent, 10);
+			startActivity(intent);
 			break;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -179,9 +187,7 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 		// TODO Auto-generated method stub
 		data.moveToFirst();
 		FragmentManager fragmentManager = getSupportFragmentManager();
-		if((ViewSwitcher) fragmentManager.findFragmentById(R.id.fragmentHolder).getView().findViewById(R.id.cardSwitcher)!=null)
-			((ViewSwitcher) fragmentManager.findFragmentById(R.id.fragmentHolder).getView().findViewById(R.id.cardSwitcher)).setDisplayedChild(0);
-		((ScrollView) fragmentManager.findFragmentById(R.id.fragmentHolder).getView().findViewById(R.id.scriptureScroll)).scrollTo(0,0);
+		((ReviewFragment) fragmentManager.findFragmentById(R.id.fragmentHolder)).resetView();
 		((ReviewFragment) fragmentManager.findFragmentById(R.id.fragmentHolder)).setScriptureReference(data.getString(1));
 		((ReviewFragment) fragmentManager.findFragmentById(R.id.fragmentHolder)).setScriptureText(Html.fromHtml(data.getString(2)));
 	}

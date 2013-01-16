@@ -1,5 +1,6 @@
 package com.app.wordservant.ui;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -80,7 +81,8 @@ public class LandingScreen extends Activity{
 			@Override
 			public void onClick(View v) {
 				// Starts a new Today's Memory Verses activity.
-				Intent intent = new Intent(LandingScreen.this,DueTodayNoScriptures.class);
+				Intent intent = new Intent(LandingScreen.this,ScriptureReview.class);
+				intent.putIntegerArrayListExtra("unreviewedScriptureIds", new ArrayList<Integer>());
 				Toast.makeText(LandingScreen.this, R.string.title_activity_todays_memory_verses, Toast.LENGTH_SHORT).show();
 				startActivity(intent);
 			}

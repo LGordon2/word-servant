@@ -32,16 +32,6 @@ public class DueTodayNoScriptures extends SherlockFragmentActivity implements Di
 		Calendar currentCalendar = Calendar.getInstance();
 		getSupportActionBar().setSubtitle(DateFormat.format("EEEE, MMMM dd, yyyy", currentCalendar));
 		
-		//If there are scriptures to review go right to the review screen.
-		String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID};
-		Cursor mUnreviewedScriptureQuery = new CursorLoader(this, WordServantContract.ScriptureEntry.CONTENT_URI, columnsToRetrieve, 
-				WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now','localtime')", null, null).loadInBackground();
-		if(mUnreviewedScriptureQuery.getCount()>0){
-			Intent intent = new Intent(this, ScriptureReview.class);
-			intent.putIntegerArrayListExtra("unreviewedScriptureIds", new ArrayList<Integer>());
-			startActivityForResult(intent, 0);
-		}
-		
 		//Set up rereview button.
 		this.findViewById(R.id.rereviewButton).setOnClickListener(new OnClickListener(){
 
@@ -90,7 +80,8 @@ public class DueTodayNoScriptures extends SherlockFragmentActivity implements Di
 		}
 		Intent intent = new Intent(this, ScriptureReview.class);
 		intent.putIntegerArrayListExtra("unreviewedScriptureIds", unreviewedScriptureIds);
-		startActivityForResult(intent, 0);
+		startActivity(intent);
+		finish();
 	}
 
 }

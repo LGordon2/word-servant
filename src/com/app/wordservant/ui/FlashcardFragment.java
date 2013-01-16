@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
@@ -84,6 +85,18 @@ public class FlashcardFragment extends SherlockFragment implements ReviewFragmen
 		}
 	}
 
+	public void resetView(){
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		final ViewSwitcher cardFlipper = (ViewSwitcher) getView().findViewById(R.id.cardSwitcher);
+		
+		if(sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture")){
+			cardFlipper.setDisplayedChild(1);
+		}else{
+			cardFlipper.setDisplayedChild(0);
+		}
+		((ScrollView) getView().findViewById(R.id.scriptureScroll)).scrollTo(0,0);
+	}
+	
 	@Override
 	public void setScriptureReference(CharSequence reference) {
 		// TODO Auto-generated method stub

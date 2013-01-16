@@ -77,7 +77,6 @@
         <activity
             android:name="com.app.wordservant.ui.ScriptureReview"
             android:label="@string/title_activity_scripture_review"
-            android:parentActivityName="android.support.v4.app.FragmentActivity"
             android:uiOptions="splitActionBarWhenNarrow" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

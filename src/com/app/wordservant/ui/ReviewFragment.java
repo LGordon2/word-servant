@@ -46,10 +46,11 @@ public interface ReviewFragment{
 //		mEditScripture = (TextView) getView().findViewById(R.id.scriptureText);
 //	}
 	
-	public abstract void setScriptureReference(CharSequence reference);
-	public abstract CharSequence getScriptureReference();
+	void setScriptureReference(CharSequence reference);
+	CharSequence getScriptureReference();
 	//public abstract void setScriptureTags(String tags);
-	public abstract void setScriptureText(CharSequence text);
-	public abstract CharSequence getScriptureText();
+	void setScriptureText(CharSequence text);
+	CharSequence getScriptureText();
+	void resetView();
 	
 }
