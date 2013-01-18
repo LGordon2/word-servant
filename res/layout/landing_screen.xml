@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/landing_screen_button"
-        android:drawableRight="@drawable/content_event"
+        android:drawableRight="@android:drawable/ic_menu_today"
         android:gravity="right|center_vertical"
         android:paddingTop="10dp"
         android:text="due today"

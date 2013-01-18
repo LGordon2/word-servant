@@ -13,7 +13,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,22 +22,16 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.Html;
 import android.text.format.DateFormat;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ScrollView;
-import android.widget.ViewSwitcher;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.app.wordservant.R;
 import com.app.wordservant.provider.WordServantContract;
-import com.app.wordservant.ui.RereviewScriptureDialogFragment.DialogListener;
 
 public class ScriptureReview extends SherlockFragmentActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
 	private ArrayList<Integer> mUnreviewedScriptureIds;
-	private final int CURRENT_SCRIPTURE_QUERY = 1;
 	private int mCurrentIdPosition;
 
 	public void onCreate(Bundle savedInstanceState){
@@ -54,7 +47,7 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 			mUnreviewedScriptureIds = getIntent().getIntegerArrayListExtra("unreviewedScriptureIds");
 			String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID};
 			Cursor mUnreviewedScriptureQuery = new CursorLoader(this, WordServantContract.ScriptureEntry.CONTENT_URI, columnsToRetrieve, 
-					WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"=date('now','localtime')", null, null).loadInBackground();
+					WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"<=date('now','localtime')", null, null).loadInBackground();
 
 			for(int i=0;i<mUnreviewedScriptureQuery.getCount();i++){
 				mUnreviewedScriptureQuery.moveToPosition(i);
@@ -92,7 +85,7 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 		}
 		fragmentTransaction.replace(R.id.fragmentHolder, fragment);
 		fragmentTransaction.commit();
-		getSupportLoaderManager().restartLoader(CURRENT_SCRIPTURE_QUERY, null, this);
+		getSupportLoaderManager().restartLoader(0, null, this);
 	}
 
 	@Override
@@ -145,12 +138,12 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 				return true;
 			}
 			mCurrentIdPosition = mCurrentIdPosition < mUnreviewedScriptureIds.size() ? mCurrentIdPosition : 0;
-			getSupportLoaderManager().restartLoader(CURRENT_SCRIPTURE_QUERY, null, this);
+			getSupportLoaderManager().restartLoader(0, null, this);
 			this.invalidateOptionsMenu();
 			break;
 		case R.id.skip:
 			mCurrentIdPosition = mCurrentIdPosition+1 < mUnreviewedScriptureIds.size() ? mCurrentIdPosition+1 : 0;
-			getSupportLoaderManager().restartLoader(CURRENT_SCRIPTURE_QUERY, null, this);
+			getSupportLoaderManager().restartLoader(0, null, this);
 			break;
 		case R.id.settings:
 			intent = new Intent(this, Settings.class);
