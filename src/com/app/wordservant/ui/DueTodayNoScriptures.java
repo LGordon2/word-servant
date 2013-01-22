@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
-import android.support.v4.content.CursorLoader;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,7 +16,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.app.wordservant.R;
-import com.app.wordservant.provider.WordServantContract;
 import com.app.wordservant.ui.RereviewScriptureDialogFragment.DialogListener;
 
 public class DueTodayNoScriptures extends SherlockFragmentActivity implements DialogListener{

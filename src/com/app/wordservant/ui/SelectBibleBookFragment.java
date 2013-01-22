@@ -33,6 +33,7 @@ public class SelectBibleBookFragment extends SherlockListFragment{
 		}
 
 		protected void onPostExecute(Void bible){
+			assert Bible.getInstance()!=null;
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, Bible.getInstance().getBookNames());
 			SelectBibleBookFragment.this.setListAdapter(adapter);
 			if (SelectBibleBookFragment.this.isVisible())

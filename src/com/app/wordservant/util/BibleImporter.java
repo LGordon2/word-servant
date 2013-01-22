@@ -24,6 +24,7 @@ public class BibleImporter implements Runnable{
 		// TODO Auto-generated method stub
 		//Bible bible = Bible.getInstance();
 		Bible.getInstance().setImportStatus(Constants.IMPORT_STATUS_IMPORTING);
+		Bible bible = Bible.getInstance();
 		Bible.BibleBook b = null;
 		Bible.BibleChapter c = null;
 		Bible.BibleVerse v = null;
@@ -35,8 +36,6 @@ public class BibleImporter implements Runnable{
 			xpp.setInput(mInputStream, null);
 
 			int eventType = xpp.getEventType();
-			Integer chapterNumber=-1;
-			Integer verseNumber=-1;
 			while(eventType != XmlPullParser.END_DOCUMENT){
 
 				if(eventType == XmlPullParser.START_TAG){
@@ -45,16 +44,16 @@ public class BibleImporter implements Runnable{
 					}else if(xpp.getName().equals("bookname")){		
 						//Get the book and check if it exists.
 						try{
-							Bible.getInstance().getBook(currentBook);
+							b = bible.getBook(currentBook);
 						}catch(NullPointerException e){
-							b = Bible.getInstance().new BibleBook(currentBook,xpp.nextText());
-							Bible.getInstance().addBook(b);
+							b = bible.new BibleBook(currentBook,xpp.nextText());
+							bible.addBook(b);
 						}
 					}else if(xpp.getName().equals("chapter")){
+						Integer chapterNumber;
 						//Check for the chapter.
-						String chapterNumberText = xpp.nextText();
 						try{
-							chapterNumber = Integer.decode(chapterNumberText);
+							chapterNumber = Integer.decode(xpp.nextText());
 						}catch(NumberFormatException e){
 							Log.e("wordservanterror", "Chapter number was invalid.");
 							throw(e);
@@ -62,16 +61,17 @@ public class BibleImporter implements Runnable{
 						
 						//Get the book and check if it exists.
 						try{
-							Bible.getInstance().getBook(currentBook).getChapter(chapterNumber-1);
+							c = b.getChapter(chapterNumber-1);
 						}catch(IndexOutOfBoundsException e){
-							c = Bible.getInstance().new BibleChapter(chapterNumber);
-							Bible.getInstance().getBook(currentBook).addChapter(c);
+							assert b!=null;
+							c = bible.new BibleChapter(chapterNumber);
+							b.addChapter(c);
 						}
 					}else if(xpp.getName().equals("verse")){
+						Integer verseNumber;
 						//Check for the verse.
-						String verseNumberText = xpp.nextText();
 						try{
-							verseNumber = Integer.valueOf(verseNumberText);
+							verseNumber = Integer.valueOf(xpp.nextText());
 						}catch(NumberFormatException e){
 							Log.e("wordservanterror", "Verse number was invalid.");
 							throw(e);
@@ -79,13 +79,14 @@ public class BibleImporter implements Runnable{
 						
 						//Get the book and check if it exists.
 						try{
-							Bible.getInstance().getBook(currentBook).getChapter(chapterNumber-1).getVerse(verseNumber-1);
+							v = c.getVerse(verseNumber-1);
 						}catch(IndexOutOfBoundsException e){
-							v = Bible.getInstance().new BibleVerse(verseNumber);
-							Bible.getInstance().getBook(currentBook).getChapter(chapterNumber-1).addVerse(v);
+							assert c!=null;
+							v = bible.new BibleVerse(verseNumber);
+							c.addVerse(v);
 						}
 					}else if(xpp.getName().equals("text")){
-						Bible.getInstance().getBook(currentBook).getChapter(chapterNumber-1).getVerse(verseNumber-1).setText(xpp.nextText());
+						v.setText(xpp.nextText());
 					}
 
 				}

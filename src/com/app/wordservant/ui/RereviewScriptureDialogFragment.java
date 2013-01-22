@@ -55,7 +55,7 @@ public class RereviewScriptureDialogFragment extends DialogFragment{
 					mAllIds.remove((Integer) mCursor.getInt(0));
 			}
 			
-		}).setTitle("Select scriptures to rereview").setPositiveButton("Done", new OnClickListener(){
+		}).setTitle("Select scriptures to rereview").setPositiveButton("Okay", new OnClickListener(){
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {

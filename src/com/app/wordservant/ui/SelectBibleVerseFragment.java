@@ -5,11 +5,9 @@ import java.util.Collections;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +35,7 @@ public class SelectBibleVerseFragment extends SherlockFragment{
 	private String mBookName;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-		return inflater.inflate(R.layout.select_bible_chapter, null);
+		return inflater.inflate(R.layout.select_bible_verses, null);
 	}
 
 	public void onCreate(Bundle savedInstanceState){
@@ -80,7 +78,6 @@ public class SelectBibleVerseFragment extends SherlockFragment{
 						}
 					}
 				}
-				//What a hack!
 				updateTitle();
 			}
 
