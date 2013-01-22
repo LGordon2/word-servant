@@ -72,7 +72,7 @@ public class Bible{
 			}
 			return allChapters.toArray(new String[]{});
 		}
-		public BibleChapter getChapter(int position) {
+		public synchronized BibleChapter getChapter(int position){
 			// TODO Auto-generated method stub
 			return chapters.get(position);
 		}
@@ -83,6 +83,11 @@ public class Bible{
 		ArrayList<BibleVerse> verses;
 		public BibleChapter(String chapterNumber){
 			this.chapterNumber = chapterNumber;
+			verses = new ArrayList<BibleVerse>();
+		}
+		public BibleChapter(Integer chapterNumber) {
+			// TODO Auto-generated constructor stub
+			this.chapterNumber = String.valueOf(chapterNumber);
 			verses = new ArrayList<BibleVerse>();
 		}
 		public void addVerse(BibleVerse v){
@@ -108,8 +113,19 @@ public class Bible{
 	public class BibleVerse{
 		String verseNumber;
 		String text;
+		public BibleVerse(String verseNumber){
+			this.verseNumber = verseNumber;
+		}
 		public BibleVerse(String verseNumber, String text){
 			this.verseNumber = verseNumber;
+			this.text = text;
+		}
+		public BibleVerse(Integer verseNumber) {
+			// TODO Auto-generated constructor stub
+			this.verseNumber = String.valueOf(verseNumber);
+		}
+		public void setText(String text) {
+			// TODO Auto-generated method stub
 			this.text = text;
 		}
 	}

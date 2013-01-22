@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.wordservant"
     android:versionCode="1"
-    android:versionName="0.5.1.3" >
+    android:versionName="0.5.2" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -11,8 +11,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-feature android:name="android.hardware.camera" />
-
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
@@ -20,7 +18,7 @@
         android:label="@string/title_activity_main"
         android:theme="@style/WordServantTheme" >
         <activity
-            android:name="com.app.wordservant.ui.LandingScreen"
+            android:name=".ui.LandingScreen"
             android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.app.wordservant.ui.Settings"
+            android:name=".ui.Settings"
             android:label="@string/title_activity_settings" >
         </activity>
         <activity

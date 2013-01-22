@@ -59,7 +59,7 @@ public class LandingScreen extends Activity{
 
 	private void setUpBible() {
 		// TODO Auto-generated method stub
-		Runnable bibleSetup = new BibleImporter(getResources().openRawResource(R.raw.kjv));
+		Runnable bibleSetup = new BibleImporter(getResources().openRawResource(R.raw.net));
 		ThreadPoolExecutor tpe = new ThreadPoolExecutor(10, 10, 10000, TimeUnit.MILLISECONDS, new SynchronousQueue<Runnable>());
 		tpe.execute(bibleSetup);
 	}

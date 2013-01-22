@@ -35,8 +35,7 @@ public class SelectBibleChapterFragment extends SherlockFragment{
 			public void onItemClick(AdapterView<?> av, View v, int position,
 					long id) {
 				// TODO Auto-generated method stub
-				((SelectScriptureFragmentActivity) getActivity()).chapterNumber = position;
-				((SelectScriptureFragmentActivity) getActivity()).setCurrentTab(2);
+				((SelectScriptureFragmentActivity) getActivity()).updateChapter(position);
 			}
 
 		});

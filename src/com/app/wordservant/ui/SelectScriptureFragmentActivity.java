@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.app.NavUtils;
 import android.widget.LinearLayout;
+import android.widget.TabHost.OnTabChangeListener;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
@@ -83,5 +84,20 @@ public class SelectScriptureFragmentActivity extends SherlockFragmentActivity{
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	public void updateBook(Integer bookNumber, String bookName){
+		this.bookName = bookName;
+		this.bookNumber = bookNumber;
+		chapterNumber = 0;
+		mVerseNumbers.clear();
+		
+		this.setCurrentTab(1);
+	}
+	
+	public void updateChapter(Integer chapterNumber){
+		this.chapterNumber = chapterNumber;
+		mVerseNumbers.clear();
+		
+		this.setCurrentTab(2);
 	}
 }
