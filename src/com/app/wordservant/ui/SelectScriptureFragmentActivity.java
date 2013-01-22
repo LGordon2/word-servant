@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.app.NavUtils;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;

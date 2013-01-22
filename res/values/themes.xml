@@ -2,7 +2,20 @@
 <!-- Generated with http://android-holo-colors.com -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="WordServantTheme" parent="Theme.Sherlock.WordServant">
+    <style name="WordServantTheme" parent="Theme.Sherlock">
+        <item name="actionBarItemBackground">@drawable/selectable_background_wordservant</item>
+        <item name="popupMenuStyle">@style/wordservant_PopupMenu</item>
+        <item name="dropDownListViewStyle">@style/wordservant_DropDownListView</item>
+        <item name="actionBarTabStyle">@style/wordservant_ActionBarTabStyle</item>
+        <item name="actionDropDownStyle">@style/wordservant_DropDownNav</item>
+        <item name="actionBarStyle">@style/wordservant_transparent_ActionBar</item>
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_wordservant</item>
+        <item name="android:popupMenuStyle">@style/wordservant_PopupMenu</item>
+        <item name="android:dropDownListViewStyle">@style/wordservant_DropDownListView</item>
+        <item name="android:actionBarTabStyle">@style/wordservant_ActionBarTabStyle</item>
+        <item name="android:actionDropDownStyle">@style/wordservant_DropDownNav</item>
+        <item name="android:actionBarStyle">@style/wordservant_transparent_ActionBar</item>
+        <item name="android:panelBackground">@drawable/menu_hardkey_panel_wordservant</item>
         <item name="android:editTextBackground">@drawable/edit_text_holo_dark</item>
         <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewWordServantTheme</item>
         <item name="android:listChoiceIndicatorMultiple">@drawable/btn_check_holo_dark</item>

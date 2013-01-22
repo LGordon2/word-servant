@@ -700,10 +700,10 @@ containing a value of this type.
         public static final int abs__primary_text_disable_only_holo_light=0x7f08000e;
         public static final int abs__primary_text_holo_dark=0x7f08000f;
         public static final int abs__primary_text_holo_light=0x7f080010;
-        public static final int card_front_text_color=0x7f08000a;
-        public static final int pressed_wordservant=0x7f080009;
-        public static final int transparent=0x7f08000c;
-        public static final int word_servant_purple=0x7f08000b;
+        public static final int card_front_text_color=0x7f080009;
+        public static final int pressed_wordservant=0x7f08000c;
+        public static final int transparent=0x7f08000b;
+        public static final int word_servant_purple=0x7f08000a;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -1258,15 +1258,16 @@ containing a value of this type.
         public static final int layout_tag_select_alternate=0x7f030030;
         public static final int list_layout=0x7f030031;
         public static final int manage_tags_item=0x7f030032;
-        public static final int review_scripture_layout=0x7f030033;
-        public static final int scripture_bank=0x7f030034;
-        public static final int select_bible_chapter=0x7f030035;
-        public static final int select_bible_verses=0x7f030036;
-        public static final int settings=0x7f030037;
-        public static final int sherlock_spinner_dropdown_item=0x7f030038;
-        public static final int sherlock_spinner_item=0x7f030039;
-        public static final int small_list_layout=0x7f03003a;
-        public static final int statistics_fragment=0x7f03003b;
+        public static final int net=0x7f030033;
+        public static final int review_scripture_layout=0x7f030034;
+        public static final int scripture_bank=0x7f030035;
+        public static final int select_bible_chapter=0x7f030036;
+        public static final int select_bible_verses=0x7f030037;
+        public static final int settings=0x7f030038;
+        public static final int sherlock_spinner_dropdown_item=0x7f030039;
+        public static final int sherlock_spinner_item=0x7f03003a;
+        public static final int small_list_layout=0x7f03003b;
+        public static final int statistics_fragment=0x7f03003c;
     }
     public static final class menu {
         public static final int activity_display_selected_scripture=0x7f0e0000;
@@ -1355,17 +1356,17 @@ containing a value of this type.
         public static final int title_activity_todays_memory_verses=0x7f0b0016;
     }
     public static final class style {
-        public static final int AutoCompleteTextViewWordServantTheme=0x7f0c0063;
-        public static final int ButtonWordServantTheme=0x7f0c0065;
-        public static final int CheckBoxWordServantTheme=0x7f0c0064;
+        public static final int AutoCompleteTextViewWordServantTheme=0x7f0c005a;
+        public static final int ButtonWordServantTheme=0x7f0c005c;
+        public static final int CheckBoxWordServantTheme=0x7f0c005b;
         public static final int DialogWindowTitle_Sherlock=0x7f0c0036;
         public static final int DialogWindowTitle_Sherlock_Light=0x7f0c0037;
-        public static final int EditTextWordServantTheme=0x7f0c0062;
-        public static final int ImageButtonWordServantTheme=0x7f0c0066;
-        public static final int ListViewWordServantTheme=0x7f0c0069;
-        public static final int ListViewWordServantTheme_White=0x7f0c006a;
-        public static final int ProgressBarWordServantTheme=0x7f0c0067;
-        public static final int SeekBarWordServantTheme=0x7f0c006c;
+        public static final int EditTextWordServantTheme=0x7f0c0059;
+        public static final int ImageButtonWordServantTheme=0x7f0c005d;
+        public static final int ListViewWordServantTheme=0x7f0c0060;
+        public static final int ListViewWordServantTheme_White=0x7f0c0061;
+        public static final int ProgressBarWordServantTheme=0x7f0c005e;
+        public static final int SeekBarWordServantTheme=0x7f0c0063;
         public static final int Sherlock___TextAppearance_Small=0x7f0c004a;
         public static final int Sherlock___Theme=0x7f0c004e;
         public static final int Sherlock___Theme_DarkActionBar=0x7f0c0050;
@@ -1378,7 +1379,7 @@ containing a value of this type.
         public static final int Sherlock___Widget_Holo_ListView=0x7f0c0026;
         public static final int Sherlock___Widget_Holo_Spinner=0x7f0c0023;
         public static final int Sherlock___Widget_SearchAutoCompleteTextView=0x7f0c0033;
-        public static final int SpinnerItemWordServantTheme=0x7f0c006b;
+        public static final int SpinnerItemWordServantTheme=0x7f0c0062;
         public static final int TextAppearance_Sherlock_DialogWindowTitle=0x7f0c0048;
         public static final int TextAppearance_Sherlock_Light_DialogWindowTitle=0x7f0c0049;
         public static final int TextAppearance_Sherlock_Light_Small=0x7f0c004c;
@@ -1407,11 +1408,11 @@ containing a value of this type.
         public static final int Theme_Sherlock_Light_Dialog=0x7f0c0058;
         public static final int Theme_Sherlock_Light_NoActionBar=0x7f0c0056;
         public static final int Theme_Sherlock_NoActionBar=0x7f0c0055;
-        public static final int Theme_Sherlock_WordServant=0x7f0c0059;
+        public static final int Theme_wordservant=0x7f0c0064;
         /**  this style is only referenced in a Light.DarkActionBar based theme 
          */
-        public static final int Theme_wordservant_widget=0x7f0c0061;
-        public static final int ToggleWordServantTheme=0x7f0c0068;
+        public static final int Theme_wordservant_widget=0x7f0c006c;
+        public static final int ToggleWordServantTheme=0x7f0c005f;
         public static final int Widget=0x7f0c0000;
         public static final int Widget_Sherlock_ActionBar=0x7f0c0002;
         public static final int Widget_Sherlock_ActionBar_Solid=0x7f0c0003;
@@ -1460,13 +1461,13 @@ containing a value of this type.
         public static final int Widget_Sherlock_Spinner_DropDown_ActionBar=0x7f0c0024;
         public static final int Widget_Sherlock_TextView_SpinnerItem=0x7f0c0032;
         public static final int WordServantTheme=0x7f0c006d;
-        public static final int wordservant_ActionBarTabStyle=0x7f0c005e;
-        public static final int wordservant_DropDownListView=0x7f0c005d;
-        public static final int wordservant_DropDownNav=0x7f0c005f;
-        public static final int wordservant_PopupMenu=0x7f0c005c;
-        public static final int wordservant_ProgressBar=0x7f0c0060;
-        public static final int wordservant_solid_ActionBar=0x7f0c005a;
-        public static final int wordservant_transparent_ActionBar=0x7f0c005b;
+        public static final int wordservant_ActionBarTabStyle=0x7f0c0069;
+        public static final int wordservant_DropDownListView=0x7f0c0068;
+        public static final int wordservant_DropDownNav=0x7f0c006a;
+        public static final int wordservant_PopupMenu=0x7f0c0067;
+        public static final int wordservant_ProgressBar=0x7f0c006b;
+        public static final int wordservant_solid_ActionBar=0x7f0c0065;
+        public static final int wordservant_transparent_ActionBar=0x7f0c0066;
     }
     public static final class styleable {
         /**  Attributes used to style the Action Bar. 
