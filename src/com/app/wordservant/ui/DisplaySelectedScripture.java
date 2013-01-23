@@ -10,13 +10,14 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.app.wordservant.R;
+import com.app.wordservant.bible.Bible;
+import com.app.wordservant.bible.BibleVerse;
 import com.app.wordservant.provider.WordServantContract;
 
 public class DisplaySelectedScripture extends SherlockActivity {
@@ -46,20 +47,20 @@ public class DisplaySelectedScripture extends SherlockActivity {
 		}
 		String createdScriptureText = "";
 		String verseString = "";
-		Bible.BibleVerse currentVerse = null;
-		if(mVerseNumbers.size() < Bible.getInstance().getBook(mBookName).chapters.get(mChapterNumber-1).getVersesArray().length){
+		BibleVerse currentVerse = null;
+		if(mVerseNumbers.size() < Bible.getInstance().getBook(mBookName).mBibleChapters.get(mChapterNumber-1).getVersesArray().length){
 			for(int i=0;i<mVerseNumbers.size();i++){
 				//verses.add(Bible.getInstance().getBook(bookName).chapters.get(chapterNumber).getVerse(i));
-				currentVerse = Bible.getInstance().getBook(mBookName).chapters.get(mChapterNumber-1).getVerse(mVerseNumbers.get(i)-1);
-				createdScriptureText += "<sup><small>"+currentVerse.verseNumber+"</small></sup>"+currentVerse.text;
+				currentVerse = Bible.getInstance().getBook(mBookName).mBibleChapters.get(mChapterNumber-1).mBibleVerses.get(mVerseNumbers.get(i)-1);
+				createdScriptureText += "<sup><small>"+currentVerse.mVerseNumber+"</small></sup>"+currentVerse.mVerseText;
 				if(i==0){
 					verseString = String.valueOf(mVerseNumbers.get(i));
 				}else if(mVerseNumbers.get(i)==mVerseNumbers.get(i-1)+1){
 					verseString+= "-";
 					i+=1;
 					while(i<mVerseNumbers.size() && mVerseNumbers.get(i)==mVerseNumbers.get(i-1)+1){
-						currentVerse = Bible.getInstance().getBook(mBookName).chapters.get(mChapterNumber-1).getVerse(mVerseNumbers.get(i)-1);
-						createdScriptureText += "<sup><small>"+currentVerse.verseNumber+"</small></sup>"+currentVerse.text;
+						currentVerse = Bible.getInstance().getBook(mBookName).mBibleChapters.get(mChapterNumber-1).mBibleVerses.get(mVerseNumbers.get(i)-1);
+						createdScriptureText += "<sup><small>"+currentVerse.mVerseNumber+"</small></sup>"+currentVerse.mVerseText;
 						i+=1;
 					}
 					i-=1;
@@ -75,8 +76,8 @@ public class DisplaySelectedScripture extends SherlockActivity {
 		else{
 			mReference = mBookName+" "+mChapterNumber;
 			for(int i=0;i<mVerseNumbers.size();i++){
-				currentVerse = Bible.getInstance().getBook(mBookName).chapters.get(mChapterNumber-1).getVerse(mVerseNumbers.get(i)-1);
-				createdScriptureText += "<sup><small>"+currentVerse.verseNumber+"</small></sup>"+currentVerse.text;
+				currentVerse = Bible.getInstance().getBook(mBookName).mBibleChapters.get(mChapterNumber-1).mBibleVerses.get(mVerseNumbers.get(i)-1);
+				createdScriptureText += "<sup><small>"+currentVerse.mVerseNumber+"</small></sup>"+currentVerse.mVerseText;
 			}
 		}
 		mScriptureText = createdScriptureText;

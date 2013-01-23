@@ -1102,7 +1102,7 @@ containing a value of this type.
         public static final int buttons=0x7f060057;
         public static final int cardSwitcher=0x7f06004d;
         public static final int checkBox1=0x7f060047;
-        public static final int deleteScriptureMenuItem=0x7f060075;
+        public static final int deleteScriptureMenuItem=0x7f060074;
         public static final int disableHome=0x7f060009;
         public static final int done=0x7f06006d;
         public static final int edit_query=0x7f060027;
@@ -1113,7 +1113,7 @@ containing a value of this type.
         public static final int help=0x7f060079;
         public static final int homeAsUp=0x7f060006;
         public static final int imageView1=0x7f060058;
-        public static final int inputScripture=0x7f060073;
+        public static final int inputScripture=0x7f060072;
         public static final int listMode=0x7f060002;
         public static final int listView1=0x7f060061;
         public static final int list_entry=0x7f06005e;
@@ -1155,9 +1155,9 @@ containing a value of this type.
         public static final int seekBarPrefUnitsLeft=0x7f06004b;
         public static final int seekBarPrefUnitsRight=0x7f060049;
         public static final int seekBarPrefValue=0x7f06004a;
-        public static final int selectScripture=0x7f060074;
+        public static final int selectScripture=0x7f060073;
         public static final int selectedScriptureText=0x7f060034;
-        public static final int settings=0x7f060072;
+        public static final int settings=0x7f060075;
         public static final int showCustom=0x7f060008;
         public static final int showHome=0x7f060005;
         public static final int showTitle=0x7f060007;

@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.app.wordservant.R;
+import com.app.wordservant.bible.Bible;
 import com.app.wordservant.util.BibleImporter;
 import com.app.wordservant.util.Constants;
 
@@ -20,7 +21,7 @@ public class SelectBibleBookFragment extends SherlockListFragment{
 
 		@Override
 		protected Void doInBackground(Void... arg0) {
-			if(Bible.getInstance().getImportStatus().equals(Constants.IMPORT_STATUS_NOT_STARTED)){
+			if(Bible.getInstance().mImportStatus.equals(Constants.IMPORT_STATUS_NOT_STARTED)){
 				Runnable bibleSetup = new BibleImporter(getResources().openRawResource(R.raw.kjv));
 				ThreadPoolExecutor tpe = new ThreadPoolExecutor(10, 10, 10000, TimeUnit.MILLISECONDS, new SynchronousQueue<Runnable>());
 				tpe.execute(bibleSetup);

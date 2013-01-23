@@ -27,6 +27,7 @@ import android.widget.ImageView.ScaleType;
 import android.widget.Toast;
 
 import com.app.wordservant.R;
+import com.app.wordservant.bible.Bible;
 import com.app.wordservant.notifications.NotificationService;
 import com.app.wordservant.util.BibleImporter;
 

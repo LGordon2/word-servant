@@ -11,6 +11,7 @@ import android.widget.GridView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.app.wordservant.R;
+import com.app.wordservant.bible.Bible;
 
 public class SelectBibleChapterFragment extends SherlockFragment{
 	private ArrayAdapter<String> mAdapter;

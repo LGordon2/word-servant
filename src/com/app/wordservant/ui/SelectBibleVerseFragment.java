@@ -25,6 +25,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.app.wordservant.R;
+import com.app.wordservant.bible.Bible;
 
 public class SelectBibleVerseFragment extends SherlockFragment{
 	private int mBookNumber;
@@ -86,7 +87,7 @@ public class SelectBibleVerseFragment extends SherlockFragment{
 		});
 		mAdapter = new ArrayAdapter<String>(getActivity(), 
 				0, 
-				Bible.getInstance().getBook(mBookNumber).getChapter(mChapterNumber).getVersesArray()){
+				Bible.getInstance().getBook(mBookNumber).mBibleChapters.get(mChapterNumber).getVersesArray()){
 			@SuppressLint("NewApi")
 			public View getView(int position, View convertView, ViewGroup parent){
 				if(Build.VERSION.SDK_INT < 11){
@@ -180,7 +181,7 @@ public class SelectBibleVerseFragment extends SherlockFragment{
 			if(mCheckedCheckBoxes.size()==0){
 				ArrayList<Integer> allCheckBoxes = new ArrayList<Integer>();
 				//Add all to the array list
-				for(int i=1;i<=Bible.getInstance().getBook(mBookNumber).getChapter(mChapterNumber).getVersesArray().length;i++){
+				for(int i=1;i<=Bible.getInstance().getBook(mBookNumber).mBibleChapters.get(mChapterNumber).getVersesArray().length;i++){
 					allCheckBoxes.add(i);
 				}
 				Collections.sort(allCheckBoxes);
