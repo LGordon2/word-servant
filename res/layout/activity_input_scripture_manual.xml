@@ -14,7 +14,6 @@
         android:layout_alignParentTop="true"
         android:ems="10"
         android:hint="@string/scripture_reference_text_field_hint"
-        android:imeOptions="actionSend"
         android:maxLines="1" >
 
         <requestFocus />

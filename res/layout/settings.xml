@@ -47,7 +47,7 @@
             android:title="Scripture Review Method" />
 
         <com.app.wordservant.helper_classes.SeekBarPreference
-            android:defaultValue="0"
+            android:defaultValue="1"
             android:key="pref_key_word_masking"
             android:max="100"
             android:shouldDisableView="true"

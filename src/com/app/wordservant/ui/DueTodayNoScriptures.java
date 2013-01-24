@@ -64,6 +64,10 @@ public class DueTodayNoScriptures extends SherlockFragmentActivity implements Di
 			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+		case R.id.settings:
+			Intent intent = new Intent(this, Settings.class);
+			startActivity(intent);
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
