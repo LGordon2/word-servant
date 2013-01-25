@@ -9,6 +9,7 @@ import java.util.Locale;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.text.Html;
 import android.widget.TextView;
 
@@ -100,6 +101,9 @@ public class DisplaySelectedScripture extends SherlockActivity {
 	}
 	public boolean onMenuItemSelected(int featureId, MenuItem item){
 		switch(item.getItemId()){
+		case android.R.id.home:
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
 		case R.id.add:
 			SimpleDateFormat dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
 			ContentValues scriptureValues = new ContentValues();

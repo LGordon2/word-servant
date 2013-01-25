@@ -35,6 +35,8 @@ public class SelectBibleBookFragment extends SherlockListFragment{
 
 		protected void onPostExecute(Void bible){
 			assert Bible.getInstance()!=null;
+			if(getActivity()==null)
+				return;
 			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, Bible.getInstance().getBookNames());
 			SelectBibleBookFragment.this.setListAdapter(adapter);
 			if (SelectBibleBookFragment.this.isVisible())
@@ -42,11 +44,12 @@ public class SelectBibleBookFragment extends SherlockListFragment{
 		}
 	}
 	private ArrayAdapter<String> mAdapter;
+	private AsyncTask<Void, Void, Void> mBibleLoader;
 	public void onActivityCreated(Bundle savedInstanceState){
 		super.onActivityCreated(savedInstanceState);
 		if(!Bible.getInstance().isImported()){
 			this.setListShown(false);
-			new WaitForBibleLoad().execute();
+			mBibleLoader = new WaitForBibleLoad().execute();
 		}else{
 			mAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, Bible.getInstance().getBookNames());
 			setListAdapter(mAdapter);
@@ -60,5 +63,11 @@ public class SelectBibleBookFragment extends SherlockListFragment{
 	@SuppressWarnings("unchecked")
 	public void onListItemClick(ListView list, View v, int position, long id){
 		((SelectScriptureFragmentActivity) getActivity()).updateBook(position, ((ArrayAdapter<String>) list.getAdapter()).getItem(position));
+	}
+	
+	public void onDestroy(){
+		super.onDestroy();
+		if(mBibleLoader!=null)
+			mBibleLoader.cancel(true);
 	}
 }

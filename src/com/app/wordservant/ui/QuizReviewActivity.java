@@ -186,6 +186,7 @@ public class QuizReviewActivity extends SherlockFragmentActivity implements Load
 		// TODO Auto-generated method stub
 		data.moveToFirst();
 		ReviewFragment reviewFragment = (ReviewFragment) getSupportFragmentManager().findFragmentById(R.id.quizReviewFragment);
+		reviewFragment.resetView();
 		reviewFragment.setScriptureReference(data.getString(1));
 		reviewFragment.setScriptureText(Html.fromHtml(data.getString(2)));
 		mCurrentScriptureReviewCount = data.getInt(3);
