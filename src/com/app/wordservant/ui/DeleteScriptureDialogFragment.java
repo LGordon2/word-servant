@@ -2,6 +2,7 @@ package com.app.wordservant.ui;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import com.app.wordservant.provider.WordServantContract;
 
@@ -53,7 +54,7 @@ public class DeleteScriptureDialogFragment extends DialogFragment {
 						
 						ContentValues updateValues = new ContentValues();
 						Integer currentId;
-						SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
+						SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US); 
 						GregorianCalendar calendar = new GregorianCalendar();
 						for(int i=0;i<cursor.getCount();i++){
 							cursor.moveToPosition(i);
