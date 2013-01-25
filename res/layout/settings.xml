@@ -39,7 +39,7 @@
         <ListPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:defaultValue="none"
+            android:defaultValue="showing_reference"
             android:entries="@array/review_select"
             android:entryValues="@array/review_select_values"
             android:key="pref_key_review_select"
