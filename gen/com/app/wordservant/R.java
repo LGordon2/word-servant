@@ -1283,6 +1283,7 @@ containing a value of this type.
         public static final int my_memory_verse_menu_item_text=0x7f0b001d;
         public static final int no_scriptures_in_bank_text=0x7f0b001b;
         public static final int nothing_to_review_text=0x7f0b0019;
+        public static final int quiz_complete_text=0x7f0b0025;
         public static final int quiz_review_menu_item_text=0x7f0b001e;
         public static final int rereview_button_text=0x7f0b001a;
         public static final int scripture_reference_text_field_hint=0x7f0b0017;

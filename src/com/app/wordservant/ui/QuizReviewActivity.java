@@ -14,6 +14,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.text.Html;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -114,6 +115,7 @@ public class QuizReviewActivity extends SherlockFragmentActivity implements Load
 					Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(mCurrentScriptureId)),
 					contentValues, null, null);
 			if(mScriptureIds.size()==0){
+				Toast.makeText(this, this.getResources().getString(R.string.quiz_complete_text), Toast.LENGTH_SHORT).show();
 				finish();
 				return super.onOptionsItemSelected(item);
 			}
@@ -129,6 +131,7 @@ public class QuizReviewActivity extends SherlockFragmentActivity implements Load
 					Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(mCurrentScriptureId)),
 					contentValues, null, null);
 			if(mScriptureIds.size()==0){
+				Toast.makeText(this, this.getResources().getString(R.string.quiz_complete_text), Toast.LENGTH_SHORT).show();
 				finish();
 				return super.onOptionsItemSelected(item);
 			}
@@ -145,12 +148,14 @@ public class QuizReviewActivity extends SherlockFragmentActivity implements Load
 					Uri.withAppendedPath(WordServantContract.ScriptureEntry.CONTENT_ID_URI_BASE,String.valueOf(mCurrentScriptureId)),
 					contentValues, null, null);
 			if(mScriptureIds.size()==0){
+				Toast.makeText(this, this.getResources().getString(R.string.quiz_complete_text), Toast.LENGTH_SHORT).show();
 				finish();
 				return super.onOptionsItemSelected(item);
 			}
 			mCurrentScriptureId = mScriptureIds.get((int) getRandomIdIndex(mScriptureIds.size()));
 			getSupportLoaderManager().restartLoader(0, null, this);
 			this.invalidateOptionsMenu();
+			break;
 		case R.id.statistics:
 			intent = new Intent(this, StatisticsActivity.class);
 			startActivity(intent);

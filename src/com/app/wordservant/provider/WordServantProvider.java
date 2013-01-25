@@ -369,7 +369,7 @@ public class WordServantProvider extends ContentProvider {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 		qb.setTables(WordServantContract.ScriptureEntry.TABLE_NAME);
 		qb.setProjectionMap(sScripturesProjectionMap);
-		if(sUriMatcher.match(uri)==SCRIPTURE_ID){
+		if(sUriMatcher.match(uri)==SCRIPTURE_ID || sUriMatcher.match(uri)==INCREMENT_TIMES_REVIEWED){
 			qb.appendWhere(WordServantContract.ScriptureEntry._ID+
 					"="+
 					uri.getPathSegments().get(WordServantContract.ScriptureEntry.SCRIPTURE_ID_PATH_POSITION));
