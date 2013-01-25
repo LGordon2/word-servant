@@ -25,7 +25,7 @@
         android:background="@drawable/landing_screen_button"
         android:gravity="right|center_vertical"
         android:paddingTop="10dp"
-        android:text="due today"
+        android:text="@string/due_today_menu_item_text"
         android:textColor="@android:color/white"
         android:textSize="26sp" />
 
@@ -36,7 +36,7 @@
         android:background="@drawable/landing_screen_button"
         android:gravity="right|center_vertical"
         android:paddingTop="10dp"
-        android:text="my memory verses"
+        android:text="@string/my_memory_verse_menu_item_text"
         android:textColor="@android:color/white"
         android:textSize="26sp" />
 
@@ -48,7 +48,7 @@
         android:drawablePadding="18dp"
         android:gravity="right|center_vertical"
         android:paddingTop="5dp"
-        android:text="quiz / review"
+        android:text="@string/quiz_review_menu_item_text"
         android:textColor="@android:color/white"
         android:textSize="26sp" />
 

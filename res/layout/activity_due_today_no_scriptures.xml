@@ -16,7 +16,7 @@
             android:id="@+id/nothingToReviewText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nothing left to review today."
+            android:text="@string/nothing_to_review_text"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <Button
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/nothingToReviewText"
             android:layout_centerHorizontal="true"
-            android:text="Review Again" />
+            android:text="@string/rereview_button_text" />
 
     </RelativeLayout>
 

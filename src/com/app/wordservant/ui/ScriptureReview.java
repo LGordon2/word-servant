@@ -76,8 +76,8 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 		//Display flashcards if the setting is enabled.
-		if(sharedPreferences.getString("pref_key_review_select", "none").equals("showing_reference") ||
-				sharedPreferences.getString("pref_key_review_select", "none").equals("showing_scripture")){
+		if(sharedPreferences.getString("pref_key_review_select", "showing_reference").equals("showing_reference") ||
+				sharedPreferences.getString("pref_key_review_select", "showing_reference").equals("showing_scripture")){
 			fragment = new FlashcardFragment();
 
 		}else{

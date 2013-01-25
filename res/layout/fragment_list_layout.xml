@@ -24,6 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Please add scriptures to the bank." />
+        android:text="@string/no_scriptures_in_bank_text" />
 
 </LinearLayout>

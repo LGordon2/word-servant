@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="Tap screen to flip card"
+                android:text="@string/tap_to_flip_text"
                 android:textColor="#5FA889" />
         </RelativeLayout>
     </ScrollView>
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:text="Tap screen to flip card"
+                android:text="@string/tap_to_flip_text"
                 android:textColor="#7EA85F" />
         </RelativeLayout>
     </ScrollView>

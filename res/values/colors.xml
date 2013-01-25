@@ -2,5 +2,4 @@
 <resources>
     <color name="card_front_text_color">#FFFFFF</color>
     <color name="word_servant_purple">#895fa8</color>
-    <color name="transparent">#00000000</color>
 </resources>

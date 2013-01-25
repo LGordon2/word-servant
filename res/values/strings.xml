@@ -5,17 +5,18 @@
     <string name="title_activity_main">Word Servant</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_scripture_bank">My Memory Verses</string>
-    <string name="input_scripture_button_text">Type Scripture</string>
     <string name="title_activity_input_scripture_manual">Input Scripture</string>
     <string name="title_activity_edit_scripture">Edit Scripture</string>
     <string name="title_activity_todays_memory_verses">Today\'s Memory Verses</string>
-    <string name="category_text_field_hint">Tags</string>
     <string name="scripture_text_text_field_hint">Scripture Text*</string>
-    <string name="select_new_scripture_button_text">Select Scripture</string>
     <string name="scripture_reference_text_field_hint">Scripture Reference*</string>
-    <string name="done_button_text">Done</string>
-    <string name="got_it_button_text">Reviewed</string>
-    <string name="next_button_text">Skip&gt;&gt;</string>
+    <string name="tap_to_flip_text">Tap screen to flip card.</string>
+    <string name="nothing_to_review_text">Nothing left to review today.</string>
+    <string name="rereview_button_text">Review Again</string>
+    <string name="no_scriptures_in_bank_text">Please add scriptures to the bank.</string>
+    <string name="due_today_menu_item_text">due today</string>
+    <string name="my_memory_verse_menu_item_text">my memory verses</string>
+    <string name="quiz_review_menu_item_text">quiz / review</string>
 
     <string-array name="limit_strings">
         <item>1 (Default)</item>
@@ -24,7 +25,6 @@
         <item>1</item>
     </string-array>
 
-    <string name="title_activity_select_scripture">Select Scripture</string>
     <string name="date_format">yyyy-MM-dd</string>
     <string name="title_activity_display_selected_scripture">DisplaySelectedScripture</string>
 
@@ -42,7 +42,6 @@
     <string name="title_activity_quiz_review">Quiz/Review</string>
     <string name="title_activity_statistics">Statistics</string>
     <string name="title_activity_scripture_review">Due Today</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_due_today_no_scriptures">Due Today</string>
 
 </resources>
