@@ -41,6 +41,7 @@ public class SelectBibleBookFragment extends SherlockListFragment{
 			SelectBibleBookFragment.this.setListAdapter(adapter);
 			if (SelectBibleBookFragment.this.isVisible())
 				SelectBibleBookFragment.this.setListShown(true);
+			((SelectScriptureFragmentActivity) getActivity()).enableTabWidget();
 		}
 	}
 	private ArrayAdapter<String> mAdapter;
