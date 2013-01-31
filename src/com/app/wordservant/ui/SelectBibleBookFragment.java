@@ -22,7 +22,7 @@ public class SelectBibleBookFragment extends SherlockListFragment{
 		@Override
 		protected Void doInBackground(Void... arg0) {
 			if(!Bible.getInstance().mImportStatus.equals(Constants.IMPORT_STATUS_IMPORTING)){
-				Runnable bibleSetup = new BibleImporter(getResources().openRawResource(R.raw.kjv));
+				Runnable bibleSetup = new BibleImporter(getResources().openRawResource(R.raw.net));
 				ThreadPoolExecutor tpe = new ThreadPoolExecutor(10, 10, 10000, TimeUnit.MILLISECONDS, new SynchronousQueue<Runnable>());
 				tpe.execute(bibleSetup);
 			}
