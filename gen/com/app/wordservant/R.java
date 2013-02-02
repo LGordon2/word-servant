@@ -1228,8 +1228,73 @@ containing a value of this type.
         public static final int activity_todays_memory_verses=0x7f0e0009;
     }
     public static final class raw {
-        public static final int kjv=0x7f050000;
-        public static final int net=0x7f050001;
+        public static final int acts=0x7f050000;
+        public static final int amos=0x7f050001;
+        public static final int colossians=0x7f050002;
+        public static final int daniel=0x7f050003;
+        public static final int deuteronomy=0x7f050004;
+        public static final int ecclesiastes=0x7f050005;
+        public static final int ephesians=0x7f050006;
+        public static final int esther=0x7f050007;
+        public static final int exodus=0x7f050008;
+        public static final int ezekiel=0x7f050009;
+        public static final int ezra=0x7f05000a;
+        public static final int first_chronicles=0x7f05000b;
+        public static final int first_corinthians=0x7f05000c;
+        public static final int first_john=0x7f05000d;
+        public static final int first_kings=0x7f05000e;
+        public static final int first_peter=0x7f05000f;
+        public static final int first_samuel=0x7f050010;
+        public static final int first_thessalonians=0x7f050011;
+        public static final int first_timothy=0x7f050012;
+        public static final int galatians=0x7f050013;
+        public static final int genesis=0x7f050014;
+        public static final int habakkuk=0x7f050015;
+        public static final int haggai=0x7f050016;
+        public static final int hebrews=0x7f050017;
+        public static final int hosea=0x7f050018;
+        public static final int isaiah=0x7f050019;
+        public static final int james=0x7f05001a;
+        public static final int jeremiah=0x7f05001b;
+        public static final int job=0x7f05001c;
+        public static final int joel=0x7f05001d;
+        public static final int john=0x7f05001e;
+        public static final int jonah=0x7f05001f;
+        public static final int joshua=0x7f050020;
+        public static final int jude=0x7f050021;
+        public static final int judges=0x7f050022;
+        public static final int kjv=0x7f050023;
+        public static final int lamentations=0x7f050024;
+        public static final int leviticus=0x7f050025;
+        public static final int luke=0x7f050026;
+        public static final int mark=0x7f050027;
+        public static final int matthew=0x7f050028;
+        public static final int micah=0x7f050029;
+        public static final int nahum=0x7f05002a;
+        public static final int nehemiah=0x7f05002b;
+        public static final int net=0x7f05002c;
+        public static final int numbers=0x7f05002d;
+        public static final int obadiah=0x7f05002e;
+        public static final int philemon=0x7f05002f;
+        public static final int philippians=0x7f050030;
+        public static final int proverbs=0x7f050031;
+        public static final int psalms=0x7f050032;
+        public static final int revelation=0x7f050033;
+        public static final int romans=0x7f050034;
+        public static final int ruth=0x7f050035;
+        public static final int second_chronicles=0x7f050036;
+        public static final int second_corinthians=0x7f050037;
+        public static final int second_john=0x7f050038;
+        public static final int second_kings=0x7f050039;
+        public static final int second_peter=0x7f05003a;
+        public static final int second_samuel=0x7f05003b;
+        public static final int second_thessalonians=0x7f05003c;
+        public static final int second_timothy=0x7f05003d;
+        public static final int song_of_solomon=0x7f05003e;
+        public static final int third_john=0x7f05003f;
+        public static final int titus=0x7f050040;
+        public static final int zechariah=0x7f050041;
+        public static final int zephaniah=0x7f050042;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -2438,7 +2503,7 @@ containing a value of this type.
          */
         public static final int[] SherlockSpinner = {
             0x010100af, 0x01010175, 0x01010176, 0x0101017b,
-            0x01010262, 0x010102ac, 0x010102ad, 0x010103fd
+            0x01010262, 0x010102ac, 0x010102ad, 0x01010411
         };
         /**
           <p>

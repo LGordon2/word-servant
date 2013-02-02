@@ -2,7 +2,7 @@ package com.app.wordservant.ui;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.concurrent.SynchronousQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -29,7 +29,8 @@ import android.widget.Toast;
 import com.app.wordservant.R;
 import com.app.wordservant.bible.Bible;
 import com.app.wordservant.notifications.NotificationService;
-import com.app.wordservant.util.BibleImporter;
+import com.app.wordservant.util.Constants;
+import com.app.wordservant.util.ImportBibleBook;
 
 public class LandingScreen extends Activity{
 
@@ -58,11 +59,92 @@ public class LandingScreen extends Activity{
 		}
 	}
 
+	private class ImportBible implements Runnable{
+
+		@Override
+		public void run(){
+			// TODO Auto-generated method stub
+			android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+			Bible.getInstance().mImportStatus = Constants.IMPORT_STATUS_IMPORTING;
+			ThreadPoolExecutor tpe = new ThreadPoolExecutor(20, 20, 10000, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.acts),"acts",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.amos),"amos",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.colossians),"colossians",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.daniel),"daniel",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.deuteronomy),"deuteronomy",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.ecclesiastes),"ecclesiastes",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.ephesians),"ephesians",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.esther),"esther",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.exodus),"exodus",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.ezekiel),"ezekiel",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.ezra),"ezra",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.galatians),"galatians",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.genesis),"genesis",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.habakkuk),"habakkuk",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.haggai),"haggai",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.hebrews),"hebrews",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.hosea),"hosea",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.isaiah),"isaiah",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.james),"james",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.jeremiah),"jeremiah",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.job),"job",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.joel),"joel",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.john),"john",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.jonah),"jonah",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.joshua),"joshua",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.jude),"jude",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.judges),"judges",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.lamentations),"lamentations",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.leviticus),"leviticus",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.luke),"luke",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.mark),"mark",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.matthew),"matthew",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.micah),"micah",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.nahum),"nahum",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.nehemiah),"nehemiah",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.numbers),"numbers",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.obadiah),"obadiah",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.philemon),"philemon",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.philippians),"philippians",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.proverbs),"proverbs",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.psalms),"psalms",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.revelation),"revelation",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.romans),"romans",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.ruth),"ruth",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.song_of_solomon),"song_of_solomon",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.titus),"titus",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.zechariah),"zechariah",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.zephaniah),"zephaniah",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.first_chronicles),"first_chronicles",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.first_corinthians),"first_corinthians",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.first_john),"first_john",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.first_kings),"first_kings",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.first_peter),"first_peter",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.first_samuel),"first_samuel",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.first_thessalonians),"first_thessalonians",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.first_timothy),"first_timothy",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.second_chronicles),"second_chronicles",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.second_corinthians),"second_corinthians",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.second_john),"second_john",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.second_kings),"second_kings",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.second_peter),"second_peter",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.second_samuel),"second_samuel",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.second_thessalonians),"second_thessalonians",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.second_timothy),"second_timothy",0));
+			tpe.execute(new ImportBibleBook(getResources().openRawResource(R.raw.third_john),"third_john",0));
+			
+			while(tpe.getCompletedTaskCount()<tpe.getTaskCount()){}
+			Bible.getInstance().importDone();
+		}
+		
+	}
+	
 	private void setUpBible() {
 		// TODO Auto-generated method stub
-		Runnable bibleSetup = new BibleImporter(getResources().openRawResource(R.raw.net));
+		new Thread(new ImportBible()).start();
+		/*Runnable bibleSetup = new BibleImporter(getResources().openRawResource(R.raw.net));
 		ThreadPoolExecutor tpe = new ThreadPoolExecutor(10, 10, 10000, TimeUnit.MILLISECONDS, new SynchronousQueue<Runnable>());
-		tpe.execute(bibleSetup);
+		tpe.execute(bibleSetup);*/
 	}
 	/**
 	 * Sets up the landing screen buttons.

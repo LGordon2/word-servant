@@ -3,6 +3,7 @@ package com.app.wordservant.bible;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import com.app.wordservant.util.Constants;
@@ -16,7 +17,7 @@ public class Bible {
 	 * 
 	 * @element-type BibleBook
 	 */
-	public TreeSet<BibleBook> mBooks;
+	public SortedSet<BibleBook> mBooks;
 
 	public Boolean isImported() {
 		return mImportStatus.equals(Constants.IMPORT_STATUS_COMPLETED)?true:false;
@@ -31,7 +32,7 @@ public class Bible {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Bible(){
-		mBooks = new TreeSet<BibleBook>(new Comparator(){
+		mBooks = Collections.synchronizedSortedSet(new TreeSet<BibleBook>(new Comparator(){
 
 			@Override
 			public int compare(Object lhs, Object rhs) {
@@ -45,7 +46,7 @@ public class Bible {
 				return 1;
 			}
 			
-		});
+		}));
 		mImportStatus = Constants.IMPORT_STATUS_NOT_STARTED;
 	}
 
