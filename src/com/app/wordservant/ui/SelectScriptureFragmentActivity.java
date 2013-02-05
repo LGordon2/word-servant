@@ -13,6 +13,7 @@ import android.widget.TabHost.OnTabChangeListener;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.app.wordservant.R;
+import com.app.wordservant.bible.Bible;
 
 public class SelectScriptureFragmentActivity extends SherlockFragmentActivity{
 	private FragmentTabHost mTabHost;
@@ -21,7 +22,7 @@ public class SelectScriptureFragmentActivity extends SherlockFragmentActivity{
 	protected int chapterNumber = 0;
 	protected boolean checkedActivatedFix = true;
 	protected ArrayList<Integer> mVerseNumbers = new ArrayList<Integer>();
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,6 +54,10 @@ public class SelectScriptureFragmentActivity extends SherlockFragmentActivity{
 			mVerseNumbers = savedInstanceState.getIntegerArrayList("verseNumbers");
 			checkedActivatedFix = savedInstanceState.getBoolean("checkedActivatedFix");
 		}
+	}
+	public void onStart(){
+		super.onStart();
+		mTabHost.getTabWidget().setEnabled(Bible.getInstance().isImported());
 	}
 	public void setCurrentTab(int tabNumber){
 		mTabHost.setCurrentTab(tabNumber);
@@ -99,5 +104,8 @@ public class SelectScriptureFragmentActivity extends SherlockFragmentActivity{
 		mVerseNumbers.clear();
 		
 		this.setCurrentTab(2);
+	}
+	public void enableTabWidget(){
+		this.mTabHost.getTabWidget().setEnabled(true);
 	}
 }

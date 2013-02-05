@@ -1454,8 +1454,8 @@ com.actionbarsherlock.R$attr: int subtitleTextStyle
 com.actionbarsherlock.R$attr: int progressBarStyle
 com.actionbarsherlock.R$attr: int textAppearanceSearchResultTitle
 com.actionbarsherlock.R$attr: int subtitle
-com.actionbarsherlock.R$attr: int actionMenuTextColor
 com.actionbarsherlock.R$attr: int actionDropDownStyle
+com.actionbarsherlock.R$attr: int actionMenuTextColor
 com.actionbarsherlock.R$attr: R$attr()
 com.actionbarsherlock.R$bool
 com.actionbarsherlock.R$bool: int abs__config_allowActionMenuItemTextWithIcon
@@ -1467,26 +1467,26 @@ com.actionbarsherlock.R$bool: int abs__config_actionMenuItemAllCaps
 com.actionbarsherlock.R$bool: R$bool()
 com.actionbarsherlock.R$color
 com.actionbarsherlock.R$color: int abs__bright_foreground_inverse_holo_light
-com.actionbarsherlock.R$color: int abs__holo_blue_light
-com.actionbarsherlock.R$color: int abs__bright_foreground_holo_light
-com.actionbarsherlock.R$color: int abs__bright_foreground_holo_dark
-com.actionbarsherlock.R$color: int abs__bright_foreground_disabled_holo_light
-com.actionbarsherlock.R$color: int abs__primary_text_disable_only_holo_dark
-com.actionbarsherlock.R$color: int abs__bright_foreground_inverse_holo_dark
-com.actionbarsherlock.R$color: int abs__background_holo_dark
 com.actionbarsherlock.R$color: int abs__primary_text_disable_only_holo_light
-com.actionbarsherlock.R$color: int abs__background_holo_light
-com.actionbarsherlock.R$color: int abs__bright_foreground_disabled_holo_dark
+com.actionbarsherlock.R$color: int abs__holo_blue_light
+com.actionbarsherlock.R$color: int abs__bright_foreground_holo_dark
+com.actionbarsherlock.R$color: int abs__bright_foreground_holo_light
 com.actionbarsherlock.R$color: int abs__primary_text_holo_dark
+com.actionbarsherlock.R$color: int abs__primary_text_disable_only_holo_dark
+com.actionbarsherlock.R$color: int abs__bright_foreground_disabled_holo_dark
+com.actionbarsherlock.R$color: int abs__background_holo_light
+com.actionbarsherlock.R$color: int abs__bright_foreground_disabled_holo_light
+com.actionbarsherlock.R$color: int abs__bright_foreground_inverse_holo_dark
 com.actionbarsherlock.R$color: int abs__primary_text_holo_light
+com.actionbarsherlock.R$color: int abs__background_holo_dark
 com.actionbarsherlock.R$color: R$color()
 com.actionbarsherlock.R$dimen
 com.actionbarsherlock.R$dimen: int abs__config_prefDialogWidth
 com.actionbarsherlock.R$dimen: int abs__action_bar_subtitle_text_size
 com.actionbarsherlock.R$dimen: int abs__action_bar_icon_vertical_padding
 com.actionbarsherlock.R$dimen: int abs__dropdownitem_icon_width
-com.actionbarsherlock.R$dimen: int abs__action_button_min_width
 com.actionbarsherlock.R$dimen: int abs__action_bar_subtitle_top_margin
+com.actionbarsherlock.R$dimen: int abs__action_button_min_width
 com.actionbarsherlock.R$dimen: int action_button_min_width
 com.actionbarsherlock.R$dimen: int abs__action_bar_default_height
 com.actionbarsherlock.R$dimen: int abs__dropdownitem_text_padding_left
@@ -1542,10 +1542,10 @@ com.actionbarsherlock.R$drawable: int abs__activated_background_holo_light
 com.actionbarsherlock.R$drawable: int abs__ic_search_api_holo_light
 com.actionbarsherlock.R$drawable: int abs__cab_background_bottom_holo_light
 com.actionbarsherlock.R$drawable: int abs__btn_cab_done_holo_dark
+com.actionbarsherlock.R$drawable: int abs__tab_selected_holo
 com.actionbarsherlock.R$drawable: int abs__cab_background_bottom_holo_dark
 com.actionbarsherlock.R$drawable: int abs__ab_transparent_dark_holo
 com.actionbarsherlock.R$drawable: int abs__progress_horizontal_holo_light
-com.actionbarsherlock.R$drawable: int abs__tab_selected_holo
 com.actionbarsherlock.R$drawable: int abs__ic_ab_back_holo_dark
 com.actionbarsherlock.R$drawable: int abs__ic_menu_share_holo_dark
 com.actionbarsherlock.R$drawable: int abs__ab_stacked_solid_light_holo
@@ -1669,30 +1669,30 @@ com.actionbarsherlock.R$integer
 com.actionbarsherlock.R$integer: int abs__max_action_buttons
 com.actionbarsherlock.R$integer: R$integer()
 com.actionbarsherlock.R$layout
-com.actionbarsherlock.R$layout: int abs__dialog_title_holo
-com.actionbarsherlock.R$layout: int abs__action_menu_layout
-com.actionbarsherlock.R$layout: int abs__action_mode_bar
-com.actionbarsherlock.R$layout: int sherlock_spinner_item
-com.actionbarsherlock.R$layout: int abs__activity_chooser_view
-com.actionbarsherlock.R$layout: int abs__search_view
-com.actionbarsherlock.R$layout: int abs__popup_menu_item_layout
-com.actionbarsherlock.R$layout: int abs__action_bar_tab_bar_view
-com.actionbarsherlock.R$layout: int abs__action_bar_home
-com.actionbarsherlock.R$layout: int abs__action_menu_item_layout
 com.actionbarsherlock.R$layout: int abs__list_menu_item_radio
 com.actionbarsherlock.R$layout: int abs__action_mode_close_item
 com.actionbarsherlock.R$layout: int abs__activity_chooser_view_list_item
+com.actionbarsherlock.R$layout: int abs__dialog_title_holo
 com.actionbarsherlock.R$layout: int abs__screen_simple_overlay_action_mode
 com.actionbarsherlock.R$layout: int abs__screen_action_bar
+com.actionbarsherlock.R$layout: int abs__action_menu_layout
 com.actionbarsherlock.R$layout: int sherlock_spinner_dropdown_item
 com.actionbarsherlock.R$layout: int abs__search_dropdown_item_icons_2line
-com.actionbarsherlock.R$layout: int abs__action_bar_title_item
 com.actionbarsherlock.R$layout: int abs__screen_action_bar_overlay
-com.actionbarsherlock.R$layout: int abs__list_menu_item_checkbox
+com.actionbarsherlock.R$layout: int abs__action_bar_title_item
 com.actionbarsherlock.R$layout: int abs__simple_dropdown_hint
+com.actionbarsherlock.R$layout: int abs__list_menu_item_checkbox
 com.actionbarsherlock.R$layout: int abs__list_menu_item_icon
+com.actionbarsherlock.R$layout: int abs__action_mode_bar
 com.actionbarsherlock.R$layout: int abs__list_menu_item_layout
+com.actionbarsherlock.R$layout: int sherlock_spinner_item
 com.actionbarsherlock.R$layout: int abs__screen_simple
+com.actionbarsherlock.R$layout: int abs__search_view
+com.actionbarsherlock.R$layout: int abs__activity_chooser_view
+com.actionbarsherlock.R$layout: int abs__popup_menu_item_layout
+com.actionbarsherlock.R$layout: int abs__action_bar_home
+com.actionbarsherlock.R$layout: int abs__action_bar_tab_bar_view
+com.actionbarsherlock.R$layout: int abs__action_menu_item_layout
 com.actionbarsherlock.R$layout: int abs__action_bar_tab
 com.actionbarsherlock.R$layout: R$layout()
 com.actionbarsherlock.R$string
@@ -1707,8 +1707,8 @@ com.actionbarsherlock.R$string: int abs__action_bar_home_description
 com.actionbarsherlock.R$string: int abs__searchview_description_search
 com.actionbarsherlock.R$string: int abs__activity_chooser_view_see_all
 com.actionbarsherlock.R$string: int abs__activitychooserview_choose_application
-com.actionbarsherlock.R$string: int abs__action_menu_overflow_description
 com.actionbarsherlock.R$string: int abs__share_action_provider_share_with
+com.actionbarsherlock.R$string: int abs__action_menu_overflow_description
 com.actionbarsherlock.R$string: int abs__searchview_description_submit
 com.actionbarsherlock.R$string: int abs__shareactionprovider_share_with_application
 com.actionbarsherlock.R$string: R$string()
@@ -1765,8 +1765,8 @@ com.actionbarsherlock.R$style: int Widget_Sherlock_Light_Spinner_DropDown_Action
 com.actionbarsherlock.R$style: int Sherlock___Widget_ActivityChooserView
 com.actionbarsherlock.R$style: int Sherlock___Widget_Holo_DropDownItem
 com.actionbarsherlock.R$style: int Widget
-com.actionbarsherlock.R$style: int TextAppearance_Sherlock_Widget_ActionBar_Title_Inverse
 com.actionbarsherlock.R$style: int Sherlock___Widget_ActionMode
+com.actionbarsherlock.R$style: int TextAppearance_Sherlock_Widget_ActionBar_Title_Inverse
 com.actionbarsherlock.R$style: int Widget_Sherlock_ActionMode
 com.actionbarsherlock.R$style: int Widget_Sherlock_Light_ActionButton_Overflow
 com.actionbarsherlock.R$style: int Theme_Sherlock_NoActionBar
@@ -5759,7 +5759,6 @@ com.actionbarsherlock.widget.SuggestionsAdapter$ChildViewCache: android.widget.I
 com.actionbarsherlock.widget.SuggestionsAdapter$ChildViewCache: android.widget.ImageView mIcon2
 com.actionbarsherlock.widget.SuggestionsAdapter$ChildViewCache: android.widget.ImageView mIconRefine
 com.actionbarsherlock.widget.SuggestionsAdapter$ChildViewCache: SuggestionsAdapter$ChildViewCache(android.view.View)
-com.app.wordservant.R$anim: int fade_out
 com.app.wordservant.R$anim: int grow_from_middle
 com.app.wordservant.R$anim: int shrink_to_middle
 com.app.wordservant.R$array: int limit_strings
@@ -5884,7 +5883,6 @@ com.app.wordservant.R$color: int abs__primary_text_holo_dark
 com.app.wordservant.R$color: int abs__primary_text_holo_light
 com.app.wordservant.R$color: int card_front_text_color
 com.app.wordservant.R$color: int pressed_wordservant
-com.app.wordservant.R$color: int transparent
 com.app.wordservant.R$color: int word_servant_purple
 com.app.wordservant.R$dimen: int abs__action_bar_default_height
 com.app.wordservant.R$dimen: int abs__action_bar_icon_vertical_padding
@@ -5903,8 +5901,6 @@ com.app.wordservant.R$dimen: int abs__dropdownitem_text_padding_right
 com.app.wordservant.R$dimen: int abs__search_view_preferred_width
 com.app.wordservant.R$dimen: int abs__search_view_text_min_width
 com.app.wordservant.R$dimen: int action_button_min_width
-com.app.wordservant.R$dimen: int landing_page_text_size
-com.app.wordservant.R$dimen: int landing_page_text_size_small
 com.app.wordservant.R$dimen: int medium_text_size
 com.app.wordservant.R$dimen: int small_text_size
 com.app.wordservant.R$drawable: int ab_bottom_solid_wordservant
@@ -6053,18 +6049,12 @@ com.app.wordservant.R$drawable: int btn_toggle_on_disabled_holo_dark
 com.app.wordservant.R$drawable: int btn_toggle_on_focused_holo_dark
 com.app.wordservant.R$drawable: int btn_toggle_on_normal_holo_dark
 com.app.wordservant.R$drawable: int btn_toggle_on_pressed_holo_dark
-com.app.wordservant.R$drawable: int content_event
-com.app.wordservant.R$drawable: int content_new
 com.app.wordservant.R$drawable: int edit_text_holo_dark
 com.app.wordservant.R$drawable: int fastscroll_thumb_default_holo
 com.app.wordservant.R$drawable: int fastscroll_thumb_holo
 com.app.wordservant.R$drawable: int fastscroll_thumb_pressed_holo
-com.app.wordservant.R$drawable: int filestrip
 com.app.wordservant.R$drawable: int front_of_flashcard
 com.app.wordservant.R$drawable: int gradient_background
-com.app.wordservant.R$drawable: int ic_home
-com.app.wordservant.R$drawable: int ic_search
-com.app.wordservant.R$drawable: int item_background_holo_dark
 com.app.wordservant.R$drawable: int landing_image
 com.app.wordservant.R$drawable: int landing_screen_button
 com.app.wordservant.R$drawable: int landing_screen_button_default
@@ -6112,7 +6102,6 @@ com.app.wordservant.R$drawable: int spinner_ab_disabled_wordservant
 com.app.wordservant.R$drawable: int spinner_ab_focused_wordservant
 com.app.wordservant.R$drawable: int spinner_ab_pressed_wordservant
 com.app.wordservant.R$drawable: int spinner_background_ab_wordservant
-com.app.wordservant.R$drawable: int tab_indicator_ab_holo
 com.app.wordservant.R$drawable: int tab_indicator_ab_wordservant
 com.app.wordservant.R$drawable: int tab_indicator_holo
 com.app.wordservant.R$drawable: int tab_selected_focused_holo
@@ -6132,7 +6121,6 @@ com.app.wordservant.R$drawable: int textfield_disabled_focused_holo_dark
 com.app.wordservant.R$drawable: int textfield_disabled_holo_dark
 com.app.wordservant.R$drawable: int textfield_focused_holo_dark
 com.app.wordservant.R$drawable: int word_servant_icon_new
-com.app.wordservant.R$id: int RelativeLayout1
 com.app.wordservant.R$id: int ScrollView1
 com.app.wordservant.R$id: int TextView01
 com.app.wordservant.R$id: int TextView02
@@ -6178,7 +6166,6 @@ com.app.wordservant.R$id: int abs__title
 com.app.wordservant.R$id: int abs__titleDivider
 com.app.wordservant.R$id: int abs__up
 com.app.wordservant.R$id: int add
-com.app.wordservant.R$id: int addTagButton
 com.app.wordservant.R$id: int buttons
 com.app.wordservant.R$id: int cardSwitcher
 com.app.wordservant.R$id: int checkBox1
@@ -6215,7 +6202,6 @@ com.app.wordservant.R$id: int referenceLayout
 com.app.wordservant.R$id: int referenceScroll
 com.app.wordservant.R$id: int referenceText
 com.app.wordservant.R$id: int refresh
-com.app.wordservant.R$id: int removeButton
 com.app.wordservant.R$id: int rereviewButton
 com.app.wordservant.R$id: int reviewButtons
 com.app.wordservant.R$id: int reviewed
@@ -6229,7 +6215,6 @@ com.app.wordservant.R$id: int scriptureReviewLayout
 com.app.wordservant.R$id: int scriptureScroll
 com.app.wordservant.R$id: int scriptureTags
 com.app.wordservant.R$id: int scriptureText
-com.app.wordservant.R$id: int scrollView
 com.app.wordservant.R$id: int search
 com.app.wordservant.R$id: int seekBarPrefBarContainer
 com.app.wordservant.R$id: int seekBarPrefUnitsLeft
@@ -6246,8 +6231,6 @@ com.app.wordservant.R$id: int skippedCount
 com.app.wordservant.R$id: int standardCheckBoxView
 com.app.wordservant.R$id: int statistics
 com.app.wordservant.R$id: int tabMode
-com.app.wordservant.R$id: int tagLayout
-com.app.wordservant.R$id: int tagText
 com.app.wordservant.R$id: int tapToFlipReference
 com.app.wordservant.R$id: int tapToFlipScripture
 com.app.wordservant.R$id: int test
@@ -6280,11 +6263,9 @@ com.app.wordservant.R$layout: int abs__search_dropdown_item_icons_2line
 com.app.wordservant.R$layout: int abs__search_view
 com.app.wordservant.R$layout: int abs__simple_dropdown_hint
 com.app.wordservant.R$layout: int activity_display_selected_scripture
-com.app.wordservant.R$layout: int activity_due_today
 com.app.wordservant.R$layout: int activity_due_today_no_scriptures
 com.app.wordservant.R$layout: int activity_edit_scripture
 com.app.wordservant.R$layout: int activity_input_scripture_manual
-com.app.wordservant.R$layout: int activity_manage_tags
 com.app.wordservant.R$layout: int activity_quiz_review
 com.app.wordservant.R$layout: int activity_scripture_bank
 com.app.wordservant.R$layout: int activity_scripture_review
@@ -6300,7 +6281,6 @@ com.app.wordservant.R$layout: int layout_checkbox_item
 com.app.wordservant.R$layout: int layout_fragment_holder
 com.app.wordservant.R$layout: int layout_no_edit_scripture
 com.app.wordservant.R$layout: int list_layout
-com.app.wordservant.R$layout: int manage_tags_item
 com.app.wordservant.R$layout: int review_scripture_layout
 com.app.wordservant.R$layout: int scripture_bank
 com.app.wordservant.R$layout: int select_bible_chapter
@@ -6312,7 +6292,6 @@ com.app.wordservant.R$layout: int small_list_layout
 com.app.wordservant.R$layout: int statistics_fragment
 com.app.wordservant.R$menu: int activity_display_selected_scripture
 com.app.wordservant.R$menu: int activity_due_today_no_scriptures
-com.app.wordservant.R$menu: int activity_edit_scripture
 com.app.wordservant.R$menu: int activity_input_scripture_manual
 com.app.wordservant.R$menu: int activity_quiz_review
 com.app.wordservant.R$menu: int activity_scripture_bank
@@ -6338,17 +6317,18 @@ com.app.wordservant.R$string: int abs__searchview_description_voice
 com.app.wordservant.R$string: int abs__share_action_provider_share_with
 com.app.wordservant.R$string: int abs__shareactionprovider_share_with
 com.app.wordservant.R$string: int abs__shareactionprovider_share_with_application
-com.app.wordservant.R$string: int category_text_field_hint
 com.app.wordservant.R$string: int date_format
-com.app.wordservant.R$string: int done_button_text
-com.app.wordservant.R$string: int got_it_button_text
-com.app.wordservant.R$string: int hello_world
-com.app.wordservant.R$string: int input_scripture_button_text
+com.app.wordservant.R$string: int due_today_menu_item_text
 com.app.wordservant.R$string: int menu_settings
-com.app.wordservant.R$string: int next_button_text
+com.app.wordservant.R$string: int my_memory_verse_menu_item_text
+com.app.wordservant.R$string: int no_scriptures_in_bank_text
+com.app.wordservant.R$string: int nothing_to_review_text
+com.app.wordservant.R$string: int quiz_complete_text
+com.app.wordservant.R$string: int quiz_review_menu_item_text
+com.app.wordservant.R$string: int rereview_button_text
 com.app.wordservant.R$string: int scripture_reference_text_field_hint
 com.app.wordservant.R$string: int scripture_text_text_field_hint
-com.app.wordservant.R$string: int select_new_scripture_button_text
+com.app.wordservant.R$string: int tap_to_flip_text
 com.app.wordservant.R$string: int title_activity_display_selected_scripture
 com.app.wordservant.R$string: int title_activity_due_today_no_scriptures
 com.app.wordservant.R$string: int title_activity_edit_scripture
@@ -6357,7 +6337,6 @@ com.app.wordservant.R$string: int title_activity_main
 com.app.wordservant.R$string: int title_activity_quiz_review
 com.app.wordservant.R$string: int title_activity_scripture_bank
 com.app.wordservant.R$string: int title_activity_scripture_review
-com.app.wordservant.R$string: int title_activity_select_scripture
 com.app.wordservant.R$string: int title_activity_settings
 com.app.wordservant.R$string: int title_activity_statistics
 com.app.wordservant.R$string: int title_activity_todays_memory_verses

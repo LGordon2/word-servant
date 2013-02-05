@@ -1860,8 +1860,8 @@ com.actionbarsherlock.R$attr -> com.actionbarsherlock.R$attr:
     int progressBarStyle -> progressBarStyle
     int textAppearanceSearchResultTitle -> textAppearanceSearchResultTitle
     int subtitle -> subtitle
-    int actionMenuTextColor -> actionMenuTextColor
     int actionDropDownStyle -> actionDropDownStyle
+    int actionMenuTextColor -> actionMenuTextColor
 com.actionbarsherlock.R$bool -> com.actionbarsherlock.R$bool:
     int abs__config_allowActionMenuItemTextWithIcon -> abs__config_allowActionMenuItemTextWithIcon
     int abs__action_bar_expanded_action_views_exclusive -> abs__action_bar_expanded_action_views_exclusive
@@ -1871,25 +1871,25 @@ com.actionbarsherlock.R$bool -> com.actionbarsherlock.R$bool:
     int abs__config_actionMenuItemAllCaps -> abs__config_actionMenuItemAllCaps
 com.actionbarsherlock.R$color -> com.actionbarsherlock.R$color:
     int abs__bright_foreground_inverse_holo_light -> abs__bright_foreground_inverse_holo_light
-    int abs__holo_blue_light -> abs__holo_blue_light
-    int abs__bright_foreground_holo_light -> abs__bright_foreground_holo_light
-    int abs__bright_foreground_holo_dark -> abs__bright_foreground_holo_dark
-    int abs__bright_foreground_disabled_holo_light -> abs__bright_foreground_disabled_holo_light
-    int abs__primary_text_disable_only_holo_dark -> abs__primary_text_disable_only_holo_dark
-    int abs__bright_foreground_inverse_holo_dark -> abs__bright_foreground_inverse_holo_dark
-    int abs__background_holo_dark -> abs__background_holo_dark
     int abs__primary_text_disable_only_holo_light -> abs__primary_text_disable_only_holo_light
-    int abs__background_holo_light -> abs__background_holo_light
-    int abs__bright_foreground_disabled_holo_dark -> abs__bright_foreground_disabled_holo_dark
+    int abs__holo_blue_light -> abs__holo_blue_light
+    int abs__bright_foreground_holo_dark -> abs__bright_foreground_holo_dark
+    int abs__bright_foreground_holo_light -> abs__bright_foreground_holo_light
     int abs__primary_text_holo_dark -> abs__primary_text_holo_dark
+    int abs__primary_text_disable_only_holo_dark -> abs__primary_text_disable_only_holo_dark
+    int abs__bright_foreground_disabled_holo_dark -> abs__bright_foreground_disabled_holo_dark
+    int abs__background_holo_light -> abs__background_holo_light
+    int abs__bright_foreground_disabled_holo_light -> abs__bright_foreground_disabled_holo_light
+    int abs__bright_foreground_inverse_holo_dark -> abs__bright_foreground_inverse_holo_dark
     int abs__primary_text_holo_light -> abs__primary_text_holo_light
+    int abs__background_holo_dark -> abs__background_holo_dark
 com.actionbarsherlock.R$dimen -> com.actionbarsherlock.R$dimen:
     int abs__config_prefDialogWidth -> abs__config_prefDialogWidth
     int abs__action_bar_subtitle_text_size -> abs__action_bar_subtitle_text_size
     int abs__action_bar_icon_vertical_padding -> abs__action_bar_icon_vertical_padding
     int abs__dropdownitem_icon_width -> abs__dropdownitem_icon_width
-    int abs__action_button_min_width -> abs__action_button_min_width
     int abs__action_bar_subtitle_top_margin -> abs__action_bar_subtitle_top_margin
+    int abs__action_button_min_width -> abs__action_button_min_width
     int action_button_min_width -> action_button_min_width
     int abs__action_bar_default_height -> abs__action_bar_default_height
     int abs__dropdownitem_text_padding_left -> abs__dropdownitem_text_padding_left
@@ -1944,10 +1944,10 @@ com.actionbarsherlock.R$drawable -> com.actionbarsherlock.R$drawable:
     int abs__ic_search_api_holo_light -> abs__ic_search_api_holo_light
     int abs__cab_background_bottom_holo_light -> abs__cab_background_bottom_holo_light
     int abs__btn_cab_done_holo_dark -> abs__btn_cab_done_holo_dark
+    int abs__tab_selected_holo -> abs__tab_selected_holo
     int abs__cab_background_bottom_holo_dark -> abs__cab_background_bottom_holo_dark
     int abs__ab_transparent_dark_holo -> abs__ab_transparent_dark_holo
     int abs__progress_horizontal_holo_light -> abs__progress_horizontal_holo_light
-    int abs__tab_selected_holo -> abs__tab_selected_holo
     int abs__ic_ab_back_holo_dark -> abs__ic_ab_back_holo_dark
     int abs__ic_menu_share_holo_dark -> abs__ic_menu_share_holo_dark
     int abs__ab_stacked_solid_light_holo -> abs__ab_stacked_solid_light_holo
@@ -2068,30 +2068,30 @@ com.actionbarsherlock.R$id -> com.actionbarsherlock.R$id:
 com.actionbarsherlock.R$integer -> com.actionbarsherlock.R$integer:
     int abs__max_action_buttons -> abs__max_action_buttons
 com.actionbarsherlock.R$layout -> com.actionbarsherlock.R$layout:
-    int abs__dialog_title_holo -> abs__dialog_title_holo
-    int abs__action_menu_layout -> abs__action_menu_layout
-    int abs__action_mode_bar -> abs__action_mode_bar
-    int sherlock_spinner_item -> sherlock_spinner_item
-    int abs__activity_chooser_view -> abs__activity_chooser_view
-    int abs__search_view -> abs__search_view
-    int abs__popup_menu_item_layout -> abs__popup_menu_item_layout
-    int abs__action_bar_tab_bar_view -> abs__action_bar_tab_bar_view
-    int abs__action_bar_home -> abs__action_bar_home
-    int abs__action_menu_item_layout -> abs__action_menu_item_layout
     int abs__list_menu_item_radio -> abs__list_menu_item_radio
     int abs__action_mode_close_item -> abs__action_mode_close_item
     int abs__activity_chooser_view_list_item -> abs__activity_chooser_view_list_item
+    int abs__dialog_title_holo -> abs__dialog_title_holo
     int abs__screen_simple_overlay_action_mode -> abs__screen_simple_overlay_action_mode
     int abs__screen_action_bar -> abs__screen_action_bar
+    int abs__action_menu_layout -> abs__action_menu_layout
     int sherlock_spinner_dropdown_item -> sherlock_spinner_dropdown_item
     int abs__search_dropdown_item_icons_2line -> abs__search_dropdown_item_icons_2line
-    int abs__action_bar_title_item -> abs__action_bar_title_item
     int abs__screen_action_bar_overlay -> abs__screen_action_bar_overlay
-    int abs__list_menu_item_checkbox -> abs__list_menu_item_checkbox
+    int abs__action_bar_title_item -> abs__action_bar_title_item
     int abs__simple_dropdown_hint -> abs__simple_dropdown_hint
+    int abs__list_menu_item_checkbox -> abs__list_menu_item_checkbox
     int abs__list_menu_item_icon -> abs__list_menu_item_icon
+    int abs__action_mode_bar -> abs__action_mode_bar
     int abs__list_menu_item_layout -> abs__list_menu_item_layout
+    int sherlock_spinner_item -> sherlock_spinner_item
     int abs__screen_simple -> abs__screen_simple
+    int abs__search_view -> abs__search_view
+    int abs__activity_chooser_view -> abs__activity_chooser_view
+    int abs__popup_menu_item_layout -> abs__popup_menu_item_layout
+    int abs__action_bar_home -> abs__action_bar_home
+    int abs__action_bar_tab_bar_view -> abs__action_bar_tab_bar_view
+    int abs__action_menu_item_layout -> abs__action_menu_item_layout
     int abs__action_bar_tab -> abs__action_bar_tab
 com.actionbarsherlock.R$string -> com.actionbarsherlock.R$string:
     int abs__action_bar_up_description -> abs__action_bar_up_description
@@ -2105,8 +2105,8 @@ com.actionbarsherlock.R$string -> com.actionbarsherlock.R$string:
     int abs__searchview_description_search -> abs__searchview_description_search
     int abs__activity_chooser_view_see_all -> abs__activity_chooser_view_see_all
     int abs__activitychooserview_choose_application -> abs__activitychooserview_choose_application
-    int abs__action_menu_overflow_description -> abs__action_menu_overflow_description
     int abs__share_action_provider_share_with -> abs__share_action_provider_share_with
+    int abs__action_menu_overflow_description -> abs__action_menu_overflow_description
     int abs__searchview_description_submit -> abs__searchview_description_submit
     int abs__shareactionprovider_share_with_application -> abs__shareactionprovider_share_with_application
 com.actionbarsherlock.R$style -> com.actionbarsherlock.R$style:
@@ -2162,8 +2162,8 @@ com.actionbarsherlock.R$style -> com.actionbarsherlock.R$style:
     int Sherlock___Widget_ActivityChooserView -> Sherlock___Widget_ActivityChooserView
     int Sherlock___Widget_Holo_DropDownItem -> Sherlock___Widget_Holo_DropDownItem
     int Widget -> Widget
-    int TextAppearance_Sherlock_Widget_ActionBar_Title_Inverse -> TextAppearance_Sherlock_Widget_ActionBar_Title_Inverse
     int Sherlock___Widget_ActionMode -> Sherlock___Widget_ActionMode
+    int TextAppearance_Sherlock_Widget_ActionBar_Title_Inverse -> TextAppearance_Sherlock_Widget_ActionBar_Title_Inverse
     int Widget_Sherlock_ActionMode -> Widget_Sherlock_ActionMode
     int Widget_Sherlock_Light_ActionButton_Overflow -> Widget_Sherlock_Light_ActionButton_Overflow
     int Theme_Sherlock_NoActionBar -> Theme_Sherlock_NoActionBar
@@ -6124,9 +6124,11 @@ com.app.wordservant.ui.ScriptureReview -> com.app.wordservant.ui.ScriptureReview
     void onLoadFinished(android.support.v4.content.Loader,java.lang.Object) -> onLoadFinished
 com.app.wordservant.ui.SelectBibleBookFragment -> com.app.wordservant.ui.q:
     android.widget.ArrayAdapter mAdapter -> a
+    android.os.AsyncTask mBibleLoader -> b
     void onActivityCreated(android.os.Bundle) -> onActivityCreated
     void onViewCreated(android.view.View,android.os.Bundle) -> onViewCreated
     void onListItemClick(android.widget.ListView,android.view.View,int,long) -> onListItemClick
+    void onDestroy() -> onDestroy
 com.app.wordservant.ui.SelectBibleBookFragment$WaitForBibleLoad -> com.app.wordservant.ui.r:
     com.app.wordservant.ui.SelectBibleBookFragment this$0 -> a
     boolean $assertionsDisabled -> b
