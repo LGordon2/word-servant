@@ -494,6 +494,7 @@ com.app.wordservant.provider.WordServantProvider:
     private static final int DECREMENT_TIMES_REVIEWED
 com.app.wordservant.ui.EditScripture$EditScriptureFragment:
     private android.widget.EditText mEditCategory
+com.app.wordservant.ui.EditScriptureFragment
 com.app.wordservant.ui.FlashcardFragment:
     109:109:public java.lang.CharSequence getScriptureReference()
     121:121:public java.lang.CharSequence getScriptureText()

@@ -44,9 +44,13 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 		
 		//Get all the unreviewed scripture ids.
 		if(savedInstanceState==null){
-			mUnreviewedScriptureIds = getIntent().getIntegerArrayListExtra("unreviewedScriptureIds");
+			if(getIntent().getIntegerArrayListExtra("unreviewedScriptureIds")!=null)
+				mUnreviewedScriptureIds = getIntent().getIntegerArrayListExtra("unreviewedScriptureIds");
+			else
+				mUnreviewedScriptureIds = new ArrayList<Integer>();
 			String [] columnsToRetrieve = {WordServantContract.ScriptureEntry._ID};
-			Cursor mUnreviewedScriptureQuery = new CursorLoader(this, WordServantContract.ScriptureEntry.CONTENT_URI, columnsToRetrieve, 
+			Cursor mUnreviewedScriptureQuery = new CursorLoader(this, WordServantContract.ScriptureEntry.CONTENT_URI, 
+					columnsToRetrieve, 
 					WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+"<=date('now','localtime')", null, null).loadInBackground();
 
 			for(int i=0;i<mUnreviewedScriptureQuery.getCount();i++){

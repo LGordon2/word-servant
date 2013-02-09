@@ -6131,7 +6131,6 @@ com.app.wordservant.ui.SelectBibleBookFragment -> com.app.wordservant.ui.q:
     void onDestroy() -> onDestroy
 com.app.wordservant.ui.SelectBibleBookFragment$WaitForBibleLoad -> com.app.wordservant.ui.r:
     com.app.wordservant.ui.SelectBibleBookFragment this$0 -> a
-    boolean $assertionsDisabled -> b
     java.lang.Void doInBackground(java.lang.Void[]) -> a
     void onPostExecute(java.lang.Void) -> a
     void onPostExecute(java.lang.Object) -> onPostExecute
@@ -6179,12 +6178,14 @@ com.app.wordservant.ui.SelectScriptureFragmentActivity -> com.app.wordservant.ui
     boolean checkedActivatedFix -> d
     java.util.ArrayList mVerseNumbers -> e
     void onCreate(android.os.Bundle) -> onCreate
+    void onStart() -> onStart
     void setCurrentTab(int) -> a
     void onActivityResult(int,int,android.content.Intent) -> onActivityResult
     void onSaveInstanceState(android.os.Bundle) -> onSaveInstanceState
     boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem) -> onOptionsItemSelected
     void updateBook(java.lang.Integer,java.lang.String) -> a
     void updateChapter(java.lang.Integer) -> a
+    void enableTabWidget() -> a
 com.app.wordservant.ui.Settings -> com.app.wordservant.ui.Settings:
     void onCreate(android.os.Bundle) -> onCreate
     void onResume() -> onResume
