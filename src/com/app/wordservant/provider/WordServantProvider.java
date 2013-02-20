@@ -27,7 +27,7 @@ public class WordServantProvider extends ContentProvider {
 	/**
 	 * The database version
 	 */
-	private static final int DATABASE_VERSION = 13;
+	private static final int DATABASE_VERSION = 15;
 
 	/**
 	 * A UriMatcher instance
@@ -45,10 +45,10 @@ public class WordServantProvider extends ContentProvider {
 
 	// The incoming URI matches the Note ID URI pattern
 	private static final int SCRIPTURE_ID = 2;
-	
+
 	// The incoming URI matches the Note ID URI pattern
 	private static final int INCREMENT_TIMES_REVIEWED = 3;
-	
+
 	// The incoming URI matches the Note ID URI pattern
 	private static final int DECREMENT_TIMES_REVIEWED = 4;
 
@@ -72,11 +72,11 @@ public class WordServantProvider extends ContentProvider {
 		// Add a pattern that routes URIs terminated with "scriptures" plus an integer
 		// to a scripture ID operation
 		sUriMatcher.addURI(WordServantContract.AUTHORITY, "scriptures/#", SCRIPTURE_ID);
-		
+
 		// Add a pattern that routes URIs terminated with "scriptures" plus an integer
 		// to a scripture ID operation
 		sUriMatcher.addURI(WordServantContract.AUTHORITY, "scriptures/#/INCREMENT_TIMES_REVIEWED", INCREMENT_TIMES_REVIEWED);
-		
+
 		// Add a pattern that routes URIs terminated with "scriptures" plus an integer
 		// to a scripture ID operation
 		sUriMatcher.addURI(WordServantContract.AUTHORITY, "scriptures/#/DECREMENT_TIMES_REVIEWED", DECREMENT_TIMES_REVIEWED);
@@ -123,7 +123,7 @@ public class WordServantProvider extends ContentProvider {
 	 */
 	static class WordServantDatabaseHelper extends SQLiteOpenHelper {
 
-		private static String SCRIPTURE_BANK_TABLE_CREATE = "CREATE TABLE "+ WordServantContract.ScriptureEntry.TABLE_NAME+ " ("+
+		private static String SCRIPTURE_BANK_TABLE_CREATE = "CREATE TABLE IF NOT EXISTS "+ WordServantContract.ScriptureEntry.TABLE_NAME+ " ("+
 				WordServantContract.ScriptureEntry._ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE+" TEXT NOT NULL, "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT+" TEXT NOT NULL, "+
@@ -157,49 +157,109 @@ public class WordServantProvider extends ContentProvider {
 		private static String TRIGGER_NAME_SCHEDULE_YEARLY = "schedule_update_yearly";
 		private static String TRIGGER_NAME_AUTO_UPDATE_DATE = "auto_update_date";
 
-		private static String TRIGGER_SCHEDULE_DAILY = "CREATE TRIGGER "+TRIGGER_NAME_SCHEDULE_DAILY+" AFTER UPDATE OF "+
+		private static String TRIGGER_SCHEDULE_DAILY = "CREATE TRIGGER IF NOT EXISTS "+TRIGGER_NAME_SCHEDULE_DAILY+" AFTER UPDATE OF "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" ON "+WordServantContract.ScriptureEntry.TABLE_NAME+
 				" BEGIN UPDATE "+WordServantContract.ScriptureEntry.TABLE_NAME+" SET "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+
 				"='daily' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<7"+
 				" AND _id = new._id; END;";
 
-		private static String TRIGGER_SCHEDULE_WEEKLY = "CREATE TRIGGER "+TRIGGER_NAME_SCHEDULE_WEEKLY+" AFTER UPDATE OF "+
+		private static String TRIGGER_SCHEDULE_WEEKLY = "CREATE TRIGGER IF NOT EXISTS "+TRIGGER_NAME_SCHEDULE_WEEKLY+" AFTER UPDATE OF "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" ON "+WordServantContract.ScriptureEntry.TABLE_NAME+
 				" BEGIN UPDATE "+WordServantContract.ScriptureEntry.TABLE_NAME+" SET "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+
 				"='weekly' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">=7 AND "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<14"+
 				" AND _id = new._id; END;";
 
-		private static String TRIGGER_SCHEDULE_MONTHLY = "CREATE TRIGGER "+TRIGGER_NAME_SCHEDULE_MONTHLY+" AFTER UPDATE OF "+
+		private static String TRIGGER_SCHEDULE_MONTHLY = "CREATE TRIGGER IF NOT EXISTS "+TRIGGER_NAME_SCHEDULE_MONTHLY+" AFTER UPDATE OF "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" ON "+WordServantContract.ScriptureEntry.TABLE_NAME+
 				" BEGIN UPDATE "+WordServantContract.ScriptureEntry.TABLE_NAME+" SET "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+
 				"='monthly' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">=14 AND "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<21"+
 				" AND _id = new._id; END;";
 
-		private static String TRIGGER_SCHEDULE_YEARLY = "CREATE TRIGGER "+TRIGGER_NAME_SCHEDULE_YEARLY+" AFTER UPDATE OF "+
+		private static String TRIGGER_SCHEDULE_YEARLY = "CREATE TRIGGER IF NOT EXISTS "+TRIGGER_NAME_SCHEDULE_YEARLY+" AFTER UPDATE OF "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" ON "+WordServantContract.ScriptureEntry.TABLE_NAME+
 				" BEGIN UPDATE "+WordServantContract.ScriptureEntry.TABLE_NAME+" SET "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+
 				"='yearly' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">=21 AND "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<28"+
 				" AND _id = new._id; END;";
-//FIXME trigger issue!!
-		private static String TRIGGER_AUTO_UPDATE_DATE = "CREATE TRIGGER "+TRIGGER_NAME_AUTO_UPDATE_DATE+" AFTER UPDATE OF "+
-				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" ON "+WordServantContract.ScriptureEntry.TABLE_NAME+
-				" BEGIN UPDATE "+WordServantContract.ScriptureEntry.TABLE_NAME+" SET "+WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE+
-				"=date('now', 'localtime', "+
-				"case when old."+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" < new."+
-				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" then "+
-				"case "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+" "+
-				"when 'daily' then '+1 day' "+
-				"when 'weekly' then '+7 day' "+
-				"when 'monthly' then '+1 month' "+
-				"when 'yearly' then '+365 days' "+
-				"end else '+0 day' end), "+WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+"="+
-				"case when old."+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" < new."+
-				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" then date('now','localtime') else "+
-				" date("+WordServantContract.ScriptureEntry.COLUMN_NAME_LAST_REVIEWED_DATE+") end"+
-				" WHERE _id = new._id; END;";
+
+		private static String TRIGGER_AUTO_UPDATE_DATE = "CREATE TRIGGER IF NOT EXISTS auto_update_date "+
+				"AFTER UPDATE OF times_reviewed ON scriptures "+
+				"BEGIN "+
+				"	UPDATE scriptures SET next_review_date=date(old.next_review_date, 'localtime', "+
+				"		case "+
+				"			when old.times_reviewed<new.times_reviewed then '+'"+
+				"			else ''"+
+				"		end"+
+				"		|| "+
+				"		case "+
+				"			when schedule = 'daily' then (new.times_reviewed - old.times_reviewed) ||' days'"+
+				"			when schedule = 'weekly' then ((new.times_reviewed - old.times_reviewed)*7) ||' days'"+
+				"			when schedule = 'monthly' then (new.times_reviewed - old.times_reviewed) ||' monthly'"+
+				"			when schedule = 'yearly' then ((new.times_reviewed - old.times_reviewed)*365) ||' days'"+
+				"			else '+0 days'"+
+				"		end"+
+				"		), "+
+				"		last_reviewed_date="+
+				"		case "+
+				"			when old.times_reviewed < new.times_reviewed then date('now','localtime')"+ 
+				"			else date(last_reviewed_date) "+
+				"		end "+
+				"	WHERE _id = new._id;"+ 
+				"END;";
+
+		public static String TRIGGER_INSERT_SCRIPTURE = "create trigger if not exists insert_scripture "+
+				"after insert on scriptures "+
+				"when not exists (select * from scriptures where schedule='daily' and _id <> New._id) "+
+				"begin "+
+				"	update scriptures "+ 
+				"		set next_review_date = date('now','localtime') "+
+				"		where _id = New._id; "+
+				"	select _id from scriptures; "+
+				"end;";
+
+		public static String TRIGGER_MUST_BE_DAILY = "create trigger IF NOT EXISTS must_be_daily "+
+				"after update of schedule on scriptures "+
+				"when "+
+				"	not exists("+
+				"	select * from scriptures" +
+				"	where schedule='daily' and" +
+				"	(next_review_date is not NULL or next_review_date > date('now','localtime','+1 day'))"+
+				"	) "+
+				"begin "+
+				"	update scriptures set "+
+				"		next_review_date = date('now','localtime',"+
+				"			case "+
+				"				when exists (select * from scriptures where last_reviewed_date=date('now','localtime'))"+
+				"				then '+1 day'"+
+				"				else '+0 day'"+
+				"			end"+
+				"			)"+
+				"		where _id in (select _id from scriptures"+
+				"			where _id <> New._id and schedule = 'daily'"+
+				"			order by _id asc"+
+				"			limit 1);"+
+				"end;";
+
+		public static String TRIGGER_DELETE_SCRIPTURE = "create trigger IF NOT EXISTS delete_scripture "+
+				"after delete on scriptures "+
+				"when not exists (select * from scriptures "+
+				"where schedule='daily' and (next_review_date is not NULL or next_review_date > date('now','localtime','+1 day'))) "+
+				"begin "+
+				"	update scriptures set "+
+				"		next_review_date = date('now','localtime',"+
+				"			case "+
+				"				when exists (select * from scriptures where last_reviewed_date=date('now','localtime'))"+
+				"				then '+1 day'"+
+				"				else '+0 day'"+
+				"			end"+
+				"			)"+
+				"		where _id in (select _id from scriptures"+
+				"			where schedule = 'daily'"+
+				"			order by _id asc"+
+				"			limit 1); "+
+				"end;";
 
 		public WordServantDatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -218,6 +278,9 @@ public class WordServantProvider extends ContentProvider {
 			db.execSQL(TRIGGER_SCHEDULE_MONTHLY);
 			db.execSQL(TRIGGER_SCHEDULE_YEARLY);
 			db.execSQL(TRIGGER_AUTO_UPDATE_DATE);
+			db.execSQL(TRIGGER_MUST_BE_DAILY);
+			db.execSQL(TRIGGER_DELETE_SCRIPTURE);
+			db.execSQL(TRIGGER_INSERT_SCRIPTURE);
 
 		}
 
@@ -230,10 +293,14 @@ public class WordServantProvider extends ContentProvider {
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
 			// Kills the table and existing data
-			//db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_NAME);
-			db.execSQL("DROP TABLE IF EXISTS "+ WordServantContract.ScriptureEntry.TABLE_NAME);
+			//db.execSQL("DROP TABLE IF EXISTS "+ WordServantContract.ScriptureEntry.TABLE_NAME);
 			db.execSQL("DROP TABLE IF EXISTS "+ WordServantContract.TagEntry.TABLE_NAME);
 			db.execSQL("DROP TABLE IF EXISTS "+ WordServantContract.CategoryEntry.TABLE_NAME);
+
+			db.execSQL("DROP TRIGGER IF EXISTS "+ "auto_update_date");
+			db.execSQL("DROP TRIGGER IF EXISTS "+ "insert_scripture");
+			db.execSQL("DROP TRIGGER IF EXISTS "+ "must_be_daily");
+			db.execSQL("DROP TRIGGER IF EXISTS "+ "delete_scripture");
 
 			// Recreates the database with a new version
 			onCreate(db);
@@ -463,7 +530,7 @@ public class WordServantProvider extends ContentProvider {
 					);
 			break;
 			// If the incoming pattern is invalid, throws an exception.
-			
+
 		case INCREMENT_TIMES_REVIEWED:
 			scriptureId = uri.getPathSegments().get(WordServantContract.ScriptureEntry.SCRIPTURE_ID_PATH_POSITION);
 
@@ -483,7 +550,7 @@ public class WordServantProvider extends ContentProvider {
 			if (where !=null) {
 				finalWhere = finalWhere + " AND " + where;
 			}
-			
+
 			// Does the update and returns the number of rows updated.
 			cursor = this.query(uri, timesReviewedProjection, null, null, null);
 			cursor.moveToFirst();
@@ -521,8 +588,8 @@ public class WordServantProvider extends ContentProvider {
 			if (where !=null) {
 				finalWhere = finalWhere + " AND " + where;
 			}
-			
-			
+
+
 			// Does the update and returns the number of rows updated.
 
 			cursor = this.query(uri, timesReviewedProjection, null, null, null);

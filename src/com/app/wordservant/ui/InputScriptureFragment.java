@@ -1,13 +1,7 @@
 package com.app.wordservant.ui;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -67,30 +61,10 @@ public class InputScriptureFragment extends SherlockFragment {
 
 			Runtime r = Runtime.getRuntime();
 			// Map the values of the fields to columns that are used in the database.
-			SimpleDateFormat dbDateFormat = new SimpleDateFormat(getResources().getString(R.string.date_format), Locale.US);
 			ContentValues scriptureValues = new ContentValues();
 			scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_REFERENCE, scriptureReference.getText().toString());
 			scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_TEXT, scriptureText.getText().toString());
-			//Query for any "running" scriptures.
-			String [] columnsToRetrieve = {
-					WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE,
-					WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED,
-					WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE};
-			Cursor runningScriptureQuery = getActivity().getContentResolver().query(
-					WordServantContract.ScriptureEntry.CONTENT_URI, 
-					columnsToRetrieve, 
-					"SCHEDULE='daily' AND TIMES_REVIEWED<7", null, null);
-			if (runningScriptureQuery.getCount()>0){
-				runningScriptureQuery.moveToLast();
-				Calendar currentCalendar = Calendar.getInstance();
-				try {
-					currentCalendar.setTime(dbDateFormat.parse(runningScriptureQuery.getString(2)));
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				currentCalendar.add(Calendar.DATE, 7-runningScriptureQuery.getInt(1));
-				scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, dbDateFormat.format(currentCalendar.getTime()));
-			}
+			scriptureValues.put(WordServantContract.ScriptureEntry.COLUMN_NAME_NEXT_REVIEW_DATE, (String)null);
 			r.gc();
 
 			//Open the database and add the row.
@@ -109,7 +83,7 @@ public class InputScriptureFragment extends SherlockFragment {
 				fragmentTransaction.remove(fragmentManager.findFragmentByTag("input_scripture"));
 				fragmentTransaction.commit();
 			}
-			
+
 
 		}
 		return super.onOptionsItemSelected(item);
