@@ -187,17 +187,17 @@ public class WordServantProvider extends ContentProvider {
 		private static String TRIGGER_AUTO_UPDATE_DATE = "CREATE TRIGGER IF NOT EXISTS auto_update_date "+
 				"AFTER UPDATE OF times_reviewed ON scriptures "+
 				"BEGIN "+
-				"	UPDATE scriptures SET next_review_date=date(old.next_review_date, 'localtime', "+
+				"	UPDATE scriptures SET next_review_date=date(old.next_review_date, "+
 				"		case "+
 				"			when old.times_reviewed<new.times_reviewed then '+'"+
 				"			else ''"+
 				"		end"+
 				"		|| "+
 				"		case "+
-				"			when schedule = 'daily' then (new.times_reviewed - old.times_reviewed+1) ||' days'"+
-				"			when schedule = 'weekly' then ((new.times_reviewed - old.times_reviewed+1)*7) ||' days'"+
-				"			when schedule = 'monthly' then (new.times_reviewed - old.times_reviewed+1) ||' months'"+
-				"			when schedule = 'yearly' then ((new.times_reviewed - old.times_reviewed+1)*365) ||' days'"+
+				"			when schedule = 'daily' then (new.times_reviewed - old.times_reviewed) ||' days'"+
+				"			when schedule = 'weekly' then ((new.times_reviewed - old.times_reviewed)*7) ||' days'"+
+				"			when schedule = 'monthly' then (new.times_reviewed - old.times_reviewed) ||' months'"+
+				"			when schedule = 'yearly' then ((new.times_reviewed - old.times_reviewed)*365) ||' days'"+
 				"			else '+0 days'"+
 				"		end"+
 				"		), "+
@@ -206,7 +206,7 @@ public class WordServantProvider extends ContentProvider {
 				"			when old.times_reviewed < new.times_reviewed then date('now','localtime')"+ 
 				"			else date(last_reviewed_date) "+
 				"		end "+
-				"	WHERE _id = new._id;"+ 
+				"	WHERE _id = new._id;"+
 				"END;";
 
 		public static String TRIGGER_INSERT_SCRIPTURE = "create trigger if not exists insert_scripture "+
