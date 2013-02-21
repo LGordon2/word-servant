@@ -5955,19 +5955,22 @@ com.app.wordservant.provider.WordServantProvider -> com.app.wordservant.provider
     android.database.Cursor query(android.net.Uri,java.lang.String[],java.lang.String,java.lang.String[],java.lang.String) -> query
     int update(android.net.Uri,android.content.ContentValues,java.lang.String,java.lang.String[]) -> update
 com.app.wordservant.provider.WordServantProvider$WordServantDatabaseHelper -> com.app.wordservant.provider.c:
-    java.lang.String SCRIPTURE_BANK_TABLE_CREATE -> a
-    java.lang.String TAG_TABLE_CREATE -> b
-    java.lang.String CATEGORY_TABLE_CREATE -> c
-    java.lang.String TRIGGER_NAME_SCHEDULE_DAILY -> d
-    java.lang.String TRIGGER_NAME_SCHEDULE_WEEKLY -> e
-    java.lang.String TRIGGER_NAME_SCHEDULE_MONTHLY -> f
-    java.lang.String TRIGGER_NAME_SCHEDULE_YEARLY -> g
-    java.lang.String TRIGGER_NAME_AUTO_UPDATE_DATE -> h
-    java.lang.String TRIGGER_SCHEDULE_DAILY -> i
-    java.lang.String TRIGGER_SCHEDULE_WEEKLY -> j
-    java.lang.String TRIGGER_SCHEDULE_MONTHLY -> k
-    java.lang.String TRIGGER_SCHEDULE_YEARLY -> l
-    java.lang.String TRIGGER_AUTO_UPDATE_DATE -> m
+    java.lang.String SCRIPTURE_BANK_TABLE_CREATE -> d
+    java.lang.String TAG_TABLE_CREATE -> e
+    java.lang.String CATEGORY_TABLE_CREATE -> f
+    java.lang.String TRIGGER_NAME_SCHEDULE_DAILY -> g
+    java.lang.String TRIGGER_NAME_SCHEDULE_WEEKLY -> h
+    java.lang.String TRIGGER_NAME_SCHEDULE_MONTHLY -> i
+    java.lang.String TRIGGER_NAME_SCHEDULE_YEARLY -> j
+    java.lang.String TRIGGER_NAME_AUTO_UPDATE_DATE -> k
+    java.lang.String TRIGGER_SCHEDULE_DAILY -> l
+    java.lang.String TRIGGER_SCHEDULE_WEEKLY -> m
+    java.lang.String TRIGGER_SCHEDULE_MONTHLY -> n
+    java.lang.String TRIGGER_SCHEDULE_YEARLY -> o
+    java.lang.String TRIGGER_AUTO_UPDATE_DATE -> p
+    java.lang.String TRIGGER_INSERT_SCRIPTURE -> a
+    java.lang.String TRIGGER_MUST_BE_DAILY -> b
+    java.lang.String TRIGGER_DELETE_SCRIPTURE -> c
     void onCreate(android.database.sqlite.SQLiteDatabase) -> onCreate
     void onOpen(android.database.sqlite.SQLiteDatabase) -> onOpen
     void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade

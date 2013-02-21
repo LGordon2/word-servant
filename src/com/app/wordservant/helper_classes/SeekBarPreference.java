@@ -1,9 +1,5 @@
 package com.app.wordservant.helper_classes;
 
-import com.app.wordservant.R;
-import com.app.wordservant.R.id;
-import com.app.wordservant.R.layout;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
@@ -20,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+
+import com.app.wordservant.R;
 
 /**
  * Adapted from http://robobunny.com/wp/2011/08/13/android-seekbar-preference/

@@ -5,9 +5,6 @@ import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-import com.app.wordservant.R;
-import com.app.wordservant.R.drawable;
-
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.res.Resources;

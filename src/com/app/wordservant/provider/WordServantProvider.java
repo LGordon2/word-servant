@@ -27,7 +27,7 @@ public class WordServantProvider extends ContentProvider {
 	/**
 	 * The database version
 	 */
-	private static final int DATABASE_VERSION = 15;
+	private static final int DATABASE_VERSION = 17;
 
 	/**
 	 * A UriMatcher instance
@@ -194,10 +194,10 @@ public class WordServantProvider extends ContentProvider {
 				"		end"+
 				"		|| "+
 				"		case "+
-				"			when schedule = 'daily' then (new.times_reviewed - old.times_reviewed) ||' days'"+
-				"			when schedule = 'weekly' then ((new.times_reviewed - old.times_reviewed)*7) ||' days'"+
-				"			when schedule = 'monthly' then (new.times_reviewed - old.times_reviewed) ||' monthly'"+
-				"			when schedule = 'yearly' then ((new.times_reviewed - old.times_reviewed)*365) ||' days'"+
+				"			when schedule = 'daily' then (new.times_reviewed - old.times_reviewed+1) ||' days'"+
+				"			when schedule = 'weekly' then ((new.times_reviewed - old.times_reviewed+1)*7) ||' days'"+
+				"			when schedule = 'monthly' then (new.times_reviewed - old.times_reviewed+1) ||' months'"+
+				"			when schedule = 'yearly' then ((new.times_reviewed - old.times_reviewed+1)*365) ||' days'"+
 				"			else '+0 days'"+
 				"		end"+
 				"		), "+
@@ -294,6 +294,13 @@ public class WordServantProvider extends ContentProvider {
 
 			// Kills the table and existing data
 			//db.execSQL("DROP TABLE IF EXISTS "+ WordServantContract.ScriptureEntry.TABLE_NAME);
+			db.execSQL("update scriptures " +
+					"set next_review_date = NULL " +
+					"where _id in (" +
+					"select _id from scriptures " +
+					"where schedule = 'daily' " +
+					"limit -1 offset 1" +
+					")");
 			db.execSQL("DROP TABLE IF EXISTS "+ WordServantContract.TagEntry.TABLE_NAME);
 			db.execSQL("DROP TABLE IF EXISTS "+ WordServantContract.CategoryEntry.TABLE_NAME);
 

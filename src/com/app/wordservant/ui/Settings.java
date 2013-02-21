@@ -2,11 +2,6 @@ package com.app.wordservant.ui;
 
 import java.util.Calendar;
 
-import com.app.wordservant.R;
-import com.app.wordservant.R.layout;
-import com.app.wordservant.helper_classes.SeekBarPreference;
-import com.app.wordservant.notifications.NotificationService;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -16,6 +11,10 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.view.Menu;
+
+import com.app.wordservant.R;
+import com.app.wordservant.helper_classes.SeekBarPreference;
+import com.app.wordservant.notifications.NotificationService;
 
 public class Settings extends PreferenceActivity implements OnSharedPreferenceChangeListener{
 

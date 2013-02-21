@@ -448,7 +448,7 @@ com.app.wordservant.R$styleable
 com.app.wordservant.bible.Bible:
     java.lang.String mName
 com.app.wordservant.bible.Bible$BibleHolder:
-    25:25:private Bible$BibleHolder()
+    24:24:private Bible$BibleHolder()
 com.app.wordservant.bible.BibleVerse:
     9:12:public BibleVerse(java.lang.Integer,java.lang.String)
 com.app.wordservant.helper_classes.ImageAdapter
