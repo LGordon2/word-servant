@@ -51,7 +51,7 @@ public class NotificationService extends IntentService{
 
 		NotificationCompat.Builder mBuilder =
 				new NotificationCompat.Builder(this)
-		.setSmallIcon(R.drawable.word_servant_icon_new)
+		.setSmallIcon(R.drawable.ic_stat_notify_wordservant)
 		.setContentTitle("Word Servant")
 		.setContentText(contentText)
 		.setAutoCancel(true);
