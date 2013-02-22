@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -74,6 +75,8 @@ public class ScriptureReview extends SherlockFragmentActivity implements LoaderM
 
 	public void onStart(){
 		super.onStart();
+		NotificationManager manager = (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
+		manager.cancel(0);
 		FragmentManager fragmentManager = getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 		Fragment fragment = null;
