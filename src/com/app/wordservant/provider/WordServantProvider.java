@@ -27,7 +27,7 @@ public class WordServantProvider extends ContentProvider {
 	/**
 	 * The database version
 	 */
-	private static final int DATABASE_VERSION = 17;
+	private static final int DATABASE_VERSION = 20;
 
 	/**
 	 * A UriMatcher instance
@@ -157,34 +157,42 @@ public class WordServantProvider extends ContentProvider {
 		private static String TRIGGER_NAME_SCHEDULE_YEARLY = "schedule_update_yearly";
 		private static String TRIGGER_NAME_AUTO_UPDATE_DATE = "auto_update_date";
 
+		private static int DAILY_TIMES_TO_REVIEW = 49;
+		private static int WEEKLY_TIMES_TO_REVIEW = 28;
+		private static int MONTHLY_TIMES_TO_REVIEW = 84;
+		
+		//When to change to a daily schedule.
 		private static String TRIGGER_SCHEDULE_DAILY = "CREATE TRIGGER IF NOT EXISTS "+TRIGGER_NAME_SCHEDULE_DAILY+" AFTER UPDATE OF "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" ON "+WordServantContract.ScriptureEntry.TABLE_NAME+
 				" BEGIN UPDATE "+WordServantContract.ScriptureEntry.TABLE_NAME+" SET "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+
-				"='daily' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<7"+
+				"='daily' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<"+String.valueOf(DAILY_TIMES_TO_REVIEW)+""+
 				" AND _id = new._id; END;";
 
+		//Changes to a weekly schedule after being between DAILY_TIMES_TO_REVIEW and DAILY_TIMES_TO_REVIEW+WEEKLY_TIMES_TO_REVIEW.
 		private static String TRIGGER_SCHEDULE_WEEKLY = "CREATE TRIGGER IF NOT EXISTS "+TRIGGER_NAME_SCHEDULE_WEEKLY+" AFTER UPDATE OF "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" ON "+WordServantContract.ScriptureEntry.TABLE_NAME+
 				" BEGIN UPDATE "+WordServantContract.ScriptureEntry.TABLE_NAME+" SET "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+
-				"='weekly' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">=7 AND "+
-				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<14"+
+				"='weekly' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">="+String.valueOf(DAILY_TIMES_TO_REVIEW)+" AND "+
+				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<"+String.valueOf(DAILY_TIMES_TO_REVIEW+WEEKLY_TIMES_TO_REVIEW)+""+
 				" AND _id = new._id; END;";
 
+		//Changes to a monthly schedule after being between DAILY_TIMES_TO_REVIEW+WEEKLY_TIMES_TO_REVIEW and DAILY_TIMES_TO_REVIEW+WEEKLY_TIMES_TO_REVIEW+MONTHLY_TIMES_TO_REVIEW.
 		private static String TRIGGER_SCHEDULE_MONTHLY = "CREATE TRIGGER IF NOT EXISTS "+TRIGGER_NAME_SCHEDULE_MONTHLY+" AFTER UPDATE OF "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" ON "+WordServantContract.ScriptureEntry.TABLE_NAME+
 				" BEGIN UPDATE "+WordServantContract.ScriptureEntry.TABLE_NAME+" SET "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+
-				"='monthly' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">=14 AND "+
-				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<21"+
+				"='monthly' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">="+String.valueOf(DAILY_TIMES_TO_REVIEW+WEEKLY_TIMES_TO_REVIEW)+" AND "+
+				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<"+String.valueOf(DAILY_TIMES_TO_REVIEW+WEEKLY_TIMES_TO_REVIEW+MONTHLY_TIMES_TO_REVIEW)+""+
 				" AND _id = new._id; END;";
 
+		//Changes to a monthly schedule after DAILY_TIMES_TO_REVIEW+WEEKLY_TIMES_TO_REVIEW+MONTHLY_TIMES_TO_REVIEW times reviewed.
 		private static String TRIGGER_SCHEDULE_YEARLY = "CREATE TRIGGER IF NOT EXISTS "+TRIGGER_NAME_SCHEDULE_YEARLY+" AFTER UPDATE OF "+
 				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+" ON "+WordServantContract.ScriptureEntry.TABLE_NAME+
 				" BEGIN UPDATE "+WordServantContract.ScriptureEntry.TABLE_NAME+" SET "+WordServantContract.ScriptureEntry.COLUMN_NAME_SCHEDULE+
-				"='yearly' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">=21 AND "+
-				WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+"<28"+
+				"='yearly' WHERE "+WordServantContract.ScriptureEntry.COLUMN_NAME_TIMES_REVIEWED+">="+String.valueOf(DAILY_TIMES_TO_REVIEW+WEEKLY_TIMES_TO_REVIEW+MONTHLY_TIMES_TO_REVIEW)+""+
 				" AND _id = new._id; END;";
 
-		private static String TRIGGER_AUTO_UPDATE_DATE = "CREATE TRIGGER IF NOT EXISTS auto_update_date "+
+		//Updates the date based on the schedule of the scripture.
+		private static String TRIGGER_AUTO_UPDATE_DATE = "CREATE TRIGGER IF NOT EXISTS "+TRIGGER_NAME_AUTO_UPDATE_DATE+" "+
 				"AFTER UPDATE OF times_reviewed ON scriptures "+
 				"BEGIN "+
 				"	UPDATE scriptures SET next_review_date=date(old.next_review_date, "+
@@ -209,6 +217,7 @@ public class WordServantProvider extends ContentProvider {
 				"	WHERE _id = new._id;"+
 				"END;";
 
+		//If a scripture is added and there are no daily scriptures the scripture is due that day.
 		public static String TRIGGER_INSERT_SCRIPTURE = "create trigger if not exists insert_scripture "+
 				"after insert on scriptures "+
 				"when not exists (select * from scriptures where schedule='daily' and _id <> New._id) "+
@@ -219,6 +228,7 @@ public class WordServantProvider extends ContentProvider {
 				"	select _id from scriptures; "+
 				"end;";
 
+		//Adds a new scripture in to review daily if there are no daily scriptures to review.
 		public static String TRIGGER_MUST_BE_DAILY = "create trigger IF NOT EXISTS must_be_daily "+
 				"after update of schedule on scriptures "+
 				"when "+
@@ -242,6 +252,7 @@ public class WordServantProvider extends ContentProvider {
 				"			limit 1);"+
 				"end;";
 
+		//Deleting a scripture ensures that there will be a daily scripture to review.
 		public static String TRIGGER_DELETE_SCRIPTURE = "create trigger IF NOT EXISTS delete_scripture "+
 				"after delete on scriptures "+
 				"when not exists (select * from scriptures "+
@@ -258,6 +269,20 @@ public class WordServantProvider extends ContentProvider {
 				"		where _id in (select _id from scriptures"+
 				"			where schedule = 'daily'"+
 				"			order by _id asc"+
+				"			limit 1); "+
+				"end;";
+		
+		//Add a new daily scripture after a daily scripture has been reviewed 7 times.
+		public static String TRIGGER_ADD_NEW_AFTER_SEVEN_DAYS = "create trigger if not exists add_new_after_seven_days "+
+				"after update of times_reviewed on scriptures "+
+				"when new.times_reviewed = 7 "+
+				"begin "+
+				"	update scriptures set next_review_date = date('now','localtime','+1 day') "+
+				"		where _id in ( "+
+				"			select _id from scriptures "+
+				"			where next_review_date is NULL "+ 
+				"			and schedule = 'daily' "+
+				"			order by created_date asc "+
 				"			limit 1); "+
 				"end;";
 
@@ -281,6 +306,7 @@ public class WordServantProvider extends ContentProvider {
 			db.execSQL(TRIGGER_MUST_BE_DAILY);
 			db.execSQL(TRIGGER_DELETE_SCRIPTURE);
 			db.execSQL(TRIGGER_INSERT_SCRIPTURE);
+			db.execSQL(TRIGGER_ADD_NEW_AFTER_SEVEN_DAYS);
 
 		}
 
@@ -308,6 +334,7 @@ public class WordServantProvider extends ContentProvider {
 			db.execSQL("DROP TRIGGER IF EXISTS "+ "insert_scripture");
 			db.execSQL("DROP TRIGGER IF EXISTS "+ "must_be_daily");
 			db.execSQL("DROP TRIGGER IF EXISTS "+ "delete_scripture");
+			db.execSQL("DROP TRIGGER IF EXISTS "+ "add_new_after_seven_days");
 
 			// Recreates the database with a new version
 			onCreate(db);
