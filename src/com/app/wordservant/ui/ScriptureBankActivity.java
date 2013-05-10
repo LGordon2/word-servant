@@ -37,16 +37,24 @@ public class ScriptureBankActivity extends SherlockFragmentActivity {
 	}
 	public boolean onContextItemSelected(android.view.MenuItem item){
 		switch(item.getItemId()){
-		case R.id.deleteScriptureMenuItem:
-			DialogFragment dialog = new DeleteScriptureDialogFragment();
-			AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-			Bundle bundle = new Bundle();
-			bundle.putString("_id", String.valueOf(menuInfo.id));
-			dialog.setArguments(bundle);
-			dialog.show(getSupportFragmentManager(), "DeleteScriptureDialogFragment");
-			return true;
-		default:
-			return false;
+			case R.id.deleteScriptureMenuItem:
+				DialogFragment dialog = new DeleteScriptureDialogFragment();
+				AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+				Bundle bundle = new Bundle();
+				bundle.putString("_id", String.valueOf(menuInfo.id));
+				dialog.setArguments(bundle);
+				dialog.show(getSupportFragmentManager(), "DeleteScriptureDialogFragment");
+				return true;
+			case R.id.scriptureInfoMenuItem:
+				dialog = new ScriptureInfoDialogFragment();
+				menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+				bundle = new Bundle();
+				bundle.putString("_id", String.valueOf(menuInfo.id));
+				dialog.setArguments(bundle);
+				dialog.show(getSupportFragmentManager(), "ScriptureInfoDialogFragment");
+				return true;
+			default:
+				return false;
 		}
 	}
 	@Override
