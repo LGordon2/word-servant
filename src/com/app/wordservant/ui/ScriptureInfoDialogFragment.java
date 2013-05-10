@@ -30,14 +30,7 @@ public class ScriptureInfoDialogFragment extends DialogFragment {
 				"Next review date: "+cursor.getString(4)
 				)
 			.setTitle("Scripture Info")
-			.setPositiveButton("Done", new OnClickListener(){
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// Delete scripture code here...
-				}
-				
-			});
+			.setPositiveButton("Done", null);
 		return builder.create();
 	}
 }

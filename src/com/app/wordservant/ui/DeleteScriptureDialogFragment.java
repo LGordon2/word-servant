@@ -32,15 +32,7 @@ public class DeleteScriptureDialogFragment extends DialogFragment {
 				}
 				
 			})
-			.setNegativeButton("Cancel", new OnClickListener(){
-
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-			});
+			.setNegativeButton("Cancel", null);
 		return builder.create();
 	}
 }
