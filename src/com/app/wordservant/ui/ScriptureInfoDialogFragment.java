@@ -1,15 +1,13 @@
 package com.app.wordservant.ui;
 
-import com.app.wordservant.provider.WordServantContract;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+
+import com.app.wordservant.provider.WordServantContract;
 
 public class ScriptureInfoDialogFragment extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState){
@@ -26,8 +24,7 @@ public class ScriptureInfoDialogFragment extends DialogFragment {
 		builder.setMessage("Reference: "+ cursor.getString(0) +"\n"+
 				"Created: "+cursor.getString(1)+"\n"+
 				"Times reviewed: "+cursor.getString(2)+"\n"+
-				"Schedule: "+cursor.getString(3)+"\n"+
-				"Next review date: "+cursor.getString(4)
+				"Schedule: "+cursor.getString(3)+"\n"
 				)
 			.setTitle("Scripture Info")
 			.setPositiveButton("Done", null);
